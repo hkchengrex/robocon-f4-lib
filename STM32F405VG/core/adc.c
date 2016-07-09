@@ -60,6 +60,6 @@ void adc_init(){
 	ADC_SoftwareStartConv(ADC1);
 }
 
-u16 adc_get(u8 i){
-	return adc_reading[i];
+u16 adc_get(ADC_ID adc_id){
+	return adc_reading[adc_id];
 }

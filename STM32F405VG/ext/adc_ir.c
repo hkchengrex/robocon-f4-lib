@@ -6,13 +6,14 @@
 
 #include "adc_ir.h"
 
-s16 get_ir_dis(u8 i){
-	switch(i){
-		case 0:
-			return (s16)roundf(1/(adc_get(i)*(ADC_IR_MIN - ADC_IR_MAX)/(ADC_IR_1_MAX - ADC_IR_1_MIN)));
-		case 1:
-			return (s16)roundf(1/(adc_get(i)*(ADC_IR_MIN - ADC_IR_MAX)/(ADC_IR_2_MAX - ADC_IR_2_MIN)));
-		default:
-			return 0;
-	}
+/** This magic constant comes from a formula
+* Range = 1 / (adc_reading * (1/adc_min_reading - 1/adc_max_reading) / (IR_MAX_RANGE - IR_MIN_RANGE))
+* Therefore, IR_MAGIC_CONSTANT = (IR_MAX_RANGE - IR_MIN_RANGE) / (1/adc_min_reading - 1/adc_max_reading)
+*/
+#define IR_MAGIC_CONSTANT 145834
+
+u16 get_ir_dis(ADC_ID adc_id){
+	return IR_MAGIC_CONSTANT/adc_get(adc_id);
 }
+
+#undef IR_MAGIC_CONSTANT

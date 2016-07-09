@@ -1,12 +1,12 @@
 stm32f40_41xxx\adc_ir.o: ext\adc_ir.c
 stm32f40_41xxx\adc_ir.o: ext\adc_ir.h
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cm4.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmInstr.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\cmsis_armcc.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmFunc.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\PACK\ARM\CMSIS\4.4.0\CMSIS\Include\core_cmSimd.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cm4.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmInstr.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\cmsis_armcc.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmFunc.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include\core_cmSimd.h
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\system_stm32f4xx.h
 stm32f40_41xxx\adc_ir.o: .\sys\stm32f4xx_conf.h
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
@@ -36,6 +36,6 @@ stm32f40_41xxx\adc_ir.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4x
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 stm32f40_41xxx\adc_ir.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-stm32f40_41xxx\adc_ir.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+stm32f40_41xxx\adc_ir.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 stm32f40_41xxx\adc_ir.o: .\core\adc.h

@@ -11,9 +11,9 @@
 #include "adc.h"
 
 /**
-	@return measured IR distance in mm
-	The range lies between 4~30 cm, out of range reading is unreliable.
+	Return a range that lies between 4~30 cm, out of range reading is unreliable.
 	The output signal has some weird noise, consider adding capacitor.
+	@return measured IR distance in mm
 */
 u16 get_ir_dis(ADC_ID adc_id);
 

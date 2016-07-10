@@ -28,8 +28,18 @@ typedef enum {
 } LED_STATE;
 
 void led_init(void);
+
+/**
+	Control LEDs.
+	@param led: LED(s) to be controlled.
+	@param LED_STATE: LED_ON/LED_OFF
+*/
 void led_control(LED led, LED_STATE state);
+
+/**
+	Toggle LEDs.
+	@param led: LED(s) to be controlled.
+*/
 void led_blink(LED led);
-u8 get_led_state(void);
 
 #endif /* __LED_H */

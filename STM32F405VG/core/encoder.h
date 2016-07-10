@@ -43,7 +43,18 @@ typedef enum {
 } ENCODER;
 
 void encoder_init(void);
+
+/**
+	Get the encoder reading. Overflow after 65535.
+	@param which encoder to get
+	@return encoder count
+*/
 s16 get_count(ENCODER ENCODERx);
+
+/**
+	Reset the encoder count
+	@param which encoder to reset
+*/
 void reset_encoder(ENCODER ENCODERx);
 
 #endif

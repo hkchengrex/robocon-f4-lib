@@ -36,7 +36,6 @@ typedef enum {
 #define	RGB888TO565(BGR888)  (((BGR888 >> 19) & 0x001F) |((BGR888 >> 5) & 0x07E0) | (((u32)BGR888 << 8) & 0xF800))
 #endif
 
-//to minimize the MCU calculation
 #define WHITE               (RGB888TO565(0xFFFFFF))
 #define BLACK               (RGB888TO565(0x000000))
 #define DARK_GREY           (RGB888TO565(0x555555))

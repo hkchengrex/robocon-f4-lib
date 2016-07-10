@@ -1,22 +1,5 @@
 #include "vector_math.h"
 
-/************************************************************************
-** VECTOR MATH - STM32F405VG
-**
-** This library is for calculation of 3-dimensional vectors
-** Designed For IMU
-**
-** ROBOCON 2016
-** H K U S T
-**
-** Author:	Rex Cheng
-** Contact:	hkchengad@connect.ust.hk
-** April 2016
-**
-** Our scientific power has outrun our spiritual power.
-**     We have guided missiles and misguided men. ~Martin Luther King Jr.
-*************************************************************************/
-
 void vector_copy(f_vector src, f_vector dst){
 	for (u8 i=0;i<3;i++){
 		dst[i] = src[i];

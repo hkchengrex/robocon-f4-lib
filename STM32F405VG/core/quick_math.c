@@ -1,20 +1,5 @@
 #include "quick_math.h"
 
-/******************************************************
-** QUICK MATH - STM32F4
-**
-** ROBOCON 2016
-** H K U S T
-**
-** Author:	Rex Cheng
-** Contact:	hkchengad@connect.ust.hk
-**
-** @version 1.1
-** July 2016
-**
-** Speed is the heart of battle. ~Dark Seer
-*******************************************************/
-
 /**
 ** This function tries to cap a s16 within a specific range.
 ** The inline property tries to remove the function call and make it runs faster
@@ -81,12 +66,15 @@ __inline uint16_t u32_sqrt(uint32_t in_num){
 ** It can be used to find median (median filter), ~25 times faster than quicksort method
 ** Feel free to change ELEMENT_TYPE to implement versions for different variable type, as long as they are comparable
 **
+** @param list: Array of items to be searched.
+** @param len: Length of array.
+** @param k: which element to be searched (kth smallest)
 ** @param copy_array: whether this method should change the original array or not, if it is set to TRUE, 
 ** the array will be copied and the original array will NOT be modified as a side effect
 */
 #define ELEMENT_TYPE int16_t
 #define SWAP_ELEMENT(a,b) {ELEMENT_TYPE t=(a);(a)=(b);(b)=t;}
-ELEMENT_TYPE kth_smallest(ELEMENT_TYPE list[], u16 len, u16 k, bool copy_array){
+ELEMENT_TYPE s16_kth_smallest(ELEMENT_TYPE list[], u16 len, u16 k, bool copy_array){
 	u16 i, j, l, m;
   ELEMENT_TYPE x;
 	ELEMENT_TYPE a[len];

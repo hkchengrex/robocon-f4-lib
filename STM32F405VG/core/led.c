@@ -4,10 +4,6 @@ static const GPIO* LED_GPIO_ARRAY[LED_COUNT] = {&LED_1_GPIO};
 
 u8 led_state = 0;
 
-u8 get_led_state(){
-	return led_state;
-}
-
 void led_init(){
 	gpio_output_init(&LED_1_GPIO, GPIO_OType_PP, GPIO_PuPd_NOPULL);
   gpio_write(&LED_1_GPIO, Bit_RESET);

@@ -173,69 +173,35 @@ s16 int_arc_tan2(s32 y, s32 x)
 }
 
 /**
-  * @brief  Matrix rotation
-  * @param  x-coor (Pass by REF), y-coor (Pass by REF), angle to rotate (anti-clockwise)
-  * @retval none
+  * @brief  Rapid sqrt approximation with maximum 0.297944% deviation at sqrt(2) and average 0.0184811% deviation
+  * @param  v:	Input limited to 2^31 by variable type
+  * @retval Scaled value of 1000*sqrt(v)
+	*	@attention		To CS members: 		Don't bother changing things not understandable unless O(f{n}) < O(1)
+	*								To CPEG members:	Float is used here only because it dramatically shortens sqrt 
+	*																	time compared to other implementations in Int, try proving the
+	*																	magic number 0x233b4000 by relating to bits meaning of Float. 
+	*																	Final result is accurate due to refinment by Newton's Iteration.
+	*								To EE members:		This is much faster
   */
-void xy_rotate(s32 *x, s32 *y, s32 w) {
-	s32 new_x = int_cos(w) * *x - int_sin(w) * *y;
-	s32 new_y = int_sin(w) * *x + int_cos(w) * *y;
-	*x = new_x / 10000;
-	*y = new_y / 10000;
-}
+u32 Sqrt(s32 v)
+{
+/*
+	float y = v; 						//Fast inverse square root
+	long i = 0x62b759df - (*(long*)&y>>1);
+	i = (long)(*(float*)&i);
+	return (200<<21) / (i * ((3<<14) - v *i*i));
+*/
+	union
+	{
+		u32 tmp;
+		float f;
+	} u;
 
-/**
-  * @brief A proper modulus (result is always positive, which ((-n) % p) =/= -(n % p)
-  * @param dividor: n
-  * @param divisor: p
-  * @retval The modulus (n % p)
-  * @example 24 % 7 return 3, -24 % 7 returns 4
-  */
-s32 p_mod(s32 dividor, s32 divisor) {
-		while (dividor < 0) {dividor += divisor;}
-		return dividor % divisor;
-}
-
-/**
-  * @brief Square of x
-  * @param x: input
-  * @retval x^2 
-  */
-s32 Sqr (s32 x) {
-	return x * x;
-}
-
-/**
-  * @brief  Sqrt calculation using binary search, run-time = O(log n)
-  * @param  num: the integer inside the root
-  * @retval square root of num
-  */
-u32 Sqrt(u32 num) {
-	s32 upper_sqrt = 1, lower_sqrt, range, tmp_sqrt, tmp_sqr;
-	//u8 i = 0;
-	if (num == 0) return 0;
-
-	while (Sqr(upper_sqrt) <= num) {
-		if ((upper_sqrt <<= 1) < 0) {
-			return 0;	// Overflow happened
-		}
-	}
-  
-	lower_sqrt = upper_sqrt >> 1;
-	range = upper_sqrt - lower_sqrt;
-	do {
-		tmp_sqrt = lower_sqrt + (range >>= 1);
-		tmp_sqr = Sqr(tmp_sqrt);
-		if (tmp_sqr < num) {lower_sqrt = tmp_sqrt;}
-		else if (tmp_sqr > num) {upper_sqrt = tmp_sqrt;}
-		else {return tmp_sqrt;}
-	} while (range >= 2);
-
-  
-	if (num < (Sqr(lower_sqrt) + Sqr(upper_sqrt)) >> 1) {
-		return lower_sqrt;
-	} else {
-		return upper_sqrt;
-	}
+	v = v < 0 ? -v : v;
+	u.f = v;
+	u.tmp = (u32)(0x233b4000 + (u.tmp >> 1));
+	u.tmp = (u32)u.f;
+	u.tmp = (u.tmp + (uint64_t)v*16384/u.tmp + 1)/2;
+	return u.tmp * 1000 / 128;
 }
 

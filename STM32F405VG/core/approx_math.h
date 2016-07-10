@@ -6,9 +6,7 @@
 
 extern s16 cos_val[91];
 
-struct Cartesian {
-	s32 x, y;
-};
+
 
 /**
   * @brief  Approximation of sin function
@@ -61,33 +59,10 @@ s16 int_arc_tan(s32 tan_val);
 s16 int_arc_tan2(s32 y, s32 x);
 
 /**
-  * @brief  Matrix rotation
-  * @param  x-coor (Pass by REF), y-coor (Pass by REF), angle to rotate (anti-clockwise)
-  * @retval none
+  * @brief  Rapid sqrt approximation with maximum 0.297944% deviation at sqrt(2) and average 0.0184811% deviation
+  * @param  v:	Input limited to 2^31 by variable type
+  * @retval Scaled value of 1000*sqrt(v)
   */
-void xy_rotate(s32 *x, s32 *y, s32 w);
-
-/**
-  * @brief A proper modulus (result is always positive, which ((-n) % p) =/= -(n % p)
-  * @param dividor: n
-  * @param divisor: p
-  * @retval The modulus (n % p)
-  * @example 24 % 7 return 3, -24 % 7 returns 4
-  */
-s32 p_mod(s32 dividor, s32 divisor);
-
-/**
-  * @brief Square of x
-  * @param x: input
-  * @retval x^2 
-  */
-s32 Sqr (s32 x);
-
-/**
-  * @brief  Sqrt calculation using binary search, run-time = O(log n)
-  * @param  num: the integer inside the root
-  * @retval square root of num
-  */
-u32 Sqrt(u32 num);
+u32 Sqrt(s32 v);
 
 #endif		/*  __APPROX_MATH_H */

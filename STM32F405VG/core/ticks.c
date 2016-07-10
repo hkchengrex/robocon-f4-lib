@@ -5,7 +5,6 @@ volatile u16 seconds = 0;
 
 /**
   * @brief  Get the ticks passed from 0-999
-  * @param  None
   * @retval ticks passed
   */
 u16 get_ticks(void) {
@@ -13,16 +12,18 @@ u16 get_ticks(void) {
 }
 
 /**
-  * @brief  Get the seconds passed from
-  * @param  seconds
-  * @retval ticks passed
+  * @brief  Get the seconds passed
+  * @retval seconds passed
   */
 u16 get_seconds(void) {
 	return seconds;
 }
 
-u32 get_full_ticks(void)
-{
+/**
+  * @brief  Get the total ticks passed
+  * @retval ticks passed
+  */
+u32 get_full_ticks(void){
 	return seconds * 1000 + ticks;
 }
 

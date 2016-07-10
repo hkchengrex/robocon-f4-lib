@@ -25,9 +25,27 @@
 
 /* Basic Buzzer Control Function */
 void buzzer_init(void);
+
+/**
+  * @brief Turning on the buzzer (keeping the original frequency)
+  * @param None
+  * @retval None
+  */
 void buzzer_on(void);
+
+/**
+  * @brief Turning off the buzzer (keeping the original frequency)
+  * @param None
+  * @retval None
+  */
 void buzzer_off(void);
 
+/**
+  * @brief  Generate specific pattern of buzzer
+  * @param  count: number of buzz to be generated
+  * @param  period: time (in millisecond) for each buzz and each break in between each buzz
+  * @retval None
+  */
 void buzzer_control(u8 count, u16 period);
 
 /* Musical Note Control */
@@ -62,26 +80,43 @@ typedef struct {
 	u8 octave;
 } MUSIC_NOTE;
 
+/**
+  * @brief  Buzzer check for handling "buzzer_control" and "buzzer_play_song" (to be called per 1 ms)
+  * @param  None
+  * @retval None
+  */
 void buzzer_check(void);
-void buzzer_set_note_period(u16 p);
-void buzzer_set_volume(u8 vol);	// 0 - 100 (0: muted, 100: full)
-u16 get_note_period(MUSIC_NOTE_LETTER note, u8 octave);
-void buzzer_control_note(u8 count, u16 period, MUSIC_NOTE_LETTER note, u8 octave);
 
+/**
+  * @brief Set the buzzer musical note period (in microseconds)
+  * @param The musical note period (in microseconds), e.g., 1/440 for note A4
+  */
+void buzzer_set_note_period(u16 p);
+
+/**
+  * @brief Set the volume of the buzzer (Output compare of the timer)
+  * @param vol: Volume of timer (0-100)
+  */
+void buzzer_set_volume(u8 vol);	// 0 - 100 (0: muted, 100: full)
+
+/**
+  * @brief Calculate the musical note period 
+  * @param note: The musical note enumator
+  * @param octave: The selected octave number
+  */
+u16 get_note_period(MUSIC_NOTE_LETTER note, u8 octave);
+
+/**
+  * @brief Start playing song
+  * @param Song (an array of MUSIC_NOTE)
+  * @param Note length of each note (in millisecond)
+  * @param Note length of each break (in millisecond)
+  */
 void buzzer_play_song(const MUSIC_NOTE* song, u16 note_length, u16 note_break);
+
+/**
+  * @brief Stop playing a song
+  */
 void buzzer_stop_song(void);
 
-
-struct BUZZER_QUEUE{
-	u16 head;						/*** Current head of queue ***/
-	u16 tail;						/*** Current tail of queue ***/
-	const u16 length; 	/*** Length of queue ***/
-	MUSIC_NOTE* queue;		/*** The  BUZZER note queue (array) ***/
-};
-
-void buzzer_enqueue(MUSIC_NOTE Note);
-MUSIC_NOTE buzzer_dequeue(void);
-void print_queue_status(void);
-
-
-#endif	/* __BUZZER_H */
+#endif

@@ -1,9 +1,43 @@
 #include "MTi-1_UART.h"
-/**
-** MTi-1_UART Library for STM32F4 Eco robot
-** @Author James Mok, Simon Tam
-** @Note   We think no body will read the code so its kinda messy but nevermind :)
-**/
+
+//Op_code
+#define ProtocolInfo							(uint8_t)0x01
+#define ConfigureProtocol					(uint8_t)0x02
+#define ControlPipe								(uint8_t)0x03
+#define PipeStatus								(uint8_t)0x04
+#define NotificationPipe					(uint8_t)0x05
+#define MeasurementPipe 					(uint8_t)0x06
+
+#define	MTi_1_Preamble						(uint8_t)0xFA
+#define MTi_1_MasterDevice				(uint8_t)0xFF
+
+//MID
+#define	WakeUp										(uint8_t)0x3E
+#define WakeUpAck									(uint8_t)0x3F
+#define	Reset											(uint8_t)0x40
+#define InitMT										(uint8_t)0x02
+#define InitMTResults 						(uint8_t)0x03
+#define	GoToConfig								(uint8_t)0x30
+#define	GoToMeasurement						(uint8_t)0x10
+#define ReqDataLength							(uint8_t)0x0A
+#define	DataLength								(uint8_t)0x0B
+#define Error											(uint8_t)0x42
+#define ReqOutputMode							(uint8_t)0xD0
+#define	SetOutputMode							(uint8_t)0xD0
+#define	ReqOutputSettings					(uint8_t)0xD2
+#define SetOutputSettings					(uint8_t)0xD2
+#define	ReqData										(uint8_t)0x34
+#define MTData										(uint8_t)0x32
+#define MTData2										(uint8_t)0x36
+#define ReqConfiguration					(uint8_t)0x0C
+#define SetOptionFlags 						(uint8_t)0x48
+#define ResetOrientation					(uint8_t)0xA4
+
+void send_MTi_1_UART_msg(u8 *data, u8 MID, u16 data_length);
+void MTi_1_UART_Rx(u8 data);
+u8 get_ebuffer(u8 index);
+void clear_buffer(void);
+float flt_cal(u8 data[4]);
 
 float MTi_ang[3] = {0, 0, 0};
 f_vector MTi_acc = {0, 0, 0};
@@ -242,3 +276,31 @@ float get_MTi_acc(u8 index)
 	return MTi_acc[index];
 }
 
+#undef ProtocolInfo						
+#undef ConfigureProtocol			
+#undef ControlPipe							
+#undef PipeStatus					
+#undef NotificationPipe			
+#undef MeasurementPipe 			
+#undef	MTi_1_Preamble		
+#undef MTi_1_MasterDevice	
+#undef	WakeUp									
+#undef WakeUpAck					
+#undef	Reset								
+#undef InitMT						
+#undef InitMTResults 		
+#undef	GoToConfig				
+#undef	GoToMeasurement					
+#undef ReqDataLength					
+#undef	DataLength					
+#undef Error								
+#undef ReqOutputMode					
+#undef	SetOutputMode					
+#undef	ReqOutputSettings			
+#undef SetOutputSettings			
+#undef	ReqData								
+#undef MTData			
+#undef MTData2				
+#undef ReqConfiguration	
+#undef SetOptionFlags 
+#undef ResetOrientation	

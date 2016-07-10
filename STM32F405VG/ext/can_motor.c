@@ -40,7 +40,7 @@ void can_motor_init(void){
 	* @param close_loop_flag: true if close_loop should be applied
 	* @retval None.
 	*/
-void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_flag){
+void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop){
 	CAN_MESSAGE msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
@@ -52,7 +52,7 @@ void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_flag){
 	msg.data[2] = (u8)(one_to_n_bytes(vel, 1));
 	msg.data[3] = (u8)(one_to_n_bytes(vel, 2));
 	msg.data[4] = (u8)(one_to_n_bytes(vel, 3));
-	msg.data[5] = (u8)(close_loop_flag);
+	msg.data[5] = (u8)(close_loop);
 	
 	can_tx_enqueue(msg);
 }

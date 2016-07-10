@@ -71,8 +71,7 @@ void servo_init(void){
   * @param  val: Any value from 0~20000. Safeguard elsewhere.
   * @retval None
   */
-void servo_control(SERVO_ID servo_id , u16 val) {
-	u16 ccr_val = val;
+void servo_control(SERVO_ID servo_id , u16 ccr_val) {
 	
   if (((u8) servo_id) < SERVO_COUNT) {
     servo_pwm[servo_id].TIM_SetCompare(SERVO_TIM, ccr_val);

@@ -4,7 +4,7 @@
 *	Within range, voltage level has linear relationship with 1/distance
 **/
 
-#include "adc_ir.h"
+#include "GP2Y0A41SK.h"
 
 /** This magic constant comes from a formula
 * Range = 1 / (adc_reading * (1/adc_min_reading - 1/adc_max_reading) / (IR_MAX_RANGE - IR_MIN_RANGE))

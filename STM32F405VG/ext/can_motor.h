@@ -2,6 +2,7 @@
 #define __CAN_MOTOR_H
 
 #include "can_protocol.h"
+#include <stdbool.h>
 
 #define CAN_MOTOR_COUNT								16
 #define	CAN_MOTOR_BASE								0x0B0
@@ -43,19 +44,40 @@ typedef enum {
 	MOTOR16
 } MOTOR_ID;
 
-typedef enum {
-	OPEN_LOOP = 0,
-	CLOSE_LOOP = 1
-} CLOSE_LOOP_FLAG;
-
-
 /*** TX ***/
+
+//Motor (through CAN protocol) initialization 
 void can_motor_init(void);
-void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_flag);
+
+/**
+	* @brief Set motor velocity (CAN)
+	* @param motor_id (MOTOR_ID enum)
+	* @param velocity. Open loop (-1799~1799); Close loop (-150~150);
+	* @param close_loop: true if close loop control is used
+	*/
+void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop);
+
+/**
+	* @brief Set motor acceleration (CAN)
+	* @param motor_id (MOTOR_ID enum)
+	* @param accel: acceleration parameter of motor
+	*/
 void motor_set_acceleration(MOTOR_ID motor_id, u16 accel);
+
+/**
+	* @brief Lock and stop motor immediately (CAN)
+	* @param motor_id (MOTOR_ID enum)
+	*/
 void motor_lock(MOTOR_ID motor_id);
 
+
+
 /*** RX ***/
+
+/**
+  * @brief Get the motor encoder value (based on CAN rx result)
+  * @param motor_id: The can motor ID
+  */
 s32 get_encoder_value(MOTOR_ID motor_id);
 
-#endif			// __CAN_MOTOR_H
+#endif

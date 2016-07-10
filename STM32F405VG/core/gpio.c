@@ -186,7 +186,7 @@ const GPIO
 			;
 
 /**
-	@brief GPIO Pin initailizer
+	Complete GPIO Pin initailizer
 	@param gpio: A pointer to a gpio port, like &PE0
 	
 	@param mode: Operating mode with type @ref GPIOMode_TypeDef
@@ -201,7 +201,7 @@ const GPIO
 		@ref GPIO_Fast_Speed    	= 0x02 		< legacy = GPIO_Speed_50MHz
 		@ref GPIO_High_Speed    	= 0x03 		< legacy = GPIO_Speed_100MHz
 			
-	@param io_type: Operating output type with type @ref GPIOOType_TypeDef
+	@param output_type: Operating output type with type @ref GPIOOType_TypeDef
 		@ref GPIO_OType_PP 		= 0x00		< Push-Pull
 		@ref GPIO_OType_OD 		= 0x01		< Open-Drain
 			
@@ -209,26 +209,68 @@ const GPIO
 		@ref GPIO_PuPd_NOPULL 	= 0x00		< Nothing
 		@ref GPIO_PuPd_UP     	= 0x01		< Pull up
 		@ref GPIO_PuPd_DOWN   	= 0x02		< Pull down
-			
-	@param rcc_init: True if the GPIO port rcc also needs to be initialized
 */
-void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef io_type, GPIOPuPd_TypeDef pp_type, bool rcc_init){
-	if (rcc_init) {gpio_rcc_init(gpio);}
-	
+void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type){
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
 	GPIO_InitStructure.GPIO_Speed = speed;
 	GPIO_InitStructure.GPIO_Mode = mode;
-	GPIO_InitStructure.GPIO_OType = io_type;
+	GPIO_InitStructure.GPIO_OType = output_type;
 	GPIO_InitStructure.GPIO_PuPd = pp_type;
 	
 	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
 }
 
 /**
+	General input GPIO initailizer
+	Usage: @ref gpio_init
+	Output type and speed does not matter to input gpio
+*/
+void gpio_input_init(const GPIO* gpio, GPIOPuPd_TypeDef pp_type){
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
+	GPIO_InitStructure.GPIO_PuPd = pp_type;
+	
+	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
+}
+
+/**
+	General output GPIO initailizer
+	Usage: @ref gpio_init
+	Speed is fixed to GPIO_Medium_Speed which should be sufficient.
+*/
+void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type){
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Medium_Speed; //This controls the slew rate. Medium should be enough.
+	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
+	GPIO_InitStructure.GPIO_OType = output_type;
+	GPIO_InitStructure.GPIO_PuPd = pp_type;
+	
+	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
+}
+
+/**
+	Initilize RCC clock for all GPIO ports
+*/
+void gpio_rcc_init_all(){
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOJ, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOK, ENABLE);
+}
+
+/**
 	* @brief GPIO Real-time Clock Initialization
 	* @param GPIO pointer
-	* @retval None.
 	*/
 void gpio_rcc_init(const GPIO* gpio){
 	switch ((u32) gpio->gpio) {
@@ -296,7 +338,6 @@ u8 gpio_read_output(const GPIO* gpio){
 /**
 	* @brief Write GPIO value
 	* @param GPIO pointer
-	* @retval None
 	*/
 void gpio_write(const GPIO* gpio, BitAction BitVal){
 	GPIO_WriteBit(gpio->gpio, gpio->gpio_pin, BitVal);
@@ -305,7 +346,6 @@ void gpio_write(const GPIO* gpio, BitAction BitVal){
 /**
 	* @brief Toggle GPIO
 	* @param GPIO pointer
-	* @retval None
 	*/
 void gpio_toggle(const GPIO* gpio) {
 	GPIO_WriteBit(gpio->gpio, gpio->gpio_pin, (BitAction) GPIO_ReadOutputDataBit(gpio->gpio, gpio->gpio_pin));

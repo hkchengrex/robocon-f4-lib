@@ -9,7 +9,7 @@ u8 get_led_state(){
 }
 
 void led_init(){
-	gpio_init(&LED_1_GPIO, GPIO_Mode_OUT, GPIO_Fast_Speed, GPIO_OType_PP, GPIO_PuPd_NOPULL, false);
+	gpio_output_init(&LED_1_GPIO, GPIO_OType_PP, GPIO_PuPd_NOPULL);
   gpio_write(&LED_1_GPIO, Bit_RESET);
 }
 
@@ -19,7 +19,7 @@ void led_init(){
 * @param state:	LED_ON / LED_OFF
 **/
 void led_control(LED led, LED_STATE state){
-	led_state = state ? led_state | led : ~(~led_state | led);
+	led_state = (led_state & (~led)) & (state*255);
 
 	for (u8 i=0;i<LED_COUNT;i++){
 		if (led & (1 << i)) {
@@ -35,7 +35,7 @@ void led_control(LED led, LED_STATE state){
 void led_blink(LED led){
 	for (u8 i=0;i<LED_COUNT;i++){
 		if (led & (1 << i)) {
-			led_control((LED)(1 << i), (LED_STATE) !(led_state&LED_D1));
+			led_control((LED)(1 << i), (LED_STATE) !(led_state & (1 << i)));
 		}
 	}
 }

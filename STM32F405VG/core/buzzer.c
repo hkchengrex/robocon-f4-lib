@@ -1,5 +1,12 @@
 #include "buzzer.h"
 
+struct BUZZER_QUEUE{
+	u16 head;						/*** Current head of queue ***/
+	u16 tail;						/*** Current tail of queue ***/
+	const u16 length; 	/*** Length of queue ***/
+	MUSIC_NOTE* queue;		/*** The  BUZZER note queue (array) ***/
+};
+
 /* buzzer_control related */
 static u8 buzzer_on_flag = 0;                       /*!< Buzzer flag for buzzer_control */
 static u16 buzzer_period = 0;                       /*!< The current buzzer on period (in millsecond) for buzzer_control */
@@ -24,6 +31,10 @@ static u8 buzzer_song_note_break_flag = 0;          /*!< Flag for a playing brea
 
 static MUSIC_NOTE BUZZER_QUEUE_ARRAY[BUZZER_QUEUE_SIZE];;
 struct BUZZER_QUEUE Buzzer_Queue = {0, 0, BUZZER_QUEUE_SIZE, &BUZZER_QUEUE_ARRAY[0]};
+
+void buzzer_enqueue(MUSIC_NOTE Note);
+MUSIC_NOTE buzzer_dequeue(void);
+void print_queue_status(void);
 
 void buzzer_init(void){
 	
@@ -274,9 +285,8 @@ MUSIC_NOTE buzzer_dequeue(void){
 	return Note;
 }
 
-void print_queue_status(){
-	tft_prints(0,1,"Head: %d", Buzzer_Queue.head);
-	tft_prints(0,2,"Tail: %d", Buzzer_Queue.tail);
-	tft_prints(0,3,"Length: %d", Buzzer_Queue.length);
-	
-}
+//void print_queue_status(){
+//	tft_prints(0,1,"Head: %d", Buzzer_Queue.head);
+//	tft_prints(0,2,"Tail: %d", Buzzer_Queue.tail);
+//	tft_prints(0,3,"Length: %d", Buzzer_Queue.length);
+//}

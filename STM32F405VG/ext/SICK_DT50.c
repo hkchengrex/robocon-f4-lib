@@ -5,11 +5,11 @@
 *	@Author 		James Mok
 **/
 
-#include "laser_sensor.h"
+#include "SICK_DT50.h"
 
-static u16 ls_adc_reading[ls_number];
-static u16 ls_cal_reading[ls_number];
-//static u16 ls_dma_reading[ls_number];
+static u16 ls_adc_reading[ADC_COUNT];
+static u16 ls_cal_reading[ADC_COUNT];
+//static u16 ls_dma_reading[ADC_COUNT];
 
 /**
 *	@brief return the range found
@@ -17,7 +17,7 @@ static u16 ls_cal_reading[ls_number];
 * @return the calculated range
 **/
 
-u32 get_ls_cal_reading(u8 device){
+u16 get_ls_cal_reading(ADC_ID device){
 	if(adc_get(device)>=min_adc[device]){
 		ls_cal_reading[device] = (adc_get(device) - min_adc[device]) * (max_dis[device] - min_dis[device]) / (max_adc[device] - min_adc[device]) + min_dis[device];
 		if(ls_cal_reading[device] >= max_dis[device]){
@@ -36,7 +36,7 @@ u32 get_ls_cal_reading(u8 device){
 * @return the ADC value of the sensors
 **/
 
-u32 get_ls_adc_reading(u8 device){
+u16 get_ls_adc_reading(ADC_ID device){
 	ls_adc_reading[device] = adc_get(device);
 	return ls_adc_reading[device];
 }

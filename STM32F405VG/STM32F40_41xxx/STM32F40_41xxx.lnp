@@ -61,7 +61,9 @@
 "stm32f40_41xxx\buzzer_song.o"
 "stm32f40_41xxx\can_motor.o"
 "stm32f40_41xxx\mti-1_uart.o"
-"stm32f40_41xxx\adc_ir.o"
+"stm32f40_41xxx\gp2y0a41sk.o"
+"stm32f40_41xxx\sick_dt50.o"
+"stm32f40_41xxx\pneumatic.o"
 --library_type=microlib --nodebug --strict --scatter "STM32F40_41xxx\STM32F40_41xxx.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

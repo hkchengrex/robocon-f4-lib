@@ -1,6 +1,13 @@
 #ifndef MTI_1_UART__H
 #define	MTI_1_UART__H
 
+/**
+** MTi-1_UART Library for STM32F4 Eco robot
+** Device: MTi-3-8A7G6-DK
+** @Author James Mok, Simon Tam
+** @Note   We think no body will read the code so its kinda messy but nevermind :)
+**/
+
 #include "stm32f4xx.h"
 #include "usart.h"
 #include "stm32f4xx_gpio.h"
@@ -17,40 +24,6 @@
 #define MTi_1_UART_RCC						RCC_APB2Periph_USART1
 #define MTi_1_UART_GPIO_RCC				RCC_AHB1Periph_GPIOA
 #define MTi_1_default_BR					(uint32_t)115200
-
-
-//Op_code
-#define ProtocolInfo							(uint8_t)0x01
-#define ConfigureProtocol					(uint8_t)0x02
-#define ControlPipe								(uint8_t)0x03
-#define PipeStatus								(uint8_t)0x04
-#define NotificationPipe					(uint8_t)0x05
-#define MeasurementPipe 					(uint8_t)0x06
-
-#define	MTi_1_Preamble						(uint8_t)0xFA
-#define MTi_1_MasterDevice				(uint8_t)0xFF
-
-//MID
-#define	WakeUp										(uint8_t)0x3E
-#define WakeUpAck									(uint8_t)0x3F
-#define	Reset											(uint8_t)0x40
-#define InitMT										(uint8_t)0x02
-#define InitMTResults 						(uint8_t)0x03
-#define	GoToConfig								(uint8_t)0x30
-#define	GoToMeasurement						(uint8_t)0x10
-#define ReqDataLength							(uint8_t)0x0A
-#define	DataLength								(uint8_t)0x0B
-#define Error											(uint8_t)0x42
-#define ReqOutputMode							(uint8_t)0xD0
-#define	SetOutputMode							(uint8_t)0xD0
-#define	ReqOutputSettings					(uint8_t)0xD2
-#define SetOutputSettings					(uint8_t)0xD2
-#define	ReqData										(uint8_t)0x34
-#define MTData										(uint8_t)0x32
-#define MTData2										(uint8_t)0x36
-#define ReqConfiguration					(uint8_t)0x0C
-#define SetOptionFlags 						(uint8_t)0x48
-#define ResetOrientation					(uint8_t)0xA4
 
 extern f_vector MTi_acc;
 
@@ -71,14 +44,21 @@ typedef enum
 	rx_Checksum = 6
 }MTi_Rx_Statue;
 
-//Functions
+/**
+	Initialize the MTi-3.
+	Notice: If there are no readings, probably the init function is called before the MTi is running.
+	Add delay at start up if needed.
+*/
 void MTi_1_UART_init(void);
+
+/**
+	Reset the MTi-3, including orientation.
+*/
 void MTi_1_reset(void);
-void send_MTi_1_UART_msg(u8 *data, u8 MID, u16 data_length);
-void MTi_1_UART_Rx(u8 data);
+
+//Return the acceleration. 0=x 1=y 2=z
 float get_MTi_acc(u8 index);
+
+//Return the euler angle. 0=yaw 1=pitch 2=roll
 float get_MTi_ang(u8 index);
-u8 get_ebuffer(u8 index);
-void clear_buffer(void);
-float flt_cal(u8 data[4]);
 #endif

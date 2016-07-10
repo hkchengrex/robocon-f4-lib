@@ -21,11 +21,82 @@ extern const GPIO
 	PJ0, PJ1, PJ2, PJ3, PJ4, PJ5, PJ6, PJ7, PJ8, PJ9, PJ10, PJ11, PJ12, PJ13, PJ14, PJ15,
 	PK0, PK1, PK2, PK3, PK4, PK5, PK6, PK7, PK8, PK9, PK10, PK11, PK12, PK13, PK14, PK15;
 
-void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef io_type, GPIOPuPd_TypeDef pp_type, bool rcc_init);
+/**
+	Complete GPIO Pin initailizer
+	@param gpio: A pointer to a gpio port, like &PE0
+	
+	@param mode: Operating mode with type @ref GPIOMode_TypeDef
+		@ref GPIO_Mode_IN   		= 0x00 		< GPIO Input Mode 
+		@ref GPIO_Mode_OUT  		= 0x01 		< GPIO Output Mode 
+		@ref GPIO_Mode_AF   		= 0x02 		< GPIO Alternate function Mode 
+		@ref GPIO_Mode_AN   		= 0x03 		< GPIO Analog Mode 
+			
+	@param speed: GPIO speed with type @ref GPIOSpeed_TypeDef
+		@ref GPIO_Low_Speed     	= 0x00 		< legacy = GPIO_Speed_2MHz
+		@ref GPIO_Medium_Speed  	= 0x01 		< legacy = GPIO_Speed_25MHz
+		@ref GPIO_Fast_Speed    	= 0x02 		< legacy = GPIO_Speed_50MHz
+		@ref GPIO_High_Speed    	= 0x03 		< legacy = GPIO_Speed_100MHz
+			
+	@param output_type: Operating output type with type @ref GPIOOType_TypeDef
+		@ref GPIO_OType_PP 		= 0x00		< Push-Pull
+		@ref GPIO_OType_OD 		= 0x01		< Open-Drain
+			
+	@param pp_type: Specify the operating pull-up/pull-down with type @ref GPIOPuPd_TypeDef
+		@ref GPIO_PuPd_NOPULL 	= 0x00		< Nothing
+		@ref GPIO_PuPd_UP     	= 0x01		< Pull up
+		@ref GPIO_PuPd_DOWN   	= 0x02		< Pull down
+*/
+void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type);
+
+/**
+	General input GPIO initailizer
+	Usage: @ref gpio_init
+	Output type and speed does not matter to input gpio
+*/
+void gpio_input_init(const GPIO* gpio, GPIOPuPd_TypeDef pp_type);
+
+/**
+	General output GPIO initailizer
+	Usage: @ref gpio_init
+	Speed is fixed to GPIO_Medium_Speed which should be sufficient.
+*/
+void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type);
+
+/**
+	Initilize RCC clock for all GPIO ports
+*/
+void gpio_rcc_init_all(void);
+
+/**
+	* @brief GPIO Real-time Clock Initialization
+	* @param GPIO pointer
+	*/
 void gpio_rcc_init(const GPIO* gpio);
+
+/**
+	* @brief Read GPIO input value
+	* @param GPIO pointer
+	* @retval The GPIO Pin input value
+	*/
 u8 gpio_read_input(const GPIO* gpio);
+
+/**
+	* @brief Read GPIO output value
+	* @param GPIO pointer
+	* @retval The GPIO Pin output value
+	*/
 u8 gpio_read_output(const GPIO* gpio);
+
+/**
+	* @brief Write GPIO value
+	* @param GPIO pointer
+	*/
 void gpio_write(const GPIO* gpio, BitAction BitVal);
+
+/**
+	* @brief Toggle GPIO
+	* @param GPIO pointer
+	*/
 void gpio_toggle(const GPIO* gpio);
 
-#endif /* __GPIO_H */
+#endif

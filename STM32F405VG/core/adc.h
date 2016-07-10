@@ -3,12 +3,14 @@
 
 #include "stm32f4xx_tim.h"
 
+#define ADC_COUNT 5
+
 typedef enum{
-	ADC_1 = 0,
-	ADC_2, 
-	ADC_3, 
-	ADC_4, 
-	ADC_5
+	ADC_PORT_1 = 0,
+	ADC_PORT_2, 
+	ADC_PORT_3, 
+	ADC_PORT_4, 
+	ADC_PORT_5
 } ADC_ID;
 
 //Initalize all adc ports, and start taking readings automatically

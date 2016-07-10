@@ -39,3 +39,4 @@ stm32f40_41xxx\can_motor.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32
 stm32f40_41xxx\can_motor.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h
 stm32f40_41xxx\can_motor.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 stm32f40_41xxx\can_motor.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
+stm32f40_41xxx\can_motor.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

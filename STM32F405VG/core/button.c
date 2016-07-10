@@ -6,12 +6,12 @@ void button_init(){
 	
 	//Pull up for on-board buttons
 	for (u8 i=0;i<4;i++){
-		gpio_init(BUTTONS[i], GPIO_Mode_IN, GPIO_Fast_Speed, GPIO_OType_PP, GPIO_PuPd_UP, true);
+		gpio_input_init(BUTTONS[i], GPIO_PuPd_UP);
 	}
 	
 	//Pull down for external buttons
 	for (u8 i=4;i<BUTTONS_COUNT;i++){
-		gpio_init(BUTTONS[i], GPIO_Mode_IN, GPIO_Fast_Speed, GPIO_OType_PP, GPIO_PuPd_DOWN, true);
+		gpio_input_init(BUTTONS[i], GPIO_PuPd_DOWN);
 	}
 }
 

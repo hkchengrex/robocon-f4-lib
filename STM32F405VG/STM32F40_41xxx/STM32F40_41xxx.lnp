@@ -54,6 +54,7 @@
 "stm32f40_41xxx\usart.o"
 "stm32f40_41xxx\buzzer.o"
 "stm32f40_41xxx\servo.o"
+"stm32f40_41xxx\dsp_math.o"
 "stm32f40_41xxx\quick_math.o"
 "stm32f40_41xxx\vector_math.o"
 "stm32f40_41xxx\ticks.o"
@@ -64,6 +65,7 @@
 "stm32f40_41xxx\gp2y0a41sk.o"
 "stm32f40_41xxx\sick_dt50.o"
 "stm32f40_41xxx\pneumatic.o"
+"stm32f40_41xxx\gyro.o"
 --library_type=microlib --nodebug --strict --scatter "STM32F40_41xxx\STM32F40_41xxx.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

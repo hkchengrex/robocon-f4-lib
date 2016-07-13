@@ -4,7 +4,7 @@
 ** This function tries to cap a s16 within a specific range.
 ** The inline property tries to remove the function call and make it runs faster
 **/
-__inline int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound){
+__INLINE int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound){
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
 
@@ -13,7 +13,7 @@ __inline int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_boun
 ** This function tries to cap a u16 within a specific range.
 ** The inline property tries to remove the function call and make it runs faster
 **/
-__inline uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound){
+__INLINE uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound){
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
 
@@ -24,7 +24,7 @@ __inline uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_
 ** Reference: http://www.embedded.com/electronics-blogs/programmer-s-toolbox/4219659/Integer-Square-Roots
 **/
 
-__inline uint8_t u16_sqrt(uint16_t in_num){
+__INLINE uint8_t u16_sqrt(uint16_t in_num){
 	uint16_t root = 0;
 	uint16_t remainder = 0;
 	for (uint8_t i=0; i<8; i++){
@@ -42,7 +42,7 @@ __inline uint8_t u16_sqrt(uint16_t in_num){
 	return (uint8_t) (root>>1);
 }
 
-__inline uint16_t u32_sqrt(uint32_t in_num){
+__INLINE uint16_t u32_sqrt(uint32_t in_num){
 	uint32_t root = 0;
 	uint32_t remainder = 0;
 	for (uint8_t i=0; i<16; i++){

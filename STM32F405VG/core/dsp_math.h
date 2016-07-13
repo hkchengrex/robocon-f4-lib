@@ -2,21 +2,29 @@
 #define _DSP_MATH_H
 
 /******************************************************
-** QUICK MATH - STM32F4
+** DSP MATH - STM32F4
 **
-** ROBOCON 2016
+** This library is to utilize the DSP library, providing an interface to access
+** the DSP library. For best performace, call the raw DSP functions yourself.
+**
+** ROBOCON 2017
 ** H K U S T
 **
 ** Author:	Rex Cheng
 ** Contact:	hkchengad@connect.ust.hk
 **
-** v1.0 March 2016
-** v1.1 July 2016
+** v1.0 July 2016
 **
-** Speed is the heart of battle. ~Dark Seer
+** Computers are like Old Testament gods: lots of rules and no mercy. ~Joseph Campbell
 *******************************************************/
 
+#ifndef ARM_MATH_CM4
+	#define ARM_MATH_CM4
+#endif
+
 #include "stm32f4xx.h"
+#include "arm_math.h"
+
 #include <stdbool.h>
 #include <string.h>
 

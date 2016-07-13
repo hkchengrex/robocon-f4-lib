@@ -726,11 +726,6 @@
               <FilePath>.\core\quick_math.c</FilePath>
             </File>
             <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -1507,11 +1502,6 @@
               <FilePath>.\core\quick_math.c</FilePath>
             </File>
             <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -1688,7 +1678,7 @@
             <Oh166RecLen>16</Oh166RecLen>
           </OPTHX>
           <Simulator>
-            <UseSimulator>0</UseSimulator>
+            <UseSimulator>1</UseSimulator>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
             <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
@@ -1700,7 +1690,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Simulator>
           <Target>
-            <UseTarget>1</UseTarget>
+            <UseTarget>0</UseTarget>
             <LoadApplicationAtStartup>1</LoadApplicationAtStartup>
             <RunToMain>1</RunToMain>
             <RestoreBreakpoints>1</RestoreBreakpoints>
@@ -1712,7 +1702,7 @@
             <RestoreSysVw>1</RestoreSysVw>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
-          <TargetSelection>11</TargetSelection>
+          <TargetSelection>8</TargetSelection>
           <SimDlls>
             <CpuDll></CpuDll>
             <CpuDllArguments></CpuDllArguments>
@@ -1913,7 +1903,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>4</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -1933,9 +1923,9 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls>--C99</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx</Define>
+              <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx,__FPU_USED,__FPU_PRESENT</Define>
               <Undefine></Undefine>
-              <IncludePath>.\ext;.\sys;.\core;.\user;.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include;.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc</IncludePath>
+              <IncludePath>.\ext;.\sys;.\core;.\user;.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include;.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\sys\Libraries\CMSIS\Include;.\sys\Device\ST\STM32F4xx\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2287,11 +2277,6 @@
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
             </File>
             <File>
               <FileName>ticks.c</FileName>
@@ -3070,11 +3055,6 @@
               <FilePath>.\core\quick_math.c</FilePath>
             </File>
             <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -3849,11 +3829,6 @@
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
             </File>
             <File>
               <FileName>ticks.c</FileName>
@@ -4632,11 +4607,6 @@
               <FilePath>.\core\quick_math.c</FilePath>
             </File>
             <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -5413,11 +5383,6 @@
               <FilePath>.\core\quick_math.c</FilePath>
             </File>
             <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -6192,11 +6157,6 @@
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>vector_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\vector_math.c</FilePath>
             </File>
             <File>
               <FileName>ticks.c</FileName>

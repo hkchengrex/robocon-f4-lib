@@ -20,10 +20,11 @@
 //Note that this library is not optimised for speed. Only experimental.
 
 #include "stm32f4xx.h"
-#include <math.h>
+#include "dsp_math.h"
+#include "arm_math.h"
 #include "quick_math.h"
 
-typedef float f_vector[3]; //Define f_vector as a array of three floats
+typedef float32_t f_vector[3]; //Define f_vector as a array of three floats
 
 //Copy src vector to dst vector
 void vector_copy(f_vector src, f_vector dst);
@@ -32,41 +33,41 @@ void vector_copy(f_vector src, f_vector dst);
 	Perform dot operation. (v1 dot v2)
 	@return the dot product
 */
-float vector_dot(f_vector v1, f_vector v2);
+float32_t vector_dot(f_vector v1, f_vector v2);
 
 /**
 	Perform cross operation. (v1 x v2)
 	@param out_vector: allocated memory space for the output vector
 	@return The pointer to the resultant array(f_vector)
 */
-float* vector_cross(f_vector v1, f_vector v2, f_vector out_vector);
+float32_t* vector_cross(f_vector v1, f_vector v2, f_vector out_vector);
 
 /**
 	Scale by the vector by a scalar.
 	@param out_vector: allocated memory space for the output vector
 	@return The pointer to the resultant array(f_vector)
 */
-float* vector_scale(f_vector v1, float scalar, f_vector out_vector);
+float32_t* vector_scale(f_vector v1, float32_t scalar, f_vector out_vector);
 
 /**
 	Add two vectors. (v1+v2)
 	@param out_vector: allocated memory space for the output vector
 	@return The pointer to the resultant array(f_vector)
 */
-float* vector_add(f_vector v1, f_vector v2, f_vector out_vector);
-float* vector_minus(f_vector v1, f_vector v2, f_vector out_vector);
+float32_t* vector_add(f_vector v1, f_vector v2, f_vector out_vector);
+float32_t* vector_minus(f_vector v1, f_vector v2, f_vector out_vector);
 
 /**
 	Find the length of the vector.
 	@return Vector length.
 */
-float vector_len(f_vector v1);
+float32_t vector_len(f_vector v1);
 
 /**
 	Normalise the vector to be of length 1.
 	@param out_vector: allocated memory space for the output vector
 	@return The pointer to the resultant array(f_vector)
 */
-float* vector_normalize(f_vector v1, f_vector out_vector);
+float32_t* vector_normalize(f_vector v1, f_vector out_vector);
 
 #endif

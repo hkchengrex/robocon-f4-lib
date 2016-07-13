@@ -18,11 +18,10 @@
 ** Computers are like Old Testament gods: lots of rules and no mercy. ~Joseph Campbell
 *******************************************************/
 
+#include "stm32f4xx.h"
 #ifndef ARM_MATH_CM4
 	#define ARM_MATH_CM4
 #endif
-
-#include "stm32f4xx.h"
 #include "arm_math.h"
 
 #include <stdbool.h>

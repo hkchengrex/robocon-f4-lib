@@ -25,9 +25,11 @@
 #include "button.h"
 #include "lcd_main.h"
 
+#ifndef ARM_MATH_CM4
+	#define ARM_MATH_CM4
+#endif
 #include "dsp_math.h"
 #include "approx_math.h"
 #include "quick_math.h"
-#include "vector_math.h"
 
 #endif 

@@ -1480,7 +1480,7 @@ I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x577FA554)
-I (.\user\main.h)(0x578514F7)
+I (.\user\main.h)(0x57866676)
 I (.\core\led.h)(0x578269C0)
 I (.\core\gpio.h)(0x578258B8)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
@@ -1498,13 +1498,13 @@ I (.\ext\buzzer_song.h)(0x577FA553)
 I (.\core\adc.h)(0x5782558B)
 I (.\core\servo.h)(0x5782668B)
 I (.\core\button.h)(0x577FA553)
-I (.\core\dsp_math.h)(0x57865722)
+I (.\core\dsp_math.h)(0x57866683)
 I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (.\core\approx_math.h)(0x57839891)
 I (.\core\quick_math.h)(0x57827151)
-I (.\core\vector_math.h)(0x578270CA)
+I (.\core\vector_math.h)(0x57866694)
 F (.\sys\system_stm32f4xx.c)(0x577FA555)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\system_stm32f4xx.o --omf_browse stm32f40_41xxx\system_stm32f4xx.crf --depend stm32f40_41xxx\system_stm32f4xx.d)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
 I (.\sys\Libraries\CMSIS\Include\core_cm4.h)(0x577FA554)
@@ -1542,8 +1542,8 @@ I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x577FA554)
 F (.\sys\arm_cortexM4lf_math.lib)(0x4F731A1C)()
 F (.\sys\Device\ST\STM32F4xx\Source\Templates\arm\startup_stm32f40_41xxx.s)(0x57850BFE)(--cpu Cortex-M4.fp --apcs=interwork --pd "__MICROLIB SETA 1"-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include--pd "__UVISION_VERSION SETA 517" --pd "_RTE_ SETA 1" --pd "STM32F405xx SETA 1"--list .\stm32f40_41xxx\startup_stm32f40_41xxx.lst --xref -o stm32f40_41xxx\startup_stm32f40_41xxx.o --depend stm32f40_41xxx\startup_stm32f40_41xxx.d)
-F (.\user\main.c)(0x578514DB)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\main.o --omf_browse stm32f40_41xxx\main.crf --depend stm32f40_41xxx\main.d)
-I (user\main.h)(0x578514F7)
+F (.\user\main.c)(0x57866657)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\main.o --omf_browse stm32f40_41xxx\main.crf --depend stm32f40_41xxx\main.d)
+I (user\main.h)(0x57866676)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
 I (.\sys\Libraries\CMSIS\Include\core_cm4.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -1595,14 +1595,14 @@ I (.\ext\buzzer_song.h)(0x577FA553)
 I (.\core\adc.h)(0x5782558B)
 I (.\core\servo.h)(0x5782668B)
 I (.\core\button.h)(0x577FA553)
-I (.\user\main.h)(0x578514F7)
-I (.\core\dsp_math.h)(0x57865722)
+I (.\user\main.h)(0x57866676)
+I (.\core\dsp_math.h)(0x57866683)
 I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (.\core\approx_math.h)(0x57839891)
 I (.\core\quick_math.h)(0x57827151)
-I (.\core\vector_math.h)(0x578270CA)
+I (.\core\vector_math.h)(0x57866694)
 F (.\core\adc.c)(0x5780C033)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\adc.o --omf_browse stm32f40_41xxx\adc.crf --depend stm32f40_41xxx\adc.d)
 I (core\adc.h)(0x5782558B)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x577FA555)
@@ -1793,7 +1793,7 @@ I (core\ticks.h)(0x578262EA)
 I (core\buzzer.h)(0x578267AC)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdio.h)(0x55DB2B76)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x55DB2B7E)
-I (.\user\main.h)(0x578514F7)
+I (.\user\main.h)(0x57866676)
 I (.\core\led.h)(0x578269C0)
 I (.\core\usart.h)(0x5782695C)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\assert.h)(0x55DB2B78)
@@ -1804,13 +1804,13 @@ I (.\ext\buzzer_song.h)(0x577FA553)
 I (.\core\adc.h)(0x5782558B)
 I (.\core\servo.h)(0x5782668B)
 I (.\core\button.h)(0x577FA553)
-I (.\core\dsp_math.h)(0x57865722)
+I (.\core\dsp_math.h)(0x57866683)
 I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (.\core\approx_math.h)(0x57839891)
 I (.\core\quick_math.h)(0x57827151)
-I (.\core\vector_math.h)(0x578270CA)
+I (.\core\vector_math.h)(0x57866694)
 F (.\core\lcd_main.c)(0x577FA553)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\lcd_main.o --omf_browse stm32f40_41xxx\lcd_main.crf --depend stm32f40_41xxx\lcd_main.d)
 I (core\lcd_main.h)(0x578269DC)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
@@ -2007,8 +2007,8 @@ I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x577FA554)
-F (.\core\dsp_math.c)(0x578654E8)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\dsp_math.o --omf_browse stm32f40_41xxx\dsp_math.crf --depend stm32f40_41xxx\dsp_math.d)
-I (core\dsp_math.h)(0x57865722)
+F (.\core\dsp_math.c)(0x57865B60)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\dsp_math.o --omf_browse stm32f40_41xxx\dsp_math.crf --depend stm32f40_41xxx\dsp_math.d)
+I (core\dsp_math.h)(0x57866683)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
 I (.\sys\Libraries\CMSIS\Include\core_cm4.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -2047,7 +2047,7 @@ I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
-F (.\core\quick_math.c)(0x57827196)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\quick_math.o --omf_browse stm32f40_41xxx\quick_math.crf --depend stm32f40_41xxx\quick_math.d)
+F (.\core\quick_math.c)(0x57865A00)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\quick_math.o --omf_browse stm32f40_41xxx\quick_math.crf --depend stm32f40_41xxx\quick_math.d)
 I (core\quick_math.h)(0x57827151)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
 I (.\sys\Libraries\CMSIS\Include\core_cm4.h)(0x577FA554)
@@ -2085,8 +2085,8 @@ I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
-F (.\core\vector_math.c)(0x57826F47)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\vector_math.o --omf_browse stm32f40_41xxx\vector_math.crf --depend stm32f40_41xxx\vector_math.d)
-I (core\vector_math.h)(0x578270CA)
+F (.\core\vector_math.c)(0x57866894)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\vector_math.o --omf_browse stm32f40_41xxx\vector_math.crf --depend stm32f40_41xxx\vector_math.d)
+I (core\vector_math.h)(0x57866694)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)
 I (.\sys\Libraries\CMSIS\Include\core_cm4.h)(0x577FA554)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdint.h)(0x55DB2B80)
@@ -2121,10 +2121,12 @@ I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h)(0x577FA554)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h)(0x577FA554)
+I (core\dsp_math.h)(0x57866683)
+I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
+I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
-I (core\quick_math.h)(0x57827151)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
-I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
+I (core\quick_math.h)(0x57827151)
 F (.\core\ticks.c)(0x57826285)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\ticks.o --omf_browse stm32f40_41xxx\ticks.crf --depend stm32f40_41xxx\ticks.d)
 I (core\ticks.h)(0x578262EA)
 I (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h)(0x577FA555)
@@ -2329,10 +2331,12 @@ I (.\core\ticks.h)(0x578262EA)
 I (.\core\buzzer.h)(0x578267AC)
 I (.\core\lcd_main.h)(0x578269DC)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x55DB2B76)
-I (.\core\vector_math.h)(0x578270CA)
+I (.\core\vector_math.h)(0x57866694)
+I (.\core\dsp_math.h)(0x57866683)
+I (.\sys\Libraries\CMSIS\Include\arm_math.h)(0x577FA554)
+I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\math.h)(0x55DB2B7E)
 I (.\core\quick_math.h)(0x57827151)
-I (D:\WorkBench\Keil_v5\ARM\ARMCC\include\string.h)(0x55DB2B78)
 F (.\ext\GP2Y0A41SK.c)(0x57825E1F)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O3 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx -D__FPU_USED -D__FPU_PRESENT-o stm32f40_41xxx\gp2y0a41sk.o --omf_browse stm32f40_41xxx\gp2y0a41sk.crf --depend stm32f40_41xxx\gp2y0a41sk.d)
 I (ext\GP2Y0A41SK.h)(0x57826CB7)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x577FA554)

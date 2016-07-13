@@ -45,6 +45,9 @@ stm32f40_41xxx\mti-1_uart.o: .\core\lcd_main.h
 stm32f40_41xxx\mti-1_uart.o: .\core\ticks.h
 stm32f40_41xxx\mti-1_uart.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 stm32f40_41xxx\mti-1_uart.o: .\core\vector_math.h
+stm32f40_41xxx\mti-1_uart.o: .\core\dsp_math.h
+stm32f40_41xxx\mti-1_uart.o: .\sys\Libraries\CMSIS\Include\arm_math.h
+stm32f40_41xxx\mti-1_uart.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
+stm32f40_41xxx\mti-1_uart.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 stm32f40_41xxx\mti-1_uart.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 stm32f40_41xxx\mti-1_uart.o: .\core\quick_math.h
-stm32f40_41xxx\mti-1_uart.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

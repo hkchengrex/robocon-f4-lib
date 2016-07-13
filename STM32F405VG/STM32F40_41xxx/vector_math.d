@@ -35,7 +35,10 @@ stm32f40_41xxx\vector_math.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm
 stm32f40_41xxx\vector_math.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h
 stm32f40_41xxx\vector_math.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 stm32f40_41xxx\vector_math.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
-stm32f40_41xxx\vector_math.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-stm32f40_41xxx\vector_math.o: core\quick_math.h
-stm32f40_41xxx\vector_math.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\vector_math.o: core\dsp_math.h
+stm32f40_41xxx\vector_math.o: .\sys\Libraries\CMSIS\Include\arm_math.h
+stm32f40_41xxx\vector_math.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
 stm32f40_41xxx\vector_math.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+stm32f40_41xxx\vector_math.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+stm32f40_41xxx\vector_math.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\vector_math.o: core\quick_math.h

@@ -173,7 +173,10 @@ s16 int_arc_tan2(s32 y, s32 x)
 }
 
 /**
-  * @brief  Rapid sqrt approximation with maximum 0.297944% deviation at sqrt(2) and average 0.0184811% deviation
+  * @brief  Enhanced rapid sqrt approximation tested in 2^31 range (cmath sqrt function bugs on > 2^31)
+  *					with maximum 0.101663% deviation at sqrt(11) minimum -0.000000000045339% at sqrt(24813001) and 
+  *					average 0.000000559339% deviation
+  *					Larger input generally results in smaller output error
   * @param  v:	Input limited to 2^31 by variable type
   * @retval Scaled value of 1000*sqrt(v)
 	*	@attention		To CS members: 		Don't bother changing things not understandable unless O(f{n}) < O(1)
@@ -201,7 +204,8 @@ u32 Sqrt(s32 v)
 	u.f = v;
 	u.tmp = (u32)(0x233b4000 + (u.tmp >> 1));
 	u.tmp = (u32)u.f;
-	u.tmp = (u.tmp + (uint64_t)v*16384/u.tmp + 1)/2;
+	u.tmp = ((uint64_t)u.tmp + v*16384/u.tmp + 1)/2;
+	u.tmp = ((uint64_t)u.tmp + v*16384/u.tmp + 1)/2;
 	return u.tmp * 1000 / 128;
 }
 

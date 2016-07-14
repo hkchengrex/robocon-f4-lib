@@ -4,7 +4,7 @@ stm32f40_41xxx\gyro.o: .\core\usart.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\CMSIS\Include\core_cmInstr.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\CMSIS\Include\core_cmFunc.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\CMSIS\Include\core_cmSimd.h
@@ -37,13 +37,13 @@ stm32f40_41xxx\gyro.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_
 stm32f40_41xxx\gyro.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 stm32f40_41xxx\gyro.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
 stm32f40_41xxx\gyro.o: .\core\ticks.h
 stm32f40_41xxx\gyro.o: .\core\buzzer.h
 stm32f40_41xxx\gyro.o: .\core\lcd_main.h
 stm32f40_41xxx\gyro.o: .\core\ticks.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 stm32f40_41xxx\gyro.o: .\core\approx_math.h
-stm32f40_41xxx\gyro.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+stm32f40_41xxx\gyro.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

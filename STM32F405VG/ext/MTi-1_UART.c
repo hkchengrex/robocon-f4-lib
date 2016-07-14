@@ -40,7 +40,7 @@ void clear_buffer(void);
 float flt_cal(u8 data[4]);
 
 float MTi_ang[3] = {0, 0, 0};
-f_vector MTi_acc = {0, 0, 0};
+float MTi_acc[3] = {0, 0, 0};
 
 u8 MTi_msg[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 u8 raw_buffer[4];

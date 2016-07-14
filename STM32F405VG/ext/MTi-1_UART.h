@@ -12,7 +12,6 @@
 #include "usart.h"
 #include "stm32f4xx_gpio.h"
 #include "ticks.h"
-#include "vector_math.h"
 
 //UART setting
 #define MTi_1_UART								USART1
@@ -25,7 +24,7 @@
 #define MTi_1_UART_GPIO_RCC				RCC_AHB1Periph_GPIOA
 #define MTi_1_default_BR					(uint32_t)115200
 
-extern f_vector MTi_acc;
+extern float MTi_acc[3];
 
 typedef enum
 {

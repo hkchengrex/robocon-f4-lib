@@ -2,7 +2,7 @@ stm32f40_41xxx\misc_1.o: sys\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
-stm32f40_41xxx\misc_1.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32f40_41xxx\misc_1.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\CMSIS\Include\core_cmInstr.h
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\CMSIS\Include\core_cmFunc.h
 stm32f40_41xxx\misc_1.o: .\sys\Libraries\CMSIS\Include\core_cmSimd.h

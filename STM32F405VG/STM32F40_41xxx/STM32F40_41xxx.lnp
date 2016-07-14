@@ -57,7 +57,6 @@
 "stm32f40_41xxx\servo.o"
 "stm32f40_41xxx\dsp_math.o"
 "stm32f40_41xxx\quick_math.o"
-"stm32f40_41xxx\vector_math.o"
 "stm32f40_41xxx\ticks.o"
 "stm32f40_41xxx\gpio.o"
 "stm32f40_41xxx\buzzer_song.o"

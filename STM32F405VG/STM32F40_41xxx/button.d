@@ -44,11 +44,11 @@ stm32f40_41xxx\button.o: core\lcd_main.h
 stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
 stm32f40_41xxx\button.o: .\user\main.h
+stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 stm32f40_41xxx\button.o: .\core\led.h
 stm32f40_41xxx\button.o: .\core\usart.h
 stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
 stm32f40_41xxx\button.o: .\core\can_protocol.h
-stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 stm32f40_41xxx\button.o: .\core\encoder.h
 stm32f40_41xxx\button.o: .\ext\buzzer_song.h
 stm32f40_41xxx\button.o: .\core\adc.h

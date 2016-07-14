@@ -45,7 +45,7 @@ void ticks_init(void) {
 //	TICKS_TIM->DIER = 1;
 //	TICKS_TIM->CR1 = 1;
 	
-	TIM_TimeBaseStructure.TIM_Period = 1000;	                 				       // Timer period, 1000 ticks in one second
+	TIM_TimeBaseStructure.TIM_Period = 2;	                 				       // Timer period, 1000 ticks in one second
 	TIM_TimeBaseStructure.TIM_Prescaler = TICKS_CLKFreq / 1000000 - 1;     // 84M/1M - 1 = 83
 	TIM_TimeBaseInit(TICKS_TIM, &TIM_TimeBaseStructure);      							 // this part feeds the parameter we set above
 	
@@ -74,7 +74,8 @@ TICKS_IRQHandler
     TIM_ClearFlag(TICKS_TIM, TIM_FLAG_Update);
     //TIM_ClearITPendingBit(TICKS_TIM, TIM_IT_Update);
 
-    if (ticks >= 999) {
+    //if (ticks >= 999) {
+		if (ticks >= 1) {
       ticks = 0;
       seconds++;
     } else {

@@ -36,6 +36,7 @@ stm32f40_41xxx\stm32f4xx_it.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\st
 stm32f40_41xxx\stm32f4xx_it.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h
 stm32f40_41xxx\stm32f4xx_it.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h
 stm32f40_41xxx\stm32f4xx_it.o: .\user\main.h
+stm32f40_41xxx\stm32f4xx_it.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 stm32f40_41xxx\stm32f4xx_it.o: .\core\led.h
 stm32f40_41xxx\stm32f4xx_it.o: .\core\gpio.h
 stm32f40_41xxx\stm32f4xx_it.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
@@ -48,7 +49,6 @@ stm32f40_41xxx\stm32f4xx_it.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include
 stm32f40_41xxx\stm32f4xx_it.o: .\core\usart.h
 stm32f40_41xxx\stm32f4xx_it.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
 stm32f40_41xxx\stm32f4xx_it.o: .\core\can_protocol.h
-stm32f40_41xxx\stm32f4xx_it.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 stm32f40_41xxx\stm32f4xx_it.o: .\core\encoder.h
 stm32f40_41xxx\stm32f4xx_it.o: .\ext\buzzer_song.h
 stm32f40_41xxx\stm32f4xx_it.o: .\core\adc.h

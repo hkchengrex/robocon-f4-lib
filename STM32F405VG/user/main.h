@@ -2,6 +2,7 @@
 #define _MAIN_H
 
 #include "stm32f4xx.h"
+#include <stdlib.h>
 #include "led.h"
 
 /**

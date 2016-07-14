@@ -54,10 +54,10 @@ stm32f40_41xxx\main.o: .\core\adc.h
 stm32f40_41xxx\main.o: .\core\servo.h
 stm32f40_41xxx\main.o: .\core\button.h
 stm32f40_41xxx\main.o: .\user\main.h
+stm32f40_41xxx\main.o: .\core\approx_math.h
 stm32f40_41xxx\main.o: .\core\dsp_math.h
 stm32f40_41xxx\main.o: .\sys\Libraries\CMSIS\Include\arm_math.h
 stm32f40_41xxx\main.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
 stm32f40_41xxx\main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 stm32f40_41xxx\main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-stm32f40_41xxx\main.o: .\core\approx_math.h
 stm32f40_41xxx\main.o: .\core\quick_math.h

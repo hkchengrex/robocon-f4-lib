@@ -29,8 +29,9 @@
 #ifndef ARM_MATH_CM4
 	#define ARM_MATH_CM4
 #endif
-#include "dsp_math.h"
+
 #include "approx_math.h"
+#include "dsp_math.h"
 #include "quick_math.h"
 
 #endif 

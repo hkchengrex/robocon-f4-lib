@@ -27,25 +27,31 @@ __INLINE int16_t dsp_sin(int16_t angle){
 }
 
 /**
-	Perform a square root operation.
-	Although it takes and returns signed value, they are all positive.
-	@param input value, 0 ~ 0x7FFF
-	@return sqrt(in)
+DSP Square root: deprecated.
+It handles square root of (0,1] (fixed point), applying those to common integer
+is difficult and inefficient.
 */
-__INLINE int16_t dsp_sqrt_16(int16_t in){
-	int16_t out;
-	arm_sqrt_q15(in, &out);
-	return out;
-}
 
-/**
-	Perform a square root operation.
-	Although it takes and returns signed value, they are all positive.
-	@param input value, 0 ~ 0x7FFFFFFF
-	@return sqrt(in)
-*/
-__INLINE int32_t dsp_sqrt_32(int32_t in){
-	int32_t out;
-	arm_sqrt_q31(in, &out);
-	return out;
-}
+///**
+//	Perform a square root operation.
+//	Although it takes and returns signed value, they are all positive.
+//	@param input value, 0 ~ 0x7FFF
+//	@return sqrt(in)
+//*/
+//__INLINE int16_t dsp_sqrt_16(int16_t in){
+//	int16_t out;
+//	arm_sqrt_q15(in, &out);
+//	return out;
+//}
+
+///**
+//	Perform a square root operation.
+//	Although it takes and returns signed value, they are all positive.
+//	@param input value, 0 ~ 0x7FFFFFFF
+//	@return sqrt(in)
+//*/
+//__INLINE int32_t dsp_sqrt_32(int32_t in){
+//	int32_t out;
+//	arm_sqrt_q31(in, &out);
+//	return out;
+//}

@@ -54,10 +54,10 @@ stm32f40_41xxx\button.o: .\ext\buzzer_song.h
 stm32f40_41xxx\button.o: .\core\adc.h
 stm32f40_41xxx\button.o: .\core\servo.h
 stm32f40_41xxx\button.o: .\core\button.h
+stm32f40_41xxx\button.o: .\core\approx_math.h
 stm32f40_41xxx\button.o: .\core\dsp_math.h
 stm32f40_41xxx\button.o: .\sys\Libraries\CMSIS\Include\arm_math.h
 stm32f40_41xxx\button.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
 stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 stm32f40_41xxx\button.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-stm32f40_41xxx\button.o: .\core\approx_math.h
 stm32f40_41xxx\button.o: .\core\quick_math.h

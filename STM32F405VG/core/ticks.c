@@ -24,7 +24,7 @@ u16 get_seconds(void) {
   * @retval ticks passed
   */
 u32 get_full_ticks(void){
-	return seconds * 1000 + ticks;
+	return seconds * 2 + ticks;
 }
 
 /**

@@ -24,8 +24,8 @@
 ** These function tries to cap a variable within a specific range.
 ** The inline property tries to remove the function call and make it runs faster
 **/
-__inline int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound);
-__inline uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound);
+int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound);
+uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound);
 
 /**
 ** The followings are square root function for unsigned integer
@@ -33,8 +33,8 @@ __inline uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_
 ** As sqrt(2^(2n)) = 2^n, so u16_sqrt returns u8, and u32_sqrt returns u16.
 ** Reference: http://www.embedded.com/electronics-blogs/programmer-s-toolbox/4219659/Integer-Square-Roots
 **/
-__inline uint8_t u16_sqrt(uint16_t in_num);
-__inline uint16_t u32_sqrt(uint32_t in_num);
+uint8_t u16_sqrt(uint16_t in_num);
+uint16_t u32_sqrt(uint32_t in_num);
 
 /**
 ** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"

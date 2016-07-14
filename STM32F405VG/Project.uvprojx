@@ -721,11 +721,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -734,6 +729,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1497,11 +1497,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -1510,6 +1505,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1721,8 +1721,8 @@
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>0</UseTargetDll>
-            <UseExternalTool>1</UseExternalTool>
+            <UseTargetDll>1</UseTargetDll>
+            <UseExternalTool>0</UseExternalTool>
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
@@ -1903,8 +1903,8 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
-            <oTime>1</oTime>
+            <Optim>2</Optim>
+            <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
             <Strict>0</Strict>
@@ -1923,7 +1923,7 @@
             <vShortWch>0</vShortWch>
             <VariousControls>
               <MiscControls>--C99</MiscControls>
-              <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx,__FPU_USED,__FPU_PRESENT</Define>
+              <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx</Define>
               <Undefine></Undefine>
               <IncludePath>.\ext;.\sys;.\core;.\user;.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include;.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\sys\Libraries\CMSIS\Include;.\sys\Device\ST\STM32F4xx\Include</IncludePath>
             </VariousControls>
@@ -2274,11 +2274,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -2287,6 +2282,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3050,11 +3050,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -3063,6 +3058,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3826,11 +3826,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -3839,6 +3834,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4602,11 +4602,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -4615,6 +4610,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5378,11 +5378,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -5391,6 +5386,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6154,11 +6154,6 @@
               <FilePath>.\core\dsp_math.c</FilePath>
             </File>
             <File>
-              <FileName>quick_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\quick_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -6167,6 +6162,11 @@
               <FileName>gpio.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\gpio.c</FilePath>
+            </File>
+            <File>
+              <FileName>quick_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\quick_math.c</FilePath>
             </File>
           </Files>
         </Group>

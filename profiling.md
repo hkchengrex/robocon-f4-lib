@@ -47,51 +47,53 @@ Conclusion: FPU helps.
 
 Using the following code:
 	
-	volatile s32 result[100] = {0};
-	s32 math_h_result[100];
-	s32 original[100] = {0};
-	for (u16 i=0;i<100;i++){
-		float tmp = (float)rand() /(float)RAND_MAX *1000000.0f;
+	#define SAMPLES 100
+	
+	volatile s32 result[SAMPLES] = {0};
+	s32 original[SAMPLES] = {0};
+	
+	for (u16 i=0;i<SAMPLES;i++){
+		float32_t tmp = (float32_t)rand() /(float32_t)RAND_MAX *1000000.0f;
 		original[i] = (s32)roundf(tmp);
-		result[i] = (s32)roundf(tmp);
-		math_h_result[i] = (s32)roundf(sqrtf(tmp));
 	}
 	
 	s32 starting_ticks = get_full_ticks();
-
-	for (u16 i=0;i<100;i++){
-		result[i] = Sqrt(original[i])/1000;
-		//result[i] = u32_sqrt(original[i]);
-		//result[i] = (s32)roundf(sqrtf(original[i]));
+	
+	for (u16 i=0;i<SAMPLES;i++){
+		//result[i] = Sqrt(original[i]);
+		//result[i] = s32_sqrt(original[i]);
+		result[i] = s32_sqrt2(original[i]);
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
-	s32 total_error = 0;
-	for (u16 i=0;i<100;i++){
-		total_error += result[i] - math_h_result[i];
+	float total_error = 0;
+	for (u16 i=0;i<SAMPLES;i++){
+		total_error += (result[i] - sqrt(original[i])*1024.0f)/1024.0f*100.0f/original[i];
 	}
 
-sqrtf() function of math.h is considered to be the most accurate result.
+sqrt() function of math.h is considered to be the most accurate result.
+All functions are declared inline.
 
 ### With approx_math Sqrt()
-- Ticks used = 33
-- Total error = -31528
+- Scaled by 1024
+- Ticks used = 30
+- Average error = -0.053578%
 
-### With quick_math u32_sqrt()
-- Ticks used = 102
-- Total error = -58
+### With quick_math s32_sqrt()
+- A warp for __sqrtf() and roundf(), scaled by 1024
+- Ticks used = 49
+- Average error = 0.000124%
 
-### With math.h sqrtf() and roundf()
-- Ticks used = 52
-- Total error = 0
+### With quick_math s32_sqrt2()
+- A warp for sqrtf() and roundf(), scaled by 1024
+- Ticks used = 60
+- Average error = 0.000124%
 
-### With arm's _sqrtf() function
-- Ticks used = 41
-- Total error = 0
+Discussion: Sqrt() in approx_math is the quickest, but with a slightly larger error. The error in sqrtf() can be reduced by increasing the scaling, but it is not the case for Sqrt() in approx_math.
 
-Then I got curious and turned off the FPU, it crashes every time even I tried to reduce its workload....
+Conclusion: Sqrt() in qpprox_math will be adopted. In the case of floating point, use __sqrtf().
 
-Conclusion: Just go roundf(_sqrtf)... If you *really* need to go fast, use approx_math.
-Note that /1000 is used for apprx_math function and some accuracy is lost but it's not much. _sqrtf would still be much better.
-And u32_sqrt in quick math is shit. *Cry in code*
+***
+
+## Comparing sine/cosine funciton in different libraries (with FPU)

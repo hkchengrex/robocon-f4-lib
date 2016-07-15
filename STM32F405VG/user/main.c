@@ -33,29 +33,29 @@ int main(void) {
 	s32 original[SAMPLES] = {0};
 	
 	for (u16 i=0;i<SAMPLES;i++){
-		float tmp = (float)rand() /(float)RAND_MAX *1000000.0f;
+		float32_t tmp = (float32_t)rand() /(float32_t)RAND_MAX *1000000.0f;
 		original[i] = (s32)roundf(tmp);
-		result[i] = (s32)roundf(tmp);
 	}
 	
 	s32 starting_ticks = get_full_ticks();
 	
 	for (u16 i=0;i<SAMPLES;i++){
-		//result[i] = Sqrt(original[i])/1000;
-		result[i] = s32_sqrt(original[i]);
+		//result[i] = Sqrt(original[i]);
+		//result[i] = s32_sqrt(original[i]);
+		result[i] = s32_sqrt2(original[i]);
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
 	float total_error = 0;
 	for (u16 i=0;i<SAMPLES;i++){
-		total_error += result[i] - sqrt(original[i]);
+		total_error += (result[i] - sqrt(original[i])*1024.0f)/1024.0f*100.0f/original[i];
 	}
 	
 	while (1) {
 		tft_clear();
 		tft_println("%d", get_ticks());
-		tft_println("%d", total_error);
+		tft_println("%f", total_error/SAMPLES);
 		tft_println("%d", end_ticks - starting_ticks);
 		
 //		tft_println("%d %d", original[10], result[10]);

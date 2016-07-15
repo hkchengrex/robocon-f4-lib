@@ -18,7 +18,11 @@ __INLINE uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_
 }
 
 __INLINE int32_t s32_sqrt(int32_t in_num){
-	return (s32)roundf(__sqrtf(in_num));
+	return (s32)roundf(__sqrtf(in_num)*1024);
+}
+
+__INLINE int32_t s32_sqrt2(int32_t in_num){
+	return (s32)roundf(sqrtf(in_num)*1024);
 }
 
 /**

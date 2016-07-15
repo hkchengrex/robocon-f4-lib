@@ -61,7 +61,7 @@ s16 int_arc_tan2(s32 y, s32 x);
 /**
   * @brief  Rapid sqrt approximation with maximum 0.297944% deviation at sqrt(2) and average 0.0184811% deviation
   * @param  v:	Input limited to 2^31 by variable type
-  * @retval Scaled value of 1000*sqrt(v)
+  * @retval Scaled value of 1024*sqrt(v)
   */
 u32 Sqrt(s32 v);
 

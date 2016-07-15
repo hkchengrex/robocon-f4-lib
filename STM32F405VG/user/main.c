@@ -39,11 +39,7 @@ int main(void) {
 	
 	s32 starting_ticks = get_full_ticks();
 	
-	for (u16 i=0;i<SAMPLES;i++){
-		//result[i] = Sqrt(original[i]);
-		//result[i] = s32_sqrt(original[i]);
-		result[i] = s32_sqrt2(original[i]);
-	}
+	
 	
 	s32 end_ticks = get_full_ticks();
 	
@@ -57,12 +53,6 @@ int main(void) {
 		tft_println("%d", get_ticks());
 		tft_println("%f", total_error/SAMPLES);
 		tft_println("%d", end_ticks - starting_ticks);
-		
-//		tft_println("%d %d", original[10], result[10]);
-//		tft_println("%d %d", original[20], result[20]);
-//		tft_println("%d %d", original[50], result[50]);
-//		tft_println("%d %d", original[90], result[90]);
-//		tft_println("%d %d", original[99], result[99]);
 		
 		tft_update();
 	}

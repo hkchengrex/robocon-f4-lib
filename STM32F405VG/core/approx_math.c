@@ -178,7 +178,7 @@ s16 int_arc_tan2(s32 y, s32 x)
   *					average 0.000000559339% deviation
   *					Larger input generally results in smaller output error
   * @param  v:	Input limited to 2^31 by variable type
-  * @retval Scaled value of 1000*sqrt(v)
+  * @retval Scaled value of 1024*sqrt(v)
 	*	@attention		To CS members: 		Don't bother changing things not understandable unless O(f{n}) < O(1)
 	*								To CPEG members:	Float is used here only because it dramatically shortens sqrt 
 	*																	time compared to other implementations in Int, try proving the

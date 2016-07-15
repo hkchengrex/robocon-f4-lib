@@ -35,6 +35,7 @@ Using the following code:
 Then find end_ticks - starting_ticks.
 ### With single point precision hardware *disabled*
 - ticks diff = *808*
+
 ### With single point precision hardware *enabled*
 - ticks diff = *101*
 

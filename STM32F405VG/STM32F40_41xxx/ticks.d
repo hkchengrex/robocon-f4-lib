@@ -3,7 +3,7 @@ stm32f40_41xxx\ticks.o: core\ticks.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
-stm32f40_41xxx\ticks.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32f40_41xxx\ticks.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\CMSIS\Include\core_cmInstr.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\CMSIS\Include\core_cmFunc.h
 stm32f40_41xxx\ticks.o: .\sys\Libraries\CMSIS\Include\core_cmSimd.h
@@ -39,6 +39,6 @@ stm32f40_41xxx\ticks.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx
 stm32f40_41xxx\ticks.o: core\buzzer.h
 stm32f40_41xxx\ticks.o: core\lcd_main.h
 stm32f40_41xxx\ticks.o: core\ticks.h
-stm32f40_41xxx\ticks.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f40_41xxx\ticks.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-stm32f40_41xxx\ticks.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\ticks.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+stm32f40_41xxx\ticks.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+stm32f40_41xxx\ticks.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

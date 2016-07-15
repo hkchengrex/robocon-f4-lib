@@ -17,6 +17,7 @@
 *******************************************************/
 
 #include "stm32f4xx.h"
+#include <math.h>
 #include <stdbool.h>
 #include <string.h>
 
@@ -27,14 +28,7 @@
 int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound);
 uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound);
 
-/**
-** The followings are square root function for unsigned integer
-** They uses Jack W. Crenshaw's integer square root algorithm. Let's thanks him.
-** As sqrt(2^(2n)) = 2^n, so u16_sqrt returns u8, and u32_sqrt returns u16.
-** Reference: http://www.embedded.com/electronics-blogs/programmer-s-toolbox/4219659/Integer-Square-Roots
-**/
-uint8_t u16_sqrt(uint16_t in_num);
-uint16_t u32_sqrt(uint32_t in_num);
+int32_t s32_sqrt(int32_t in_num);
 
 /**
 ** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"

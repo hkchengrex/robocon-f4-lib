@@ -2,7 +2,7 @@ stm32f40_41xxx\lcd_main.o: core\lcd_main.c
 stm32f40_41xxx\lcd_main.o: core\lcd_main.h
 stm32f40_41xxx\lcd_main.o: .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h
 stm32f40_41xxx\lcd_main.o: .\sys\Libraries\CMSIS\Include\core_cm4.h
-stm32f40_41xxx\lcd_main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+stm32f40_41xxx\lcd_main.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 stm32f40_41xxx\lcd_main.o: .\sys\Libraries\CMSIS\Include\core_cmInstr.h
 stm32f40_41xxx\lcd_main.o: .\sys\Libraries\CMSIS\Include\core_cmFunc.h
 stm32f40_41xxx\lcd_main.o: .\sys\Libraries\CMSIS\Include\core_cmSimd.h
@@ -38,7 +38,7 @@ stm32f40_41xxx\lcd_main.o: .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f
 stm32f40_41xxx\lcd_main.o: core\ticks.h
 stm32f40_41xxx\lcd_main.o: core\buzzer.h
 stm32f40_41xxx\lcd_main.o: core\lcd_main.h
-stm32f40_41xxx\lcd_main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-stm32f40_41xxx\lcd_main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-stm32f40_41xxx\lcd_main.o: C:\WorkBench\IDE\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+stm32f40_41xxx\lcd_main.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+stm32f40_41xxx\lcd_main.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+stm32f40_41xxx\lcd_main.o: D:\WorkBench\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 stm32f40_41xxx\lcd_main.o: core\lcd_font.h

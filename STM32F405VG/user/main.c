@@ -27,30 +27,29 @@ int main(void) {
 	
 	tft_put_logo(85, 120);
 
-	volatile s32 result[10] = {0};
-	s32 math_h_result[10];
-	s32 original[10] = {0};
-	for (u16 i=0;i<10;i++){
+	#define SAMPLES 100
+	
+	volatile s32 result[SAMPLES] = {0};
+	s32 original[SAMPLES] = {0};
+	
+	for (u16 i=0;i<SAMPLES;i++){
 		float tmp = (float)rand() /(float)RAND_MAX *1000000.0f;
 		original[i] = (s32)roundf(tmp);
 		result[i] = (s32)roundf(tmp);
-		math_h_result[i] = (s32)u32_sqrt(original[i]);
 	}
 	
 	s32 starting_ticks = get_full_ticks();
 	
-	for (u16 i=0;i<10;i++){
-		result[i] = Sqrt(original[i])/1000;
-		//result[i] = u32_sqrt(original[i]);
-		//result[i] = (s32)roundf(sqrtf(original[i]));
-		//result[i] = (s32)roundf(_sqrtf(original[i]));
+	for (u16 i=0;i<SAMPLES;i++){
+		//result[i] = Sqrt(original[i])/1000;
+		result[i] = s32_sqrt(original[i]);
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
-	s32 total_error = 0;
-	for (u16 i=0;i<10;i++){
-		total_error += result[i] - math_h_result[i];
+	float total_error = 0;
+	for (u16 i=0;i<SAMPLES;i++){
+		total_error += result[i] - sqrt(original[i]);
 	}
 	
 	while (1) {

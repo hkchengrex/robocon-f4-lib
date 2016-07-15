@@ -17,47 +17,8 @@ __INLINE uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
 
-/**
-** The followings are square root function for unsigned integer
-** They uses Jack W. Crenshaw's integer square root algorithm. Let's thanks him.
-** As sqrt(2^(2n)) = 2^n, so u16_sqrt returns u8, and u32_sqrt returns u16.
-** Reference: http://www.embedded.com/electronics-blogs/programmer-s-toolbox/4219659/Integer-Square-Roots
-**/
-
-__INLINE uint8_t u16_sqrt(uint16_t in_num){
-	uint16_t root = 0;
-	uint16_t remainder = 0;
-	for (uint8_t i=0; i<8; i++){
-		root <<= 1;
-		remainder = (remainder<<2) + (in_num>>14);
-		in_num <<= 2;
-		root++;
-		if (root <= remainder){
-			remainder -= root;
-			root++;
-		}else{
-			root--;
-		}
-	}
-	return (uint8_t) (root>>1);
-}
-
-__INLINE uint16_t u32_sqrt(uint32_t in_num){
-	uint32_t root = 0;
-	uint32_t remainder = 0;
-	for (uint8_t i=0; i<16; i++){
-		root <<= 1;
-		remainder = (remainder<<2) + (in_num>>30);
-		in_num <<= 2;
-		root++;
-		if (root <= remainder){
-			remainder -= root;
-			root++;
-		}else{
-			root--;
-		}
-	}
-	return (uint16_t) (root>>1);
+__INLINE int32_t s32_sqrt(int32_t in_num){
+	return (s32)roundf(__sqrtf(in_num));
 }
 
 /**

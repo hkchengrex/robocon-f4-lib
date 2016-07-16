@@ -27,7 +27,7 @@
 #include <stdbool.h>
 #include <string.h>
 
-int16_t dsp_cos(int16_t angle);
-int16_t dsp_sin(int16_t angle);
+int16_t dsp_cos(int32_t angle);
+int16_t dsp_sin(int32_t angle);
 
 #endif

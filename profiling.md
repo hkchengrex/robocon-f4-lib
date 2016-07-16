@@ -93,8 +93,24 @@ All functions are declared inline.
 
 Discussion: Sqrt() in approx_math is the quickest, but with a slightly larger error. The error in sqrtf() can be reduced by increasing the scaling, but it is not the case for Sqrt() in approx_math.
 
-Conclusion: Sqrt() in qpprox_math will be adopted. In the case of floating point, use __sqrtf().
+Conclusion: Sqrt() in approx_math will be adopted. In the case of floating point, use __sqrtf().
 
 ***
 
 ## Comparing sine/cosine funciton in different libraries (with FPU)
+
+sin()/cos() function of math.h is considered to be the most accurate result.
+
+### With math.h sin()
+- Scaled by 10000
+- Conversion from angle to radian involved
+- Ticks used = 209
+- Average error = -0.000139
+
+### With approx_math sin()
+- Ticks used = 148
+- Average error = 0.000500
+
+### With dsp_math dsp_sin()
+- Ticks used = 137
+- Average error = -0.001657

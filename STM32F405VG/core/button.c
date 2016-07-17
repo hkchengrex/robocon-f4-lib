@@ -16,5 +16,5 @@ void button_init(){
 }
 
 bool button_pressed(BUTTON_ID button_id){
-	return gpio_read_input(BUTTONS[button_id]);
+	return !gpio_read_input(BUTTONS[button_id]);
 }

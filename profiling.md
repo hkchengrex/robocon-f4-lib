@@ -104,13 +104,19 @@ sin()/cos() function of math.h is considered to be the most accurate result.
 ### With math.h sin()
 - Scaled by 10000
 - Conversion from angle to radian involved
-- Ticks used = 209
-- Average error = -0.000139
+- Ticks used = 210
+- Average error = 0.051233
 
 ### With approx_math sin()
 - Ticks used = 148
-- Average error = 0.000500
+- Average error = 0.506137
 
 ### With dsp_math dsp_sin()
 - Ticks used = 137
-- Average error = -0.001657
+- Average error = -0.070083
+
+### With dsp_math dsp_sinf()
+- Scaled by 10000
+- Conversion from angle to radian involved
+- Ticks used = 190
+- Average error = 0.051233

@@ -25,3 +25,11 @@ __INLINE int16_t dsp_sin(int32_t angle){
 //	}
 	return arm_sin_q15((q15_t)(angle*32768/36000));
 }
+
+__INLINE float32_t dsp_sinf(float angle){
+//	angle %= 36000;
+//	while(angle<0){
+//		angle += 36000;
+//	}
+	return arm_sin_f32((angle));
+}

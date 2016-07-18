@@ -27,6 +27,7 @@
 **/
 int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound);
 uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound);
+int32_t s32_sqrt(int32_t in_num);
 
 /**
 ** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"

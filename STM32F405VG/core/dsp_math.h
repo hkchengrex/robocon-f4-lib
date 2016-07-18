@@ -29,7 +29,5 @@
 
 int16_t dsp_cos(int32_t angle);
 int16_t dsp_sin(int32_t angle);
-float32_t dsp_sinf(float32_t angle);
-float32_t dsp_cosf(float32_t angle);
 
 #endif

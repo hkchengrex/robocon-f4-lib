@@ -62,15 +62,15 @@ Using the following code:
 	
 	for (u16 i=0;i<SAMPLES;i++){
 		//result[i] = Sqrt(original[i]);
-		//result[i] = s32_sqrt(original[i]);
-		result[i] = s32_sqrt2(original[i]);
+		result[i] = s32_sqrt(original[i]);
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
-	float total_error = 0;
+	double total_error = 0;
+	#define scaling 1024.0
 	for (u16 i=0;i<SAMPLES;i++){
-		total_error += (result[i] - sqrt(original[i])*1024.0f)/1024.0f*100.0f/original[i];
+		total_error += fabs((result[i] - sqrt(original[i])*scaling)/scaling*100.0/original[i])*1000;
 	}
 
 sqrt() function of math.h is considered to be the most accurate result.
@@ -78,22 +78,22 @@ All functions are declared inline.
 
 ### With approx_math Sqrt()
 - Scaled by 1024
-- Ticks used = 30
-- Average error = -0.053578%
+- Ticks used = 29
+- Average error = 15.313709% (x1000)
 
 ### With quick_math s32_sqrt()
-- A warp for __sqrtf() and roundf(), scaled by 1024
-- Ticks used = 49
-- Average error = 0.000124%
+- A warp for __sqrtf(), scaled by 1024
+- Ticks used = 16
+- Average error = 0.034407% (x1000)
 
 ### With quick_math s32_sqrt2()
-- A warp for sqrtf() and roundf(), scaled by 1024
-- Ticks used = 60
-- Average error = 0.000124%
+- A warp for sqrtf(), scaled by 1024
+- Ticks used = 30
+- Average error = 0.034407% (x1000)
 
-Discussion: Sqrt() in approx_math is the quickest, but with a slightly larger error. The error in sqrtf() can be reduced by increasing the scaling, but it is not the case for Sqrt() in approx_math.
+Discussion: I made quite a lot of mistakes when I'm trying to test these.. The most important one is that roundf() is slow.. like REALLY SLOW.. It brings s32_sqrt from 16 ticks up to >40 ticks... OMFG. Just +0.5f and type cast that bitch..
 
-Conclusion: Sqrt() in approx_math will be adopted. In the case of floating point, use __sqrtf().
+Conclusion: s32_sqrt() rules.
 
 ***
 
@@ -147,6 +147,7 @@ Code used:
 	}
 
 sin()/cos() function of math.h is considered to be the most accurate result.
+Error is scaled by 1000.
 
 ### With math.h sin()/cos()
 - Scaled by 10000

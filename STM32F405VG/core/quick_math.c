@@ -17,6 +17,10 @@ __INLINE uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
 
+__INLINE int32_t s32_sqrt(int32_t in_num){
+	return (s32)(__sqrtf(in_num)*1024.0f + 0.5f);
+}
+
 /**
 ** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"
 ** It is used to find the kth smallest element in the array

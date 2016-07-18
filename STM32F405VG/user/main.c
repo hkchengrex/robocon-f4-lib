@@ -28,61 +28,30 @@ int main(void) {
 	
 	tft_put_logo(85, 120);
 	
-	volatile s32 result[360] = {0};
-
+	#define SAMPLES 100
+	
+	volatile s32 result[SAMPLES] = {0};
+	s32 original[SAMPLES] = {0};
+	
+	for (u16 i=0;i<SAMPLES;i++){
+		float32_t tmp = (float32_t)rand() /(float32_t)RAND_MAX *1000000.0f;
+		original[i] = (s32)roundf(tmp);
+	}
+	
 	s32 starting_ticks = get_full_ticks();
-	u8 end_counter = 0;
-	for (u16 i=0;i<360;i++){
-		u16 testing_angle = i*100 + end_counter;
-		//result[i] = cosf(testing_angle*PI/180.0f/100.0f)*10000;
-		//result[i] = dsp_cosf(testing_angle*PI/180.0f/100.0f)*10000;
-		//result[i] = int_cos(testing_angle/10);
-		result[i] = dsp_cos(testing_angle);
-		end_counter = (end_counter+1)%100;
+	
+	for (u16 i=0;i<SAMPLES;i++){
+		//result[i] = Sqrt(original[i]);
+		result[i] = s32_sqrt(original[i]);
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
-	#define scale 32768.0
-	end_counter = 0;
 	double total_error = 0;
-	for (u16 i=0;i<36;i++){
-		float error[10];
-		//tft_clear();
-		//tft_println("%d %d", i, 0);
-		for (u16 j=0;j<5;j++){
-			u16 testing_angle = i*1000 + j*100 + end_counter;
-			error[j] = (result[i*10+j] - cos(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
-			total_error += fabs(error[j]);
-			end_counter = (end_counter+1)%100;
-			//tft_println("%f", error[j]);
-		}
-		//tft_update();
-		//while(!button_pressed(BUTTON_1));
-		//while(button_pressed(BUTTON_1));
-		//tft_clear();
-		//tft_println("%d %d", i, 1);
-		for (u16 j=5;j<10;j++){
-			u16 testing_angle = i*1000 + j*100 + end_counter;
-			error[j] = (result[i*10+j] - cos(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
-			total_error += fabs(error[j]);
-			end_counter = (end_counter+1)%100;
-			//tft_println("%f", error[j]);
-		}
-		//tft_update();
-		//while(!button_pressed(BUTTON_1));
-		//while(button_pressed(BUTTON_1));
+	#define scaling 1024.0
+	for (u16 i=0;i<SAMPLES;i++){
+		total_error += fabs((result[i] - sqrt(original[i])*scaling)/scaling*100.0/original[i])*1000;
 	}
-	
-//	while(1){
-//		#define k 18
-//		tft_clear();
-//		for (u8 i=0;i<10;i++){
-//			u16 testing_angle = (k*10+i)*10;
-//			tft_println("%f",  (result[k*10+i] - sin(testing_angle*PI/180.0f/10.0f)*32768.0f)/32768.0f*100.0f);
-//		}
-//		tft_update();
-//	}
 	
 	while (1) {
 		tft_clear();
@@ -90,18 +59,6 @@ int main(void) {
 		tft_println("%f", total_error/360);
 		tft_println("%d", end_ticks - starting_ticks);
 		
-//		tft_println("%d", dsp_sin(35999));
-//		tft_println("%d", dsp_sin(0));
-//		tft_println("%d", dsp_sin(18000));
-//		tft_println("%d", dsp_sin(27000));
-//		tft_println("%d", dsp_sin(9000));
-		
-//		tft_println("%d %f", result[10], sin(10*PI/180.0f)*32768);
-//		tft_println("%f", (result[10] - sin(100*PI/180.0f/10.0f)*32768.0f)/32768.0f*100.0f);
-//		tft_println("%d %f", result[5], sin(5*PI/180.0f)*32768);
-//		tft_println("%d %f", result[60], sin(60*PI/180.0f)*32768);
-//		tft_println("%d %f", result[180], sin(180*PI/180.0f)*32768);
-//		tft_println("%d %f", result[359], sin(359*PI/180.0f)*32768);
 		
 		tft_update();
 	}

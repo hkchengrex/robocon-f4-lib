@@ -99,24 +99,75 @@ Conclusion: Sqrt() in approx_math will be adopted. In the case of floating point
 
 ## Comparing sine/cosine funciton in different libraries (with FPU)
 
+Code used:
+	volatile s32 result[360] = {0};
+
+	s32 starting_ticks = get_full_ticks();
+	u8 end_counter = 0;
+	for (u16 i=0;i<360;i++){
+		u16 testing_angle = i*100 + end_counter;
+		//result[i] = cosf(testing_angle*PI/180.0f/100.0f)*10000;
+		//result[i] = dsp_cosf(testing_angle*PI/180.0f/100.0f)*10000;
+		//result[i] = int_cos(testing_angle/10);
+		result[i] = dsp_cos(testing_angle);
+		end_counter = (end_counter+1)%100;
+	}
+	
+	s32 end_ticks = get_full_ticks();
+	
+	#define scale 32768.0
+	end_counter = 0;
+	double total_error = 0;
+	for (u16 i=0;i<36;i++){
+		float error[10];
+		//tft_clear();
+		//tft_println("%d %d", i, 0);
+		for (u16 j=0;j<5;j++){
+			u16 testing_angle = i*1000 + j*100 + end_counter;
+			error[j] = (result[i*10+j] - cos(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
+			total_error += fabs(error[j]);
+			end_counter = (end_counter+1)%100;
+			//tft_println("%f", error[j]);
+		}
+		//tft_update();
+		//while(!button_pressed(BUTTON_1));
+		//while(button_pressed(BUTTON_1));
+		//tft_clear();
+		//tft_println("%d %d", i, 1);
+		for (u16 j=5;j<10;j++){
+			u16 testing_angle = i*1000 + j*100 + end_counter;
+			error[j] = (result[i*10+j] - cos(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
+			total_error += fabs(error[j]);
+			end_counter = (end_counter+1)%100;
+			//tft_println("%f", error[j]);
+		}
+		//tft_update();
+		//while(!button_pressed(BUTTON_1));
+		//while(button_pressed(BUTTON_1));
+	}
+
 sin()/cos() function of math.h is considered to be the most accurate result.
 
-### With math.h sin()
+### With math.h sin()/cos()
 - Scaled by 10000
 - Conversion from angle to radian involved
-- Ticks used = 210
-- Average error = 0.051233
+- Ticks used = 210/204
+- Average error = 0.051233/0.051009
 
-### With approx_math sin()
-- Ticks used = 148
-- Average error = 0.506137
+### With approx_math int_sin()/int_cos()
+- Ticks used = 148/155
+- Average error = 0.506137/0.513112
 
-### With dsp_math dsp_sin()
-- Ticks used = 137
-- Average error = -0.070083
+### With dsp_math dsp_sin()/dsp_cos()
+- Ticks used = 149/149
+- Average error = 0.070083/0.071107
 
-### With dsp_math dsp_sinf()
+### With dsp_math dsp_sinf()/dsp_cosf()
 - Scaled by 10000
 - Conversion from angle to radian involved
-- Ticks used = 190
-- Average error = 0.051233
+- Ticks used = 190/190
+- Average error = 0.051233/0.051009
+
+Discussion: sine and cosine functions from the DSP library are quite fast and accurate, but scaling would be a little bit more troublesome (it is using a fixed-point representation, approx. scaled by 32768, but it can never represent 1..., only -1)
+
+Conclusion: Will use dsp_sin() and dsp_cos(). But need good ways for other trigon. functions too, they are not in dsp library.

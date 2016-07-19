@@ -21,6 +21,8 @@ __INLINE int32_t s32_sqrt(int32_t in_num){
 	return (s32)(__sqrtf(in_num)*1024.0f + 0.5f);
 }
 
+
+
 /**
 ** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"
 ** It is used to find the kth smallest element in the array

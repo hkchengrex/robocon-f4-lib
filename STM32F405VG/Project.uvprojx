@@ -716,11 +716,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -731,9 +726,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1492,11 +1497,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -1507,9 +1507,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2269,11 +2279,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -2284,9 +2289,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3045,11 +3060,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -3060,9 +3070,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3821,11 +3841,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -3836,9 +3851,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4597,11 +4622,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -4612,9 +4632,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5373,11 +5403,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -5388,9 +5413,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6149,11 +6184,6 @@
               <FilePath>.\core\servo.c</FilePath>
             </File>
             <File>
-              <FileName>dsp_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\dsp_math.c</FilePath>
-            </File>
-            <File>
               <FileName>ticks.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\ticks.c</FilePath>
@@ -6164,9 +6194,19 @@
               <FilePath>.\core\gpio.c</FilePath>
             </File>
             <File>
+              <FileName>dsp_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\dsp_math.c</FilePath>
+            </File>
+            <File>
               <FileName>quick_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\quick_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>trigon_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\trigon_math.c</FilePath>
             </File>
           </Files>
         </Group>

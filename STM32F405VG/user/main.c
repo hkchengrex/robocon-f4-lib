@@ -35,7 +35,6 @@ int main(void) {
 	for (u16 i=0;i<360;i++){
 		u16 testing_angle = i*100 + end_counter;
 		//result[i] = int_tan(testing_angle/100);
-		result[i] = dsp_tan(testing_angle);
 		end_counter = (end_counter+1)%100;
 	}
 	

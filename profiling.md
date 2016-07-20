@@ -172,3 +172,24 @@ Error is scaled by 1000.
 Discussion: sine and cosine functions from the DSP library are quite fast and accurate, but scaling would be a little bit more troublesome (it is using a fixed-point representation, approx. scaled by 32768, but it can never represent 1..., only -1)
 
 Conclusion: Will use dsp_sin() and dsp_cos(). But need good ways for other trigon. functions too, they are not in dsp library.
+
+## tan() function
+
+Code is similar to that of sin/cos.
+Profiling is more difficult as angle approaches multiple of 90 deg.
+Error scaled by 1000.
+
+### approx_math's int_tan()
+- Input angle is not scaled
+- Output is only scaled by 100
+- Intuitively very inaccurate
+- Ticks used = 40
+- Error ~20 (not at extreme angle)
+
+### trigon_math's app_tan()
+- Input angle scaled by 100
+- Output scaled by 16384
+- Ticks used = 62
+- Error ~0.05 (not at extreme angle)
+
+Conclusion: Will use new app_tan(). Be careful not to put angle ~multiple of 90 degree.

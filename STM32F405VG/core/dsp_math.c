@@ -1,7 +1,6 @@
 #include "dsp_math.h"
 
-/**
-	Calcute an approximated cosine value.
+/** Calcute an approximated cosine value.
 	@param angle: 0 ~ 35999 (Scaled by 100)
 	@return cos(angle) scaled by 32768 (-32768 ~ 32767)
 */
@@ -13,8 +12,7 @@ __INLINE int16_t dsp_cos(int32_t angle){
 	return arm_cos_q15((q15_t)(angle*32768/36000));
 }
 
-/**
-	Calcute an approximated sine value.
+/** Calcute an approximated sine value.
 	@param angle: 0 ~ 35999 (Scaled by 100)
 	@return sin(angle) scaled by 32768 (-32768 ~ 32767)
 */

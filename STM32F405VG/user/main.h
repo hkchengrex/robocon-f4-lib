@@ -33,5 +33,6 @@
 #include "approx_math.h"
 #include "dsp_math.h"
 #include "quick_math.h"
+#include "trigon_math.h"
 
 #endif 

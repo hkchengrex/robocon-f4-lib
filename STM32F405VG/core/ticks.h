@@ -12,45 +12,38 @@
 
 void ticks_init(void);
 
-/**
-  * @brief  Get the ticks(ms) passed from 0-999
+/** @brief  Get the ticks(ms) passed from 0-999
   * @retval ticks passed
   */
 u16 get_ticks(void);
 
-/**
-  * @brief  Get the seconds passed
+/** @brief  Get the seconds passed
   * @retval seconds passed
   */
 u16 get_seconds(void);
 
-/**
-  * @brief  Get the total ticks(seconds*1000 + current ticks) passed
+/** @brief  Get the total ticks(seconds*1000 + current ticks) passed
   * @retval ticks passed
   */
 u32 get_full_ticks(void);
 
-/**
-  * @brief  Generate a delay (in us)
+/** @brief  Generate a delay (in us)
   * @param  nus: us to be delayed
   */
 void _delay_us(u32 nus);
 
-/**
-  * @brief  Generate a delay (in us)
+/** @brief  Generate a delay (in us)
   * @param  nus: us to be delayed
   */
 void _delay_ms(u16 nms);
 
-/**
-  * @brief  A single 1ms delay
+/** @brief  A single 1ms delay
   * @param  None
   * @retval None
   */
 void simple_delay1_ms(void);
 
-/**
-  * @brief  A single 10us delay written in assembly
+/** @brief  A single 10us delay written in assembly
   * @param  None
   * @retval None
   */

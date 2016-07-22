@@ -41,15 +41,18 @@ int32_t app_tan(int32_t in) {
 	}
 }
 
+int32_t guess_atan(int32_t in) {
+
+}
 
 int main(){
 	table_init();
 	FILE *fp;
-	fopen_s(&fp, "result.txt", "w");
+	//fopen_s(&fp, "result.txt", "w");
 
 	for (int i = 0; i < 512; i++) {
 		printf("%d\n", tan_table[i]);
-		fprintf(fp, "%d, ", tan_table[i]);
+		//fprintf(fp, "%d, ", tan_table[i]);
 	}
 
 	#define test 17512
@@ -57,7 +60,7 @@ int main(){
 	printf("%f %f\n", app_tan(test)/ 4096.0, tan(test*PI/180.0/100.0));
 	printf("%f", (app_tan(test) - tan(test*PI / 180.0 / 100.0)*4096.0) / 4096.0 * 1000);
 
-	fclose(fp);
+	//fclose(fp);
 
 	scanf_s("");
     return 0;

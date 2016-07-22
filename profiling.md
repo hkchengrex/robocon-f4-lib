@@ -193,3 +193,21 @@ Error scaled by 1000.
 - Error ~0.05 (not at extreme angle)
 
 Conclusion: Will use new app_tan(). Be careful not to put angle ~multiple of 90 degree.
+
+## atan() function
+
+Not going to test its error, as the original one is very inaccurate anyway, and this one heavily built on the tan() function so its error would also depends on it.
+
+The function uses binary search on the tan table and linear interpolation.
+
+For 100 samples running time ~186 ticks.
+
+Then I tested the atanf() with the same samples, it takes only 79 ticks...scaling included..... and it should be a lot more accurate....
+Hmm...
+
+I guess the binary search is still too slow and FPU is too great...
+
+Why am I wasting my time to make my own atan...
+
+Conclusion: I will make the app_atan() a wrapper for atanf(). Or just use floating point somehow.
+Note: The same goes for atan2f(). They are probably fast enough, FML

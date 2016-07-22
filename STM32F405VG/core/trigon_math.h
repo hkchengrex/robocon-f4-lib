@@ -30,4 +30,17 @@
 */
 int32_t app_tan(int32_t in);
 
+/** Calcute an approximated atan value.
+	@param in: scaled by 16384, +ve or -ve
+	@return atan(in), angle scaled by 100, +ve or -ve
+*/
+int32_t app_atan(int32_t in);
+
+/** Calcute an approximated atan value.
+	@param y: scaled by 16384, +ve or -ve
+	@param x: scaled by 16384, +ve or -ve
+	@return atan2(y, x), angle scaled by 100, +ve or -ve
+*/
+int32_t app_atan2(int32_t y, int32_t x);
+
 #endif

@@ -5,6 +5,7 @@ volatile u16 seconds = 0;
 
 /**
   * @brief  Get the ticks passed from 0-999
+  * @param  None
   * @retval ticks passed
   */
 u16 get_ticks(void) {
@@ -12,19 +13,17 @@ u16 get_ticks(void) {
 }
 
 /**
-  * @brief  Get the seconds passed
-  * @retval seconds passed
+  * @brief  Get the seconds passed from
+  * @param  seconds
+  * @retval ticks passed
   */
 u16 get_seconds(void) {
 	return seconds;
 }
 
-/**
-  * @brief  Get the total ticks passed
-  * @retval ticks passed
-  */
-u32 get_full_ticks(void){
-	return seconds * 2 + ticks;
+u32 get_full_ticks(void)
+{
+	return seconds * 1000 + ticks;
 }
 
 /**
@@ -45,7 +44,7 @@ void ticks_init(void) {
 //	TICKS_TIM->DIER = 1;
 //	TICKS_TIM->CR1 = 1;
 	
-	TIM_TimeBaseStructure.TIM_Period = 2;	                 				       // Timer period, 1000 ticks in one second
+	TIM_TimeBaseStructure.TIM_Period = 1000;	                 				       // Timer period, 1000 ticks in one second
 	TIM_TimeBaseStructure.TIM_Prescaler = TICKS_CLKFreq / 1000000 - 1;     // 84M/1M - 1 = 83
 	TIM_TimeBaseInit(TICKS_TIM, &TIM_TimeBaseStructure);      							 // this part feeds the parameter we set above
 	
@@ -74,8 +73,7 @@ TICKS_IRQHandler
     TIM_ClearFlag(TICKS_TIM, TIM_FLAG_Update);
     //TIM_ClearITPendingBit(TICKS_TIM, TIM_IT_Update);
 
-    //if (ticks >= 999) {
-		if (ticks >= 1) {
+    if (ticks >= 999) {
       ticks = 0;
       seconds++;
     } else {

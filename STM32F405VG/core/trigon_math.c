@@ -40,3 +40,62 @@ int32_t app_tan(int32_t in){
 		return -guess_tan(18000-in);
 	}
 }
+
+/** Calcute an approximated atan value.
+	@param in: scaled by 16384, +ve or -ve
+	@return atan(in), angle scaled by 100, +ve or -ve
+*/
+int32_t app_atan(int32_t in){
+	return atanf(in/16384)*100;
+}
+//int32_t app_atan(int32_t in) {
+//	int8_t sign = 1;
+
+//	if (in < 0) {
+//		sign = -1;
+//		in = -in;
+//	}
+
+//	uint16_t low = 0;
+//	uint16_t top = 255;
+//	uint16_t mid = 127;
+
+//	while (low <= top) {
+//		if (tan_table[mid] == in) {
+//			//A direct match found
+//			return (mid * 1125 / 32)*sign;
+
+//		}else if (tan_table[mid] < in) {
+//			if (tan_table[mid + 1] > in) {
+//				//A close match found. Use linear interpolation.
+//				return (mid * 1125 / 32 + ((in - tan_table[mid]) * 9000 / (tan_table[mid + 1] - tan_table[mid])) / 256)*sign;
+//			}else{
+//				//Continue the binary search, cut the lower half
+//				low = mid + 1;
+//				mid = (low + top) / 2;
+//				continue;
+//			}
+//		}else {
+//			//Remaining case is (tan_table[mid] > in)
+//			if (tan_table[mid - 1] < in) {
+//				//A close match found. Use linear interpolation.
+//				return (mid * 1125 / 32 - ((tan_table[mid] - in) * 9000 / (tan_table[mid] - tan_table[mid - 1])) / 256)*sign;
+//			}else{
+//				//Continue the binary search, cut the upper half
+//				top = mid - 1;
+//				mid = (low + top) / 2;
+//				continue;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
+/** Calcute an approximated atan value.
+	@param y: scaled by 16384, +ve or -ve
+	@param x: scaled by 16384, +ve or -ve
+	@return atan2(y, x), angle scaled by 100, +ve or -ve
+*/
+int32_t app_atan2(int32_t y, int32_t x){
+	return atan2f(y/16384, x/16384)*100;
+}

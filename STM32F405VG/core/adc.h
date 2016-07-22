@@ -16,8 +16,7 @@ typedef enum{
 //Initalize all adc ports, and start taking readings automatically
 void adc_init(void);
 
-/**
-** Get the latest adc reading (voltage level)
+/** Get the latest adc reading (voltage level)
 ** @return Unsigned numerical reading representing voltage level
 */
 u16 adc_get(ADC_ID adc_id);

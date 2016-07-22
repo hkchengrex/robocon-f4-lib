@@ -23,5 +23,11 @@
 #include <stdbool.h>
 #include <string.h>
 
+/** Calcute an approximated tan value.
+	Be careful value around multiple of 90 deg will be very inaccurate.
+	@param angle: 0 ~ 35999 (Scaled by 100)
+	@return tan(angle) scaled by 16384
+*/
+int32_t app_tan(int32_t in);
 
 #endif

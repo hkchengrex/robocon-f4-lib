@@ -48,15 +48,13 @@ extern const GPIO
 */
 void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type);
 
-/**
-	General input GPIO initailizer
+/** General input GPIO initailizer
 	Usage: @ref gpio_init
 	Output type and speed does not matter to input gpio
 */
 void gpio_input_init(const GPIO* gpio, GPIOPuPd_TypeDef pp_type);
 
-/**
-	General output GPIO initailizer
+/** General output GPIO initailizer
 	Usage: @ref gpio_init
 	Speed is fixed to GPIO_Medium_Speed which should be sufficient.
 */
@@ -67,34 +65,29 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 */
 void gpio_rcc_init_all(void);
 
-/**
-	* @brief GPIO Real-time Clock Initialization
+/** @brief GPIO Real-time Clock Initialization
 	* @param GPIO pointer
 	*/
 void gpio_rcc_init(const GPIO* gpio);
 
-/**
-	* @brief Read GPIO input value
+/** @brief Read GPIO input value
 	* @param GPIO pointer
 	* @retval The GPIO Pin input value
 	*/
 u8 gpio_read_input(const GPIO* gpio);
 
-/**
-	* @brief Read GPIO output value
+/** @brief Read GPIO output value
 	* @param GPIO pointer
 	* @retval The GPIO Pin output value
 	*/
 u8 gpio_read_output(const GPIO* gpio);
 
-/**
-	* @brief Write GPIO value
+/** @brief Write GPIO value
 	* @param GPIO pointer
 	*/
 void gpio_write(const GPIO* gpio, BitAction BitVal);
 
-/**
-	* @brief Toggle GPIO
+/** @brief Toggle GPIO
 	* @param GPIO pointer
 	*/
 void gpio_toggle(const GPIO* gpio);

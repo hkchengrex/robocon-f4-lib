@@ -35,38 +35,27 @@ int main(void) {
 	for (u16 i=0;i<360;i++){
 		u16 testing_angle = i*100 + end_counter;
 		//result[i] = int_tan(testing_angle/100);
+		result[i] = app_tan(testing_angle);
 		end_counter = (end_counter+1)%100;
 	}
 	
 	s32 end_ticks = get_full_ticks();
 	
-	#define scale 32768.0
+	#define scale 16384.0
 	end_counter = 0;
 	double total_error = 0;
-	for (u16 i=0;i<36;i++){
-		float error[10];
-		//tft_clear();
-		//tft_println("%d %d", i, 0);
-		for (u16 j=0;j<5;j++){
-			u16 testing_angle = i*1000 + j*100 + end_counter;
-			error[j] = (result[i*10+j] - tan(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
-			total_error += fabs(error[j]);
-			end_counter = (end_counter+1)%100;
-			//tft_println("%f", error[j]);
-		}
-		//tft_update();
-		//while(!button_pressed(BUTTON_1));
-		//while(button_pressed(BUTTON_1));
-		//tft_clear();
-		//tft_println("%d %d", i, 1);
-		for (u16 j=5;j<10;j++){
-			u16 testing_angle = i*1000 + j*100 + end_counter;
-			error[j] = (result[i*10+j] - tan(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
-			total_error += fabs(error[j]);
-			end_counter = (end_counter+1)%100;
-			//tft_println("%f", error[j]);
-		}
-		//tft_update();
+	for (u16 i=0;i<360;i++){
+		tft_clear();
+		tft_println("%d %d", i, 0);
+		u16 testing_angle = i*100 + end_counter;
+		float error = (result[i] - tan(testing_angle*PI/180.0/100.0)*scale)/scale*1000.0;
+		total_error += fabs(error);
+		end_counter = (end_counter+1)%100;
+		tft_println("%d", testing_angle);
+		tft_println("%d", result[i]);
+		tft_println("%f", tan(testing_angle*PI/180.0/100.0)*scale);
+		tft_println("%f", error);
+		tft_update();
 		//while(!button_pressed(BUTTON_1));
 		//while(button_pressed(BUTTON_1));
 	}
@@ -76,7 +65,6 @@ int main(void) {
 		tft_println("%d", get_ticks());
 		tft_println("%f", total_error/360);
 		tft_println("%d", end_ticks - starting_ticks);
-		
 		
 		tft_update();
 	}

@@ -35,8 +35,7 @@ typedef enum {
 
 void servo_init(void);
 
-/**
-	Control the servo with a pwm.
+/** Control the servo with a pwm.
 	@param servo_id The servo to be controlled
 	@param CCR value out of 20000. Period 20ms.
 */

@@ -556,12 +556,12 @@ Section Cross References
     mti-1_uart.o(i.send_MTi_1_UART_msg) refers to malloc.o(i.malloc) for malloc
     mti-1_uart.o(i.send_MTi_1_UART_msg) refers to usart.o(i.uart_tx_byte) for uart_tx_byte
     mti-1_uart.o(i.send_MTi_1_UART_msg) refers to malloc.o(i.free) for free
-    gp2y0a41sk.o(i.get_ir_dis) refers to adc.o(i.adc_get) for adc_get
-    sick_dt50.o(i.get_ls_adc_reading) refers to adc.o(i.adc_get) for adc_get
-    sick_dt50.o(i.get_ls_adc_reading) refers to sick_dt50.o(.bss) for .bss
-    sick_dt50.o(i.get_ls_cal_reading) refers to adc.o(i.adc_get) for adc_get
-    sick_dt50.o(i.get_ls_cal_reading) refers to sick_dt50.o(.constdata) for .constdata
-    sick_dt50.o(i.get_ls_cal_reading) refers to sick_dt50.o(.bss) for .bss
+    ir_gp2y0a41sk.o(i.get_gp2y_dis) refers to adc.o(i.adc_get) for adc_get
+    laser_dt50.o(i.get_ls_adc_reading) refers to adc.o(i.adc_get) for adc_get
+    laser_dt50.o(i.get_ls_adc_reading) refers to laser_dt50.o(.bss) for .bss
+    laser_dt50.o(i.get_ls_cal_reading) refers to adc.o(i.adc_get) for adc_get
+    laser_dt50.o(i.get_ls_cal_reading) refers to laser_dt50.o(.constdata) for .constdata
+    laser_dt50.o(i.get_ls_cal_reading) refers to laser_dt50.o(.bss) for .bss
     pneumatic.o(i.pneumatic_control) refers to gpio.o(i.gpio_write) for gpio_write
     pneumatic.o(i.pneumatic_control) refers to pneumatic.o(.data) for .data
     pneumatic.o(i.pneumatic_init) refers to gpio.o(i.gpio_output_init) for gpio_output_init
@@ -1899,17 +1899,17 @@ Removing Unused input sections from the image.
     Removing mti-1_uart.o(i.send_MTi_1_UART_msg), (208 bytes).
     Removing mti-1_uart.o(.bss), (24 bytes).
     Removing mti-1_uart.o(.data), (22 bytes).
-    Removing gp2y0a41sk.o(.rev16_text), (4 bytes).
-    Removing gp2y0a41sk.o(.revsh_text), (4 bytes).
-    Removing gp2y0a41sk.o(.rrx_text), (6 bytes).
-    Removing gp2y0a41sk.o(i.get_ir_dis), (20 bytes).
-    Removing sick_dt50.o(.rev16_text), (4 bytes).
-    Removing sick_dt50.o(.revsh_text), (4 bytes).
-    Removing sick_dt50.o(.rrx_text), (6 bytes).
-    Removing sick_dt50.o(i.get_ls_adc_reading), (20 bytes).
-    Removing sick_dt50.o(i.get_ls_cal_reading), (120 bytes).
-    Removing sick_dt50.o(.bss), (20 bytes).
-    Removing sick_dt50.o(.constdata), (40 bytes).
+    Removing ir_gp2y0a41sk.o(.rev16_text), (4 bytes).
+    Removing ir_gp2y0a41sk.o(.revsh_text), (4 bytes).
+    Removing ir_gp2y0a41sk.o(.rrx_text), (6 bytes).
+    Removing ir_gp2y0a41sk.o(i.get_gp2y_dis), (20 bytes).
+    Removing laser_dt50.o(.rev16_text), (4 bytes).
+    Removing laser_dt50.o(.revsh_text), (4 bytes).
+    Removing laser_dt50.o(.rrx_text), (6 bytes).
+    Removing laser_dt50.o(i.get_ls_adc_reading), (20 bytes).
+    Removing laser_dt50.o(i.get_ls_cal_reading), (120 bytes).
+    Removing laser_dt50.o(.bss), (20 bytes).
+    Removing laser_dt50.o(.constdata), (40 bytes).
     Removing pneumatic.o(.rev16_text), (4 bytes).
     Removing pneumatic.o(.revsh_text), (4 bytes).
     Removing pneumatic.o(.rrx_text), (6 bytes).
@@ -2059,12 +2059,12 @@ Image Symbol Table
     core\trigon_math.c                       0x00000000   Number         0  trigon_math.o ABSOLUTE
     core\usart.c                             0x00000000   Number         0  usart.o ABSOLUTE
     dc.s                                     0x00000000   Number         0  dc.o ABSOLUTE
-    ext\GP2Y0A41SK.c                         0x00000000   Number         0  gp2y0a41sk.o ABSOLUTE
+    ext\IR_GP2Y0A41SK.c                      0x00000000   Number         0  ir_gp2y0a41sk.o ABSOLUTE
+    ext\LASER_DT50.c                         0x00000000   Number         0  laser_dt50.o ABSOLUTE
     ext\MTi-1_UART.c                         0x00000000   Number         0  mti-1_uart.o ABSOLUTE
-    ext\SICK_DT50.c                          0x00000000   Number         0  sick_dt50.o ABSOLUTE
-    ext\\GP2Y0A41SK.c                        0x00000000   Number         0  gp2y0a41sk.o ABSOLUTE
+    ext\\IR_GP2Y0A41SK.c                     0x00000000   Number         0  ir_gp2y0a41sk.o ABSOLUTE
+    ext\\LASER_DT50.c                        0x00000000   Number         0  laser_dt50.o ABSOLUTE
     ext\\MTi-1_UART.c                        0x00000000   Number         0  mti-1_uart.o ABSOLUTE
-    ext\\SICK_DT50.c                         0x00000000   Number         0  sick_dt50.o ABSOLUTE
     ext\\buzzer_song.c                       0x00000000   Number         0  buzzer_song.o ABSOLUTE
     ext\\can_motor.c                         0x00000000   Number         0  can_motor.o ABSOLUTE
     ext\\gyro.c                              0x00000000   Number         0  gyro.o ABSOLUTE

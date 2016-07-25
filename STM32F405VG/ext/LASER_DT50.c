@@ -5,11 +5,10 @@
 *	@Author 		James Mok
 **/
 
-#include "SICK_DT50.h"
+#include "LASER_DT50.h"
 
 static u16 ls_adc_reading[ADC_COUNT];
 static u16 ls_cal_reading[ADC_COUNT];
-//static u16 ls_dma_reading[ADC_COUNT];
 
 /**
 *	@brief return the range found

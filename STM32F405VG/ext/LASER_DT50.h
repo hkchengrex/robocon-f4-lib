@@ -1,5 +1,5 @@
-#ifndef _SICK_DT50_H
-#define _SICK_DT50_H
+#ifndef _LASER_DT50_H
+#define _LASER_DT50_H
 
 /**
 *	Laser Sensor for stm32f103

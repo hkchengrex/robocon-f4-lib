@@ -48,6 +48,18 @@ int16_t app_cos(int32_t angle);
 */
 int32_t app_tan(int32_t in);
 
+/** Approximate an asin value.
+	@param in: scaled by 32768, +ve or -ve
+	@return asin(in), angle scaled by 100, +ve or -ve
+*/
+int32_t app_asin(int32_t in);
+
+/** Approximate an acos value.
+	@param in: scaled by 32768, +ve or -ve
+	@return acos(in), angle scaled by 100, +ve or -ve
+*/
+int32_t app_acos(int32_t in);
+
 /** Approximate an atan value.
 	@param in: scaled by 16384, +ve or -ve
 	@return atan(in), angle scaled by 100, +ve or -ve

@@ -46,6 +46,14 @@ int32_t app_tan(int32_t in){
 	}
 }
 
+int32_t app_asin(int32_t in){
+	return asinf(in/32768)*100;
+}
+
+int32_t app_acos(int32_t in){
+	return acosf(in/32768)*100;
+}
+
 int32_t app_atan(int32_t in){
 	return atanf(in/16384)*100;
 }

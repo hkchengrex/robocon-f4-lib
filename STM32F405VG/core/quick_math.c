@@ -1,16 +1,10 @@
 #include "quick_math.h"
 
-/** This function tries to cap a s16 within a specific range.
-** The inline property tries to remove the function call and make it runs faster
-**/
 int16_t s16_cap(int16_t in_num, int16_t upper_bound, int16_t lower_bound){
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
 
 
-/** This function tries to cap a u16 within a specific range.
-** The inline property tries to remove the function call and make it runs faster
-**/
 uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound){
 	return in_num>upper_bound?upper_bound:in_num<lower_bound?lower_bound:in_num;
 }
@@ -18,7 +12,6 @@ uint16_t u16_cap(uint16_t in_num, uint16_t upper_bound, uint16_t lower_bound){
 int32_t s32_sqrt(int32_t in_num){
 	return (s32)(__sqrtf(in_num)*1024.0f + 0.5f);
 }
-
 
 
 /** A quick select algorithm from N. Wirth's "Algorithms + data structures = programs"

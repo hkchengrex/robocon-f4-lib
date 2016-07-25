@@ -170,6 +170,9 @@ Error is scaled by 1000.
 - Average error = 0.051233/0.051009
 
 Discussion: sine and cosine functions from the DSP library are quite fast and accurate, but scaling would be a little bit more troublesome (it is using a fixed-point representation, approx. scaled by 32768, but it can never represent 1..., only -1)
+Note: 
+- dsp_cos() max error 0.22
+- dsp_sin() max error 0.22
 
 Conclusion: Will use dsp_sin() and dsp_cos(). But need good ways for other trigon. functions too, they are not in dsp library.
 

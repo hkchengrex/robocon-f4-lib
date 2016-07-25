@@ -15,24 +15,29 @@ static const int32_t tan_table[257] = {0, 101, 201, 302, 402, 503, 603, 704, 805
 	91101, 94423, 97989, 101826, 105968, 110452, 115323, 120634, 126447, 132838, 139898, 147739, 156499, 166350, 177509, 190258,
 	204962, 222112, 242375, 266682, 296385, 333504, 381219, 444828, 533868, 667410, 889958, 1335021, 2670143, 10680572}; //Scaled by 16384
 
+
+int16_t app_sin(int32_t angle){
+	angle %= 36000;
+	while(angle<0){angle += 36000;}
+	return arm_sin_q15((q15_t)(angle*32768/36000));
+}	
+	
+int16_t app_cos(int32_t angle){
+	angle %= 36000;
+	while(angle<0){angle += 36000;}
+	
+	return arm_cos_q15((q15_t)(angle*32768/36000));
+}
+	
 __INLINE static int32_t guess_tan(int32_t in) {
 	uint8_t ini_index = in * 256 / 9000;
 	int16_t weight = in*256 - (ini_index * 9000);
 	return tan_table[ini_index] + (tan_table[ini_index + 1] - tan_table[ini_index])*weight / 9000;
 }
 
-/** Calcute an approximated tan value.
-	Be careful value around multiple of 90 deg will be very inaccurate.
-	@param angle: 0 ~ 35999 (Scaled by 100)
-	@return tan(angle) scaled by 16384
-*/
 int32_t app_tan(int32_t in){
-	while(in > 18000){
-		in -= 18000;
-	}
-	while(in < 0){
-		in += 18000;
-	}
+	while(in > 18000){in -= 18000;}
+	while(in < 0){in += 18000;}
 	
 	if (in < 9000){
 		return guess_tan(in);
@@ -41,61 +46,10 @@ int32_t app_tan(int32_t in){
 	}
 }
 
-/** Calcute an approximated atan value.
-	@param in: scaled by 16384, +ve or -ve
-	@return atan(in), angle scaled by 100, +ve or -ve
-*/
 int32_t app_atan(int32_t in){
 	return atanf(in/16384)*100;
 }
-//int32_t app_atan(int32_t in) {
-//	int8_t sign = 1;
 
-//	if (in < 0) {
-//		sign = -1;
-//		in = -in;
-//	}
-
-//	uint16_t low = 0;
-//	uint16_t top = 255;
-//	uint16_t mid = 127;
-
-//	while (low <= top) {
-//		if (tan_table[mid] == in) {
-//			//A direct match found
-//			return (mid * 1125 / 32)*sign;
-
-//		}else if (tan_table[mid] < in) {
-//			if (tan_table[mid + 1] > in) {
-//				//A close match found. Use linear interpolation.
-//				return (mid * 1125 / 32 + ((in - tan_table[mid]) * 9000 / (tan_table[mid + 1] - tan_table[mid])) / 256)*sign;
-//			}else{
-//				//Continue the binary search, cut the lower half
-//				low = mid + 1;
-//				mid = (low + top) / 2;
-//				continue;
-//			}
-//		}else {
-//			//Remaining case is (tan_table[mid] > in)
-//			if (tan_table[mid - 1] < in) {
-//				//A close match found. Use linear interpolation.
-//				return (mid * 1125 / 32 - ((tan_table[mid] - in) * 9000 / (tan_table[mid] - tan_table[mid - 1])) / 256)*sign;
-//			}else{
-//				//Continue the binary search, cut the upper half
-//				top = mid - 1;
-//				mid = (low + top) / 2;
-//				continue;
-//			}
-//		}
-//	}
-//	return 0;
-//}
-
-/** Calcute an approximated atan value.
-	@param y: scaled by 16384, +ve or -ve
-	@param x: scaled by 16384, +ve or -ve
-	@return atan2(y, x), angle scaled by 100, +ve or -ve
-*/
 int32_t app_atan2(int32_t y, int32_t x){
 	return atan2f(y/16384, x/16384)*100;
 }

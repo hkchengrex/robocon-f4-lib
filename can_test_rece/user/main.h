@@ -11,7 +11,7 @@
 	PIN_ON_BOTTOM =	2
 	PIN_ON_RIGHT = 	3
 */
-#define ORIENTATION_SETTING 2
+#define ORIENTATION_SETTING 0
 
 #include "stm32f4xx_gpio.h"
 #include "ticks.h"

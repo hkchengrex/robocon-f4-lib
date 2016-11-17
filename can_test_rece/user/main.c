@@ -10,26 +10,26 @@
 
 #include "main.h"
 
-s32 last_data = 0;
+u32 last_data = 0;
 bool time_err = false;
 bool cont_err = false;
 s32 te_count = 0;
 s32 ce_count = 0;
 void recv_hand(CanRxMsg msg){
-	u8 first_data = msg.Data[0];
-	for (int i=1; i<8; i++){
-		if (first_data != msg.Data[i]){
-			cont_err = true;
-			ce_count++;
-		}
+	u32 first_data = (u32)msg.Data[0]<<24 | (u32)msg.Data[1]<<16 | (u32)msg.Data[2]<<8 | (u32)msg.Data[3];
+
+	u32 sec_data = (u32)msg.Data[4]<<24 | (u32)msg.Data[5]<<16 | (u32)msg.Data[6]<<8 | (u32)msg.Data[7];
+	
+	if (first_data != sec_data){
+		cont_err = true;
+		ce_count++;
 	}
 	
 	if (first_data != (last_data+1)){
 		time_err = true;
 		te_count++;
-	}else{
-		last_data = first_data;
 	}
+	last_data = first_data;
 }
 
 int main(void) {
@@ -65,9 +65,9 @@ int main(void) {
 			tft_println("%s %s", __TIME__, __DATE__);
 			tft_println("T: %d", get_full_ticks());
 			tft_println("D: %d", last_data);
-			tft_println("R: %6.2f KB/s", data_diff*8.0f/2.0f/1024.0f);
-			tft_println("Time error: %d", te_count);
-			tft_println("Cont error: %d", ce_count);
+			tft_println("R: %6.2f KB/s", data_diff*8.0f*1000/(this_ticks - last_ticks)/1024);
+			tft_println("TC: %d", te_count);
+			tft_println("CC: %d", ce_count);
 			
 			if (time_err){
 				tft_set_text_color(RED);

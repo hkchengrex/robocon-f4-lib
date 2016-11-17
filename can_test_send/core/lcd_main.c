@@ -273,7 +273,9 @@ void tft_init(TFT_ORIENTATION orientation, u16 in_bg_color, u16 in_text_color, u
 	tft_spi_init();
 	tft_reset();
 	tft_config();
-  tft_write_command(0x2C);
+	
+	tft_write_command(0x2c);
+	
 	tft_set_bg_color(in_bg_color);
 	tft_set_text_color(in_text_color);
 	tft_set_special_color(in_text_color_sp);

@@ -70,7 +70,7 @@ void can_init(void){
 	CAN_InitStructure.CAN_TTCM = DISABLE;
 	CAN_InitStructure.CAN_ABOM = ENABLE;
 	CAN_InitStructure.CAN_AWUM = DISABLE;
-	CAN_InitStructure.CAN_NART = DISABLE;
+	CAN_InitStructure.CAN_NART = ENABLE;
 	CAN_InitStructure.CAN_RFLM = DISABLE;
 	CAN_InitStructure.CAN_TXFP = DISABLE;
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
@@ -309,7 +309,6 @@ CAN_MESSAGE can_get_recent_rx(void){
 
 
 void CAN1_RX0_IRQHandler(void){
-    //print_status();
 	if (CAN_GetITStatus(CANn, CAN_IT_FMP0) != RESET) {
 		CanRxMsg RxMessage;
 		CAN_ClearITPendingBit(CANn, CAN_IT_FMP0);

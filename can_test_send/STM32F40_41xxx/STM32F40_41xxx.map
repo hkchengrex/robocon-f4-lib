@@ -1,4 +1,4 @@
-Component: ARM Compiler 5.06 update 1 (build 61) Tool: armlink [4d35a8]
+Component: ARM Compiler 5.06 (build 20) Tool: armlink [4d35a3]
 
 ==============================================================================
 
@@ -217,6 +217,7 @@ Section Cross References
     main.o(i.main) refers to lcd_main.o(i.tft_set_text_color) for tft_set_text_color
     main.o(i.main) refers to lcd_main.o(i.tft_clear) for tft_clear
     main.o(i.main) refers to lcd_main.o(i.tft_println) for tft_println
+    main.o(i.main) refers to can_protocol.o(i.can_tx_queue_size) for can_tx_queue_size
     main.o(i.main) refers to f2d.o(.text) for __aeabi_f2d
     main.o(i.main) refers to lcd_main.o(i.tft_update) for tft_update
     main.o(i.main) refers to main.o(.data) for .data
@@ -1631,7 +1632,6 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(i.can_tx_queue_clear), (16 bytes).
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
     Removing can_protocol.o(i.can_tx_queue_head), (12 bytes).
-    Removing can_protocol.o(i.can_tx_queue_size), (28 bytes).
     Removing can_protocol.o(i.can_tx_queue_tail), (12 bytes).
     Removing can_protocol.o(i.n_bytes_to_one), (30 bytes).
     Removing can_protocol.o(i.one_to_n_bytes), (16 bytes).
@@ -1987,7 +1987,7 @@ Removing Unused input sections from the image.
     Removing dfixi.o(.text), (62 bytes).
     Removing approx_math.o(i.Sqrt), (96 bytes).
 
-1176 unused section(s) (total 42577 bytes) removed from the image.
+1175 unused section(s) (total 42549 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1998,58 +1998,58 @@ Image Symbol Table
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
-    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/stdio/fputc.c           0x00000000   Number         0  fputc.o ABSOLUTE
     ../clib/microlib/stdio/semi.s            0x00000000   Number         0  semi.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusesemip.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../mathlib/acosf.c                       0x00000000   Number         0  acosf_x.o ABSOLUTE
     ../mathlib/acosf.c                       0x00000000   Number         0  acosf.o ABSOLUTE
-    ../mathlib/asinf.c                       0x00000000   Number         0  asinf.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf_x.o ABSOLUTE
+    ../mathlib/asinf.c                       0x00000000   Number         0  asinf.o ABSOLUTE
     ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f.o ABSOLUTE
     ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f_x.o ABSOLUTE
     ../mathlib/atanf.c                       0x00000000   Number         0  atanf_x.o ABSOLUTE
     ../mathlib/atanf.c                       0x00000000   Number         0  atanf.o ABSOLUTE
     ../mathlib/fpclassifyf.c                 0x00000000   Number         0  fpclassifyf.o ABSOLUTE
     ../mathlib/funder.c                      0x00000000   Number         0  funder.o ABSOLUTE
-    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_x.o ABSOLUTE
+    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf.o ABSOLUTE
     ..\FastMathFunctions\arm_cos_q15.c       0x00000000   Number         0  arm_cos_q15.o ABSOLUTE
     ..\FastMathFunctions\arm_sin_q15.c       0x00000000   Number         0  arm_sin_q15.o ABSOLUTE
     ..\\FastMathFunctions\\arm_cos_q15.c     0x00000000   Number         0  arm_cos_q15.o ABSOLUTE
@@ -2209,8 +2209,8 @@ Image Symbol Table
     .text                                    0x080002da   Section        0  uidiv.o(.text)
     .text                                    0x08000306   Section        0  uldiv.o(.text)
     .text                                    0x08000368   Section        0  llushr.o(.text)
-    .text                                    0x08000388   Section        0  depilogue.o(.text)
     .text                                    0x08000388   Section        0  iusefp.o(.text)
+    .text                                    0x08000388   Section        0  depilogue.o(.text)
     .text                                    0x08000442   Section        0  dadd.o(.text)
     .text                                    0x08000590   Section        0  ddiv.o(.text)
     .text                                    0x0800066e   Section        0  dfixul.o(.text)
@@ -2297,36 +2297,37 @@ Image Symbol Table
     i.button_pressed                         0x08001db8   Section        0  button.o(i.button_pressed)
     i.buzzer_init                            0x08001dd4   Section        0  buzzer.o(i.buzzer_init)
     i.can_init                               0x08001ee0   Section        0  can_protocol.o(i.can_init)
-    i.can_tx_dequeue                         0x08001fb4   Section        0  can_protocol.o(i.can_tx_dequeue)
-    i.can_tx_enqueue                         0x08002080   Section        0  can_protocol.o(i.can_tx_enqueue)
-    i.get_full_ticks                         0x080020d4   Section        0  ticks.o(i.get_full_ticks)
-    i.gpio_input_init                        0x080020ec   Section        0  gpio.o(i.gpio_input_init)
-    i.gpio_rcc_init_all                      0x0800210a   Section        0  gpio.o(i.gpio_rcc_init_all)
-    i.gpio_read_input                        0x08002168   Section        0  gpio.o(i.gpio_read_input)
-    i.main                                   0x08002170   Section        0  main.o(i.main)
-    i.tft_char_is_changed                    0x08002320   Section        0  lcd_main.o(i.tft_char_is_changed)
-    i.tft_clear                              0x080023bc   Section        0  lcd_main.o(i.tft_clear)
-    i.tft_config                             0x08002430   Section        0  lcd_main.o(i.tft_config)
-    i.tft_fill_color                         0x08002646   Section        0  lcd_main.o(i.tft_fill_color)
-    i.tft_init                               0x080026a8   Section        0  lcd_main.o(i.tft_init)
-    i.tft_println                            0x080027a4   Section        0  lcd_main.o(i.tft_println)
-    i.tft_put_logo                           0x08002880   Section        0  lcd_main.o(i.tft_put_logo)
-    i.tft_put_pixel                          0x08003b58   Section        0  lcd_main.o(i.tft_put_pixel)
-    i.tft_set_pixel_pos                      0x08003bb4   Section        0  lcd_main.o(i.tft_set_pixel_pos)
-    i.tft_set_text_color                     0x08003c04   Section        0  lcd_main.o(i.tft_set_text_color)
-    i.tft_spi_init                           0x08003c10   Section        0  lcd_main.o(i.tft_spi_init)
-    i.tft_update                             0x08003d24   Section        0  lcd_main.o(i.tft_update)
-    i.tft_write_command                      0x08004318   Section        0  lcd_main.o(i.tft_write_command)
-    i.tft_write_data                         0x08004374   Section        0  lcd_main.o(i.tft_write_data)
-    i.ticks_init                             0x080043d0   Section        0  ticks.o(i.ticks_init)
-    .constdata                               0x0800443c   Section        8  gpio.o(.constdata)
-    .constdata                               0x08004444   Section        8  gpio.o(.constdata)
-    .constdata                               0x0800444c   Section        8  gpio.o(.constdata)
-    .constdata                               0x08004454   Section        8  gpio.o(.constdata)
-    .constdata                               0x0800445c   Section        8  gpio.o(.constdata)
-    .constdata                               0x08004464   Section        8  gpio.o(.constdata)
-    .constdata                               0x0800446c   Section        8  gpio.o(.constdata)
-    .constdata                               0x08004474   Section        8  gpio.o(.constdata)
+    i.can_tx_dequeue                         0x08001fcc   Section        0  can_protocol.o(i.can_tx_dequeue)
+    i.can_tx_enqueue                         0x08002098   Section        0  can_protocol.o(i.can_tx_enqueue)
+    i.can_tx_queue_size                      0x080020ec   Section        0  can_protocol.o(i.can_tx_queue_size)
+    i.get_full_ticks                         0x08002108   Section        0  ticks.o(i.get_full_ticks)
+    i.gpio_input_init                        0x08002120   Section        0  gpio.o(i.gpio_input_init)
+    i.gpio_rcc_init_all                      0x0800213e   Section        0  gpio.o(i.gpio_rcc_init_all)
+    i.gpio_read_input                        0x0800219c   Section        0  gpio.o(i.gpio_read_input)
+    i.main                                   0x080021a4   Section        0  main.o(i.main)
+    i.tft_char_is_changed                    0x08002364   Section        0  lcd_main.o(i.tft_char_is_changed)
+    i.tft_clear                              0x08002400   Section        0  lcd_main.o(i.tft_clear)
+    i.tft_config                             0x08002474   Section        0  lcd_main.o(i.tft_config)
+    i.tft_fill_color                         0x0800268a   Section        0  lcd_main.o(i.tft_fill_color)
+    i.tft_init                               0x080026ec   Section        0  lcd_main.o(i.tft_init)
+    i.tft_println                            0x080027e8   Section        0  lcd_main.o(i.tft_println)
+    i.tft_put_logo                           0x080028c4   Section        0  lcd_main.o(i.tft_put_logo)
+    i.tft_put_pixel                          0x08003b9c   Section        0  lcd_main.o(i.tft_put_pixel)
+    i.tft_set_pixel_pos                      0x08003bf8   Section        0  lcd_main.o(i.tft_set_pixel_pos)
+    i.tft_set_text_color                     0x08003c48   Section        0  lcd_main.o(i.tft_set_text_color)
+    i.tft_spi_init                           0x08003c54   Section        0  lcd_main.o(i.tft_spi_init)
+    i.tft_update                             0x08003d68   Section        0  lcd_main.o(i.tft_update)
+    i.tft_write_command                      0x0800435c   Section        0  lcd_main.o(i.tft_write_command)
+    i.tft_write_data                         0x080043b8   Section        0  lcd_main.o(i.tft_write_data)
+    i.ticks_init                             0x08004414   Section        0  ticks.o(i.ticks_init)
+    .constdata                               0x08004480   Section        8  gpio.o(.constdata)
+    .constdata                               0x08004488   Section        8  gpio.o(.constdata)
+    .constdata                               0x08004490   Section        8  gpio.o(.constdata)
+    .constdata                               0x08004498   Section        8  gpio.o(.constdata)
+    .constdata                               0x080044a0   Section        8  gpio.o(.constdata)
+    .constdata                               0x080044a8   Section        8  gpio.o(.constdata)
+    .constdata                               0x080044b0   Section        8  gpio.o(.constdata)
+    .constdata                               0x080044b8   Section        8  gpio.o(.constdata)
     .data                                    0x20000000   Section       20  system_stm32f4xx.o(.data)
     .data                                    0x20000014   Section        4  main.o(.data)
     .data                                    0x20000018   Section       20  can_protocol.o(.data)
@@ -2554,39 +2555,40 @@ Image Symbol Table
     button_init                              0x08001d85   Thumb Code    46  button.o(i.button_init)
     button_pressed                           0x08001db9   Thumb Code    22  button.o(i.button_pressed)
     buzzer_init                              0x08001dd5   Thumb Code   242  buzzer.o(i.buzzer_init)
-    can_init                                 0x08001ee1   Thumb Code   202  can_protocol.o(i.can_init)
-    can_tx_dequeue                           0x08001fb5   Thumb Code   192  can_protocol.o(i.can_tx_dequeue)
-    can_tx_enqueue                           0x08002081   Thumb Code    78  can_protocol.o(i.can_tx_enqueue)
-    get_full_ticks                           0x080020d5   Thumb Code    20  ticks.o(i.get_full_ticks)
-    gpio_input_init                          0x080020ed   Thumb Code    30  gpio.o(i.gpio_input_init)
-    gpio_rcc_init_all                        0x0800210b   Thumb Code    94  gpio.o(i.gpio_rcc_init_all)
-    gpio_read_input                          0x08002169   Thumb Code     8  gpio.o(i.gpio_read_input)
-    main                                     0x08002171   Thumb Code   338  main.o(i.main)
-    tft_char_is_changed                      0x08002321   Thumb Code   138  lcd_main.o(i.tft_char_is_changed)
-    tft_clear                                0x080023bd   Thumb Code   106  lcd_main.o(i.tft_clear)
-    tft_config                               0x08002431   Thumb Code   534  lcd_main.o(i.tft_config)
-    tft_fill_color                           0x08002647   Thumb Code    98  lcd_main.o(i.tft_fill_color)
-    tft_init                                 0x080026a9   Thumb Code   234  lcd_main.o(i.tft_init)
-    tft_println                              0x080027a5   Thumb Code   210  lcd_main.o(i.tft_println)
-    tft_put_logo                             0x08002881   Thumb Code  4824  lcd_main.o(i.tft_put_logo)
-    tft_put_pixel                            0x08003b59   Thumb Code    86  lcd_main.o(i.tft_put_pixel)
-    tft_set_pixel_pos                        0x08003bb5   Thumb Code    80  lcd_main.o(i.tft_set_pixel_pos)
-    tft_set_text_color                       0x08003c05   Thumb Code     6  lcd_main.o(i.tft_set_text_color)
-    tft_spi_init                             0x08003c11   Thumb Code   262  lcd_main.o(i.tft_spi_init)
-    tft_update                               0x08003d25   Thumb Code  1502  lcd_main.o(i.tft_update)
-    tft_write_command                        0x08004319   Thumb Code    78  lcd_main.o(i.tft_write_command)
-    tft_write_data                           0x08004375   Thumb Code    78  lcd_main.o(i.tft_write_data)
-    ticks_init                               0x080043d1   Thumb Code    98  ticks.o(i.ticks_init)
-    PA4                                      0x0800443c   Data           8  gpio.o(.constdata)
-    PA5                                      0x08004444   Data           8  gpio.o(.constdata)
-    PA6                                      0x0800444c   Data           8  gpio.o(.constdata)
-    PA7                                      0x08004454   Data           8  gpio.o(.constdata)
-    PC10                                     0x0800445c   Data           8  gpio.o(.constdata)
-    PC11                                     0x08004464   Data           8  gpio.o(.constdata)
-    PC12                                     0x0800446c   Data           8  gpio.o(.constdata)
-    PD2                                      0x08004474   Data           8  gpio.o(.constdata)
-    Region$$Table$$Base                      0x0800447c   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0800449c   Number         0  anon$$obj.o(Region$$Table)
+    can_init                                 0x08001ee1   Thumb Code   226  can_protocol.o(i.can_init)
+    can_tx_dequeue                           0x08001fcd   Thumb Code   192  can_protocol.o(i.can_tx_dequeue)
+    can_tx_enqueue                           0x08002099   Thumb Code    78  can_protocol.o(i.can_tx_enqueue)
+    can_tx_queue_size                        0x080020ed   Thumb Code    24  can_protocol.o(i.can_tx_queue_size)
+    get_full_ticks                           0x08002109   Thumb Code    20  ticks.o(i.get_full_ticks)
+    gpio_input_init                          0x08002121   Thumb Code    30  gpio.o(i.gpio_input_init)
+    gpio_rcc_init_all                        0x0800213f   Thumb Code    94  gpio.o(i.gpio_rcc_init_all)
+    gpio_read_input                          0x0800219d   Thumb Code     8  gpio.o(i.gpio_read_input)
+    main                                     0x080021a5   Thumb Code   350  main.o(i.main)
+    tft_char_is_changed                      0x08002365   Thumb Code   138  lcd_main.o(i.tft_char_is_changed)
+    tft_clear                                0x08002401   Thumb Code   106  lcd_main.o(i.tft_clear)
+    tft_config                               0x08002475   Thumb Code   534  lcd_main.o(i.tft_config)
+    tft_fill_color                           0x0800268b   Thumb Code    98  lcd_main.o(i.tft_fill_color)
+    tft_init                                 0x080026ed   Thumb Code   234  lcd_main.o(i.tft_init)
+    tft_println                              0x080027e9   Thumb Code   210  lcd_main.o(i.tft_println)
+    tft_put_logo                             0x080028c5   Thumb Code  4824  lcd_main.o(i.tft_put_logo)
+    tft_put_pixel                            0x08003b9d   Thumb Code    86  lcd_main.o(i.tft_put_pixel)
+    tft_set_pixel_pos                        0x08003bf9   Thumb Code    80  lcd_main.o(i.tft_set_pixel_pos)
+    tft_set_text_color                       0x08003c49   Thumb Code     6  lcd_main.o(i.tft_set_text_color)
+    tft_spi_init                             0x08003c55   Thumb Code   262  lcd_main.o(i.tft_spi_init)
+    tft_update                               0x08003d69   Thumb Code  1502  lcd_main.o(i.tft_update)
+    tft_write_command                        0x0800435d   Thumb Code    78  lcd_main.o(i.tft_write_command)
+    tft_write_data                           0x080043b9   Thumb Code    78  lcd_main.o(i.tft_write_data)
+    ticks_init                               0x08004415   Thumb Code    98  ticks.o(i.ticks_init)
+    PA4                                      0x08004480   Data           8  gpio.o(.constdata)
+    PA5                                      0x08004488   Data           8  gpio.o(.constdata)
+    PA6                                      0x08004490   Data           8  gpio.o(.constdata)
+    PA7                                      0x08004498   Data           8  gpio.o(.constdata)
+    PC10                                     0x080044a0   Data           8  gpio.o(.constdata)
+    PC11                                     0x080044a8   Data           8  gpio.o(.constdata)
+    PC12                                     0x080044b0   Data           8  gpio.o(.constdata)
+    PD2                                      0x080044b8   Data           8  gpio.o(.constdata)
+    Region$$Table$$Base                      0x080044c0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080044e0   Number         0  anon$$obj.o(Region$$Table)
     SystemCoreClock                          0x20000000   Data           4  system_stm32f4xx.o(.data)
     AHBPrescTable                            0x20000004   Data          16  system_stm32f4xx.o(.data)
     last_data                                0x20000014   Data           4  main.o(.data)
@@ -2628,9 +2630,9 @@ Memory Map of the image
 
   Image Entry point : 0x08000189
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004b54, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x000047ac])
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00004b98, Max: 0x00100000, ABSOLUTE, COMPRESSED[0x000047f0])
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x0000449c, Max: 0x00100000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000044e0, Max: 0x00100000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2741,38 +2743,39 @@ Memory Map of the image
     0x08001d84   0x00000034   Code   RO         5703    i.button_init       button.o
     0x08001db8   0x0000001c   Code   RO         5704    i.button_pressed    button.o
     0x08001dd4   0x0000010c   Code   RO         6095    i.buzzer_init       buzzer.o
-    0x08001ee0   0x000000d4   Code   RO         5538    i.can_init          can_protocol.o
-    0x08001fb4   0x000000cc   Code   RO         5541    i.can_tx_dequeue    can_protocol.o
-    0x08002080   0x00000054   Code   RO         5542    i.can_tx_enqueue    can_protocol.o
-    0x080020d4   0x00000018   Code   RO         6226    i.get_full_ticks    ticks.o
-    0x080020ec   0x0000001e   Code   RO         6296    i.gpio_input_init   gpio.o
-    0x0800210a   0x0000005e   Code   RO         6299    i.gpio_rcc_init_all  gpio.o
-    0x08002168   0x00000008   Code   RO         6300    i.gpio_read_input   gpio.o
-    0x08002170   0x000001b0   Code   RO         5397    i.main              main.o
-    0x08002320   0x0000009c   Code   RO         5763    i.tft_char_is_changed  lcd_main.o
-    0x080023bc   0x00000074   Code   RO         5764    i.tft_clear         lcd_main.o
-    0x08002430   0x00000216   Code   RO         5766    i.tft_config        lcd_main.o
-    0x08002646   0x00000062   Code   RO         5769    i.tft_fill_color    lcd_main.o
-    0x080026a8   0x000000fc   Code   RO         5772    i.tft_init          lcd_main.o
-    0x080027a4   0x000000dc   Code   RO         5773    i.tft_println       lcd_main.o
-    0x08002880   0x000012d8   Code   RO         5775    i.tft_put_logo      lcd_main.o
-    0x08003b58   0x0000005c   Code   RO         5776    i.tft_put_pixel     lcd_main.o
-    0x08003bb4   0x00000050   Code   RO         5780    i.tft_set_pixel_pos  lcd_main.o
-    0x08003c04   0x0000000c   Code   RO         5782    i.tft_set_text_color  lcd_main.o
-    0x08003c10   0x00000114   Code   RO         5783    i.tft_spi_init      lcd_main.o
-    0x08003d24   0x000005f4   Code   RO         5785    i.tft_update        lcd_main.o
-    0x08004318   0x0000005c   Code   RO         5786    i.tft_write_command  lcd_main.o
-    0x08004374   0x0000005c   Code   RO         5787    i.tft_write_data    lcd_main.o
-    0x080043d0   0x0000006c   Code   RO         6230    i.ticks_init        ticks.o
-    0x0800443c   0x00000008   Data   RO         6308    .constdata          gpio.o
-    0x08004444   0x00000008   Data   RO         6309    .constdata          gpio.o
-    0x0800444c   0x00000008   Data   RO         6310    .constdata          gpio.o
-    0x08004454   0x00000008   Data   RO         6311    .constdata          gpio.o
-    0x0800445c   0x00000008   Data   RO         6343    .constdata          gpio.o
-    0x08004464   0x00000008   Data   RO         6344    .constdata          gpio.o
-    0x0800446c   0x00000008   Data   RO         6345    .constdata          gpio.o
-    0x08004474   0x00000008   Data   RO         6351    .constdata          gpio.o
-    0x0800447c   0x00000020   Data   RO         7314    Region$$Table       anon$$obj.o
+    0x08001ee0   0x000000ec   Code   RO         5538    i.can_init          can_protocol.o
+    0x08001fcc   0x000000cc   Code   RO         5541    i.can_tx_dequeue    can_protocol.o
+    0x08002098   0x00000054   Code   RO         5542    i.can_tx_enqueue    can_protocol.o
+    0x080020ec   0x0000001c   Code   RO         5546    i.can_tx_queue_size  can_protocol.o
+    0x08002108   0x00000018   Code   RO         6226    i.get_full_ticks    ticks.o
+    0x08002120   0x0000001e   Code   RO         6296    i.gpio_input_init   gpio.o
+    0x0800213e   0x0000005e   Code   RO         6299    i.gpio_rcc_init_all  gpio.o
+    0x0800219c   0x00000008   Code   RO         6300    i.gpio_read_input   gpio.o
+    0x080021a4   0x000001c0   Code   RO         5397    i.main              main.o
+    0x08002364   0x0000009c   Code   RO         5763    i.tft_char_is_changed  lcd_main.o
+    0x08002400   0x00000074   Code   RO         5764    i.tft_clear         lcd_main.o
+    0x08002474   0x00000216   Code   RO         5766    i.tft_config        lcd_main.o
+    0x0800268a   0x00000062   Code   RO         5769    i.tft_fill_color    lcd_main.o
+    0x080026ec   0x000000fc   Code   RO         5772    i.tft_init          lcd_main.o
+    0x080027e8   0x000000dc   Code   RO         5773    i.tft_println       lcd_main.o
+    0x080028c4   0x000012d8   Code   RO         5775    i.tft_put_logo      lcd_main.o
+    0x08003b9c   0x0000005c   Code   RO         5776    i.tft_put_pixel     lcd_main.o
+    0x08003bf8   0x00000050   Code   RO         5780    i.tft_set_pixel_pos  lcd_main.o
+    0x08003c48   0x0000000c   Code   RO         5782    i.tft_set_text_color  lcd_main.o
+    0x08003c54   0x00000114   Code   RO         5783    i.tft_spi_init      lcd_main.o
+    0x08003d68   0x000005f4   Code   RO         5785    i.tft_update        lcd_main.o
+    0x0800435c   0x0000005c   Code   RO         5786    i.tft_write_command  lcd_main.o
+    0x080043b8   0x0000005c   Code   RO         5787    i.tft_write_data    lcd_main.o
+    0x08004414   0x0000006c   Code   RO         6230    i.ticks_init        ticks.o
+    0x08004480   0x00000008   Data   RO         6308    .constdata          gpio.o
+    0x08004488   0x00000008   Data   RO         6309    .constdata          gpio.o
+    0x08004490   0x00000008   Data   RO         6310    .constdata          gpio.o
+    0x08004498   0x00000008   Data   RO         6311    .constdata          gpio.o
+    0x080044a0   0x00000008   Data   RO         6343    .constdata          gpio.o
+    0x080044a8   0x00000008   Data   RO         6344    .constdata          gpio.o
+    0x080044b0   0x00000008   Data   RO         6345    .constdata          gpio.o
+    0x080044b8   0x00000008   Data   RO         6351    .constdata          gpio.o
+    0x080044c0   0x00000020   Data   RO         7314    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00009450, Max: 0x00020000, ABSOLUTE, COMPRESSED[0x00000310])
@@ -2806,28 +2809,28 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        80         12          0         32          0       6625   button.o
-       268         26          0         36         50       2271   buzzer.o
-       704         50          0         20      32128       4835   can_protocol.o
-       132          0         64          0          0       6572   gpio.o
-      8368        152          0       1550       2000      20038   lcd_main.o
-       432         94          0          4          0       1231   main.o
-       116          6          0          0          0     256352   misc_1.o
-        36          8        392          0       2048        908   startup_stm32f40_41xxx.o
-         0          0          0          0          0       1748   stm32f4xx_adc.o
-      1134          8          0          0          0      17271   stm32f4xx_can.o
-       206          0          0          0          0      11115   stm32f4xx_gpio.o
-        18          0          0          0          0      30606   stm32f4xx_it.o
-       120         30          0          0          0       3295   stm32f4xx_rcc.o
-       160          0          0          0          0      13519   stm32f4xx_spi.o
-       356         10          0          0          0      29048   stm32f4xx_tim.o
-        88          0          0          0          0       9034   stm32f4xx_usart.o
-       416         64          0         20          0       2229   system_stm32f4xx.o
-       330         28          0          6          0       3307   ticks.o
-       340         70          0         48         20       5195   usart.o
+        80         12          0         32          0       6545   button.o
+       268         26          0         36         50       2235   buzzer.o
+       756         54          0         20      32128       5303   can_protocol.o
+       132          0         64          0          0       6504   gpio.o
+      8368        152          0       1550       2000      19802   lcd_main.o
+       448         98          0          4          0       1207   main.o
+       116          6          0          0          0     256292   misc_1.o
+        36          8        392          0       2048        896   startup_stm32f40_41xxx.o
+         0          0          0          0          0       1736   stm32f4xx_adc.o
+      1134          8          0          0          0      17139   stm32f4xx_can.o
+       206          0          0          0          0      11015   stm32f4xx_gpio.o
+        18          0          0          0          0      30418   stm32f4xx_it.o
+       120         30          0          0          0       3235   stm32f4xx_rcc.o
+       160          0          0          0          0      13395   stm32f4xx_spi.o
+       356         10          0          0          0      28868   stm32f4xx_tim.o
+        88          0          0          0          0       8970   stm32f4xx_usart.o
+       416         64          0         20          0       2177   system_stm32f4xx.o
+       330         28          0          6          0       3211   ticks.o
+       340         70          0         48         20       5083   usart.o
 
     ----------------------------------------------------------------------
-     13316        558        488       1720      36248     425199   Object Totals
+     13384        566        488       1720      36248     424031   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         12          0          0          4          2          0   (incl. Padding)
 
@@ -2882,15 +2885,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     17076        660        488       1720      36248     418327   Grand Totals
-     17076        660        488        784      36248     418327   ELF Image Totals (compressed)
-     17076        660        488        784          0          0   ROM Totals
+     17144        668        488       1720      36248     417059   Grand Totals
+     17144        668        488        784      36248     417059   ELF Image Totals (compressed)
+     17144        668        488        784          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                17564 (  17.15kB)
+    Total RO  Size (Code + RO Data)                17632 (  17.22kB)
     Total RW  Size (RW Data + ZI Data)             37968 (  37.08kB)
-    Total ROM Size (Code + RO Data + RW Data)      18348 (  17.92kB)
+    Total ROM Size (Code + RO Data + RW Data)      18416 (  17.98kB)
 
 ==============================================================================
 

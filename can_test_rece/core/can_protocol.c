@@ -2,20 +2,18 @@
   ******************************************************************************
   * @file    can_protocol.c
   * @author  Kenneth Au
-  * @version V1.0.0
-  * @date    17-January-2015
+	* @modify	 Ding & Simon (v1.1.0)
+	* @modify  Rex Cheng (v1.2.0)
+  * @version V1.2.0
+  * @date    Nov 2016
   * @brief   This file provides all the CAN basic protocol functions, including
 	* 				 initialization, CAN transmission and receive handlers .
   ******************************************************************************
-  * @attention
-  *
-  * This source is designed for application use. Unless necessary, try NOT to
-	* modify the function definition. The constants which are more likely to 
-	* vary among different schematics have been placed as pre-defined constant
-	* (i.e., "#define") in the header file.
-	*
-  ******************************************************************************
-  */
+	
+	Performace: Stable until ~90KB/s, more than that, some packets would be lost.
+	If the network is longer/larger, use lower rate.
+	This protocol has disabled auto re-send, as most application would be time-critical.
+**/
 	
 #include <can_protocol.h>
 
@@ -43,7 +41,7 @@ void can_init(void){
 
 	/* CAN GPIO init */
 	// CAN_Rx Pin
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_InitStructure.GPIO_Pin = CAN_Rx_GPIO;
@@ -51,7 +49,7 @@ void can_init(void){
 	GPIO_Init(CAN_GPIO, &GPIO_InitStructure);
     
 	// CAN_Tx Pin
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_InitStructure.GPIO_Pin = CAN_Tx_GPIO;
@@ -68,9 +66,9 @@ void can_init(void){
 	
 	/* CAN cell init */
 	CAN_InitStructure.CAN_TTCM = DISABLE;
-	CAN_InitStructure.CAN_ABOM = ENABLE;
+	CAN_InitStructure.CAN_ABOM = DISABLE;
 	CAN_InitStructure.CAN_AWUM = DISABLE;
-	CAN_InitStructure.CAN_NART = DISABLE;
+	CAN_InitStructure.CAN_NART = ENABLE;
 	CAN_InitStructure.CAN_RFLM = DISABLE;
 	CAN_InitStructure.CAN_TXFP = DISABLE;
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
@@ -80,9 +78,9 @@ void can_init(void){
 	/** CAN_Clock_Speed is defined as CAN_RCC **/
 	/** APB1 = MCU_Clock_Speed / 4 , APB2 = MCU_Clock_Speed / 2, AHB1 = MCU_Clock_Speed **/
 	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_3tq;
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_3tq;
-	CAN_InitStructure.CAN_Prescaler = 6;
+	CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;
+	CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;
+	CAN_InitStructure.CAN_Prescaler = 2;
 	while (CAN_Init(CANn, &CAN_InitStructure) != CAN_InitStatus_Success);
 	
 	/* CAN Transmission Mailbox Empty interrupt enable */ 

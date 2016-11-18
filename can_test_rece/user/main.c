@@ -13,8 +13,8 @@
 u32 last_data = 0;
 bool time_err = false;
 bool cont_err = false;
-s32 te_count = 0;
 s32 ce_count = 0;
+s32 le_count = 0;
 void recv_hand(CanRxMsg msg){
 	u32 first_data = (u32)msg.Data[0]<<24 | (u32)msg.Data[1]<<16 | (u32)msg.Data[2]<<8 | (u32)msg.Data[3];
 
@@ -25,11 +25,13 @@ void recv_hand(CanRxMsg msg){
 		ce_count++;
 	}
 	
-	if (first_data != (last_data+1)){
-		time_err = true;
-		te_count++;
+	if (first_data > last_data){
+		if (first_data != (last_data+1)){
+			le_count += (first_data - last_data);
+			time_err = true;
+		}
+		last_data = first_data;
 	}
-	last_data = first_data;
 }
 
 int main(void) {
@@ -66,8 +68,8 @@ int main(void) {
 			tft_println("T: %d", get_full_ticks());
 			tft_println("D: %d", last_data);
 			tft_println("R: %6.2f KB/s", data_diff*8.0f*1000/(this_ticks - last_ticks)/1024);
-			tft_println("TC: %d", te_count);
 			tft_println("CC: %d", ce_count);
+			tft_println("LC: %d", le_count);
 			
 			if (time_err){
 				tft_set_text_color(RED);

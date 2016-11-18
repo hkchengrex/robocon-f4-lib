@@ -11,7 +11,6 @@
 #include "main.h"
 
 u32 last_data = 0;
-
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -65,6 +64,7 @@ int main(void) {
 				tft_clear();
 				tft_println("Build: ");
 				tft_println("%s %s", __TIME__, __DATE__);
+				tft_println("%d", can_tx_queue_size());
 				tft_println("T: %d", get_full_ticks());
 				tft_println("D: %d", last_data);
 				tft_println("R: %6.2f KB/s", speed);

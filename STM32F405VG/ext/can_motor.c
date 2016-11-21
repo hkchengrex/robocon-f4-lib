@@ -8,14 +8,14 @@ static s32 can_motor_encoder_value[CAN_MOTOR_COUNT] = {0};
   * @brief The private (static) function for decoding CAN message
   * @param msg: the CAN msg for decoding
   */
-static void can_motor_feedback_decoding(CanRxMsg msg) {
-	switch (msg.Data[0]) {
+static void can_motor_feedback_decoding(CanRxMsg* msg) {
+	switch (msg->Data[0]) {
 		case CAN_ENCODER_FEEDBACK:
-			if (msg.DLC == CAN_ENCODER_FEEDBACK_LENGTH) {
+			if (msg->DLC == CAN_ENCODER_FEEDBACK_LENGTH) {
 				// Range check 
-				if (msg.StdId >= CAN_MOTOR_BASE && msg.StdId < CAN_MOTOR_BASE + CAN_MOTOR_COUNT) {
-					s32 feedback = n_bytes_to_one(&msg.Data[1], 4);
-					can_motor_encoder_value[msg.StdId - CAN_MOTOR_BASE] = feedback;
+				if (msg->StdId >= CAN_MOTOR_BASE && msg->StdId < CAN_MOTOR_BASE + CAN_MOTOR_COUNT) {
+					s32 feedback = n_bytes_to_one(&msg->Data[1], 4);
+					can_motor_encoder_value[msg->StdId - CAN_MOTOR_BASE] = feedback;
 				}
 			}
 		break;
@@ -28,7 +28,7 @@ static void can_motor_feedback_decoding(CanRxMsg msg) {
   * @retval None 
   */
 void can_motor_init(void){
-	can_rx_add_filter(CAN_MOTOR_BASE, CAN_RX_MASK_DIGIT_0_F, can_motor_feedback_decoding);
+	can_rx_add_filter(CAN_MOTOR_BASE, CAN_RX_MASK_DIGIT_0_F, 0, can_motor_feedback_decoding);
 }
 
 

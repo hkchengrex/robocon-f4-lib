@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    can_protocol.c
-  * @author  Kenneth Au
+  * @author  Kenneth Au (v1.0.0)
 	* @modify	 Ding & Simon (v1.1.0)
 	* @modify  Rex Cheng (v1.2.0)
   * @version V1.2.0
@@ -10,6 +10,8 @@
 	* 				 initialization, CAN transmission and receive handlers .
   ******************************************************************************
 	
+	Only use Mailbox 1 to transmit and 2 FIFO to receive.
+	
 	Performace: Stable until ~90KB/s, more than that, some packets would be lost.
 	If the network is longer/larger, use lower rate.
 	This protocol has disabled auto re-send, as most application would be time-critical.
@@ -17,14 +19,12 @@
 	
 #include <can_protocol.h>
 
-struct CAN_MESSAGE CAN_Tx_Queue_Array[CAN_TX_QUEUE_MAX_SIZE];
-struct CAN_QUEUE CAN_Tx_Queue = {0, 0, CAN_TX_QUEUE_MAX_SIZE, CAN_Tx_Queue_Array};
+CAN_MESSAGE CAN_Tx_Queue_Array[CAN_TX_QUEUE_MAX_SIZE];
+CAN_QUEUE CAN_Tx_Queue = {0, 0, CAN_Tx_Queue_Array};
 u8 CAN_FilterCount = 0;             /*!< The number of can filter applied */
-static CAN_MESSAGE can_recent_rx;   /*!< The latest received can message */ 
-static u32 can_rx_count = 0;		    /*!< Number of rx received */
 
 /*!< Array storing all the handler function for CAN Rx (element id equals to filter id) */
-void (*CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT])(CanRxMsg msg) ;
+void (*CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT])(CanRxMsg* msg);
 
 /**
   * @brief  Configure and initialize the CAN (GPIOs + CAN only).
@@ -105,30 +105,13 @@ static u8 can_tx(CanTxMsg msg){
 }
 
 /**
-	* @brief	Get the current CAN_TX queue head
-	* @retval	The queue head ID (0 to CAN_TX_QUEUE_SIZE-1)
-	*/
-u16 can_tx_queue_head(void){
-	return CAN_Tx_Queue.head;
-}
-
-/**
-	* @brief	Get the current CAN_TX queue tail
-	* @param 	None
-	* @retval	The queue head ID (0 to CAN_TX_QUEUE_MAX_SIZE-1)
-	*/
-u16 can_tx_queue_tail(void){
-	return CAN_Tx_Queue.tail;
-}
-
-/**
 	* @brief	Get the current CAN_TX queue size
 	* @param 	None
 	* @retval	The current queue size (0 to CAN_TX_QUEUE_MAX_SIZE-1)
 	*/
 u16 can_tx_queue_size(void){
 	s16 size = CAN_Tx_Queue.tail - CAN_Tx_Queue.head;
-	if (size < 0) {size += CAN_Tx_Queue.length;}
+	if (size < 0) {size += CAN_TX_QUEUE_MAX_SIZE;}
 	return (u16) size;
 }
 
@@ -137,19 +120,8 @@ u16 can_tx_queue_size(void){
 	* @param None
 	* @retval True if the queue is empty
 	*/
-u8 can_tx_queue_empty(void){
+__INLINE u8 can_tx_queue_empty(void){
 	return CAN_Tx_Queue.head == CAN_Tx_Queue.tail;
-}
-
-/**
-	* @brief	Get the number of empty (free) CAN mailboxes (Refer to the CAN_Transmit(...) function)
-	* @param 	None
-	* @retval	The number of empty CAN mailboxes (0 if no CAN mailbox available for anymore CAN Tx)
-	*/
-u8 can_empty_mailbox(void){
-	return ((CANn->TSR&CAN_TSR_TME0) == CAN_TSR_TME0)
-	+((CANn->TSR&CAN_TSR_TME1) == CAN_TSR_TME1)
-	+ ((CANn->TSR&CAN_TSR_TME2) == CAN_TSR_TME2);
 }
 
 /** 
@@ -160,12 +132,12 @@ u8 can_empty_mailbox(void){
 u8 can_tx_enqueue(CAN_MESSAGE msg){
 	u8 queue_full = 0;
 
-	if ((CAN_Tx_Queue.tail + 1) % CAN_Tx_Queue.length == CAN_Tx_Queue.head) {
+	if ((CAN_Tx_Queue.tail + 1) % CAN_TX_QUEUE_MAX_SIZE == CAN_Tx_Queue.head) {
 		// Queue full
 		queue_full = 1;
 	}	else {
 		CAN_Tx_Queue.queue[CAN_Tx_Queue.tail] = msg;
-		CAN_Tx_Queue.tail = (CAN_Tx_Queue.tail + 1) % CAN_Tx_Queue.length;
+		CAN_Tx_Queue.tail = (CAN_Tx_Queue.tail + 1) % CAN_TX_QUEUE_MAX_SIZE;
 		queue_full = 0;
 	}
 
@@ -181,29 +153,29 @@ u8 can_tx_enqueue(CAN_MESSAGE msg){
 	*	@retval True if the queue is not empty after dequeue
 	*/
 u8 can_tx_dequeue(void){
-	if (!can_tx_queue_empty() && can_empty_mailbox() == 3) {
+	//Transmit when the first mailbox is empty
+	if (!can_tx_queue_empty() && (CANn->TSR&CAN_TSR_TME0)) {
 		struct CAN_MESSAGE msg = CAN_Tx_Queue.queue[CAN_Tx_Queue.head];
 		CanTxMsg TxMsg;
 		u8 data_length = msg.length;
 		
 		TxMsg.StdId = msg.id;
-		TxMsg.ExtId = 0x00;
+		//TxMsg.ExtId = 0x00;
 		TxMsg.RTR = CAN_RTR_DATA;
 		TxMsg.IDE = CAN_ID_STD;
 		TxMsg.DLC = data_length;
 		
 		// Copy the data array
-		while (data_length--) {
-			TxMsg.Data[data_length] = msg.data[data_length];
-		}
+		memcpy(TxMsg.Data, msg.data, data_length);
+//		while (data_length--) {
+//			TxMsg.Data[data_length] = msg.data[data_length];
+//		}
 
-		
 		if (can_tx(TxMsg)) {
-			CAN_Tx_Queue.head = (CAN_Tx_Queue.head + 1) % CAN_Tx_Queue.length;
+			CAN_Tx_Queue.head = (CAN_Tx_Queue.head + 1) % CAN_TX_QUEUE_MAX_SIZE;
 		}
 		
-		// If there are still empty mailbox, dequeue again
-		if (can_empty_mailbox() > 0) {
+		if ((CANn->TSR&CAN_TSR_TME0)) {
 			can_tx_dequeue();
 		}
 
@@ -243,12 +215,17 @@ void can_rx_init(void){
 	NVIC_InitTypeDef NVIC_InitStructure;
 	
 	CAN_ITConfig(CANn, CAN_IT_FMP0, ENABLE);
+	CAN_ITConfig(CANn, CAN_IT_FMP1, ENABLE);
 
 	/* enabling interrupt */
-	NVIC_InitStructure.NVIC_IRQChannel= CAN1_RX0_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX1_IRQn;
 	NVIC_Init(&NVIC_InitStructure);
 }
 
@@ -263,18 +240,17 @@ void can_rx_init(void){
 	* @example can_rx_add_filter(0x0A0, 0x7F0) will receive CAN message with ID from 0xA0 to 0xAF
 	* @example can_rx_add_filter(0x000, 0x7FA) will receive CAN message with ID from 0x00 to 0x03
 	*/
-void can_rx_add_filter(u16 id, u16 mask, void (*handler)(CanRxMsg msg)){
+void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* msg)){
 	CAN_FilterInitTypeDef CAN_FilterInitStructure;
-	mask = ((mask << 5) | 0x001F) & 0xFFFF;
 	
 	CAN_FilterInitStructure.CAN_FilterNumber = CAN_FilterCount;
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
-	CAN_FilterInitStructure.CAN_FilterIdHigh = (id << 5) & 0xFFFF;
+	CAN_FilterInitStructure.CAN_FilterIdHigh = id << 5;
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
-	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = mask;
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = mask << 5;
 	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;
-	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = 0;
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = FIFO_num;
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
 	CAN_FilterInit(&CAN_FilterInitStructure);	
 	
@@ -283,23 +259,6 @@ void can_rx_add_filter(u16 id, u16 mask, void (*handler)(CanRxMsg msg)){
 	++CAN_FilterCount;
 }
 
-/**
-	* @brief Get the number of handled CAN Rx data
-	* @param None
-	* @retval None
-	*/
-u32 can_get_rx_count(void){
-	return can_rx_count;
-}
-
-/**
-  * @brief Get the recent handled CAN Rx data
-  * @param None
-  * @retval Recent rx message
-  */
-CAN_MESSAGE can_get_recent_rx(void){
-  return can_recent_rx;
-}
 /** 
 	* @brief Interrupt for CAN Rx
 	* @warning Use USB_LP_CAN_RX0_IRQHandler for HD, USB_LP_CAN1_RX0_IRQHandler for XLD / MD
@@ -307,23 +266,29 @@ CAN_MESSAGE can_get_recent_rx(void){
 
 
 void CAN1_RX0_IRQHandler(void){
-    //print_status();
 	if (CAN_GetITStatus(CANn, CAN_IT_FMP0) != RESET) {
 		CanRxMsg RxMessage;
 		CAN_ClearITPendingBit(CANn, CAN_IT_FMP0);
 		CAN_Receive(CANn, CAN_FIFO0, &RxMessage);
 
 		if(RxMessage.IDE == CAN_ID_STD) {
-			u8 filter_id = RxMessage.FMI;
-			if (filter_id < CAN_FilterCount && filter_id < CAN_RX_FILTER_LIMIT && CAN_Rx_Handlers[filter_id] != 0) {
-				CAN_Rx_Handlers[filter_id](RxMessage);
+			if (RxMessage.FMI < CAN_FilterCount && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
 			}
-      can_recent_rx.id = RxMessage.StdId;
-      can_recent_rx.length = RxMessage.DLC;
-      for (u8 i = 0; i < can_recent_rx.length; ++i) {
-        can_recent_rx.data[i] = RxMessage.Data[i];
-      }
-      ++can_rx_count;
+		}
+	}
+}
+
+void CAN1_RX1_IRQHandler(void){
+	if (CAN_GetITStatus(CANn, CAN_IT_FMP1) != RESET) {
+		CanRxMsg RxMessage;
+		CAN_ClearITPendingBit(CANn, CAN_IT_FMP1);
+		CAN_Receive(CANn, CAN_FIFO1, &RxMessage);
+
+		if(RxMessage.IDE == CAN_ID_STD) {
+			if (RxMessage.FMI < CAN_FilterCount && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
+			}
 		}
 	}
 }

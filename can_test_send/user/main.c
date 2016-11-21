@@ -25,10 +25,11 @@ int main(void) {
 	button_init();
 	can_init();
 	
+	led_init();
 	tft_put_logo(85, 120);
 	
-	u32 last_ticks = 0;
-	u32 last_long_ticks = 0;
+	volatile u32 last_ticks = 0;
+	volatile u32 last_long_ticks = 0;
 	
 	float speed = 5.0f; //In KB/s
 	float unsend_byte = 0.0f;
@@ -44,9 +45,9 @@ int main(void) {
 			}
 
 			unsend_byte += (this_ticks - last_ticks) * speed  * 1024 / 1000;
-			while(unsend_byte > 8.0f){
+			while(unsend_byte >= 8.0f){
 				CAN_MESSAGE msg;
-				msg.id = 0;
+				msg.id = 0x23;
 				msg.length = 8;
 				for (int i=0; i<2; i++){
 					msg.data[i*4] = last_data >> 24;
@@ -60,6 +61,8 @@ int main(void) {
 			}
 			
 			if ((this_ticks - last_long_ticks) > 500){
+				led_blink(LED_D1);
+				
 				tft_set_text_color(WHITE);
 				tft_clear();
 				tft_println("Build: ");

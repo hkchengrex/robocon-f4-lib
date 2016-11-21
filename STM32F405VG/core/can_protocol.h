@@ -90,11 +90,12 @@ void can_tx_queue_clear(void);
 	*/
 void can_rx_init(void);
 
-/** @brief Add filter to the can data received (involves bitwise calculation)
+/**
+	* @brief Add filter to the can data received (involves bitwise calculation)
 	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
 	* @param id: 11-bit ID (0x000 to 0x7FF)
 	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
-	* @param FIFO_num: 1/0, select which FIFO to use
+	* @param FIFO_num: Which FIFO to use, 0 or 1
 	* @param handler: function pointer for the corresponding CAN ID filter
 	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
 	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD

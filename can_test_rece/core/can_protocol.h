@@ -1,6 +1,7 @@
 #ifndef __CAN_PROTOCOL_H
 #define __CAN_PROTOCOL_H
 
+#include <cstring>
 #include <stdio.h>
 #include <stdlib.h> 
 #include <stm32f4xx.h>
@@ -19,10 +20,7 @@
 
 #define CAN_GPIO_RCC			RCC_AHB1Periph_GPIOA
 
-/*** CAN TX CONST ***/
-#define CAN_TX_QUEUE_MAX_SIZE				2000
-
-/*** CAN RX CONST ***/
+#define CAN_TX_QUEUE_MAX_SIZE				300
 #define	CAN_RX_FILTER_LIMIT					28		// The number of filters can be applied at most
 
 
@@ -37,32 +35,21 @@
 
 
 typedef struct CAN_MESSAGE {
-	u32 id;			/*** 11-bit ID: 0x000 to 0x7FF ***/
-	u8 length;	/*** 0 to 8 ***/
+	u16 id;					/*** 11-bit ID: 0x000 to 0x7FF ***/
+	u8 length;			/*** 0 to 8 ***/
 	u8 data[8];
 }CAN_MESSAGE;
 
-struct CAN_QUEUE{
-	u16 head;						/*** Current head of queue ***/
-	u16 tail;						/*** Current tail of queue ***/
-	const u16 length; 	/*** Length of queue ***/
+typedef struct CAN_QUEUE {
+	u16 head;											/*** Current head of queue ***/
+	u16 tail;											/*** Current tail of queue ***/
 	struct CAN_MESSAGE* queue;		/*** The can message queue (array) ***/
-};
+}CAN_QUEUE;
 
 
 void can_init(void);
 
 /*** CAN Tx ***/
-
-/** @brief	Get the current CAN_TX queue head
-	* @retval	The queue head ID (0 to CAN_TX_QUEUE_SIZE-1)
-	*/
-u16 can_tx_queue_head(void);
-
-/** @brief	Get the current CAN_TX queue tail
-	* @retval	The queue head ID (0 to CAN_TX_QUEUE_MAX_SIZE-1)
-	*/
-u16 can_tx_queue_tail(void);
 
 /** @brief	Get the current CAN_TX queue size
 	* @retval	The current queue size (0 to CAN_TX_QUEUE_MAX_SIZE-1)
@@ -74,10 +61,6 @@ u16 can_tx_queue_size(void);
 	*/
 u8 can_tx_queue_empty(void);
 
-/** @brief	Get the number of empty (free) CAN mailboxes (Refer to the CAN_Transmit(...) function)
-	* @retval	The number of empty CAN mailboxes (0 if no CAN mailbox available for anymore CAN Tx)
-	*/
-u8 can_empty_mailbox(void);
 
 /**  @brief Add a new tx message to the CAN Tx queue
 	* @param msg: The can message that will be added
@@ -110,26 +93,15 @@ void can_rx_init(void);
 /** @brief Add filter to the can data received (involves bitwise calculation)
 	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
 	* @param id: 11-bit ID (0x000 to 0x7FF)
-	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)		
+	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
+	* @param FIFO_num: 1/0, select which FIFO to use
 	* @param handler: function pointer for the corresponding CAN ID filter
 	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
 	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD
 	* @example can_rx_add_filter(0x0A0, 0x7F0) will receive CAN message with ID from 0xA0 to 0xAF
 	* @example can_rx_add_filter(0x000, 0x7FA) will receive CAN message with ID from 0x00 to 0x03
 	*/
-void can_rx_add_filter(u16 id, u16 mask, void (*handler)(CanRxMsg msg));
-
-/** @brief Get the number of handled CAN Rx data
-	* @param None
-	* @retval None
-	*/
-u32 can_get_rx_count(void);
-
-/** @brief Get the recent handled CAN Rx data
-  * @param None
-  * @retval Recent rx message
-  */
-struct CAN_MESSAGE can_get_recent_rx(void);
+void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* msg));
 
 /*** Protocol Encoding / Decoding function ***/
 

@@ -12,7 +12,7 @@
 	
 	Only use Mailbox 1 to transmit and 2 FIFO to receive.
 	
-	Performace: Stable until ~90KB/s, more than that, some packets would be lost.
+	Performace: Stable until ~100KB/s, more than that, some packets would be lost.
 	If the network is longer/larger, use lower rate.
 	This protocol has disabled auto re-send, as most application would be time-critical.
 **/
@@ -167,9 +167,6 @@ u8 can_tx_dequeue(void){
 		
 		// Copy the data array
 		memcpy(TxMsg.Data, msg.data, data_length);
-//		while (data_length--) {
-//			TxMsg.Data[data_length] = msg.data[data_length];
-//		}
 
 		if (can_tx(TxMsg)) {
 			CAN_Tx_Queue.head = (CAN_Tx_Queue.head + 1) % CAN_TX_QUEUE_MAX_SIZE;
@@ -218,7 +215,7 @@ void can_rx_init(void){
 	CAN_ITConfig(CANn, CAN_IT_FMP1, ENABLE);
 
 	/* enabling interrupt */
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	
@@ -233,7 +230,8 @@ void can_rx_init(void){
 	* @brief Add filter to the can data received (involves bitwise calculation)
 	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
 	* @param id: 11-bit ID (0x000 to 0x7FF)
-	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)		
+	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
+	* @param FIFO_num: Which FIFO to use, 0 or 1
 	* @param handler: function pointer for the corresponding CAN ID filter
 	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
 	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD
@@ -246,9 +244,9 @@ void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* 
 	CAN_FilterInitStructure.CAN_FilterNumber = CAN_FilterCount;
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
-	CAN_FilterInitStructure.CAN_FilterIdHigh = id;
+	CAN_FilterInitStructure.CAN_FilterIdHigh = id << 5;
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
-	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = mask;
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = mask << 5;
 	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;
 	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = FIFO_num;
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
@@ -260,10 +258,9 @@ void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* 
 }
 
 /** 
-	* @brief Interrupt for CAN Rx
+	* @brief Interrupt for CAN Rx (FIFO1 and FIFO2)
 	* @warning Use USB_LP_CAN_RX0_IRQHandler for HD, USB_LP_CAN1_RX0_IRQHandler for XLD / MD
 	*/
-
 
 void CAN1_RX0_IRQHandler(void){
 	if (CAN_GetITStatus(CANn, CAN_IT_FMP0) != RESET) {

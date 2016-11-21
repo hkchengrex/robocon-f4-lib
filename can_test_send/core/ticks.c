@@ -1,7 +1,6 @@
 #include "ticks.h"
 
-volatile u16 ticks = 0;
-volatile u16 seconds = 0;
+volatile u32 ticks = 0;
 
 /**
   * @brief  Get the ticks passed from 0-999
@@ -9,7 +8,7 @@ volatile u16 seconds = 0;
   * @retval ticks passed
   */
 u16 get_ticks(void) {
-	return ticks;
+	return ticks%1000;
 }
 
 /**
@@ -18,12 +17,11 @@ u16 get_ticks(void) {
   * @retval ticks passed
   */
 u16 get_seconds(void) {
-	return seconds;
+	return ticks/1000;
 }
 
-u32 get_full_ticks(void)
-{
-	return seconds * 1000 + ticks;
+u32 get_full_ticks(void){
+	return ticks;
 }
 
 /**
@@ -59,7 +57,7 @@ void ticks_init(void) {
 	NVIC_Init(&NVIC_InitStructure);
 	
 	//SysTick_Config(SystemCoreClock/1000);
-	ticks = seconds = 0;
+	ticks = 0;
 }
 
 /**
@@ -73,12 +71,7 @@ TICKS_IRQHandler
     TIM_ClearFlag(TICKS_TIM, TIM_FLAG_Update);
     //TIM_ClearITPendingBit(TICKS_TIM, TIM_IT_Update);
 
-    if (ticks >= 999) {
-      ticks = 0;
-      seconds++;
-    } else {
-      ticks++;
-    }
+		ticks++;
   }
 	
 }

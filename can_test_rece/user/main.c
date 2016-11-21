@@ -15,10 +15,10 @@ bool time_err = false;
 bool cont_err = false;
 s32 ce_count = 0;
 s32 le_count = 0;
-void recv_hand(CanRxMsg msg){
-	u32 first_data = (u32)msg.Data[0]<<24 | (u32)msg.Data[1]<<16 | (u32)msg.Data[2]<<8 | (u32)msg.Data[3];
+void recv_hand(CanRxMsg* msg){
+	u32 first_data = (u32)msg->Data[0]<<24 | (u32)msg->Data[1]<<16 | (u32)msg->Data[2]<<8 | (u32)msg->Data[3];
 
-	u32 sec_data = (u32)msg.Data[4]<<24 | (u32)msg.Data[5]<<16 | (u32)msg.Data[6]<<8 | (u32)msg.Data[7];
+	u32 sec_data = (u32)msg->Data[4]<<24 | (u32)msg->Data[5]<<16 | (u32)msg->Data[6]<<8 | (u32)msg->Data[7];
 	
 	if (first_data != sec_data){
 		cont_err = true;
@@ -47,7 +47,7 @@ int main(void) {
 	
 	can_init();
 	can_rx_init();
-	can_rx_add_filter(0x00, 0x00, recv_hand);
+	can_rx_add_filter(0x23, CAN_RX_MASK_EXACT, 1, recv_hand);
 	
 	tft_put_logo(85, 120);
 	

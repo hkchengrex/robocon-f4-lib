@@ -1603,7 +1603,7 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(.revsh_text), (4 bytes).
     Removing can_protocol.o(.rrx_text), (6 bytes).
     Removing can_protocol.o(i.can_init), (236 bytes).
-    Removing can_protocol.o(i.can_rx_add_filter), (84 bytes).
+    Removing can_protocol.o(i.can_rx_add_filter), (96 bytes).
     Removing can_protocol.o(i.can_rx_init), (72 bytes).
     Removing can_protocol.o(i.can_tx_enqueue), (84 bytes).
     Removing can_protocol.o(i.can_tx_queue_clear), (16 bytes).
@@ -1968,7 +1968,7 @@ Removing Unused input sections from the image.
     Removing approx_math.o(i.Sqrt), (96 bytes).
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
 
-1161 unused section(s) (total 43327 bytes) removed from the image.
+1161 unused section(s) (total 43339 bytes) removed from the image.
 
 ==============================================================================
 

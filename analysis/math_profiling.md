@@ -1,4 +1,5 @@
 # Profiling Note
+By Rex Cheng
 
 ## General
 - Ticks frequency: 84000000 (half of main frequency)

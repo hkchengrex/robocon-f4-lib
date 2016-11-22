@@ -53,6 +53,7 @@
 "stm32f40_41xxx\lcd_main.o"
 "stm32f40_41xxx\led.o"
 "stm32f40_41xxx\usart.o"
+"stm32f40_41xxx\usart_dma_tx.o"
 "stm32f40_41xxx\buzzer.o"
 "stm32f40_41xxx\servo.o"
 "stm32f40_41xxx\ticks.o"

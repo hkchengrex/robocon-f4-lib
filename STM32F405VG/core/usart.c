@@ -53,7 +53,7 @@ void uart_init(COM_TypeDef COM, u32 br){
 	/* Configure USART Tx & USART Rx as alternate function push-pull */
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Pin = COM_TX_PIN[COM]|COM_RX_PIN[COM];
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_Init(COM_TX_PORT[COM] , &GPIO_InitStructure);

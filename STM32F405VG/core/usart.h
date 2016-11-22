@@ -1,5 +1,5 @@
-#ifndef __USART_H
-#define __USART_H
+#ifndef _USART_H
+#define _USART_H
 
 #include "stm32f4xx_usart.h"
 

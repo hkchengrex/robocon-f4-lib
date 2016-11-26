@@ -2,7 +2,7 @@
 By Rex Cheng
 
 Test Platform:
-2 F4 board with 1 sender and 1 receiver
+2 F4 board with 1 sender and 1 receiver, each with 120 Ohm termination resistor, TJA1050
 
 Method of testing:
 The sender would generate continuous data stream with an increasing integer. That number is copied twice to a 8-btye CAN message packet. Those packets would be sent with a constant data speed.

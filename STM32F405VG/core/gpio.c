@@ -20,6 +20,9 @@ const GPIO
 			PA10 = {GPIOA, GPIO_Pin_10},
 			PA11 = {GPIOA, GPIO_Pin_11},
 			PA12 = {GPIOA, GPIO_Pin_12},
+			PA13 = {GPIOA, GPIO_Pin_13},
+			PA14 = {GPIOA, GPIO_Pin_14},
+			PA15 = {GPIOA, GPIO_Pin_15},
 
 			/*** GPIOB ***/
 			PB0 = {GPIOB, GPIO_Pin_0},
@@ -127,61 +130,7 @@ const GPIO
 			PG12 = {GPIOG, GPIO_Pin_12},
 			PG13 = {GPIOG, GPIO_Pin_13},
 			PG14 = {GPIOG, GPIO_Pin_14},
-			PG15 = {GPIOG, GPIO_Pin_15},
-			
-			/*** GPIOI ***/
-			PI0 = {GPIOI, GPIO_Pin_0},
-			PI1 = {GPIOI, GPIO_Pin_1},
-			PI2 = {GPIOI, GPIO_Pin_2},
-			PI3 = {GPIOI, GPIO_Pin_3},
-			PI4 = {GPIOI, GPIO_Pin_4},
-			PI5 = {GPIOI, GPIO_Pin_5},
-			PI6 = {GPIOI, GPIO_Pin_6},
-			PI7 = {GPIOI, GPIO_Pin_7},
-			PI8 = {GPIOI, GPIO_Pin_8},
-			PI9 = {GPIOI, GPIO_Pin_9},
-			PI10 = {GPIOI, GPIO_Pin_10},
-			PI11 = {GPIOI, GPIO_Pin_11},
-			PI12 = {GPIOI, GPIO_Pin_12},
-			PI13 = {GPIOI, GPIO_Pin_13},
-			PI14 = {GPIOI, GPIO_Pin_14},
-			PI15 = {GPIOI, GPIO_Pin_15},
-			
-			/*** GPIOJ ***/
-			PJ0 = {GPIOJ, GPIO_Pin_0},
-			PJ1 = {GPIOJ, GPIO_Pin_1},
-			PJ2 = {GPIOJ, GPIO_Pin_2},
-			PJ3 = {GPIOJ, GPIO_Pin_3},
-			PJ4 = {GPIOJ, GPIO_Pin_4},
-			PJ5 = {GPIOJ, GPIO_Pin_5},
-			PJ6 = {GPIOJ, GPIO_Pin_6},
-			PJ7 = {GPIOJ, GPIO_Pin_7},
-			PJ8 = {GPIOJ, GPIO_Pin_8},
-			PJ9 = {GPIOJ, GPIO_Pin_9},
-			PJ10 = {GPIOJ, GPIO_Pin_10},
-			PJ11 = {GPIOJ, GPIO_Pin_11},
-			PJ12 = {GPIOJ, GPIO_Pin_12},
-			PJ13 = {GPIOJ, GPIO_Pin_13},
-			PJ14 = {GPIOJ, GPIO_Pin_14},
-			PJ15 = {GPIOJ, GPIO_Pin_15},
-			
-			/*** GPIOK ***/
-			PK0 = {GPIOK, GPIO_Pin_0},
-			PK1 = {GPIOK, GPIO_Pin_1},
-			PK2 = {GPIOK, GPIO_Pin_2},
-			PK3 = {GPIOK, GPIO_Pin_3},
-			PK4 = {GPIOK, GPIO_Pin_4},
-			PK5 = {GPIOK, GPIO_Pin_5},
-			PK6 = {GPIOK, GPIO_Pin_6},
-			PK7 = {GPIOK, GPIO_Pin_7},
-			PK8 = {GPIOK, GPIO_Pin_8},
-			PK9 = {GPIOK, GPIO_Pin_9},
-			PK10 = {GPIOK, GPIO_Pin_10},
-			PK11 = {GPIOK, GPIO_Pin_11},
-			PK12 = {GPIOK, GPIO_Pin_12},
-			PK13 = {GPIOK, GPIO_Pin_13},
-			PK14 = {GPIOK, GPIO_Pin_14},
-			PK15 = {GPIOK, GPIO_Pin_15}
+			PG15 = {GPIOG, GPIO_Pin_15}
 			
 			;
 
@@ -262,10 +211,6 @@ void gpio_rcc_init_all(){
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOJ, ENABLE);
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOK, ENABLE);
 }
 
 /**
@@ -301,18 +246,6 @@ void gpio_rcc_init(const GPIO* gpio){
 		
 		case ((u32)GPIOG):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
-		break;
-		
-		case ((u32)GPIOI):
-			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI, ENABLE);
-		break;
-				
-		case ((u32)GPIOJ):
-			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOJ, ENABLE);
-		break;
-		
-		case ((u32)GPIOK):
-			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOK, ENABLE);
 		break;
 	}
 }

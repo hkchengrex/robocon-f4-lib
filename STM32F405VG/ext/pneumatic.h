@@ -5,42 +5,48 @@
 #include "stm32f4xx_gpio.h"
 #include "gpio.h"
 
-#define PNEUMATIC_COUNT 5
+#define PNEU_TABLE \
+X(PNEU_1, PA15)			\
+X(PNEU_2, PB0)			\
+X(PNEU_3, PB1)			\
+X(PNEU_4, PB3)			\
+X(PNEU_5, PF9)			\
+X(PNEU_6, PF10)			\
+X(PNEU_7, PF11)			\
+X(PNEU_8, PF12)			\
+X(PNEU_9, PF13)			\
+X(PNEU_10, PF14)			\
+X(PNEU_11, PD8)			\
+X(PNEU_12, PD9)			\
+X(PNEU_13, PD10)			\
+X(PNEU_14, PD11)			
 
+#define X(a, b) a,
 typedef enum{
-	PNEUMATIC_1 = 0,
-	PNEUMATIC_2, 
-	PNEUMATIC_3, 
-	PNEUMATIC_4, 
-	PNEUMATIC_5
-} PNEUMATIC_ID;
+	PNEU_TABLE
+} PNEU_ID;
+#undef X
 
-#if (PNEUMATIC_ID+1)!=PNEUMATIC_COUNT
-	#error Pneumatic count error :(
-#endif
-
-#define PNEUMATIC_1_GPIO PC4
-#define PNEUMATIC_2_GPIO PC4
-#define PNEUMATIC_3_GPIO PC4
-#define PNEUMATIC_4_GPIO PC4
-#define PNEUMATIC_5_GPIO PC4
+#define X(a, b) &b,
+static const GPIO* PNEU_GPIO_ARRAY[] = {PNEU_TABLE};
+#undef X
 
 /**
-	Initialize all pneumatic ports.
+	Initialize all pneu ports.
 */
-void pneumatic_init(void);
+void pneu_init(void);
 
 /**
-	Control pneumatic valve.
-	@param id: the pneumatic to be controlled
+	Control pneu valve.
+	@param id: the pneu to be controlled
 	@param state: Bit_RESET/Bit_SET, where Bit_RESET refers to original(uncontrolled) state 
 */
-void pneumatic_control(PNEUMATIC_ID id, BitAction state);
+void pneu_control(PNEU_ID id, BitAction state);
 
 /**
-	Toggle the pneumatic valve.
-	@param id: the pneumatic to be controlled
+	Toggle the pneu valve.
+	@param id: the pneu to be controlled
 */
-void pneumatic_toggle(PNEUMATIC_ID id);
+void pneu_toggle(PNEU_ID id);
 
 #endif

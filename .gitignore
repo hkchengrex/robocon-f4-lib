@@ -9,6 +9,8 @@
 *.o
 *.obj
 *.2i
+*.axf
+*.htm
 
 # Precompiled Headers
 *.gch

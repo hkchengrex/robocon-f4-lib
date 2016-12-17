@@ -15,6 +15,10 @@ typedef enum{
 	PNEUMATIC_5
 } PNEUMATIC_ID;
 
+#if (PNEUMATIC_ID+1)!=PNEUMATIC_COUNT
+	#error Pneumatic count error :(
+#endif
+
 #define PNEUMATIC_1_GPIO PC4
 #define PNEUMATIC_2_GPIO PC4
 #define PNEUMATIC_3_GPIO PC4

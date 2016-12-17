@@ -14,7 +14,7 @@
 	
 	Performace: Stable until ~100KB/s, more than that, some packets would be lost.
 	If the network is longer/larger, use lower rate.
-	This protocol has disabled auto re-send, as most application would be time-critical.
+	This protocol has disabled auto re-send, as most application would be time-critical, and control signal should be sent continuously.
 **/
 	
 #include <can_protocol.h>

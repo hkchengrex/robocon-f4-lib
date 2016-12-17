@@ -13,4 +13,8 @@
 	#define ARM_MATH_CM4
 #endif
 
+#define CLIMBING_PNEU PNEUMATIC_1
+#define SHOOTING_PNEU PNEUMATIC_2
+#define LAUGHING_PNEU PNEUMATIC_3
+
 #endif 

@@ -21,7 +21,7 @@
 #include "lcd_main.h"
 
 #include "approx_math.h"
-#include "quick_math.h"
+#include "macro_math.h"
 #include "trigon_math.h"
 
 #endif 

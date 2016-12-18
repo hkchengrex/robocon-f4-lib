@@ -31,6 +31,8 @@ typedef enum{
 static const GPIO* PNEU_GPIO_ARRAY[] = {PNEU_TABLE};
 #undef X
 
+#define PNEU_COUNT (sizeof(PNEU_GPIO_ARRAY)/sizeof(GPIO*))
+
 /**
 	Initialize all pneu ports.
 */

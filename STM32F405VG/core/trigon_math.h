@@ -5,7 +5,7 @@
 ** TRIGON MATH - STM32F4
 **
 ** A math library using CMSIS DSP math library plus custom functions that use 
-** lookup tables and linear interpolationto estimate value of trigonometric functions.
+** lookup tables and linear interpolation to estimate value of trigonometric functions.
 **
 ** ROBOCON 2016
 ** H K U S T

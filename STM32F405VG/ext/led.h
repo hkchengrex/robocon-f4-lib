@@ -1,5 +1,5 @@
-#ifndef	__LED_H
-#define	__LED_H
+#ifndef	_LED_H
+#define	_LED_H
 
 #include "stm32f4xx.h"
 #include "gpio.h"

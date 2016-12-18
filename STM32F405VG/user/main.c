@@ -16,17 +16,17 @@ int main(void) {
 	gpio_rcc_init_all();
 	
 	ticks_init();
-	adc_init();
-	
-	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
-	led_init();
-	buzzer_init();
-	button_init();
-	encoder_init();
-	servo_init();
-	uart_init(COM1, 115200);
-	
-	tft_put_logo(85, 120);
+//	adc_init();
+//	
+//	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
+//	led_init();
+//	buzzer_init();
+//	button_init();
+//	encoder_init();
+//	servo_init();
+//	uart_init(COM1, 115200);
+//	
+//	tft_put_logo(85, 120);
 	
 	while(1){
 	}

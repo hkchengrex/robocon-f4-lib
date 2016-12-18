@@ -1,7 +1,6 @@
 #ifndef _ENCODER_H_
 #define _ENCODER_H_
 
-// include ic library
 #include "stm32f4xx.h"
 #include "stm32f4xx_tim.h"
 
@@ -10,7 +9,7 @@
 //           PORT 1 IS A PORT 2 IS B
 //Encoder 2: PB6 TIM4_CH1
 //           PB7 TIM4_CH2
-// define
+
 #define ENCODER_NO												2
 // Encoder 1 details
 #define ENCODER_TIMER1										TIM8

@@ -1,7 +1,8 @@
+SysTick - Ticks increment
+
 IRQ interrupt priority:
 
 	- Preemption Priority 0
-		0 - Ticks
 		4 - CAN TX complete interrupt
 
 	- Preemption Priority 1
@@ -17,3 +18,8 @@ DMA Channel:
 		Stream 7 - Channel 4 - UART5 TX
 	- DMA 2
 		Stream 7 - Channel 4 - USART1 TX
+		
+Timer:
+
+	-Timer 6 (Basic timer)
+		-Handling timer event

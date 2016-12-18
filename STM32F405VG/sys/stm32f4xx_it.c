@@ -139,9 +139,10 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
+volatile s32 ms_ticks = 0;
 void SysTick_Handler(void)
 {
-  //TimingDelay_Decrement();
+  ms_ticks++;
 }
 
 /******************************************************************************/

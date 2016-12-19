@@ -1,4 +1,4 @@
-Component: ARM Compiler 5.06 update 1 (build 61) Tool: armlink [4d35a8]
+Component: ARM Compiler 5.06 (build 20) Tool: armlink [4d35a3]
 
 ==============================================================================
 
@@ -207,22 +207,6 @@ Section Cross References
     main.o(i.main) refers to system_stm32f4xx.o(i.SystemCoreClockUpdate) for SystemCoreClockUpdate
     main.o(i.main) refers to gpio.o(i.gpio_rcc_init_all) for gpio_rcc_init_all
     main.o(i.main) refers to ticks.o(i.ticks_init) for ticks_init
-    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
-    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
-    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
-    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
-    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
-    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_ClearITPendingBit) for TIM_ClearITPendingBit
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_DeInit) for TIM_DeInit
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_EncoderInterfaceConfig) for TIM_EncoderInterfaceConfig
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_SetCounter) for TIM_SetCounter
-    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_Cmd) for TIM_Cmd
-    encoder.o(i.get_count) refers to stm32f4xx_tim.o(i.TIM_GetCounter) for TIM_GetCounter
-    encoder.o(i.get_count) refers to encoder.o(.data) for .data
-    encoder.o(i.reset_encoder) refers to stm32f4xx_tim.o(i.TIM_SetCounter) for TIM_SetCounter
-    encoder.o(i.reset_encoder) refers to encoder.o(.data) for .data
     adc.o(i.adc_get) refers to adc.o(.data) for .data
     adc.o(i.adc_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     adc.o(i.adc_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
@@ -238,13 +222,6 @@ Section Cross References
     adc.o(i.adc_init) refers to stm32f4xx_adc.o(i.ADC_Cmd) for ADC_Cmd
     adc.o(i.adc_init) refers to stm32f4xx_adc.o(i.ADC_SoftwareStartConv) for ADC_SoftwareStartConv
     adc.o(i.adc_init) refers to adc.o(.data) for .data
-    approx_math.o(i.int_arc_cos) refers to approx_math.o(i.int_arc_sin) for int_arc_sin
-    approx_math.o(i.int_arc_sin) refers to approx_math.o(i.int_sin) for int_sin
-    approx_math.o(i.int_arc_tan) refers to approx_math.o(.data) for .data
-    approx_math.o(i.int_arc_tan2) refers to approx_math.o(i.int_arc_tan) for int_arc_tan
-    approx_math.o(i.int_cos) refers to approx_math.o(i.int_sin) for int_sin
-    approx_math.o(i.int_sin) refers to approx_math.o(.data) for .data
-    approx_math.o(i.int_tan) refers to approx_math.o(.data) for .data
     can_protocol.o(i.CAN1_RX0_IRQHandler) refers to stm32f4xx_can.o(i.CAN_GetITStatus) for CAN_GetITStatus
     can_protocol.o(i.CAN1_RX0_IRQHandler) refers to stm32f4xx_can.o(i.CAN_ClearITPendingBit) for CAN_ClearITPendingBit
     can_protocol.o(i.CAN1_RX0_IRQHandler) refers to stm32f4xx_can.o(i.CAN_Receive) for CAN_Receive
@@ -280,6 +257,29 @@ Section Cross References
     can_protocol.o(i.can_tx_queue_clear) refers to can_protocol.o(.data) for .data
     can_protocol.o(i.can_tx_queue_size) refers to can_protocol.o(.data) for .data
     can_protocol.o(.data) refers to can_protocol.o(.bss) for CAN_Tx_Queue_Array
+    approx_math.o(i.int_arc_cos) refers to approx_math.o(i.int_arc_sin) for int_arc_sin
+    approx_math.o(i.int_arc_sin) refers to approx_math.o(i.int_sin) for int_sin
+    approx_math.o(i.int_arc_tan) refers to approx_math.o(.data) for .data
+    approx_math.o(i.int_arc_tan2) refers to approx_math.o(i.int_arc_tan) for int_arc_tan
+    approx_math.o(i.int_cos) refers to approx_math.o(i.int_sin) for int_sin
+    approx_math.o(i.int_sin) refers to approx_math.o(.data) for .data
+    approx_math.o(i.int_tan) refers to approx_math.o(.data) for .data
+    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
+    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
+    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
+    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
+    encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_ClearITPendingBit) for TIM_ClearITPendingBit
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_DeInit) for TIM_DeInit
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_EncoderInterfaceConfig) for TIM_EncoderInterfaceConfig
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_SetCounter) for TIM_SetCounter
+    encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_Cmd) for TIM_Cmd
+    encoder.o(i.get_count) refers to stm32f4xx_tim.o(i.TIM_GetCounter) for TIM_GetCounter
+    encoder.o(i.get_count) refers to encoder.o(.data) for .data
+    encoder.o(i.reset_encoder) refers to stm32f4xx_tim.o(i.TIM_SetCounter) for TIM_SetCounter
+    encoder.o(i.reset_encoder) refers to encoder.o(.data) for .data
     usart.o(i.UART4_IRQHandler) refers to stm32f4xx_usart.o(i.USART_GetITStatus) for USART_GetITStatus
     usart.o(i.UART4_IRQHandler) refers to stm32f4xx_usart.o(i.USART_ReceiveData) for USART_ReceiveData
     usart.o(i.UART4_IRQHandler) refers to stm32f4xx_usart.o(i.USART_ClearITPendingBit) for USART_ClearITPendingBit
@@ -356,6 +356,79 @@ Section Cross References
     trigon_math.o(i.app_cos) refers to arm_cos_q15.o(.text) for arm_cos_q15
     trigon_math.o(i.app_sin) refers to arm_sin_q15.o(.text) for arm_sin_q15
     trigon_math.o(i.app_tan) refers to trigon_math.o(.constdata) for .constdata
+    buzzer.o(i.buzzer_check) refers to buzzer.o(i.buzzer_on) for buzzer_on
+    buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
+    buzzer.o(i.buzzer_check) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_check) refers to buzzer.o(.bss) for .bss
+    buzzer.o(i.buzzer_control) refers to buzzer.o(i.buzzer_on) for buzzer_on
+    buzzer.o(i.buzzer_control) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_control_note) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
+    buzzer.o(i.buzzer_control_note) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_control_note) refers to buzzer.o(i.buzzer_on) for buzzer_on
+    buzzer.o(i.buzzer_control_note) refers to buzzer.o(.bss) for .bss
+    buzzer.o(i.buzzer_control_note) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_dequeue) refers to buzzer.o(.constdata) for .constdata
+    buzzer.o(i.buzzer_dequeue) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_enqueue) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_OC1Init) for TIM_OC1Init
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_ARRPreloadConfig) for TIM_ARRPreloadConfig
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_OC1PreloadConfig) for TIM_OC1PreloadConfig
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_CtrlPWMOutputs) for TIM_CtrlPWMOutputs
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_Cmd) for TIM_Cmd
+    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_init) refers to buzzer.o(.bss) for .bss
+    buzzer.o(i.buzzer_init) refers to system_stm32f4xx.o(.data) for SystemCoreClock
+    buzzer.o(i.buzzer_init) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_off) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_on) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_on) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_play_song) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
+    buzzer.o(i.buzzer_play_song) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_play_song) refers to buzzer.o(i.buzzer_on) for buzzer_on
+    buzzer.o(i.buzzer_play_song) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_play_song) refers to buzzer.o(.bss) for .bss
+    buzzer.o(i.buzzer_set_note_period) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
+    buzzer.o(i.buzzer_set_note_period) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    buzzer.o(i.buzzer_set_note_period) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_set_volume) refers to buzzer.o(.data) for .data
+    buzzer.o(i.buzzer_stop_song) refers to buzzer.o(.data) for .data
+    buzzer.o(i.get_note_period) refers to buzzer.o(.bss) for .bss
+    buzzer.o(.data) refers to buzzer.o(.bss) for BUZZER_QUEUE_ARRAY
+    led.o(i.led_blink) refers to gpio.o(i.gpio_write) for gpio_write
+    led.o(i.led_blink) refers to led.o(.data) for .data
+    led.o(i.led_control) refers to gpio.o(i.gpio_write) for gpio_write
+    led.o(i.led_control) refers to led.o(.data) for .data
+    led.o(i.led_init) refers to gpio.o(i.gpio_output_init) for gpio_output_init
+    led.o(i.led_init) refers to gpio.o(i.gpio_write) for gpio_write
+    led.o(i.led_init) refers to gpio.o(.constdata) for PC4
+    led.o(.data) refers to gpio.o(.constdata) for PC4
+    button.o(i.btn_disable_onClickListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_disable_onHoldListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_disable_onReleaseListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_init) refers to gpio.o(i.gpio_input_init) for gpio_input_init
+    button.o(i.btn_init) refers to button.o(.constdata) for .constdata
+    button.o(i.btn_pressed) refers to gpio.o(i.gpio_read_input) for gpio_read_input
+    button.o(i.btn_pressed) refers to button.o(.constdata) for .constdata
+    button.o(i.btn_reg_onClickListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_reg_onHoldListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_reg_onReleaseListener) refers to button.o(.bss) for .bss
+    button.o(i.btn_update) refers to gpio.o(i.gpio_read_input) for gpio_read_input
+    button.o(i.btn_update) refers to button.o(.constdata) for .constdata
+    button.o(i.btn_update) refers to button.o(.bss) for .bss
+    button.o(.constdata) refers to gpio.o(.constdata) for PD6
+    button.o(.constdata) refers to gpio.o(.constdata) for PD7
+    button.o(.constdata) refers to gpio.o(.constdata) for PD0
+    button.o(.constdata) refers to gpio.o(.constdata) for PD1
+    button.o(.constdata) refers to gpio.o(.constdata) for PD3
+    button.o(.constdata) refers to gpio.o(.constdata) for PD4
+    button.o(.constdata) refers to gpio.o(.constdata) for PD5
+    button.o(.constdata) refers to gpio.o(.constdata) for PE0
     lcd_main.o(i.tft_char_is_changed) refers to lcd_main.o(.data) for .data
     lcd_main.o(i.tft_char_is_changed) refers to lcd_main.o(.bss) for .bss
     lcd_main.o(i.tft_clear) refers to lcd_main.o(.data) for .data
@@ -427,79 +500,6 @@ Section Cross References
     lcd_main.o(i.tft_write_data) refers to stm32f4xx_spi.o(i.SPI_I2S_GetFlagStatus) for SPI_I2S_GetFlagStatus
     lcd_main.o(i.tft_write_data) refers to stm32f4xx_spi.o(i.SPI_I2S_SendData) for SPI_I2S_SendData
     lcd_main.o(i.tft_write_data) refers to stm32f4xx_spi.o(i.SPI_I2S_ReceiveData) for SPI_I2S_ReceiveData
-    button.o(i.btn_disable_onClickListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_disable_onHoldListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_disable_onReleaseListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_init) refers to gpio.o(i.gpio_input_init) for gpio_input_init
-    button.o(i.btn_init) refers to button.o(.constdata) for .constdata
-    button.o(i.btn_pressed) refers to gpio.o(i.gpio_read_input) for gpio_read_input
-    button.o(i.btn_pressed) refers to button.o(.constdata) for .constdata
-    button.o(i.btn_reg_onClickListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_reg_onHoldListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_reg_onReleaseListener) refers to button.o(.bss) for .bss
-    button.o(i.btn_update) refers to gpio.o(i.gpio_read_input) for gpio_read_input
-    button.o(i.btn_update) refers to button.o(.constdata) for .constdata
-    button.o(i.btn_update) refers to button.o(.bss) for .bss
-    button.o(.constdata) refers to gpio.o(.constdata) for PD6
-    button.o(.constdata) refers to gpio.o(.constdata) for PD7
-    button.o(.constdata) refers to gpio.o(.constdata) for PD0
-    button.o(.constdata) refers to gpio.o(.constdata) for PD1
-    button.o(.constdata) refers to gpio.o(.constdata) for PD3
-    button.o(.constdata) refers to gpio.o(.constdata) for PD4
-    button.o(.constdata) refers to gpio.o(.constdata) for PD5
-    button.o(.constdata) refers to gpio.o(.constdata) for PE0
-    buzzer.o(i.buzzer_check) refers to buzzer.o(i.buzzer_on) for buzzer_on
-    buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
-    buzzer.o(i.buzzer_check) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_check) refers to buzzer.o(.bss) for .bss
-    buzzer.o(i.buzzer_control) refers to buzzer.o(i.buzzer_on) for buzzer_on
-    buzzer.o(i.buzzer_control) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_control_note) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
-    buzzer.o(i.buzzer_control_note) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_control_note) refers to buzzer.o(i.buzzer_on) for buzzer_on
-    buzzer.o(i.buzzer_control_note) refers to buzzer.o(.bss) for .bss
-    buzzer.o(i.buzzer_control_note) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_dequeue) refers to buzzer.o(.constdata) for .constdata
-    buzzer.o(i.buzzer_dequeue) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_enqueue) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_OC1Init) for TIM_OC1Init
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_ARRPreloadConfig) for TIM_ARRPreloadConfig
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_OC1PreloadConfig) for TIM_OC1PreloadConfig
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_CtrlPWMOutputs) for TIM_CtrlPWMOutputs
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_Cmd) for TIM_Cmd
-    buzzer.o(i.buzzer_init) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_init) refers to buzzer.o(.bss) for .bss
-    buzzer.o(i.buzzer_init) refers to system_stm32f4xx.o(.data) for SystemCoreClock
-    buzzer.o(i.buzzer_init) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_off) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_on) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_on) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_play_song) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
-    buzzer.o(i.buzzer_play_song) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_play_song) refers to buzzer.o(i.buzzer_on) for buzzer_on
-    buzzer.o(i.buzzer_play_song) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_play_song) refers to buzzer.o(.bss) for .bss
-    buzzer.o(i.buzzer_set_note_period) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
-    buzzer.o(i.buzzer_set_note_period) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
-    buzzer.o(i.buzzer_set_note_period) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_set_volume) refers to buzzer.o(.data) for .data
-    buzzer.o(i.buzzer_stop_song) refers to buzzer.o(.data) for .data
-    buzzer.o(i.get_note_period) refers to buzzer.o(.bss) for .bss
-    buzzer.o(.data) refers to buzzer.o(.bss) for BUZZER_QUEUE_ARRAY
-    led.o(i.led_blink) refers to gpio.o(i.gpio_write) for gpio_write
-    led.o(i.led_blink) refers to led.o(.data) for .data
-    led.o(i.led_control) refers to gpio.o(i.gpio_write) for gpio_write
-    led.o(i.led_control) refers to led.o(.data) for .data
-    led.o(i.led_init) refers to gpio.o(i.gpio_output_init) for gpio_output_init
-    led.o(i.led_init) refers to gpio.o(i.gpio_write) for gpio_write
-    led.o(i.led_init) refers to gpio.o(.constdata) for PC4
-    led.o(.data) refers to gpio.o(.constdata) for PC4
     can_motor.o(i.can_motor_feedback_decoding) refers to can_protocol.o(i.n_bytes_to_one) for n_bytes_to_one
     can_motor.o(i.can_motor_feedback_decoding) refers to can_motor.o(.bss) for .bss
     can_motor.o(i.can_motor_init) refers to can_protocol.o(i.can_rx_add_filter) for can_rx_add_filter
@@ -1611,33 +1611,12 @@ Removing Unused input sections from the image.
     Removing main.o(.rev16_text), (4 bytes).
     Removing main.o(.revsh_text), (4 bytes).
     Removing main.o(.rrx_text), (6 bytes).
-    Removing encoder.o(.rev16_text), (4 bytes).
-    Removing encoder.o(.revsh_text), (4 bytes).
-    Removing encoder.o(.rrx_text), (6 bytes).
-    Removing encoder.o(i.encoder_init), (316 bytes).
-    Removing encoder.o(i.get_count), (20 bytes).
-    Removing encoder.o(i.reset_encoder), (16 bytes).
-    Removing encoder.o(.data), (8 bytes).
-    Removing servo.o(.rev16_text), (4 bytes).
-    Removing servo.o(.revsh_text), (4 bytes).
-    Removing servo.o(.rrx_text), (6 bytes).
     Removing adc.o(.rev16_text), (4 bytes).
     Removing adc.o(.revsh_text), (4 bytes).
     Removing adc.o(.rrx_text), (6 bytes).
     Removing adc.o(i.adc_get), (12 bytes).
     Removing adc.o(i.adc_init), (252 bytes).
     Removing adc.o(.data), (4 bytes).
-    Removing approx_math.o(.rev16_text), (4 bytes).
-    Removing approx_math.o(.revsh_text), (4 bytes).
-    Removing approx_math.o(.rrx_text), (6 bytes).
-    Removing approx_math.o(i.int_arc_cos), (14 bytes).
-    Removing approx_math.o(i.int_arc_sin), (108 bytes).
-    Removing approx_math.o(i.int_arc_tan), (284 bytes).
-    Removing approx_math.o(i.int_arc_tan2), (74 bytes).
-    Removing approx_math.o(i.int_cos), (8 bytes).
-    Removing approx_math.o(i.int_sin), (136 bytes).
-    Removing approx_math.o(i.int_tan), (108 bytes).
-    Removing approx_math.o(.data), (364 bytes).
     Removing can_protocol.o(.rev16_text), (4 bytes).
     Removing can_protocol.o(.revsh_text), (4 bytes).
     Removing can_protocol.o(.rrx_text), (6 bytes).
@@ -1649,6 +1628,24 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(i.can_tx_queue_size), (28 bytes).
     Removing can_protocol.o(i.n_bytes_to_one), (30 bytes).
     Removing can_protocol.o(i.one_to_n_bytes), (16 bytes).
+    Removing approx_math.o(.rev16_text), (4 bytes).
+    Removing approx_math.o(.revsh_text), (4 bytes).
+    Removing approx_math.o(.rrx_text), (6 bytes).
+    Removing approx_math.o(i.int_arc_cos), (14 bytes).
+    Removing approx_math.o(i.int_arc_sin), (108 bytes).
+    Removing approx_math.o(i.int_arc_tan), (284 bytes).
+    Removing approx_math.o(i.int_arc_tan2), (74 bytes).
+    Removing approx_math.o(i.int_cos), (8 bytes).
+    Removing approx_math.o(i.int_sin), (136 bytes).
+    Removing approx_math.o(i.int_tan), (108 bytes).
+    Removing approx_math.o(.data), (364 bytes).
+    Removing encoder.o(.rev16_text), (4 bytes).
+    Removing encoder.o(.revsh_text), (4 bytes).
+    Removing encoder.o(.rrx_text), (6 bytes).
+    Removing encoder.o(i.encoder_init), (316 bytes).
+    Removing encoder.o(i.get_count), (20 bytes).
+    Removing encoder.o(i.reset_encoder), (16 bytes).
+    Removing encoder.o(.data), (8 bytes).
     Removing usart.o(.rev16_text), (4 bytes).
     Removing usart.o(.revsh_text), (4 bytes).
     Removing usart.o(.rrx_text), (6 bytes).
@@ -1664,6 +1661,9 @@ Removing Unused input sections from the image.
     Removing usart.o(.constdata), (90 bytes).
     Removing usart.o(.data), (1 bytes).
     Removing usart.o(.data), (20 bytes).
+    Removing servo.o(.rev16_text), (4 bytes).
+    Removing servo.o(.revsh_text), (4 bytes).
+    Removing servo.o(.rrx_text), (6 bytes).
     Removing ticks.o(.rev16_text), (4 bytes).
     Removing ticks.o(.revsh_text), (4 bytes).
     Removing ticks.o(.rrx_text), (6 bytes).
@@ -1803,6 +1803,47 @@ Removing Unused input sections from the image.
     Removing trigon_math.o(i.app_sin), (32 bytes).
     Removing trigon_math.o(i.app_tan), (140 bytes).
     Removing trigon_math.o(.constdata), (1028 bytes).
+    Removing buzzer.o(.rev16_text), (4 bytes).
+    Removing buzzer.o(.revsh_text), (4 bytes).
+    Removing buzzer.o(.rrx_text), (6 bytes).
+    Removing buzzer.o(i.buzzer_check), (288 bytes).
+    Removing buzzer.o(i.buzzer_control), (36 bytes).
+    Removing buzzer.o(i.buzzer_control_note), (112 bytes).
+    Removing buzzer.o(i.buzzer_dequeue), (60 bytes).
+    Removing buzzer.o(i.buzzer_enqueue), (64 bytes).
+    Removing buzzer.o(i.buzzer_init), (268 bytes).
+    Removing buzzer.o(i.buzzer_off), (12 bytes).
+    Removing buzzer.o(i.buzzer_on), (44 bytes).
+    Removing buzzer.o(i.buzzer_play_song), (120 bytes).
+    Removing buzzer.o(i.buzzer_set_note_period), (28 bytes).
+    Removing buzzer.o(i.buzzer_set_volume), (16 bytes).
+    Removing buzzer.o(i.buzzer_stop_song), (12 bytes).
+    Removing buzzer.o(i.get_note_period), (48 bytes).
+    Removing buzzer.o(.bss), (26 bytes).
+    Removing buzzer.o(.bss), (24 bytes).
+    Removing buzzer.o(.constdata), (2 bytes).
+    Removing buzzer.o(.data), (36 bytes).
+    Removing led.o(.rev16_text), (4 bytes).
+    Removing led.o(.revsh_text), (4 bytes).
+    Removing led.o(.rrx_text), (6 bytes).
+    Removing led.o(i.led_blink), (104 bytes).
+    Removing led.o(i.led_control), (64 bytes).
+    Removing led.o(i.led_init), (28 bytes).
+    Removing led.o(.data), (8 bytes).
+    Removing button.o(.rev16_text), (4 bytes).
+    Removing button.o(.revsh_text), (4 bytes).
+    Removing button.o(.rrx_text), (6 bytes).
+    Removing button.o(i.btn_disable_onClickListener), (16 bytes).
+    Removing button.o(i.btn_disable_onHoldListener), (16 bytes).
+    Removing button.o(i.btn_disable_onReleaseListener), (16 bytes).
+    Removing button.o(i.btn_init), (36 bytes).
+    Removing button.o(i.btn_pressed), (52 bytes).
+    Removing button.o(i.btn_reg_onClickListener), (12 bytes).
+    Removing button.o(i.btn_reg_onHoldListener), (24 bytes).
+    Removing button.o(i.btn_reg_onReleaseListener), (12 bytes).
+    Removing button.o(i.btn_update), (172 bytes).
+    Removing button.o(.bss), (288 bytes).
+    Removing button.o(.constdata), (64 bytes).
     Removing lcd_main.o(.rev16_text), (4 bytes).
     Removing lcd_main.o(.revsh_text), (4 bytes).
     Removing lcd_main.o(.rrx_text), (6 bytes).
@@ -1834,47 +1875,6 @@ Removing Unused input sections from the image.
     Removing lcd_main.o(.bss), (2000 bytes).
     Removing lcd_main.o(.data), (1550 bytes).
     Removing lcd_main.o(.data), (2 bytes).
-    Removing button.o(.rev16_text), (4 bytes).
-    Removing button.o(.revsh_text), (4 bytes).
-    Removing button.o(.rrx_text), (6 bytes).
-    Removing button.o(i.btn_disable_onClickListener), (16 bytes).
-    Removing button.o(i.btn_disable_onHoldListener), (16 bytes).
-    Removing button.o(i.btn_disable_onReleaseListener), (16 bytes).
-    Removing button.o(i.btn_init), (36 bytes).
-    Removing button.o(i.btn_pressed), (52 bytes).
-    Removing button.o(i.btn_reg_onClickListener), (12 bytes).
-    Removing button.o(i.btn_reg_onHoldListener), (24 bytes).
-    Removing button.o(i.btn_reg_onReleaseListener), (12 bytes).
-    Removing button.o(i.btn_update), (172 bytes).
-    Removing button.o(.bss), (288 bytes).
-    Removing button.o(.constdata), (64 bytes).
-    Removing buzzer.o(.rev16_text), (4 bytes).
-    Removing buzzer.o(.revsh_text), (4 bytes).
-    Removing buzzer.o(.rrx_text), (6 bytes).
-    Removing buzzer.o(i.buzzer_check), (288 bytes).
-    Removing buzzer.o(i.buzzer_control), (36 bytes).
-    Removing buzzer.o(i.buzzer_control_note), (112 bytes).
-    Removing buzzer.o(i.buzzer_dequeue), (60 bytes).
-    Removing buzzer.o(i.buzzer_enqueue), (64 bytes).
-    Removing buzzer.o(i.buzzer_init), (268 bytes).
-    Removing buzzer.o(i.buzzer_off), (12 bytes).
-    Removing buzzer.o(i.buzzer_on), (44 bytes).
-    Removing buzzer.o(i.buzzer_play_song), (120 bytes).
-    Removing buzzer.o(i.buzzer_set_note_period), (28 bytes).
-    Removing buzzer.o(i.buzzer_set_volume), (16 bytes).
-    Removing buzzer.o(i.buzzer_stop_song), (12 bytes).
-    Removing buzzer.o(i.get_note_period), (48 bytes).
-    Removing buzzer.o(.bss), (26 bytes).
-    Removing buzzer.o(.bss), (24 bytes).
-    Removing buzzer.o(.constdata), (2 bytes).
-    Removing buzzer.o(.data), (36 bytes).
-    Removing led.o(.rev16_text), (4 bytes).
-    Removing led.o(.revsh_text), (4 bytes).
-    Removing led.o(.rrx_text), (6 bytes).
-    Removing led.o(i.led_blink), (104 bytes).
-    Removing led.o(i.led_control), (64 bytes).
-    Removing led.o(i.led_init), (28 bytes).
-    Removing led.o(.data), (8 bytes).
     Removing buzzer_song.o(.rev16_text), (4 bytes).
     Removing buzzer_song.o(.revsh_text), (4 bytes).
     Removing buzzer_song.o(.rrx_text), (6 bytes).
@@ -1979,8 +1979,8 @@ Removing Unused input sections from the image.
     Removing ddiv.o(.text), (222 bytes).
     Removing dfixul.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
-    Removing approx_math.o(i.Sqrt), (96 bytes).
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
+    Removing approx_math.o(i.Sqrt), (96 bytes).
 
 1195 unused section(s) (total 57335 bytes) removed from the image.
 
@@ -1992,38 +1992,38 @@ Image Symbol Table
 
     Symbol Name                              Value     Ov Type        Size  Object(Section)
 
-    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
+    ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/stdio/fputc.c           0x00000000   Number         0  fputc.o ABSOLUTE
     ../clib/microlib/stdio/semi.s            0x00000000   Number         0  semi.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
-    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusesemip.o ABSOLUTE
+    ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
@@ -2031,18 +2031,18 @@ Image Symbol Table
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixul.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
-    ../mathlib/acosf.c                       0x00000000   Number         0  acosf.o ABSOLUTE
     ../mathlib/acosf.c                       0x00000000   Number         0  acosf_x.o ABSOLUTE
+    ../mathlib/acosf.c                       0x00000000   Number         0  acosf.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf_x.o ABSOLUTE
-    ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f_x.o ABSOLUTE
     ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f.o ABSOLUTE
-    ../mathlib/atanf.c                       0x00000000   Number         0  atanf_x.o ABSOLUTE
+    ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f_x.o ABSOLUTE
     ../mathlib/atanf.c                       0x00000000   Number         0  atanf.o ABSOLUTE
+    ../mathlib/atanf.c                       0x00000000   Number         0  atanf_x.o ABSOLUTE
     ../mathlib/fpclassifyf.c                 0x00000000   Number         0  fpclassifyf.o ABSOLUTE
     ../mathlib/funder.c                      0x00000000   Number         0  funder.o ABSOLUTE
-    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_x.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf.o ABSOLUTE
+    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_x.o ABSOLUTE
     ..\FastMathFunctions\arm_cos_q15.c       0x00000000   Number         0  arm_cos_q15.o ABSOLUTE
     ..\FastMathFunctions\arm_sin_q15.c       0x00000000   Number         0  arm_sin_q15.o ABSOLUTE
     ..\\FastMathFunctions\\arm_cos_q15.c     0x00000000   Number         0  arm_cos_q15.o ABSOLUTE
@@ -2420,9 +2420,9 @@ Memory Map of the image
     0x080001e4   0x00000024   Code   RO         1335    .text               mc_w.l(init.o)
     0x08000208   0x00000002   Code   RO          819    i.BusFault_Handler  stm32f4xx_it.o
     0x0800020a   0x00000002   PAD
-    0x0800020c   0x00000064   Code   RO          883    i.CAN1_RX0_IRQHandler  can_protocol.o
-    0x08000270   0x00000064   Code   RO          884    i.CAN1_RX1_IRQHandler  can_protocol.o
-    0x080002d4   0x00000028   Code   RO          885    i.CAN1_TX_IRQHandler  can_protocol.o
+    0x0800020c   0x00000064   Code   RO          860    i.CAN1_RX0_IRQHandler  can_protocol.o
+    0x08000270   0x00000064   Code   RO          861    i.CAN1_RX1_IRQHandler  can_protocol.o
+    0x080002d4   0x00000028   Code   RO          862    i.CAN1_TX_IRQHandler  can_protocol.o
     0x080002fc   0x0000009c   Code   RO           47    i.CAN_ClearITPendingBit  stm32f4xx_can.o
     0x08000398   0x0000010c   Code   RO           53    i.CAN_GetITStatus   stm32f4xx_can.o
     0x080004a4   0x000000b4   Code   RO           61    i.CAN_Receive       stm32f4xx_can.o
@@ -2439,11 +2439,11 @@ Memory Map of the image
     0x08000640   0x00000010   Code   RO          826    i.SysTick_Handler   stm32f4xx_it.o
     0x08000650   0x00000084   Code   RO          840    i.SystemCoreClockUpdate  system_stm32f4xx.o
     0x080006d4   0x0000011c   Code   RO          841    i.SystemInit        system_stm32f4xx.o
-    0x080007f0   0x00000044   Code   RO          902    i.UART4_IRQHandler  usart.o
-    0x08000834   0x00000044   Code   RO          903    i.UART5_IRQHandler  usart.o
-    0x08000878   0x00000044   Code   RO          904    i.USART1_IRQHandler  usart.o
-    0x080008bc   0x00000044   Code   RO          905    i.USART2_IRQHandler  usart.o
-    0x08000900   0x00000044   Code   RO          906    i.USART3_IRQHandler  usart.o
+    0x080007f0   0x00000044   Code   RO          899    i.UART4_IRQHandler  usart.o
+    0x08000834   0x00000044   Code   RO          900    i.UART5_IRQHandler  usart.o
+    0x08000878   0x00000044   Code   RO          901    i.USART1_IRQHandler  usart.o
+    0x080008bc   0x00000044   Code   RO          902    i.USART2_IRQHandler  usart.o
+    0x08000900   0x00000044   Code   RO          903    i.USART3_IRQHandler  usart.o
     0x08000944   0x0000000e   Code   RO          777    i.USART_ClearITPendingBit  stm32f4xx_usart.o
     0x08000952   0x00000042   Code   RO          784    i.USART_GetITStatus  stm32f4xx_usart.o
     0x08000994   0x00000008   Code   RO          794    i.USART_ReceiveData  stm32f4xx_usart.o
@@ -2451,7 +2451,7 @@ Memory Map of the image
     0x0800099e   0x0000000e   Code   RO         1342    i.__scatterload_copy  mc_w.l(handlers.o)
     0x080009ac   0x00000002   Code   RO         1343    i.__scatterload_null  mc_w.l(handlers.o)
     0x080009ae   0x0000000e   Code   RO         1344    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x080009bc   0x000000a0   Code   RO          889    i.can_tx_dequeue    can_protocol.o
+    0x080009bc   0x000000a0   Code   RO          866    i.can_tx_dequeue    can_protocol.o
     0x08000a5c   0x0000003e   Code   RO          934    i.gpio_rcc_init_all  gpio.o
     0x08000a9a   0x00000012   Code   RO          850    i.main              main.o
     0x08000aac   0x0000003c   Code   RO          926    i.ticks_init        ticks.o
@@ -2464,11 +2464,11 @@ Memory Map of the image
 
     0x20000000   0x00000004   Data   RW          828    .data               stm32f4xx_it.o
     0x20000004   0x00000014   Data   RW          842    .data               system_stm32f4xx.o
-    0x20000018   0x0000000c   Data   RW          897    .data               can_protocol.o
-    0x20000024   0x00000030   Data   RW          919    .data               usart.o
-    0x20000054   0x00000e10   Zero   RW          895    .bss                can_protocol.o
-    0x20000e64   0x00000070   Zero   RW          896    .bss                can_protocol.o
-    0x20000ed4   0x00000014   Zero   RW          916    .bss                usart.o
+    0x20000018   0x0000000c   Data   RW          874    .data               can_protocol.o
+    0x20000024   0x00000030   Data   RW          916    .data               usart.o
+    0x20000054   0x00000e10   Zero   RW          872    .bss                can_protocol.o
+    0x20000e64   0x00000070   Zero   RW          873    .bss                can_protocol.o
+    0x20000ed4   0x00000014   Zero   RW          913    .bss                usart.o
     0x20000ee8   0x00000800   Zero   RW          843    STACK               startup_stm32f40_41xxx.o
 
 

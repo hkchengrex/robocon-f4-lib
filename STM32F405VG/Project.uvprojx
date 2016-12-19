@@ -701,11 +701,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -745,6 +740,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -1482,11 +1482,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -1526,6 +1521,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -2264,11 +2264,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -2308,6 +2303,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -3045,11 +3045,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -3089,6 +3084,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -3826,11 +3826,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -3870,6 +3865,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -4607,11 +4607,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -4651,6 +4646,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -5388,11 +5388,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -5432,6 +5427,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>
@@ -6169,11 +6169,6 @@
               <FilePath>.\core\button.c</FilePath>
             </File>
             <File>
-              <FileName>lcd_main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\lcd_main.c</FilePath>
-            </File>
-            <File>
               <FileName>led.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\led.c</FilePath>
@@ -6213,6 +6208,11 @@
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>lcd_main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\lcd_main.c</FilePath>
+            </File>
             <File>
               <FileName>buzzer_song.c</FileName>
               <FileType>1</FileType>

@@ -681,14 +681,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -696,24 +696,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -735,11 +720,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -1462,14 +1467,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -1477,24 +1482,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -1516,11 +1506,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -1572,7 +1582,7 @@
       <TargetName>STM32F40_41xxx</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060061::V5.06 update 1 (build 61)::ARMCC</pCCUsed>
+      <pCCUsed>5060020::V5.06 (build 20)::ARMCC</pCCUsed>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F405VGTx</Device>
@@ -2244,14 +2254,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -2259,24 +2269,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -2298,11 +2293,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -3025,14 +3040,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -3040,24 +3055,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -3079,11 +3079,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -3806,14 +3826,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -3821,24 +3841,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -3860,11 +3865,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -4587,14 +4612,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -4602,24 +4627,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -4641,11 +4651,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -5368,14 +5398,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -5383,24 +5413,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -5422,11 +5437,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
@@ -6149,14 +6184,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>approx_math.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\approx_math.c</FilePath>
-            </File>
-            <File>
               <FileName>can_protocol.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\can_protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>approx_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\approx_math.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -6164,24 +6199,9 @@
               <FilePath>.\core\encoder.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\button.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\led.c</FilePath>
-            </File>
-            <File>
               <FileName>usart.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\buzzer.c</FilePath>
             </File>
             <File>
               <FileName>servo.c</FileName>
@@ -6203,11 +6223,31 @@
               <FileType>1</FileType>
               <FilePath>.\core\trigon_math.c</FilePath>
             </File>
+            <File>
+              <FileName>macro_math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\core\macro_math.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>ext</GroupName>
           <Files>
+            <File>
+              <FileName>buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
             <File>
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>

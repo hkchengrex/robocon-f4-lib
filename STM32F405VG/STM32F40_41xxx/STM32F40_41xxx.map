@@ -267,7 +267,6 @@ Section Cross References
     encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
     encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
     encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
-    encoder.o(i.encoder_init) refers to stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
     encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
     encoder.o(i.encoder_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
     encoder.o(i.encoder_init) refers to stm32f4xx_tim.o(i.TIM_ClearITPendingBit) for TIM_ClearITPendingBit
@@ -1642,10 +1641,10 @@ Removing Unused input sections from the image.
     Removing encoder.o(.rev16_text), (4 bytes).
     Removing encoder.o(.revsh_text), (4 bytes).
     Removing encoder.o(.rrx_text), (6 bytes).
-    Removing encoder.o(i.encoder_init), (316 bytes).
+    Removing encoder.o(i.encoder_init), (168 bytes).
     Removing encoder.o(i.get_count), (20 bytes).
     Removing encoder.o(i.reset_encoder), (16 bytes).
-    Removing encoder.o(.data), (8 bytes).
+    Removing encoder.o(.data), (4 bytes).
     Removing usart.o(.rev16_text), (4 bytes).
     Removing usart.o(.revsh_text), (4 bytes).
     Removing usart.o(.rrx_text), (6 bytes).
@@ -1982,7 +1981,7 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
     Removing approx_math.o(i.Sqrt), (96 bytes).
 
-1195 unused section(s) (total 57335 bytes) removed from the image.
+1195 unused section(s) (total 57183 bytes) removed from the image.
 
 ==============================================================================
 

@@ -283,3 +283,40 @@ void gpio_write(const GPIO* gpio, BitAction BitVal){
 void gpio_toggle(const GPIO* gpio) {
 	GPIO_WriteBit(gpio->gpio, gpio->gpio_pin, (BitAction) GPIO_ReadOutputDataBit(gpio->gpio, gpio->gpio_pin));
 }
+
+uint16_t getPinSource(const GPIO* gpio){
+	switch(gpio->gpio_pin){
+		case GPIO_Pin_0:
+			return GPIO_PinSource0;
+		case GPIO_Pin_1:
+			return GPIO_PinSource1;
+		case GPIO_Pin_2:
+			return GPIO_PinSource2;
+		case GPIO_Pin_3:
+			return GPIO_PinSource3;
+		case GPIO_Pin_4:
+			return GPIO_PinSource4;
+		case GPIO_Pin_5:
+			return GPIO_PinSource5;
+		case GPIO_Pin_6:
+			return GPIO_PinSource6;
+		case GPIO_Pin_7:
+			return GPIO_PinSource7;
+		case GPIO_Pin_8:
+			return GPIO_PinSource8;
+		case GPIO_Pin_9:
+			return GPIO_PinSource9;
+		case GPIO_Pin_10:
+			return GPIO_PinSource10;
+		case GPIO_Pin_11:
+			return GPIO_PinSource11;
+		case GPIO_Pin_12:
+			return GPIO_PinSource12;
+		case GPIO_Pin_13:
+			return GPIO_PinSource13;
+		case GPIO_Pin_14:
+			return GPIO_PinSource14;
+		case GPIO_Pin_15:
+			return GPIO_PinSource15;
+	}
+}

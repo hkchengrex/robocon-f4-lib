@@ -11,20 +11,22 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"	  
 #include "stm32f4xx_tim.h"
+#include "gpio.h"
 
-#define SERVO_COUNT     1
-#define SERVO_TIM				TIM1
-#define SERVO_AF_TIM 		GPIO_AF_TIM1
-#define SERVO_PORT			GPIOA
-#define SERVO_TIM_RCC		RCC_APB2Periph_TIM1
-#define SERVO_GPIO_RCC	RCC_AHB1Periph_GPIOA
+#define GET_TIMER_AND_AF(a) TIM##a, GPIO_AF_TIM##a
+
+#define SERVO_TABLE \
+X(SERVO1, GET_TIMER_AND_AF(3), PC6, 1) \
+X(SERVO2, GET_TIMER_AND_AF(3), PC7, 2) \
+X(SERVO3, GET_TIMER_AND_AF(3), PC8, 3) \
+X(SERVO4, GET_TIMER_AND_AF(3), PC9, 4) \
+X(SERVO5, GET_TIMER_AND_AF(11), PF7, 1) \
+X(SERVO6, GET_TIMER_AND_AF(13), PF8, 1) \
 
 typedef struct {
-	u16 servo_tim_ch;
-	GPIO_TypeDef* GPIOx;
-	u16 servo_pin;
-	uint16_t GPIO_PinSource;
-} SERVO_PWM_STRUCT[];
+	u16 tim;
+	u8 tim_af;
+} SERVO_STRUCT;
 
 typedef enum {
   SERVO1

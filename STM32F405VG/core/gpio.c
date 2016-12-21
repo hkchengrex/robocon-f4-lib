@@ -134,6 +134,8 @@ const GPIO
 			
 			;
 
+uint16_t getPinSource(const GPIO* gpio);
+			
 /**
 	Complete GPIO Pin initailizer
 	@param gpio: A pointer to a gpio port, like &PE0
@@ -177,6 +179,8 @@ void gpio_init(const GPIO* gpio, GPIOMode_TypeDef mode, GPIOSpeed_TypeDef speed,
 */
 void gpio_input_init(const GPIO* gpio, GPIOPuPd_TypeDef pp_type){
 	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_StructInit(&GPIO_InitStructure);
+	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
 	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
 	GPIO_InitStructure.GPIO_PuPd = pp_type;
@@ -191,6 +195,8 @@ void gpio_input_init(const GPIO* gpio, GPIOPuPd_TypeDef pp_type){
 */
 void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type){
 	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_StructInit(&GPIO_InitStructure);
+	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Medium_Speed; //This controls the slew rate. Medium should be enough.
 	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
@@ -198,6 +204,26 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	GPIO_InitStructure.GPIO_PuPd = pp_type;
 	
 	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
+}
+
+/**
+	Alternate function GPIO initailizer
+	Usage: @ref gpio_init
+*/
+void gpio_af_init(const GPIO* gpio, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF){
+	assert_param(IS_GPIO_AF(GPIO_AF));
+	
+	GPIO_InitTypeDef GPIO_InitStructure;
+	GPIO_StructInit(&GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
+	GPIO_InitStructure.GPIO_Speed = speed;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = output_type;
+	GPIO_InitStructure.GPIO_PuPd = pp_type;
+	
+	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
+	GPIO_PinAFConfig(gpio->gpio, getPinSource(gpio), GPIO_AF);
 }
 
 /**

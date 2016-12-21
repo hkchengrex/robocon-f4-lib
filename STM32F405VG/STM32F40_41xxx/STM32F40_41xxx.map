@@ -336,10 +336,44 @@ Section Cross References
     usart.o(i.uart_tx_byte) refers to stm32f4xx_usart.o(i.USART_GetFlagStatus) for USART_GetFlagStatus
     usart.o(i.uart_tx_byte) refers to stm32f4xx_usart.o(i.USART_SendData) for USART_SendData
     usart.o(i.uart_tx_byte) refers to usart.o(.data) for .data
+    servo.o(i.servo_control) refers to stm32f4xx_tim.o(i.TIM_SetCompare4) for TIM_SetCompare4
+    servo.o(i.servo_control) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
+    servo.o(i.servo_control) refers to stm32f4xx_tim.o(i.TIM_SetCompare2) for TIM_SetCompare2
+    servo.o(i.servo_control) refers to stm32f4xx_tim.o(i.TIM_SetCompare3) for TIM_SetCompare3
+    servo.o(i.servo_control) refers to servo.o(.constdata) for .constdata
+    servo.o(i.servo_init) refers to gpio.o(i.gpio_rcc_init) for gpio_rcc_init
+    servo.o(i.servo_init) refers to stm32f4xx_rcc.o(i.RCC_APB1PeriphClockCmd) for RCC_APB1PeriphClockCmd
+    servo.o(i.servo_init) refers to stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd) for RCC_APB2PeriphClockCmd
+    servo.o(i.servo_init) refers to gpio.o(i.gpio_af_init) for gpio_af_init
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_TimeBaseInit) for TIM_TimeBaseInit
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC1Init) for TIM_OC1Init
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC1PreloadConfig) for TIM_OC1PreloadConfig
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC2Init) for TIM_OC2Init
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC2PreloadConfig) for TIM_OC2PreloadConfig
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC3Init) for TIM_OC3Init
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC3PreloadConfig) for TIM_OC3PreloadConfig
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC4Init) for TIM_OC4Init
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_OC4PreloadConfig) for TIM_OC4PreloadConfig
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_ARRPreloadConfig) for TIM_ARRPreloadConfig
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_Cmd) for TIM_Cmd
+    servo.o(i.servo_init) refers to stm32f4xx_tim.o(i.TIM_CtrlPWMOutputs) for TIM_CtrlPWMOutputs
+    servo.o(i.servo_init) refers to servo.o(.constdata) for .constdata
+    servo.o(.constdata) refers to gpio.o(.constdata) for PC6
+    servo.o(.constdata) refers to gpio.o(.constdata) for PC7
+    servo.o(.constdata) refers to gpio.o(.constdata) for PC8
+    servo.o(.constdata) refers to gpio.o(.constdata) for PC9
+    servo.o(.constdata) refers to gpio.o(.constdata) for PF7
+    servo.o(.constdata) refers to gpio.o(.constdata) for PF8
     ticks.o(i.ticks_init) refers to system_stm32f4xx.o(.data) for SystemCoreClock
     ticks.o(i.ticks_init) refers to stm32f4xx_it.o(.data) for ms_ticks
+    gpio.o(i.gpio_af_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
+    gpio.o(i.gpio_af_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
+    gpio.o(i.gpio_af_init) refers to gpio.o(i.getPinSource) for getPinSource
+    gpio.o(i.gpio_af_init) refers to stm32f4xx_gpio.o(i.GPIO_PinAFConfig) for GPIO_PinAFConfig
     gpio.o(i.gpio_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
+    gpio.o(i.gpio_input_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
     gpio.o(i.gpio_input_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
+    gpio.o(i.gpio_output_init) refers to stm32f4xx_gpio.o(i.GPIO_StructInit) for GPIO_StructInit
     gpio.o(i.gpio_output_init) refers to stm32f4xx_gpio.o(i.GPIO_Init) for GPIO_Init
     gpio.o(i.gpio_rcc_init) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
     gpio.o(i.gpio_rcc_init_all) refers to stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd) for RCC_AHB1PeriphClockCmd
@@ -1663,6 +1697,9 @@ Removing Unused input sections from the image.
     Removing servo.o(.rev16_text), (4 bytes).
     Removing servo.o(.revsh_text), (4 bytes).
     Removing servo.o(.rrx_text), (6 bytes).
+    Removing servo.o(i.servo_control), (64 bytes).
+    Removing servo.o(i.servo_init), (292 bytes).
+    Removing servo.o(.constdata), (120 bytes).
     Removing ticks.o(.rev16_text), (4 bytes).
     Removing ticks.o(.revsh_text), (4 bytes).
     Removing ticks.o(.rrx_text), (6 bytes).
@@ -1671,9 +1708,11 @@ Removing Unused input sections from the image.
     Removing gpio.o(.rev16_text), (4 bytes).
     Removing gpio.o(.revsh_text), (4 bytes).
     Removing gpio.o(.rrx_text), (6 bytes).
+    Removing gpio.o(i.getPinSource), (152 bytes).
+    Removing gpio.o(i.gpio_af_init), (78 bytes).
     Removing gpio.o(i.gpio_init), (40 bytes).
-    Removing gpio.o(i.gpio_input_init), (30 bytes).
-    Removing gpio.o(i.gpio_output_init), (38 bytes).
+    Removing gpio.o(i.gpio_input_init), (40 bytes).
+    Removing gpio.o(i.gpio_output_init), (50 bytes).
     Removing gpio.o(i.gpio_rcc_init), (116 bytes).
     Removing gpio.o(i.gpio_read_input), (8 bytes).
     Removing gpio.o(i.gpio_read_output), (8 bytes).
@@ -1981,7 +2020,7 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
     Removing approx_math.o(i.Sqrt), (96 bytes).
 
-1195 unused section(s) (total 57183 bytes) removed from the image.
+1200 unused section(s) (total 57911 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2405,18 +2444,18 @@ Memory Map of the image
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x00000188   Data   RO          845    RESET               startup_stm32f40_41xxx.o
-    0x08000188   0x00000000   Code   RO         1254  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000188   0x00000004   Code   RO         1304    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x0800018c   0x00000004   Code   RO         1307    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x08000190   0x00000000   Code   RO         1309    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x08000190   0x00000000   Code   RO         1311    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x08000190   0x00000008   Code   RO         1312    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x08000198   0x00000000   Code   RO         1314    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x08000198   0x00000000   Code   RO         1316    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x08000198   0x00000004   Code   RO         1305    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000188   0x00000000   Code   RO         1259  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000188   0x00000004   Code   RO         1309    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800018c   0x00000004   Code   RO         1312    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000190   0x00000000   Code   RO         1314    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000190   0x00000000   Code   RO         1316    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000190   0x00000008   Code   RO         1317    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000198   0x00000000   Code   RO         1319    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x08000198   0x00000000   Code   RO         1321    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x08000198   0x00000004   Code   RO         1310    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x0800019c   0x00000024   Code   RO          846    .text               startup_stm32f40_41xxx.o
-    0x080001c0   0x00000024   Code   RO         1257    .text               mc_w.l(memcpya.o)
-    0x080001e4   0x00000024   Code   RO         1335    .text               mc_w.l(init.o)
+    0x080001c0   0x00000024   Code   RO         1262    .text               mc_w.l(memcpya.o)
+    0x080001e4   0x00000024   Code   RO         1340    .text               mc_w.l(init.o)
     0x08000208   0x00000002   Code   RO          819    i.BusFault_Handler  stm32f4xx_it.o
     0x0800020a   0x00000002   PAD
     0x0800020c   0x00000064   Code   RO          860    i.CAN1_RX0_IRQHandler  can_protocol.o
@@ -2447,14 +2486,14 @@ Memory Map of the image
     0x08000952   0x00000042   Code   RO          784    i.USART_GetITStatus  stm32f4xx_usart.o
     0x08000994   0x00000008   Code   RO          794    i.USART_ReceiveData  stm32f4xx_usart.o
     0x0800099c   0x00000002   Code   RO          827    i.UsageFault_Handler  stm32f4xx_it.o
-    0x0800099e   0x0000000e   Code   RO         1342    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x080009ac   0x00000002   Code   RO         1343    i.__scatterload_null  mc_w.l(handlers.o)
-    0x080009ae   0x0000000e   Code   RO         1344    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800099e   0x0000000e   Code   RO         1347    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080009ac   0x00000002   Code   RO         1348    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080009ae   0x0000000e   Code   RO         1349    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x080009bc   0x000000a0   Code   RO          866    i.can_tx_dequeue    can_protocol.o
-    0x08000a5c   0x0000003e   Code   RO          934    i.gpio_rcc_init_all  gpio.o
+    0x08000a5c   0x0000003e   Code   RO          939    i.gpio_rcc_init_all  gpio.o
     0x08000a9a   0x00000012   Code   RO          850    i.main              main.o
-    0x08000aac   0x0000003c   Code   RO          926    i.ticks_init        ticks.o
-    0x08000ae8   0x00000020   Data   RO         1340    Region$$Table       anon$$obj.o
+    0x08000aac   0x0000003c   Code   RO          929    i.ticks_init        ticks.o
+    0x08000ae8   0x00000020   Data   RO         1345    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x000016e8, Max: 0x00020000, ABSOLUTE)

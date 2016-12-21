@@ -1,59 +1,95 @@
 #include "servo.h"
 
 void servo_init(void){
-
-	GPIO_InitTypeDef SERVO_GPIO_InitStructure;
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef TIM_OCInitStructure;
-	
-	RCC_APB2PeriphClockCmd(SERVO_TIM_RCC, ENABLE);
-	RCC_AHB1PeriphClockCmd(SERVO_GPIO_RCC, ENABLE);	
 
-	SERVO_GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;			
-	SERVO_GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCPolarity_High;
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;
+	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
+	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputState_Disable; 
+	TIM_OCInitStructure.TIM_Pulse = 1000;
 	
-	for (servo_id = 0; servo_id < 1; ++servo_id){
-		SERVO_GPIO_InitStructure.GPIO_Pin=servo_pwm[servo_id].servo_pin;
-		GPIO_Init(servo_pwm[servo_id].GPIOx , &SERVO_GPIO_InitStructure);	
-		GPIO_PinAFConfig(servo_pwm[servo_id].GPIOx, servo_pwm[servo_id].GPIO_PinSource, GPIO_AF_TIM1);
+	for (u8 i=0; i<SERVO_SIZE; i++){
+		const ServoStruct* servo = &(SERVO[i]);
+		
+		gpio_rcc_init(servo->gpio);
+		
+		if (IS_RCC_APB1_PERIPH(servo->tim_rcc)){
+			RCC_APB1PeriphClockCmd(servo->tim_rcc, ENABLE);
+			
+		}else if(IS_RCC_APB2_PERIPH(servo->tim_rcc)){
+			RCC_APB2PeriphClockCmd(servo->tim_rcc, ENABLE);
+			
+		}else{
+			//Error
+			while(1);
+		}
+		
+		gpio_af_init(servo->gpio, GPIO_High_Speed, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_TIM1);
+
+		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+		TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+		TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
+		TIM_TimeBaseStructure.TIM_Prescaler = 167;
+		TIM_TimeBaseStructure.TIM_Period = 20000;
+		
+		TIM_TimeBaseInit(servo->tim, &TIM_TimeBaseStructure);
+
+		switch (servo->channel){
+			case 1:
+				TIM_OC1Init(servo->tim, &TIM_OCInitStructure);
+				TIM_OC1PreloadConfig(servo->tim, ENABLE);
+				break;
+			
+			case 2:
+				TIM_OC2Init(servo->tim, &TIM_OCInitStructure);
+				TIM_OC2PreloadConfig(servo->tim, ENABLE);
+				break;
+			
+			case 3:
+				TIM_OC3Init(servo->tim, &TIM_OCInitStructure);
+				TIM_OC3PreloadConfig(servo->tim, ENABLE);
+				break;
+			
+			case 4:
+				TIM_OC4Init(servo->tim, &TIM_OCInitStructure);
+				TIM_OC4PreloadConfig(servo->tim, ENABLE);
+				break;
+		}
+		
+		TIM_ARRPreloadConfig(servo->tim, ENABLE);
+		TIM_Cmd(servo->tim, ENABLE);	
+		TIM_CtrlPWMOutputs(servo->tim, ENABLE);
 	}
-
-	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;			//0 to FFFF
-	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV2;
-	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-	TIM_TimeBaseStructure.TIM_Prescaler = 167;												//clk=84M/(83+1)=1 MHz, Freq = 1000000 / 20000 = 50Hz Interval = 20ms
-	TIM_TimeBaseStructure.TIM_Period = 20000;												//pulse cycle= 20000 
-	
-	TIM_TimeBaseInit(SERVO_TIM, &TIM_TimeBaseStructure);
-	
-	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;   		// set "high" to be effective output
-	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCPolarity_High;   		// set "high" to be effective output
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;	           		// produce output when counter < CCR
-	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;		// Reset OC Idle state
-	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;	// Reset OC NIdle state
-	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;  	// this part enable the output
-	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputState_Disable; // this part disable the Nstate
-
-	TIM_OCInitStructure.TIM_Pulse = 1000;														// this part sets the initial CCR value
-
-	TIM_OC1Init(SERVO_TIM, &TIM_OCInitStructure);
-	TIM_OC1PreloadConfig(SERVO_TIM, ENABLE);
-	
-	TIM_ARRPreloadConfig(SERVO_TIM, ENABLE);
-	TIM_Cmd(SERVO_TIM, ENABLE);	
-	TIM_CtrlPWMOutputs(SERVO_TIM, ENABLE);
 }
 
 /**
   * @brief  Controlling the PWM for servos
-  * @param  servo_id: Port of Motor to be used (SERVO1, SERVO2, SERVO3, SERVO4)
+  * @param  servo_id: Port of Motor to be used
   * @param  val: Any value from 0~20000. Safeguard elsewhere.
   * @retval None
   */
-void servo_control(SERVO_ID servo_id , u16 ccr_val) {
+void servo_control(ServoID servo_id , u16 ccr_val) {
 	
-  if (((u8) servo_id) < SERVO_COUNT) {
-    servo_pwm[servo_id].TIM_SetCompare(SERVO_TIM, ccr_val);
-  }
-  
+	switch(SERVO[servo_id].channel){
+		case 0:
+			TIM_SetCompare1(SERVO[servo_id].tim, ccr_val);
+			break;
+		
+		case 1:
+			TIM_SetCompare2(SERVO[servo_id].tim, ccr_val);
+			break;
+		
+		case 2:
+			TIM_SetCompare3(SERVO[servo_id].tim, ccr_val);
+			break;
+		
+		case 3:
+			TIM_SetCompare4(SERVO[servo_id].tim, ccr_val);
+			break;
+	}
 }

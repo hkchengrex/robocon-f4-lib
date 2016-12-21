@@ -45,10 +45,10 @@ typedef enum{
 typedef struct{
 	const GPIO* gpio;
 	GPIOPuPd_TypeDef PuPd;
-}ButtonInitStruct;
+}ButtonStruct;
 
 #define X(a, b, c) {&b, c},
-static const ButtonInitStruct BUTTONS[] = {BTN_TABLE};
+static const ButtonStruct BUTTONS[] = {BTN_TABLE};
 #undef X
 
 #define BTN_COUNT (sizeof(BUTTONS)/sizeof(GPIO*))

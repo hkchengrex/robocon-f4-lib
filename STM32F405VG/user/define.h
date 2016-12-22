@@ -24,4 +24,7 @@
 
 #define WALL_LIMIT_SWITCH LIM_SW_1
 
+#define LIFTING_SERVO SERVO1
+#define CANNOT_LIFT_SERVO SERVO3
+
 #endif 

@@ -49,7 +49,7 @@
 "stm32f40_41xxx\can_protocol.o"
 "stm32f40_41xxx\approx_math.o"
 "stm32f40_41xxx\encoder.o"
-"stm32f40_41xxx\usart.o"
+"stm32f40_41xxx\uart.o"
 "stm32f40_41xxx\servo.o"
 "stm32f40_41xxx\ticks.o"
 "stm32f40_41xxx\gpio.o"

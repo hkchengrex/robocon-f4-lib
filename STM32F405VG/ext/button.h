@@ -23,9 +23,8 @@
 #include "stm32f4xx.h"
 #include <stdbool.h>
 #include "gpio.h"
-#include "lcd_main.h"
-#include "main.h"
 
+//BUTTON       PIN  Pull-up/Pull-down
 #define BTN_TABLE \
 X(BOARD_BNT_1, PD6, GPIO_PuPd_UP) \
 X(BOARD_BNT_2, PD7, GPIO_PuPd_UP) \
@@ -44,7 +43,7 @@ typedef enum{
 
 typedef struct{
 	const GPIO* gpio;
-	GPIOPuPd_TypeDef PuPd;
+	const GPIOPuPd_TypeDef PuPd;
 }ButtonStruct;
 
 #define X(a, b, c) {&b, c},
@@ -53,6 +52,10 @@ static const ButtonStruct BUTTONS[] = {BTN_TABLE};
 
 #define BTN_COUNT (sizeof(BUTTONS)/sizeof(GPIO*))
 
+typedef void(*onClickListener)(void);
+typedef void(*onReleaseListener)(void);
+typedef void(*onHoldListener)(void);
+
 //Init buttons
 void btn_init(void);
 
@@ -60,10 +63,10 @@ void btn_init(void);
 void btn_update(void);
 
 //These functions are for registering listener for buttons
-void btn_reg_onClickListener(ButtonID button_id, void(*onClickListener)(void)); //Called when the button is first pressed
-void btn_reg_onReleaseListener(ButtonID button_id, void(*onReleaseListener)(void)); //Called when the button is released 
+void btn_reg_onClickListener(ButtonID button_id, onClickListener listener); //Called when the button is first pressed
+void btn_reg_onReleaseListener(ButtonID button_id, onReleaseListener listener); //Called when the button is released 
 //Called every "frequency" after "threshold" have been reached. Actual time depends on frequency of @button_update()
-void btn_reg_onHoldListener(ButtonID button_id, u16 threshold, u16 frequency, void(*onHoldListener)(void)); 
+void btn_reg_onHoldListener(ButtonID button_id, u16 threshold, u16 frequency, onHoldListener listener); 
 
 //These functions are to disable registered listener
 void btn_disable_onClickListener(ButtonID button_id);

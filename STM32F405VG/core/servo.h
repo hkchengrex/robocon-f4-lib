@@ -32,17 +32,17 @@ C(SERVO6, 900, 2100, 0, 1800) \
 
 typedef struct {
 	TIM_TypeDef* tim;
-	u8 tim_af;
-	u32 tim_rcc;
+	const u8 tim_af;
+	const u32 tim_rcc;
 	const GPIO* gpio;
-	u8 channel;
+	const u8 channel;
 } ServoStruct;
 
 typedef struct{
-	u16 min_ccr;
-	u16 max_ccr;
-	s16 min_deg;
-	s16 max_deg;
+	const u16 min_ccr;
+	const u16 max_ccr;
+	const s16 min_deg;
+	const s16 max_deg;
 } ServoConfig;
 
 #define X(a, b, c, d, e, f) a, 

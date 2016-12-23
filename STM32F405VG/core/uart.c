@@ -1,37 +1,15 @@
-#include "usart.h"
+#include "uart.h"
 
-uint8_t rx_buffer[256] = { 0 };
+uint8_t rx_buffer[256] = {0};
 uint8_t rx_full = 0;
 on_receive_listener *uart_rx_listener[COM_COUNT];
-uint8_t uart_listener_empty[5] = {1};
+uint8_t uart_listener_empty[COM_COUNT] = {1};
 
-#ifdef __GNUC__
-/* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
-   set to 'Yes') calls __io_putchar() */
-#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
-#else
-#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
-#endif /* __GNUC__ */
-
-USART_TypeDef* COM_USART[COM_COUNT] = {USART1, USART2, USART3, UART4, UART5};
-GPIO_TypeDef* COM_TX_PORT[COM_COUNT] = {COM1_TX_GPIO_PORT, COM2_TX_GPIO_PORT, COM3_TX_GPIO_PORT}; 
-GPIO_TypeDef* COM_RX_PORT[COM_COUNT] = {COM1_RX_GPIO_PORT, COM2_RX_GPIO_PORT, COM3_RX_GPIO_PORT}; 
-uc32 COM_USART_CLK[COM_COUNT] = {COM1_CLK, COM2_CLK, COM3_CLK};
-uc32 COM_TX_PORT_CLK[COM_COUNT] = {COM1_TX_GPIO_CLK, COM2_TX_GPIO_CLK, COM3_TX_GPIO_CLK}; 
-uc32 COM_RX_PORT_CLK[COM_COUNT] = {COM1_RX_GPIO_CLK, COM2_RX_GPIO_CLK, COM3_RX_GPIO_CLK};
-uc16 COM_TX_PIN[COM_COUNT] = {COM1_TX_PIN, COM2_TX_PIN, COM3_TX_PIN};
-uc16 COM_RX_PIN[COM_COUNT] = {COM1_RX_PIN, COM2_RX_PIN, COM3_RX_PIN};
-uc16 COM_IRQ[COM_COUNT] = {USART1_IRQn, USART2_IRQn, USART3_IRQn};
-
-COM_TypeDef printf_COMx;
-
-/**
-  * @brief  Inintialization of USART
-  * @param  COM: which USART to inialialize
-  * @param  br: Baudrate used for USART
-  * @retval None
-  */
-void uart_init(COM_TypeDef COM, u32 br){
+/** Init a UART port.
+*		@param COM: Which port to initialize
+*		@param baud_rate: The baud rate to be used.
+*/
+void uart_init(SerialPort COM, u32 br){
 	GPIO_InitTypeDef GPIO_InitStructure;
 	USART_InitTypeDef USART_InitStructure;
 
@@ -49,6 +27,9 @@ void uart_init(COM_TypeDef COM, u32 br){
 		GPIO_PinAFConfig(GPIOB, GPIO_PinSource10, GPIO_AF_USART3);//Connect PB10 to USART3_Tx
 		GPIO_PinAFConfig(GPIOB, GPIO_PinSource11, GPIO_AF_USART3);//Connect PB11 to USART3_Rx
 	}
+	
+	GPIO_PinAFConfig(COM_TX_PORT[COM], GPIO_PinSource10, GPIO_AF_USART3);//Connect PB10 to USART3_Tx
+	GPIO_PinAFConfig(COM_TX_PORT[COM], GPIO_PinSource11, GPIO_AF_USART3);//Connect PB11 to USART3_Rx
 
 	/* Configure USART Tx & USART Rx as alternate function push-pull */
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -70,19 +51,9 @@ void uart_init(COM_TypeDef COM, u32 br){
 	USART_Cmd(COM_USART[COM], ENABLE);
 }
 
-/**
-  * @brief  Enable the interrupt of USART
-  * @param  COM: which USART to enable interrupt
-  * @retval None
-  */
-void uart_interrupt(COM_TypeDef COM){
+//Enable interrupt for specific UART
+void uart_interrupt(SerialPort COM){
 	NVIC_InitTypeDef NVIC_InitStructure;
-
-	#ifdef VECT_TAB_RAM
-	NVIC_SetVectorTable(NVIC_VectTab_RAM,0x0);
-	#else
-	NVIC_SetVectorTable(NVIC_VectTab_FLASH,0x0);
-	#endif
 
 	NVIC_InitStructure.NVIC_IRQChannel = COM_IRQ[COM];
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
@@ -93,42 +64,30 @@ void uart_interrupt(COM_TypeDef COM){
 	USART_ITConfig(COM_USART[COM],USART_IT_RXNE,ENABLE);
 }
 
-/**
-  * @brief  Enable the function of sending data of Printf via USART
-  * @param  COM: which USART to be used for Printf
-  * @retval None
-  */
-void uart_printf_enable(COM_TypeDef COM){
-	printf_COMx = COM;
+/** Register a listener for UART receive interrupt.
+*		@param COM: Which port to use
+*		@param listener: A function pointer of void return type and single u8 param
+*/
+void uart_interrupt_init(SerialPort COM, on_receive_listener *listener){
+	uart_rx_listener[COM] = listener;
+	uart_listener_empty[COM] = 0;
+	uart_interrupt(COM);
 }
 
-/**
-  * @brief  Disable the function of sending data of Printf via UART
-  * @param  None
-  * @retval None
-  */
-void uart_printf_disable(void){
-	printf_COMx = COM_NULL;
-}
-
-/**
-  * @brief  Sending one byte of data via USART
-  * @param  COM: which USART to be used for sending data
-  * @param  data: one byte data to be sent
-  * @retval None
-  */
-void uart_tx_byte(COM_TypeDef COM, uc8 data){
+/** Send a single byte to the target port.
+*		@param COM: Which port to use
+*		@param data: The content to be sent
+*/
+void uart_tx_byte(SerialPort COM, uc8 data){
 	while (USART_GetFlagStatus(COM_USART[COM], USART_FLAG_TC) == RESET); 
 	USART_SendData(COM_USART[COM], (uint16_t)data);
 }
 
-/**
-  * @brief  Sending multiple bytes of data via USART
-  * @param  COM: which USART to be used for sending data
-  * @param  tx_buf: string to be sent
-  * @retval None
-  */
-void uart_tx(COM_TypeDef COM, const uc8 * tx_buf, ...){
+/** Send multiple bytes to the target port.
+*		@param COM: Which port to use
+*		@param data: The content to be sent
+*/
+void uart_tx_printf(SerialPort COM, const uc8 * tx_buf, ...){
 	va_list arglist;
 	u8 buf[255], *fp;
 	
@@ -141,20 +100,13 @@ void uart_tx(COM_TypeDef COM, const uc8 * tx_buf, ...){
 		uart_tx_byte(COM, (uint16_t)*fp++);
 }
 
-/**
-  * @brief  Receiving one byte of data via USART
-  * @param  COM: which USART to be used for receiving data
-  * @retval One byte of data received
-  */
-u8 uart_rx_byte(COM_TypeDef COM){
+/** Block the program until received one byte.
+*		@param COM: Which port to use
+*		@return One btye of data contained.
+*/
+u8 uart_rx_byte(SerialPort COM){
 	while (USART_GetFlagStatus(COM_USART[COM], USART_FLAG_TC) == RESET); 
 	return (u8)USART_ReceiveData(COM_USART[COM]);
-}
-
-void uart_interrupt_init(COM_TypeDef COM, on_receive_listener *listener){
-	uart_rx_listener[COM] = listener;
-	uart_listener_empty[COM] = 0;
-	uart_interrupt(COM);
 }
 	
 void USART1_IRQHandler(void){

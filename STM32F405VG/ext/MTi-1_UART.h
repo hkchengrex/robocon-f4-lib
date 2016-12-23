@@ -9,7 +9,7 @@
 **/
 
 #include "stm32f4xx.h"
-#include "usart.h"
+#include "uart.h"
 #include "stm32f4xx_gpio.h"
 #include "ticks.h"
 

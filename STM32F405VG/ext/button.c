@@ -61,18 +61,18 @@ void btn_update(){
 }
 
 //Called when the button is first pressed
-void btn_reg_onClickListener(ButtonID button_id, void(*onClickListener)(void)){
-	click_listeners[button_id] = onClickListener;
+void btn_reg_onClickListener(ButtonID button_id, onClickListener listener){
+	click_listeners[button_id] = listener;
 }
 
 //Called when the button is released 
-void btn_reg_onReleaseListener(ButtonID button_id, void(*onReleaseListener)(void)){
-	release_listeners[button_id] = onReleaseListener;
+void btn_reg_onReleaseListener(ButtonID button_id, onReleaseListener listener){
+	release_listeners[button_id] = listener;
 }
 
 //Called every "frequency" after "threshold" have been reached. Actual time depends on frequency of @button_update()
-void btn_reg_onHoldListener(ButtonID button_id, u16 threshold, u16 frequency, void(*onHoldListener)(void)){
-	hold_listeners[button_id].hold_listener = onHoldListener;
+void btn_reg_onHoldListener(ButtonID button_id, u16 threshold, u16 frequency, onHoldListener listener){
+	hold_listeners[button_id].hold_listener = listener;
 	hold_listeners[button_id].hold_thre = threshold;
 	hold_listeners[button_id].trig_freq = frequency;
 }

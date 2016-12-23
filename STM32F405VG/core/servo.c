@@ -31,6 +31,8 @@ void servo_init(void){
 		
 		gpio_af_init(servo->gpio, GPIO_High_Speed, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_TIM1);
 
+		TIM_DeInit(servo->tim);
+		
 		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 		TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 		TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;

@@ -1,7 +1,7 @@
 #ifndef __GYRO_H
 #define __GYRO_H
 
-#include "usart.h"
+#include "uart.h"
 #include "ticks.h"
 #include "approx_math.h"
 

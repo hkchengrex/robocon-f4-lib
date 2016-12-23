@@ -9,7 +9,7 @@
 #include "stm32f4xx_gpio.h"
 #include "led.h"
 #include "ticks.h"
-#include "usart.h"
+#include "uart.h"
 #include "can_protocol.h"
 #include "encoder.h"
 #include "buzzer.h"

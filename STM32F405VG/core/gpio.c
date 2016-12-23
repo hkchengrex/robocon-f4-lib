@@ -198,7 +198,7 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	GPIO_StructInit(&GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
-	GPIO_InitStructure.GPIO_Speed = GPIO_Medium_Speed; //This controls the slew rate. Medium should be enough.
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed; 
 	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
 	GPIO_InitStructure.GPIO_OType = output_type;
 	GPIO_InitStructure.GPIO_PuPd = pp_type;
@@ -342,7 +342,7 @@ uint16_t getPinSource(const GPIO* gpio){
 			return GPIO_PinSource13;
 		case GPIO_Pin_14:
 			return GPIO_PinSource14;
-		case GPIO_Pin_15:
+		default:
 			return GPIO_PinSource15;
 	}
 }

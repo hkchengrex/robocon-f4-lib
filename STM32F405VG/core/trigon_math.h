@@ -1,7 +1,7 @@
 #ifndef _TRIGON_MATH_H
 #define _TRIGON_MATH_H
 
-/******************************************************
+/************************************************************************************************************
 ** TRIGON MATH - STM32F4
 **
 ** A math library using CMSIS DSP math library plus custom functions that use 
@@ -16,7 +16,7 @@
 ** v1.0 July 2016
 **
 ** Geometry is not true, it is advantageous.  ~Henri Poincare
-*******************************************************/
+*************************************************************************************************************/
 
 #include "stm32f4xx.h"
 

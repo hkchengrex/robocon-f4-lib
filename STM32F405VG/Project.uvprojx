@@ -785,6 +785,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1570,6 +1575,11 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2358,6 +2368,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3143,6 +3158,11 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3930,6 +3950,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4715,6 +4740,11 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5502,6 +5532,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6287,6 +6322,11 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\timer.c</FilePath>
             </File>
           </Files>
         </Group>

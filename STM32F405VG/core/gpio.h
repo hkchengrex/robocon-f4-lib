@@ -1,6 +1,11 @@
 #ifndef	_GPIO_H
 #define	_GPIO_H
 
+/**
+	A gpio library for easier usage of GPIO ports
+	Refreshed in F4 by Rex Cheng
+*/
+
 #include "stm32f4xx_gpio.h"
 #include <stdbool.h>
 
@@ -61,7 +66,7 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	Alternate function GPIO initailizer
 	Usage: @ref gpio_init
 */
-void gpio_af_init(const GPIO* gpio, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF);
+void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF);
 
 /**
 	Initilize RCC clock for all GPIO ports

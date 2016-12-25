@@ -1,6 +1,12 @@
 #ifndef _PNEUMATIC_H
 #define _PNEUMATIC_H
 
+/**
+* This library is for controlling pneumatic devices (and in fact all kinds of on/off devices controlled with GPIO)
+*
+* Rex Cheng
+*/
+
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
 #include "gpio.h"

@@ -4,10 +4,12 @@ SysTick
 IRQ interrupt priority:
 
 	- Preemption Priority 0
+		1 - Encoder overflow/underflow interrupt
+		2 - Timer event
 		4 - CAN TX complete interrupt
 
 	- Preemption Priority 1
-		1 - USART receive interrupt
+		1 - UART receive interrupt
 		4 - CAN RX interrupt
 	
 DMA Channel:
@@ -28,7 +30,7 @@ Timer:
 		- Channel 3 - Encoder A phase
 		- Channel 4 - Encoder B phase
 
-	-Timer 6 (Basic timer)
+	-Timer 7 (Basic timer)
 		-Handling timer event
 		
 	-Timer 11

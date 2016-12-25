@@ -1,24 +1,57 @@
 #include "timer.h"
 
+static TimerActionStruct actions[TIMER_SIZE] = {0};
+static u16 index = 0;
+static u16 size = 0;
+
 void timer_init(){
 	RCC_APB1PeriphClockCmd(TIMER_RCC, ENABLE);
 	
 	//Setup timer
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-  TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV4;	
-  TIM_TimeBaseStructure.TIM_Prescaler = SystemCoreClock / 1000; 
-  TIM_TimeBaseStructure.TIM_Period = 1;	                    
+  TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV4;
+  TIM_TimeBaseStructure.TIM_Prescaler = TIMER_PRESCALER;
+  TIM_TimeBaseStructure.TIM_Period = 1;
   TIM_TimeBaseInit(TIMER_TIM, &TIM_TimeBaseStructure);
+	
+	TIM_ITConfig(TIMER_TIM, TIM_IT_Update, ENABLE);
 	
 	//Setup interrupt
 	NVIC_InitTypeDef NVIC_InitStructure;
-	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannel = TIMER_IRQ;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
-  TIM_ARRPreloadConfig(TIMER_TIM, DISABLE);
-  TIM_Cmd(TIMER_TIM, ENABLE);
+	TIM_ARRPreloadConfig(TIMER_TIM, ENABLE);
+	TIM_Cmd(TIMER_TIM, ENABLE);
+}
+
+/**
+* Register a event call that will happen after some time.
+* @param action: The function to be called
+* @param ms: The time to be waited
+*/
+void do_after(TimerAction action, u32 ms){
+	if (size >= TIMER_SIZE){
+		//Error
+		while(1);
+	}
+	
+	while(actions[index].action != 0){
+		//Find an unused location
+		index = (index+1)%TIMER_SIZE;
+	}
+	
+	actions[index].action = action;
+	actions[index].ms = ms;
+	
+	index = (index+1)%TIMER_SIZE;
+	size++;
+}
+
+void TIMER_IRQ_HANDLER(void){
+	
 }

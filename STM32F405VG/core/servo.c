@@ -29,7 +29,7 @@ void servo_init(void){
 			while(1);
 		}
 		
-		gpio_af_init(servo->gpio, GPIO_High_Speed, GPIO_OType_PP, GPIO_PuPd_NOPULL, GPIO_AF_TIM1);
+		gpio_af_init(servo->gpio, GPIO_OType_PP, GPIO_PuPd_NOPULL, servo->tim_af);
 
 		TIM_DeInit(servo->tim);
 		
@@ -64,7 +64,7 @@ void servo_init(void){
 		}
 		
 		TIM_ARRPreloadConfig(servo->tim, ENABLE);
-		TIM_Cmd(servo->tim, ENABLE);	
+		TIM_Cmd(servo->tim, ENABLE);
 		TIM_CtrlPWMOutputs(servo->tim, ENABLE);
 	}
 }
@@ -104,7 +104,7 @@ void servo_ccr_control(ServoID servo_id , u16 ccr_val) {
 
 #define getCCR(i, d) (SERVO_CONFIG[i].min_ccr + d*(SERVO_CONFIG[i].max_ccr-SERVO_CONFIG[i].min_ccr)/(SERVO_CONFIG[i].max_deg-SERVO_CONFIG[i].min_deg))
 void servo_deg_control(ServoID servo_id , s16 degree){
-	u16 ccr_val = getCCR(servo_id, degree);
-	servo_ccr_control(servo_id, ccr_val);
+	u16 ccrVal = getCCR(servo_id, degree);
+	servo_ccr_control(servo_id, ccrVal);
 }
 #undef getCCR

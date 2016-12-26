@@ -11,6 +11,7 @@
 #include "ticks.h"
 #include "uart.h"
 #include "can_protocol.h"
+#include "spi_protocol.h"
 #include "encoder.h"
 #include "buzzer.h"
 #include "buzzer_song.h"

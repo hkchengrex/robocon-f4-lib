@@ -54,6 +54,7 @@
 "stm32f40_41xxx\ticks.o"
 "stm32f40_41xxx\gpio.o"
 "stm32f40_41xxx\trigon_math.o"
+"stm32f40_41xxx\spi_protocol.o"
 "stm32f40_41xxx\buzzer.o"
 "stm32f40_41xxx\led.o"
 "stm32f40_41xxx\button.o"

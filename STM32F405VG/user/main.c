@@ -16,6 +16,7 @@ int main(void) {
 	gpio_rcc_init_all();
 	
 	ticks_init();
+	spi_motor_init();
 //	adc_init();
 //	
 //	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);

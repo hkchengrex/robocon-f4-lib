@@ -1,6 +1,13 @@
 #ifndef _UART_H
 #define _UART_H
 
+/**
+* This library provides simple functions for using UART.
+*	Note that all send and receive functions are blocking (only return when finished).
+*
+* Rex Cheng
+*/
+
 #include "stm32f4xx_usart.h"
 
 #include <stdarg.h>
@@ -9,7 +16,7 @@
 
 #include "gpio.h"
 
-//COM   UART    TX   RX    RCC                    AF              Interrupt
+//COM   UART    TX   RX    RCC                    AF              Interrupt    Priority
 #define UART_TABLE \
 X(COM1, USART1, PA9, PA10, RCC_APB2Periph_USART1, GPIO_AF_USART1, USART1_IRQn) \
 X(COM2, USART2, PA2, PA3, RCC_APB1Periph_USART2, GPIO_AF_USART2, USART2_IRQn) \
@@ -25,7 +32,7 @@ typedef enum {
 #undef X
 
 typedef struct{
-	const USART_TypeDef* uart;
+	USART_TypeDef* uart;
 	const GPIO* tx_port;
 	const GPIO* rx_port;
 	const u32 rcc;
@@ -47,19 +54,19 @@ extern USART_TypeDef* COM_USART[COM_COUNT];
 */
 void uart_init(SerialPort COM, u32 baud_rate);
 
-typedef void on_receive_listener(const uint8_t byte);
+typedef void OnRxListener(const uint8_t byte);
 
 /** Register a listener for UART receive interrupt.
 *		@param COM: Which port to use
 *		@param listener: A function pointer of void return type and single u8 param
 */
-void uart_interrupt_init(SerialPort COM, on_receive_listener *listener);
+void uart_interrupt_init(SerialPort COM, OnRxListener *listener);
 
 /** Send a single byte to the target port.
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
-void uart_tx_byte(SerialPort COM, const uint8_t data);
+void uart_tx_byte(SerialPort COM, uint8_t data);
 
 /** Send multiple bytes to the target port.
 *		@param COM: Which port to use
@@ -72,7 +79,7 @@ void uart_tx_printf(SerialPort COM, const uint8_t * data, ...);
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
-void uart_tx(SerialPort COM, const uint8_t * data, ...);
+void uart_tx(SerialPort COM, const uint8_t * data, u16 len);
 
 /** Block the program until received one byte.
 *		@param COM: Which port to use

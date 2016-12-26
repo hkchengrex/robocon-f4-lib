@@ -6,12 +6,11 @@ typedef enum {
 	SPI_SLAVE
 } SPI_MODE_FLAG;
 
-#include "stm32f10x.h"
-#include "stm32f10x_spi.h"
+#include "stm32f4xx.h"
+#include "stm32f4xx_spi.h"
 #include "misc.h"
 
-void spi_init(SPI_MODE_FLAG mode);
+void spi_motor_init(void);
 void spi_tx_byte(uc8 data);
-u16 spi_return_count(void);
 
 #endif

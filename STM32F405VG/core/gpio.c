@@ -210,20 +210,20 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	Alternate function GPIO initailizer
 	Usage: @ref gpio_init
 */
-void gpio_af_init(const GPIO* gpio, GPIOSpeed_TypeDef speed, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF){
+void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF){
 	assert_param(IS_GPIO_AF(GPIO_AF));
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
 	GPIO_StructInit(&GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = gpio->gpio_pin;
-	GPIO_InitStructure.GPIO_Speed = speed;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_OType = output_type;
 	GPIO_InitStructure.GPIO_PuPd = pp_type;
 	
-	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
 	GPIO_PinAFConfig(gpio->gpio, getPinSource(gpio), GPIO_AF);
+	GPIO_Init(gpio->gpio, &GPIO_InitStructure);
 }
 
 /**

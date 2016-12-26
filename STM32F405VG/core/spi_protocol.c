@@ -66,8 +66,6 @@ void spi_motor_init() {
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_Init(GPIOG, &GPIO_InitStructure);
 	
-	GPIO_SetBits(GPIOG, GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7 | GPIO_Pin_8);
-	
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
   SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
   SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
@@ -82,6 +80,7 @@ void spi_motor_init() {
   SPI_SSOutputCmd(SPI2, DISABLE);
 	
 	SPI_I2S_ITConfig(SPI2, SPI_I2S_IT_RXNE, ENABLE);
+	spi_reset_motor_pins();
 }
 
 void spi_tx_byte(uc8 data) {
@@ -89,6 +88,20 @@ void spi_tx_byte(uc8 data) {
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET);
 	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_BSY) == SET);
+}
+
+void spi_reset_motor_pins() {
+	for (u8 i=0; i<3; i++) GPIO_SetBits(MOTOR_SS_PINS[i]->gpio, MOTOR_SS_PINS[i]->gpio_pin);
+}
+
+void spi_select_motor(u8 motor_id) {
+	u8 bit = 0x01;
+	spi_reset_motor_pins();
+	if (motor_id < 0 || motor_id >= 14) return;
+	for (u8 i=0; i<3; i++) {
+		if (!(motor_id & bit)) GPIO_ResetBits(MOTOR_SS_PINS[i]->gpio, MOTOR_SS_PINS[i]->gpio_pin);
+		bit <<= 2;			
+	}
 }
 
 //void spi_motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop)

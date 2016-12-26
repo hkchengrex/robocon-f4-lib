@@ -411,8 +411,8 @@ Section Cross References
     spi_protocol.o(i.spi_motor_init) refers to stm32f4xx_spi.o(i.SPI_CalculateCRC) for SPI_CalculateCRC
     spi_protocol.o(i.spi_motor_init) refers to stm32f4xx_spi.o(i.SPI_SSOutputCmd) for SPI_SSOutputCmd
     spi_protocol.o(i.spi_motor_init) refers to stm32f4xx_spi.o(i.SPI_I2S_ITConfig) for SPI_I2S_ITConfig
-    spi_protocol.o(i.spi_tx_byte) refers to stm32f4xx_spi.o(i.SPI_I2S_GetFlagStatus) for SPI_I2S_GetFlagStatus
     spi_protocol.o(i.spi_tx_byte) refers to stm32f4xx_spi.o(i.SPI_I2S_SendData) for SPI_I2S_SendData
+    spi_protocol.o(i.spi_tx_byte) refers to stm32f4xx_spi.o(i.SPI_I2S_GetFlagStatus) for SPI_I2S_GetFlagStatus
     buzzer.o(i.buzzer_check) refers to buzzer.o(i.buzzer_on) for buzzer_on
     buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetCompare1) for TIM_SetCompare1
     buzzer.o(i.buzzer_check) refers to stm32f4xx_tim.o(i.TIM_SetAutoreload) for TIM_SetAutoreload
@@ -1852,7 +1852,7 @@ Removing Unused input sections from the image.
     Removing spi_protocol.o(.rev16_text), (4 bytes).
     Removing spi_protocol.o(.revsh_text), (4 bytes).
     Removing spi_protocol.o(.rrx_text), (6 bytes).
-    Removing spi_protocol.o(i.spi_tx_byte), (36 bytes).
+    Removing spi_protocol.o(i.spi_tx_byte), (56 bytes).
     Removing spi_protocol.o(.data), (2 bytes).
     Removing buzzer.o(.rev16_text), (4 bytes).
     Removing buzzer.o(.revsh_text), (4 bytes).
@@ -2033,7 +2033,7 @@ Removing Unused input sections from the image.
     Removing can_protocol.o(i.can_tx_queue_empty), (20 bytes).
     Removing approx_math.o(i.Sqrt), (96 bytes).
 
-1189 unused section(s) (total 57286 bytes) removed from the image.
+1189 unused section(s) (total 57306 bytes) removed from the image.
 
 ==============================================================================
 

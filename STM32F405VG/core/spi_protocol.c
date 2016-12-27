@@ -29,18 +29,13 @@
 #include "gpio.h"
 #include "spi_protocol.h"
 
+const GPIO* MOTOR_SS_PINS[4] = {&PG5, &PG6, &PG7, &PG8};
+
 u16 receive_count = 0;
 
 void spi_motor_init() {
 	GPIO_InitTypeDef GPIO_InitStructure;
-	NVIC_InitTypeDef NVIC_InitStructure;
 	SPI_InitTypeDef SPI_InitStructure;
-	
-	NVIC_InitStructure.NVIC_IRQChannel= SPI2_IRQn; 
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
 	
 	//Init clocks
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
@@ -79,22 +74,26 @@ void spi_motor_init() {
   SPI_CalculateCRC(SPI2, DISABLE);		// Disable the CRC checking
   SPI_SSOutputCmd(SPI2, DISABLE);
 	
-	SPI_I2S_ITConfig(SPI2, SPI_I2S_IT_RXNE, ENABLE);
 	spi_reset_motor_pins();
 }
 
 void spi_tx_byte(uc8 data) {
-	SPI_I2S_SendData(SPI2, data);
-	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);
-	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET);
-	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_BSY) == SET);
+	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET); //Wait for TX buffer to be empty
+	SPI_I2S_SendData(SPI2, data); //Send data
+	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET); //Wait for RX buffer to be filled
+}
+
+u16 spi_rx_byte() {
+	SPI_I2S_SendData(SPI2, 0x00); //Send dummy byte to initiate clock
+	while (SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_RXNE) == RESET); //Wait for RX buffer to be filled
+	return SPI_I2S_ReceiveData(SPI2);
 }
 
 void spi_reset_motor_pins() {
 	for (u8 i=0; i<3; i++) GPIO_SetBits(MOTOR_SS_PINS[i]->gpio, MOTOR_SS_PINS[i]->gpio_pin);
 }
 
-void spi_select_motor(u8 motor_id) {
+void spi_select_motor(MOTOR_ID motor_id) {
 	u8 bit = 0x01;
 	spi_reset_motor_pins();
 	if (motor_id < 0 || motor_id >= 14) return;
@@ -104,12 +103,13 @@ void spi_select_motor(u8 motor_id) {
 	}
 }
 
-//void spi_motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop)
-
-void SPI2_IRQHandler(void) {
-	//u8 data;
-	if (SPI_I2S_GetITStatus(SPI2, SPI_I2S_IT_RXNE) != RESET) {
-		//data = (u8)SPI_I2S_ReceiveData(SPI2);
-		SPI_I2S_ClearITPendingBit(SPI2, SPI_I2S_IT_RXNE);
-	}
+void spi_motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_flag) {
+	spi_select_motor(motor_id);
+	spi_tx_byte(SPI_MOTOR_VEL_CMD);
+	spi_tx_byte(one_to_n_bytes(vel, 0));
+	spi_tx_byte(one_to_n_bytes(vel, 1));
+	spi_tx_byte(one_to_n_bytes(vel, 2));
+	spi_tx_byte(one_to_n_bytes(vel, 3));
+	spi_tx_byte(close_loop_flag);
+	spi_reset_motor_pins();
 }

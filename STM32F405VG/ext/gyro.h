@@ -5,17 +5,16 @@
 #include "ticks.h"
 #include "approx_math.h"
 
-#define GYRO_UART	COM5
+#define GYRO_UART  COM3
 
-/*** Command List ***/
-#define GYRO_WAKEUP				0x01
-
+/*** TX Command List ***/
+#define GYRO_WAKEUP						0x01
 #define GYRO_UPDATE				    0x10
 #define GYRO_CAL				      0x20
 #define GYRO_POS_SET			    0x30
 #define GYRO_AUTO_UPDATE	    0x40
 
-/*** Reply Command List ***/
+/*** RX Command List ***/
 #define GYRO_REPLY				    0x50
 #define GYRO_UPDATED			    0x80
 
@@ -28,20 +27,13 @@ typedef struct {
 	s16 x, y, angle;
 } POSITION;
 
-
-#define	X_FLIP						1
-#define	Y_FLIP						1
 /** Varies along robots (depends on the encoder position) **/
+#define	X_FLIP						1
+#define	Y_FLIP						-1
 
 //Scaling factors - depends on ground (decrease to lengthen actual dist)
-#ifdef RED_FIELD
-	#define X_SCALING			-0.97 //3211 Red field
-	#define Y_SCALING			1
-#else
-	#define X_SCALING			-0.965 // HKSP Blue field
-	//#define X_SCALING			-0.98 //3211 Blue field
-	#define Y_SCALING			1
-#endif
+#define X_SCALING					1
+#define Y_SCALING					1
 
 extern volatile u8 gyro_available;
 
@@ -52,18 +44,15 @@ void minus_y(void);
 s32 gyro_get_shift_x(void);
 s32 gyro_get_shift_y(void);
 
-const POSITION* get_pos(void);	// Get the position ({x, y, angle})
-const POSITION* get_pos_raw(void);
+const POSITION* get_pos(void);
 
 void gyro_init(void);
-void gyro_rx_handler(u8 rx_data);
-void gyro_pos_update(void);		//update gyro values only when auto-update function is disabled in gyro
-u8 gyro_cal(void);	//callibrate gyro
-u8 gyro_pos_set(s16 x, s16 y, s16 a);	//set position of gyro
+void gyro_pos_update(void);
+u8 gyro_cal(void);
+u8 gyro_pos_set(s16 x, s16 y, s16 a);
 
 s16 get_X(void);
 s16 get_Y(void);
-s16 get_angle(void);
+u16 get_angle(void);
 
-
-#endif		/* __GYRO_H */
+#endif

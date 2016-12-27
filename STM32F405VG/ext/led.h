@@ -1,43 +1,48 @@
 #ifndef	_LED_H
 #define	_LED_H
 
+/**
+* This library is for controlling LEDs (and in fact all kinds of on/off devices controlled with GPIO)
+*
+* Rex Cheng
+*/
+
 #include "stm32f4xx.h"
+#include "stm32f4xx_gpio.h"
 #include "gpio.h"
 
-#define BYTETOBINARYPATTERN "%d%d%d%d%d%d%d%d"
-#define BYTETOBINARY(byte)  \
-  (byte & 0x80 ? 1 : 0), \
-  (byte & 0x40 ? 1 : 0), \
-  (byte & 0x20 ? 1 : 0), \
-  (byte & 0x10 ? 1 : 0), \
-  (byte & 0x08 ? 1 : 0), \
-  (byte & 0x04 ? 1 : 0), \
-  (byte & 0x02 ? 1 : 0), \
-  (byte & 0x01 ? 1 : 0) 
+#define LED_TABLE \
+X(LED_1, PC14)			\
+X(LED_2, PC15)
 
-#define LED_1_GPIO PC4
+#define X(a, b) a,
+typedef enum{
+	LED_TABLE
+} LedID;
+#undef X
 
-#define LED_COUNT 1
-typedef enum {
-	LED_D1 = 1 << 0,	// 1 (00001)
-} LED;
-	
-typedef enum {
-	LED_OFF = Bit_RESET,
-	LED_ON	= Bit_SET
-} LED_STATE;
+#define X(a, b) &b,
+static const GPIO* LEDs[] = {LED_TABLE};
+#undef X
 
+#define LED_COUNT (sizeof(LEDs)/sizeof(GPIO*))
+
+/**
+	Initialize all LEDs.
+*/
 void led_init(void);
 
-/** Control LEDs.
-	@param led: LED(s) to be controlled.
-	@param LED_STATE: LED_ON/LED_OFF
+/**
+	Control LED on/off
+	@param id: the led to be controlled
+	@param state: Bit_RESET: Off / Bit_SET: On
 */
-void led_control(LED led, LED_STATE state);
+void led_control(LedID id, BitAction state);
 
-/** Toggle LEDs.
-	@param led: LED(s) to be controlled.
+/**
+	Make the led blink
+	@param id: the led to be controlled
 */
-void led_blink(LED led);
+void led_blink(LedID id);
 
-#endif /* __LED_H */
+#endif

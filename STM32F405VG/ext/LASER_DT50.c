@@ -16,7 +16,7 @@ static u16 ls_cal_reading[ADC_COUNT];
 * @return the calculated range
 **/
 
-u16 get_ls_cal_reading(ADC_ID device){
+u16 get_ls_cal_reading(AdcID device){
 	if(adc_get(device)>=min_adc[device]){
 		ls_cal_reading[device] = (adc_get(device) - min_adc[device]) * (max_dis[device] - min_dis[device]) / (max_adc[device] - min_adc[device]) + min_dis[device];
 		if(ls_cal_reading[device] >= max_dis[device]){
@@ -35,7 +35,7 @@ u16 get_ls_cal_reading(ADC_ID device){
 * @return the ADC value of the sensors
 **/
 
-u16 get_ls_adc_reading(ADC_ID device){
+u16 get_ls_adc_reading(AdcID device){
 	ls_adc_reading[device] = adc_get(device);
 	return ls_adc_reading[device];
 }

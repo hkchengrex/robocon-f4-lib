@@ -61,8 +61,6 @@
 "stm32f40_41xxx\buzzer_song.o"
 "stm32f40_41xxx\can_motor.o"
 "stm32f40_41xxx\mti-1_uart.o"
-"stm32f40_41xxx\ir_gp2y0a41sk.o"
-"stm32f40_41xxx\laser_dt50.o"
 "stm32f40_41xxx\pneumatic.o"
 "stm32f40_41xxx\gyro.o"
 "stm32f40_41xxx\timer.o"

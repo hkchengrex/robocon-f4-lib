@@ -15,6 +15,6 @@
 	The output signal has some weird noise, consider adding capacitor.
 	@return measured IR distance in mm
 */
-u16 get_gp2y_dis(ADC_ID adc_id);
+u16 get_gp2y_dis(AdcID adc_id);
 
 #endif

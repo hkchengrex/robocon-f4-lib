@@ -1,15 +1,27 @@
 #include "pneumatic.h"
 
+/**
+	Initialize all pneu ports.
+*/
 void pneu_init(){
 	for (u8 i=0; i<PNEU_COUNT; i++){
-		gpio_output_init(PNEU_GPIO_ARRAY[i], GPIO_OType_PP, GPIO_PuPd_DOWN);
+		gpio_output_init(Pneus[i], GPIO_OType_PP, GPIO_PuPd_DOWN);
 	}
 }
 
-void pneu_control(PNEU_ID id, BitAction state){
-	gpio_write(PNEU_GPIO_ARRAY[id], state);
+/**
+	Control pneu valve.
+	@param id: the pneu to be controlled
+	@param state: Bit_RESET/Bit_SET, where Bit_RESET refers to original(uncontrolled) state 
+*/
+void pneu_control(PneuID id, BitAction state){
+	gpio_write(Pneus[id], state);
 }
 
-void pneu_toggle(PNEU_ID id){
-	gpio_toggle(PNEU_GPIO_ARRAY[id]);
+/**
+	Toggle the pneu valve.
+	@param id: the pneu to be controlled
+*/
+void pneu_toggle(PneuID id){
+	gpio_toggle(Pneus[id]);
 }

@@ -766,16 +766,6 @@
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
             </File>
             <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
-            </File>
-            <File>
               <FileName>pneumatic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\pneumatic.c</FilePath>
@@ -1555,16 +1545,6 @@
               <FileName>MTi-1_UART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
-            </File>
-            <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
             </File>
             <File>
               <FileName>pneumatic.c</FileName>
@@ -2349,16 +2329,6 @@
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
             </File>
             <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
-            </File>
-            <File>
               <FileName>pneumatic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\pneumatic.c</FilePath>
@@ -3138,16 +3108,6 @@
               <FileName>MTi-1_UART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
-            </File>
-            <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
             </File>
             <File>
               <FileName>pneumatic.c</FileName>
@@ -3931,16 +3891,6 @@
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
             </File>
             <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
-            </File>
-            <File>
               <FileName>pneumatic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\pneumatic.c</FilePath>
@@ -4720,16 +4670,6 @@
               <FileName>MTi-1_UART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
-            </File>
-            <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
             </File>
             <File>
               <FileName>pneumatic.c</FileName>
@@ -5513,16 +5453,6 @@
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
             </File>
             <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
-            </File>
-            <File>
               <FileName>pneumatic.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\pneumatic.c</FilePath>
@@ -6302,16 +6232,6 @@
               <FileName>MTi-1_UART.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\MTi-1_UART.c</FilePath>
-            </File>
-            <File>
-              <FileName>IR_GP2Y0A41SK.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\IR_GP2Y0A41SK.c</FilePath>
-            </File>
-            <File>
-              <FileName>LASER_DT50.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\LASER_DT50.c</FilePath>
             </File>
             <File>
               <FileName>pneumatic.c</FileName>

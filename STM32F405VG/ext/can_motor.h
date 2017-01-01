@@ -4,6 +4,8 @@
 #include "can_protocol.h"
 #include <stdbool.h>
 
+#define MOTOR_CAN CAN_1
+
 #define CAN_MOTOR_COUNT								16
 #define	CAN_MOTOR_BASE								0x0B0
 

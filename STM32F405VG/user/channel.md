@@ -5,12 +5,15 @@ IRQ interrupt priority:
 
 	- Preemption Priority 0
 		1 - Encoder overflow/underflow interrupt
-		2 - Timer event
-		4 - CAN TX complete interrupt
+		3 - CAN 1 TX complete interrupt
+		4 - CAN 2 TX complete interrupt
 
 	- Preemption Priority 1
 		1 - UART receive interrupt
 		4 - CAN RX interrupt
+		
+	- Preemption Priority 2
+		4 - Timer event
 	
 DMA Channel:
 

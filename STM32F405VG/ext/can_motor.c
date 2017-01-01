@@ -41,7 +41,7 @@ void can_motor_init(void){
 	* @retval None.
 	*/
 void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop){
-	CAN_MESSAGE msg;
+	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 
@@ -54,7 +54,7 @@ void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop){
 	msg.data[4] = (u8)(one_to_n_bytes(vel, 3));
 	msg.data[5] = (u8)(close_loop);
 	
-	can_tx_enqueue(msg);
+	can_tx_enqueue(MOTOR_CAN, msg);
 }
 
 /**
@@ -65,7 +65,7 @@ void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop){
 	* @retval None.
 	*/
 void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos){
-	CAN_MESSAGE msg;
+	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
@@ -79,7 +79,7 @@ void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos){
 	msg.data[5] = (u8)(one_to_n_bytes(pos, 2));
 	msg.data[6] = (u8)(one_to_n_bytes(pos, 3));
 
-	can_tx_enqueue(msg);
+	can_tx_enqueue(MOTOR_CAN, msg);
 }
 
 /**
@@ -89,7 +89,7 @@ void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos){
 	* @retval None.
 	*/
 void motor_set_acceleration(MOTOR_ID motor_id, u16 accel){
-	CAN_MESSAGE msg;
+	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
@@ -99,7 +99,7 @@ void motor_set_acceleration(MOTOR_ID motor_id, u16 accel){
 	msg.data[1] = (u8)(one_to_n_bytes(accel, 0));
 	msg.data[2] = (u8)(one_to_n_bytes(accel, 1));
 
-	can_tx_enqueue(msg);
+	can_tx_enqueue(MOTOR_CAN, msg);
 }
 
 /**
@@ -108,7 +108,7 @@ void motor_set_acceleration(MOTOR_ID motor_id, u16 accel){
 	* @retval None.
 	*/
 void motor_lock(MOTOR_ID motor_id){
-	CAN_MESSAGE msg;
+	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
@@ -116,7 +116,7 @@ void motor_lock(MOTOR_ID motor_id){
 	msg.length = CAN_MOTOR_LOCK_LENGTH;
 	msg.data[0] = CAN_MOTOR_LOCK_CMD;
 
-	can_tx_enqueue(msg);
+	can_tx_enqueue(MOTOR_CAN, msg);
 }
 
 

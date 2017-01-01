@@ -1,31 +1,50 @@
-#ifndef __CAN_PROTOCOL_H
-#define __CAN_PROTOCOL_H
+#ifndef _CAN_PROTOCOL_H
+#define _CAN_PROTOCOL_H
 
-#include <cstring>
-#include <stdio.h>
-#include <stdlib.h> 
+#include <stdbool.h>
 #include <stm32f4xx.h>
 #include <stm32f4xx_can.h>
 #include <stm32f4xx_rcc.h>
-#include <misc.h>
 #include <stm32f4xx_gpio.h>
+#include "gpio.h"
 
-/*** CAN Config ***/
-#define	CANn							CAN1
-#define CAN_RCC						RCC_APB1Periph_CAN1
+//CAN Information
+#define CAN1_RCC RCC_APB1Periph_CAN1
+#define CAN2_RCC RCC_APB1Periph_CAN2
 
-#define CAN_Rx_GPIO GPIO_Pin_11
-#define CAN_Tx_GPIO GPIO_Pin_12
-#define CAN_GPIO GPIOA
+#define CAN1_RX_GPIO PA11
+#define CAN1_TX_GPIO PA12
 
-#define CAN_GPIO_RCC			RCC_AHB1Periph_GPIOA
+#define CAN2_RX_GPIO PB6
+#define CAN2_TX_GPIO PB12
 
-#define CAN_TX_QUEUE_MAX_SIZE				300
-#define	CAN_RX_FILTER_LIMIT					28		// The number of filters can be applied at most
+#define CAN1_TX_QUEUE_MAX_SIZE 100
+#define CAN2_TX_QUEUE_MAX_SIZE 100
 
+#define	CAN_RX_FILTER_LIMIT 28 //Max number of filter that can be applied
 
-/*** X = the ID bit that must be equal 	***/
-/*** ? = the ID bit that can varies 		***/
+typedef enum{
+	CAN_1,
+	CAN_2
+}CanID;
+
+typedef struct{
+	u16 id;					// 11-bit ID: 0x000 ~ 0x7FF
+	u8 length;			// 0 ~ 8
+	u8 data[8];
+}CanMessage;
+
+typedef struct{
+	u16 head;
+	u16 tail;
+	u16 size;
+	CanMessage* queue;
+}CanQueue;
+
+/**
+* X = ID bits that are checked
+* ? = ID bits that are not checked
+*/
 																						/***   11-bit ID   	(example range) 		***/
 #define CAN_RX_MASK_EXACT						0x7FF		/*** XXX XXXX XXXX	(Exactly same ID)		***/
 #define CAN_RX_MASK_DIGIT_0_F				0x7F0		/*** XXX XXXX ???? 	(0xAB0 - 0xABF) 		***/
@@ -33,47 +52,21 @@
 #define	CAN_RX_MASK_DIGIT_0_3				0x7FC		/*** XXX XXXX XX?? 	(0xAB0 - 0xAB3)			***/
 #define	CAN_RX_MASK_DIGIT_0_1				0x7FE		/*** XXX XXXX XXX? 	(0xAB0 - 0xAB1)			***/
 
-
-typedef struct CAN_MESSAGE {
-	u16 id;					/*** 11-bit ID: 0x000 to 0x7FF ***/
-	u8 length;			/*** 0 to 8 ***/
-	u8 data[8];
-}CAN_MESSAGE;
-
-typedef struct CAN_QUEUE {
-	u16 head;											/*** Current head of queue ***/
-	u16 tail;											/*** Current tail of queue ***/
-	struct CAN_MESSAGE* queue;		/*** The can message queue (array) ***/
-}CAN_QUEUE;
-
-
+//Init both CAN1 and CAN2
 void can_init(void);
 
-/*** CAN Tx ***/
+/** Return the queue size of CAN1/CAN2
+* @param id: which CAN queue to look at
+* @return size of the specified queue
+*/
+inline u16 get_can_queue_size(CanID id);
 
-/** @brief	Get the current CAN_TX queue size
-	* @retval	The current queue size (0 to CAN_TX_QUEUE_MAX_SIZE-1)
-	*/
-u16 can_tx_queue_size(void);
-
-/** @brief Check if the CAN_TX queue is empty
-	* @retval True if the queue is empty
-	*/
-u8 can_tx_queue_empty(void);
-
-
-/**  @brief Add a new tx message to the CAN Tx queue
-	* @param msg: The can message that will be added
-	* @retval 0: Fail to enqueue due to the exceeding size, 1: Successfully enqueued
-	*/
-u8 can_tx_enqueue(struct CAN_MESSAGE msg);	
-
-/** @brief	Process and transfer ONE can message in the queue and dequeue.
-	*					To be through interrupt and the enqueue function.
-	* @param 	None
-	*	@retval True if the queue is not empty after dequeue
-	*/
-u8 can_tx_dequeue(void);							// <--- To be called through interrupt
+/** Put a CAN message into the CAN queue for transmission
+* @param id: which CAN to use
+* @param msg: The message to be sent
+* @return true if successful
+*/
+bool can_tx_enqueue(CanID id, CanMessage msg);
 
 /** @brief Force clear the CAN_TX queue without process
 	* @param None.

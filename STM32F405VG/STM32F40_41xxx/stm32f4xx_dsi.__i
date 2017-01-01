@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -O2 -Otime --apcs=interwork --split_sections -I.\ext -I.\sys -I.\core -I.\user -I.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I.\sys\Libraries\CMSIS\Include -I.\sys\Device\ST\STM32F4xx\Include --C99
+-I D:\WorkBench\Robotics\robocon-f4-lib\STM32F405VG\RTE
+-I D:\WorkBench\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include
+-I D:\WorkBench\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+-D__UVISION_VERSION="517" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx
+-o stm32f40_41xxx\stm32f4xx_dsi.o --omf_browse stm32f40_41xxx\stm32f4xx_dsi.crf --depend stm32f40_41xxx\stm32f4xx_dsi.d "sys\Libraries\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dsi.c"

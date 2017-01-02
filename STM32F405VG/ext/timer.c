@@ -3,11 +3,8 @@
 static TimerActionStruct actions[TIMER_SIZE] = {0};
 static u16 index = 0;
 static u16 size = 0;
-static u32 currCounting = 0;
 
 static bool running = false;
-
-static volatile bool fake_irq = false;
 
 void timer_init(){
 	RCC_APB1PeriphClockCmd(TIMER_RCC, ENABLE);
@@ -30,10 +27,10 @@ void timer_init(){
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
+	//Disable preload as to disable shadow register
 	TIM_ARRPreloadConfig(TIMER_TIM, DISABLE);
 	TIM_Cmd(TIMER_TIM, DISABLE);
 	running = false;
-	fake_irq =  false;
 }
 
 /**
@@ -60,53 +57,64 @@ void do_after(TimerAction action, u32 ms){
 	
 	if (running == false){
 		TIM_SetCounter(TIMER_TIM, 0);
-		TIM_SetAutoreload(TIMER_TIM, ms*10);
+		if (ms*10 >= 65535){
+			TIM_SetAutoreload(TIMER_TIM, 65535);
+		}else{
+			TIM_SetAutoreload(TIMER_TIM, ms*10);
+		}
 		TIM_Cmd(TIMER_TIM, ENABLE);
-		currCounting = ms;
-		
-		fake_irq = true;
-		TIM_GenerateEvent(TIMER_TIM, TIM_EventSource_Update);
+
 		running = true;
 		
-	}else if (currCounting - TIM_GetCounter(TIMER_TIM) > ms){
-		//u32 old_count = TIM_GetCounter(TIMER_TIM);
-		//TIM_SetCounter(TIMER_TIM, old_count);
-		TIM_SetAutoreload(TIMER_TIM, currCounting+ms);
-		currCounting = currCounting+ms;
-		
-		fake_irq = true;
-		TIM_GenerateEvent(TIMER_TIM, TIM_EventSource_Update);
+	}else if (TIMER_TIM->ARR - TIM_GetCounter(TIMER_TIM) > ms*10){
+		u32 old_count = TIM_GetCounter(TIMER_TIM);
+		TIM_SetAutoreload(TIMER_TIM, old_count+ms*10);
 	}
 }
 
 void TIMER_IRQ_HANDLER(void){
 	if (TIM_GetITStatus(TIMER_TIM, TIM_IT_Update) != RESET){
 		TIM_ClearITPendingBit(TIMER_TIM, TIM_IT_Update);
-		if (!fake_irq){
-			for (u16 i=0; i<TIMER_SIZE; i++){
-				if (actions[i].action != 0){
-					//If such function exist
-					if (actions[i].ms <= currCounting){
-						//Execute function when time's up
-						actions[i].action();
-						
-						//Remove the function
-						size--;
-						actions[i].action = 0;
-					}else{
-						//Otherwise keep counting
-						actions[i].ms -= currCounting;
+		u32 min_quantum = (u32)-1;
+		for (u16 i=0; i<TIMER_SIZE; i++){
+			if (actions[i].action != 0){
+				//If such function exist
+				if (actions[i].ms <= TIMER_TIM->ARR){
+					//Execute function when time's up
+					actions[i].action();
+					
+					//Remove the function
+					size--;
+					actions[i].action = 0;
+				}else{
+					//Otherwise keep counting
+					actions[i].ms -= TIMER_TIM->ARR;
+					if (actions[i].ms < min_quantum){
+						min_quantum = actions[i].ms;
 					}
 				}
 			}
-			
-			if (size == 0){
-				TIM_Cmd(TIMER_TIM, DISABLE);
-				running = false;
-				index = 0;
-			}
-		}else{
-			fake_irq = false;
 		}
+		
+		if (min_quantum == (u32)-1){
+			//If no function remains
+			TIM_Cmd(TIMER_TIM, DISABLE);
+			running = false;
+			index = 0;
+		}else{
+			//else setup a new timer
+			if (min_quantum >= 65535){
+				//If the target period > 16bit
+				min_quantum = 65535;
+			}
+			TIM_SetCounter(TIMER_TIM, 0);
+			TIM_SetAutoreload(TIMER_TIM, min_quantum);
+		}
+		
+//		if (size == 0){
+//			TIM_Cmd(TIMER_TIM, DISABLE);
+//			running = false;
+//			index = 0;
+//		}
 	}
 }

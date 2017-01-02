@@ -28,7 +28,7 @@
 #define TIMER_IRQ 				TIM7_IRQn
 #define TIMER_IRQ_HANDLER	TIM7_IRQHandler
 
-//+1 count every 0.1 ms
+//+1 count every 0.1 ms (8400)
 #define TIMER_PRESCALER (SystemCoreClock/1000/10/2)
 
 typedef void(*TimerAction)(void);

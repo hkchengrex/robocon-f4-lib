@@ -32,13 +32,11 @@ void tft_spi_init(void){
    GPIO_InitTypeDef 	GPIO_InitStructure;
    
    //Clock and Pins mapping to SPI2
-   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB,ENABLE);
-   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC,ENABLE);
-   RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI2,ENABLE);
-   RCC_APB1PeriphClockLPModeCmd(RCC_APB1Periph_SPI2,ENABLE);
-   GPIO_PinAFConfig(GPIOB, GPIO_PinSource13, GPIO_AF_SPI2);
-	 //GPIO_PinAFConfig(GPIOB, GPIO_PinSource14, GPIO_AF_SPI2);
-   GPIO_PinAFConfig(GPIOB, GPIO_PinSource15, GPIO_AF_SPI2);
+   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA,ENABLE);
+   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1,ENABLE);
+   RCC_APB2PeriphClockLPModeCmd(RCC_APB2Periph_SPI1,ENABLE);
+   GPIO_PinAFConfig(GPIOA, GPIO_PinSource5, GPIO_AF_SPI1);
+   GPIO_PinAFConfig(GPIOA, GPIO_PinSource7, GPIO_AF_SPI1);
 
    /* Enable GPIOD for RST pin */
    GPIO_InitStructure.GPIO_Pin = TFT_RST_PIN;
@@ -57,12 +55,12 @@ void tft_spi_init(void){
    GPIO_Init(TFT_DC_PORT, &GPIO_InitStructure);
 
    /* Configure TFT_SPI Pin: SCK, MISO and MOSI */
-   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13 |GPIO_Pin_15;
+   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5 |GPIO_Pin_7;
    GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
    GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
    GPIO_InitStructure.GPIO_Speed = GPIO_Fast_Speed;
-   GPIO_Init(GPIOB, &GPIO_InitStructure);
+   GPIO_Init(GPIOA, &GPIO_InitStructure);
    
    /* Configure TFT_SPI Pin: CS */
    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_CS;
@@ -137,10 +135,8 @@ void tft_config(void)
 {
 	tft_write_command(0x01);   //Sofeware setting
 	_delay_ms(10);
-	//Delayms(10);
 	tft_write_command(0x11);//Sleep out
 	_delay_ms(120);
-	//Delayms(120);
 	
 	//ST7735R Frame Rate
 	tft_write_command(0xB1);
@@ -235,7 +231,6 @@ void tft_config(void)
 	tft_write_command(0x29);//Display on
 
 	_delay_ms(10);
-	//Delayms(10);
 }
 
 /**
@@ -248,10 +243,8 @@ void tft_reset(void)
 	tft_y_index = 0;
  	GPIO_ResetBits(TFT_RST_PORT, TFT_RST_PIN);
 	_delay_ms(100);
-	//Delayms(100);
 	GPIO_SetBits(TFT_RST_PORT, TFT_RST_PIN);
 	_delay_ms(100);
-	//Delayms(100);
 }
 
 /**

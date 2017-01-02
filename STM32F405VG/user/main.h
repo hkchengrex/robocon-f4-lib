@@ -24,4 +24,6 @@
 #include "macro_math.h"
 #include "trigon_math.h"
 
+#include "timer.h"
+
 #endif 

@@ -41,3 +41,7 @@ Timer:
 		
 	-Timer 13
 		-Channel 1 - Servo 6
+		
+		
+SPI:
+	- SPI 1 - TFT

@@ -60,12 +60,13 @@ void do_after(TimerAction action, u32 ms){
 	
 	if (running == false){
 		TIM_SetCounter(TIMER_TIM, 0);
-		TIM_SetAutoreload(TIMER_TIM, ms);
+		TIM_SetAutoreload(TIMER_TIM, ms*10);
 		TIM_Cmd(TIMER_TIM, ENABLE);
 		currCounting = ms;
 		
 		fake_irq = true;
 		TIM_GenerateEvent(TIMER_TIM, TIM_EventSource_Update);
+		running = true;
 		
 	}else if (currCounting - TIM_GetCounter(TIMER_TIM) > ms){
 		//u32 old_count = TIM_GetCounter(TIMER_TIM);

@@ -1,6 +1,9 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 
+#define LOOP1_MS 20
+#define LOOP2_MS 50
+
 /**
 	PIN_ON_TOP = 		0
 	PIN_ON_LEFT = 	1
@@ -17,10 +20,12 @@
 #define SHOOTING_PNEU 				PNEU_2
 #define LAUGHING_PNEU 				PNEU_3
 
-#define JOYSTICK_UP 					JS_BUT_A
-#define JOYSTICK_RIGHT 				JS_BUT_B
-#define JOYSTICK_DOWN 				JS_BUT_C
-#define JOYSTICK_LEFT 				JS_BUT_D
+#define BUTTON_1							BOARD_BNT_1
+#define BUTTON_2							BOARD_BNT_2
+#define JOYSTICK_N 						JS_BNT_A
+#define JOYSTICK_E 						JS_BNT_B
+#define JOYSTICK_S 						JS_BNT_C
+#define JOYSTICK_W 						JS_BNT_D
 
 #define WALL_LIMIT_SWITCH 		LIM_SW_1
 

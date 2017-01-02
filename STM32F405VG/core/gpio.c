@@ -307,7 +307,7 @@ void gpio_write(const GPIO* gpio, BitAction BitVal){
 	* @param GPIO pointer
 	*/
 void gpio_toggle(const GPIO* gpio) {
-	GPIO_WriteBit(gpio->gpio, gpio->gpio_pin, (BitAction) GPIO_ReadOutputDataBit(gpio->gpio, gpio->gpio_pin));
+	GPIO_WriteBit(gpio->gpio, gpio->gpio_pin, (BitAction) !GPIO_ReadOutputDataBit(gpio->gpio, gpio->gpio_pin));
 }
 
 uint16_t getPinSource(const GPIO* gpio){

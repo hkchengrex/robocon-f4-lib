@@ -28,11 +28,11 @@
 #define BTN_TABLE \
 X(BOARD_BNT_1, PD6, GPIO_PuPd_UP) \
 X(BOARD_BNT_2, PD7, GPIO_PuPd_UP) \
-X(JS_BUT_A, PD0, GPIO_PuPd_UP) \
-X(JS_BUT_B, PD1, GPIO_PuPd_UP) \
-X(JS_BUT_C, PD3, GPIO_PuPd_UP) \
-X(JS_BUT_D, PD4, GPIO_PuPd_UP) \
-X(JS_BUT_M, PD5, GPIO_PuPd_UP) \
+X(JS_BNT_A, PD0, GPIO_PuPd_UP) \
+X(JS_BNT_B, PD1, GPIO_PuPd_UP) \
+X(JS_BNT_C, PD3, GPIO_PuPd_UP) \
+X(JS_BNT_D, PD4, GPIO_PuPd_UP) \
+X(JS_BNT_M, PD5, GPIO_PuPd_UP) \
 X(LIM_SW_1, PE0, GPIO_PuPd_DOWN)
 
 #define X(a, b, c) a, 
@@ -50,7 +50,7 @@ typedef struct{
 static const ButtonStruct BUTTONS[] = {BTN_TABLE};
 #undef X
 
-#define BTN_COUNT (sizeof(BUTTONS)/sizeof(GPIO*))
+#define BTN_COUNT (sizeof(BUTTONS)/sizeof(ButtonStruct))
 
 typedef void(*OnClickListener)(void);
 typedef void(*OnReleaseListener)(void);

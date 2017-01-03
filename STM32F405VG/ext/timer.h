@@ -28,14 +28,15 @@
 #define TIMER_IRQ 				TIM7_IRQn
 #define TIMER_IRQ_HANDLER	TIM7_IRQHandler
 
-//+1 count every 0.1 ms (8400)
-#define TIMER_PRESCALER (SystemCoreClock/1000/10/2)
+//+1 count every 0.5 ms (42000), /1000->ms /2-> Clock division /2->0.5ms
+#define TIMER_PRESCALER (SystemCoreClock/1000/4)
+#define QUANTUM_MULTIPLER 2
 
 typedef void(*TimerAction)(void);
 
 typedef struct{
 	TimerAction action;
-	u32 ms;
+	u32 quantum;
 }TimerActionStruct;
 
 //Init timer
@@ -44,7 +45,7 @@ void timer_init(void);
 /**
 * Register a event call that will happen after some time.
 * @param action: The function to be called
-* @param ms: The time to be waited (0~65535)
+* @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
 */
 void do_after(TimerAction action, u32 ms);
 

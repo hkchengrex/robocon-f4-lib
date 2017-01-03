@@ -10,7 +10,8 @@ IRQ interrupt priority:
 
 	- Preemption Priority 1
 		1 - UART receive interrupt
-		4 - CAN RX interrupt
+		7 - CAN1 RX interrupt
+		8 - CAN2 RX interrupt
 		
 	- Preemption Priority 2
 		4 - Timer event

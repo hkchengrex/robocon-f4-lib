@@ -50,25 +50,25 @@ void do_after(TimerAction action, u32 ms){
 	}
 	
 	actions[index].action = action;
-	actions[index].ms = ms;
+	actions[index].quantum = ms*QUANTUM_MULTIPLER;
 	
 	index = (index+1)%TIMER_SIZE;
 	size++;
 	
 	if (running == false){
 		TIM_SetCounter(TIMER_TIM, 0);
-		if (ms*10 >= 65535){
+		if (ms*QUANTUM_MULTIPLER >= 65535){
 			TIM_SetAutoreload(TIMER_TIM, 65535);
 		}else{
-			TIM_SetAutoreload(TIMER_TIM, ms*10);
+			TIM_SetAutoreload(TIMER_TIM, ms*QUANTUM_MULTIPLER);
 		}
 		TIM_Cmd(TIMER_TIM, ENABLE);
 
 		running = true;
 		
-	}else if (TIMER_TIM->ARR - TIM_GetCounter(TIMER_TIM) > ms*10){
+	}else if (TIMER_TIM->ARR - TIM_GetCounter(TIMER_TIM) > ms*QUANTUM_MULTIPLER){
 		u32 old_count = TIM_GetCounter(TIMER_TIM);
-		TIM_SetAutoreload(TIMER_TIM, old_count+ms*10);
+		TIM_SetAutoreload(TIMER_TIM, old_count+ms*QUANTUM_MULTIPLER);
 	}
 }
 
@@ -79,7 +79,7 @@ void TIMER_IRQ_HANDLER(void){
 		for (u16 i=0; i<TIMER_SIZE; i++){
 			if (actions[i].action != 0){
 				//If such function exist
-				if (actions[i].ms <= TIMER_TIM->ARR){
+				if (actions[i].quantum <= TIMER_TIM->ARR){
 					//Execute function when time's up
 					actions[i].action();
 					
@@ -88,9 +88,9 @@ void TIMER_IRQ_HANDLER(void){
 					actions[i].action = 0;
 				}else{
 					//Otherwise keep counting
-					actions[i].ms -= TIMER_TIM->ARR;
-					if (actions[i].ms < min_quantum){
-						min_quantum = actions[i].ms;
+					actions[i].quantum -= TIMER_TIM->ARR;
+					if (actions[i].quantum < min_quantum){
+						min_quantum = actions[i].quantum;
 					}
 				}
 			}

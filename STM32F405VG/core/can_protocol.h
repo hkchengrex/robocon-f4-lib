@@ -21,7 +21,13 @@
 #define CAN1_TX_QUEUE_MAX_SIZE 100
 #define CAN2_TX_QUEUE_MAX_SIZE 100
 
-#define	CAN_RX_FILTER_LIMIT 28 //Max number of filter that can be applied
+/** For 32-bit mask filter, there can be at most 14 filters, shared by CAN1 and CAN2
+* You can make it into 16-bit filter (28 filters), or identity list (*2 filter)
+*/
+#define	CAN_RX_FILTER_LIMIT 14 
+
+#define CAN1_FILTER_LIMIT 10
+#define CAN2_FILTER_LIMIT CAN_RX_FILTER_LIMIT—CAN1_FILTER_LIMIT
 
 typedef enum{
 	CAN_1,
@@ -40,6 +46,8 @@ typedef struct{
 	u16 size;
 	CanMessage* queue;
 }CanQueue;
+
+typedef void (*CanRxHandler)(CanRxMsg* msg);
 
 /**
 * X = ID bits that are checked
@@ -68,19 +76,12 @@ inline u16 get_can_queue_size(CanID id);
 */
 bool can_tx_enqueue(CanID id, CanMessage msg);
 
-/** @brief Force clear the CAN_TX queue without process
-	* @param None.
-	* @retval None.
-	*/
-void can_tx_queue_clear(void);	
+// Reset the entire CAN TX message queue
+void can_tx_queue_clear(CanID id);
 
 /*** CAN Rx ***/
 
-/**
-	* @brief Initialize the CAN_RX interrupt handler
-	* @param None.
-	* @retval None.
-	*/
+// Initialize CAN RX interrupt
 void can_rx_init(void);
 
 /**

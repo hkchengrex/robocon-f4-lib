@@ -5,9 +5,9 @@
 	* @modify	 Ding & Simon (v1.1.0)
 	* @modify  Rex Cheng (v1.2.0)
   * @version V1.2.0
-  * @date    Nov 2016
+  * @date    Jan 2016
   * @brief   This file provides all the CAN basic protocol functions, including
-	* 				 initialization, CAN transmission and receive handlers .
+	* 				 initialization, CAN transmission and receive handlers.
   ******************************************************************************
 	
 	Only use Mailbox 1 to transmit and 2 FIFO to receive.
@@ -24,23 +24,21 @@
 static CanMessage CAN1_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
 static CanMessage CAN2_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
 
-static void can1_tx_dequeue();
-static void can2_tx_dequeue();
+static void can1_tx_dequeue(void);
+static void can2_tx_dequeue(void);
 static void (*can_tx_dequeue[2])(void) = {can1_tx_dequeue, can2_tx_dequeue};
 
 CanQueue CAN_tx_queue[2] = {{0, 0, 0, CAN1_tx_queue_items}, {0, 0, 0, CAN2_tx_queue_items}};
 
-u8 CAN_filter_count = 0;
-u32 CAN_max_size[2] = {CAN1_TX_QUEUE_MAX_SIZE, CAN2_TX_QUEUE_MAX_SIZE};
+static u8 CAN_filter_count[2] = {0};
+static u8 CAN_max_filter[2] = {CAN1_FILTER_LIMIT, CAN2_FILTER_LIMIT};
+static u32 CAN_queue_max_size[2] = {CAN1_TX_QUEUE_MAX_SIZE, CAN2_TX_QUEUE_MAX_SIZE};
 
 // Array storing all the handler functions for CAN RX (element id equals to filter id)
-CanRxHandler CanRxHandlers[CAN_RX_FILTER_LIMIT] = {0};
+CanRxHandler CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT] = {0};
 
 //Init both CAN1 and CAN2
 void can_init(){
-	GPIO_InitTypeDef GPIO_InitStructure;
-	CAN_InitTypeDef CAN_InitStructure;
-	
 	//Enable RCC
 	RCC_APB1PeriphClockCmd(CAN1_RCC, ENABLE);
 	RCC_APB1PeriphClockCmd(CAN2_RCC, ENABLE);
@@ -55,7 +53,9 @@ void can_init(){
 	gpio_af_init(&CAN2_RX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN2);
 	gpio_af_init(&CAN2_TX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN2);
 
+	CAN_InitTypeDef CAN_InitStructure;
 	//CAN1 init
+	CAN_InitTypeDef CAN_InitStructure;
 	CAN_DeInit(CAN1);
 	CAN_StructInit(&CAN_InitStructure);
 	
@@ -189,12 +189,12 @@ static void can2_tx_dequeue(){
 * @return true if successful
 */
 bool can_tx_enqueue(CanID id, CanMessage msg){
-	if (CAN_tx_queue[id].size == CAN_max_size[id]){
+	if (CAN_tx_queue[id].size == CAN_queue_max_size[id]){
 		return false;
 	}
 
 	CAN_tx_queue[id].queue[CAN_tx_queue[id].tail] = msg;
-	CAN_tx_queue[id].tail = (CAN_tx_queue[id].tail + 1) % CAN_max_size[id];
+	CAN_tx_queue[id].tail = (CAN_tx_queue[id].tail + 1) % CAN_queue_max_size[id];
 	CAN_tx_queue[id].size++;
 
 	can_tx_dequeue[id]();
@@ -257,24 +257,31 @@ void can_rx_init(){
 	CAN_SlaveStartBank(CAN1_FILTER_LIMIT);
 }
 
-/**
-	* @brief Add filter to the can data received (involves bitwise calculation)
-	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
-	* @param id: 11-bit ID (0x000 to 0x7FF)
-	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
-	* @param FIFO_num: Which FIFO to use, 0 or 1
-	* @param handler: function pointer for the corresponding CAN ID filter
-	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
-	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD
-	* @example can_rx_add_filter(0x0A0, 0x7F0) will receive CAN message with ID from 0xA0 to 0xAF
-	* @example can_rx_add_filter(0x000, 0x7FA) will receive CAN message with ID from 0x00 to 0x03
-	*/
-void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanRxHandler handler){
+/** Add a mask filter to receive some messages
+* @warning Cannot exceed filter size limit
+* @param id: 11-bit ID (0x000 to 0x7FF)
+* @param mask: 11-bit mask, corresponding to the 11-bit ID (0x000 to 0x7FF)
+* @param FIFO_num: 0 or 1, to select which FIFO will receive the message, each CAN has 2 FIFO
+* @param CANx: which CAN to use
+* @param handler: Function to handle the received message
+* @example Please read the mask exmaple in the header file
+*/
+void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler){
+	if (CAN_filter_count[CANx] >= CAN_max_filter[CANx]){
+		//Error
+		while(1);
+	}
+	
+	u8 filter_id = CAN_filter_count[CANx];
+	if (CANx == CAN_2){
+		filter_id += CAN1_FILTER_LIMIT;
+	}
+	
 	CAN_FilterInitTypeDef CAN_FilterInitStructure;
 	
-	CAN_FilterInitStructure.CAN_FilterNumber = CAN_filter_count;
+	CAN_FilterInitStructure.CAN_FilterNumber = filter_id;
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
-	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_16bit;
+	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
 	
 	CAN_FilterInitStructure.CAN_FilterIdHigh = id << 5;
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
@@ -284,38 +291,63 @@ void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanRxHandler handler){
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
 	CAN_FilterInit(&CAN_FilterInitStructure);	
 	
-	CAN_Rx_Handlers[CAN_filter_count] = handler;
+	CAN_Rx_Handlers[filter_id] = handler;
 	
-	++CAN_filter_count;
+	CAN_filter_count[CANx]++;
 }
 
-/** 
-	* @brief Interrupt for CAN Rx (FIFO1 and FIFO2)
-	* @warning Use USB_LP_CAN_RX0_IRQHandler for HD, USB_LP_CAN1_RX0_IRQHandler for XLD / MD
-	*/
+//Interrupt functions for CAN1/CAN2, FIFO1/FIFO2
 
-void CAN1_RX0_IRQHandler(void){
-	if (CAN_GetITStatus(CANn, CAN_IT_FMP0) != RESET) {
+void CAN1_RX0_IRQHandler(){
+	if (CAN_GetITStatus(CAN1, CAN_IT_FMP0) != RESET) {
 		CanRxMsg RxMessage;
-		CAN_ClearITPendingBit(CANn, CAN_IT_FMP0);
-		CAN_Receive(CANn, CAN_FIFO0, &RxMessage);
+		CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);
+		CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
 
 		if(RxMessage.IDE == CAN_ID_STD) {
-			if (RxMessage.FMI < CAN_filter_count && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < CAN_filter_count[CAN_1]) {
 				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
 			}
 		}
 	}
 }
 
-void CAN1_RX1_IRQHandler(void){
-	if (CAN_GetITStatus(CANn, CAN_IT_FMP1) != RESET) {
+void CAN1_RX1_IRQHandler(){
+	if (CAN_GetITStatus(CAN1, CAN_IT_FMP1) != RESET) {
 		CanRxMsg RxMessage;
-		CAN_ClearITPendingBit(CANn, CAN_IT_FMP1);
-		CAN_Receive(CANn, CAN_FIFO1, &RxMessage);
+		CAN_Receive(CAN1, CAN_FIFO1, &RxMessage);
+		CAN_ClearITPendingBit(CAN1, CAN_IT_FMP1);
 
 		if(RxMessage.IDE == CAN_ID_STD) {
-			if (RxMessage.FMI < CAN_filter_count && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < CAN_filter_count[CAN_1]) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
+			}
+		}
+	}
+}
+
+void CAN2_RX0_IRQHandler(){
+	if (CAN_GetITStatus(CAN2, CAN_IT_FMP0) != RESET) {
+		CanRxMsg RxMessage;
+		CAN_Receive(CAN2, CAN_FIFO0, &RxMessage);
+		CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);
+
+		if(RxMessage.IDE == CAN_ID_STD) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < (CAN_filter_count[CAN_2] + CAN1_FILTER_LIMIT)) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
+			}
+		}
+	}
+}
+
+void CAN2_RX1_IRQHandler(){
+	if (CAN_GetITStatus(CAN2, CAN_IT_FMP1) != RESET) {
+		CanRxMsg RxMessage;
+		CAN_Receive(CAN2, CAN_FIFO1, &RxMessage);
+		CAN_ClearITPendingBit(CAN2, CAN_IT_FMP1);
+
+		if(RxMessage.IDE == CAN_ID_STD) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < (CAN_filter_count[CAN_2] + CAN1_FILTER_LIMIT)) {
 				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
 			}
 		}

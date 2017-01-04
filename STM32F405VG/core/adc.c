@@ -64,7 +64,6 @@ void adc_init(){
 		ADC_InitStructure.ADC_NbrOfConversion = channel_count;
 		ADC_Init(ADCs[i].adc, &ADC_InitStructure);
 		
-		DMA_DeInit(ADCs[i].stream);
 		DMA_InitStructure.DMA_Channel = ADCs[i].channel;
 		DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&(ADCs[i].adc)->DR;
 		DMA_InitStructure.DMA_Memory0BaseAddr = (u32)&(adc_reading[index]);

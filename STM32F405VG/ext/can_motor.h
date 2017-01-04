@@ -1,5 +1,5 @@
-#ifndef __CAN_MOTOR_H
-#define __CAN_MOTOR_H
+#ifndef _CAN_MOTOR_H
+#define _CAN_MOTOR_H
 
 #include "can_protocol.h"
 #include <stdbool.h>
@@ -26,7 +26,6 @@
 #define CAN_ENCODER_FEEDBACK_LENGTH		5
 #define CAN_ENCODER_FEEDBACK					0x22
 
-
 typedef enum {
 	MOTOR1 = 0,
 	MOTOR2,
@@ -46,40 +45,61 @@ typedef enum {
 	MOTOR16
 } MOTOR_ID;
 
-/*** TX ***/
+typedef enum{
+	OPEN_LOOP = 0,
+	CLOSE_LOOP = 1
+} CLOSE_LOOP_FLAG;
 
-//Motor (through CAN protocol) initialization 
+
+/**********
+* TX Side
+***********/
+
+
+
+//Init CAN Motor
 void can_motor_init(void);
 
 /**
-	* @brief Set motor velocity (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	* @param velocity. Open loop (-1799~1799); Close loop (-150~150);
-	* @param close_loop: true if close loop control is used
-	*/
-void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop);
+* @brief Set motor velocity (CAN)
+* @param motor_id: MOTORx, which motor to control
+* @param vel: Open loop: (-1799~1799); Close loop: (-150~150);
+* @param loop: Open loop or close loop control
+*/
+void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG loop);
 
 /**
-	* @brief Set motor acceleration (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	* @param accel: acceleration parameter of motor
-	*/
+* @brief Set motor position (CAN)
+* @param motor_id: MOTORx, which motor to control
+* @param vel (vel of close_loop is not corresponded to open_loop)
+* @param pos: The position need to move to relative to current encoder value.
+*/
+void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos);
+
+/**
+* @brief Set motor acceleration (CAN)
+* @param motor_id: MOTORx, which motor to control
+* @param accel: acceleration parameter of motor
+*/
 void motor_set_acceleration(MOTOR_ID motor_id, u16 accel);
 
 /**
-	* @brief Lock and stop motor immediately (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	*/
+* @brief Lock and stop motor immediately (CAN)
+* @param motor_id: MOTORx, which motor to control
+*/
 void motor_lock(MOTOR_ID motor_id);
 
 
 
-/*** RX ***/
+/**********
+* RX Side
+***********/
+
 
 /**
-  * @brief Get the motor encoder value (based on CAN rx result)
-  * @param motor_id: The can motor ID
-  */
+* @brief Get the motor encoder value (based on CAN rx result)
+* @param motor_id: MOTORx, which motor to control
+*/
 s32 get_encoder_value(MOTOR_ID motor_id);
 
 #endif

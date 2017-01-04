@@ -22,12 +22,12 @@
 #define CAN2_TX_QUEUE_MAX_SIZE 100
 
 /** For 32-bit mask filter, there can be at most 14 filters, shared by CAN1 and CAN2
-* You can make it into 16-bit filter (28 filters), or identity list (*2 filter)
+* You can make it into 16-bit filter (*2 filters), or identity list (*2 filters)
 */
-#define	CAN_RX_FILTER_LIMIT 14 
+#define	CAN_RX_FILTER_LIMIT 28
 
-#define CAN1_FILTER_LIMIT 10
-#define CAN2_FILTER_LIMIT CAN_RX_FILTER_LIMIT—CAN1_FILTER_LIMIT
+#define CAN1_FILTER_LIMIT 14
+#define CAN2_FILTER_LIMIT (CAN_RX_FILTER_LIMIT-CAN1_FILTER_LIMIT)
 
 typedef enum{
 	CAN_1,
@@ -69,6 +69,14 @@ void can_init(void);
 */
 inline u16 get_can_queue_size(CanID id);
 
+
+
+/**********
+* TX Side
+***********/
+
+
+
 /** Put a CAN message into the CAN queue for transmission
 * @param id: which CAN to use
 * @param msg: The message to be sent
@@ -79,24 +87,27 @@ bool can_tx_enqueue(CanID id, CanMessage msg);
 // Reset the entire CAN TX message queue
 void can_tx_queue_clear(CanID id);
 
-/*** CAN Rx ***/
+
+
+/**********
+* RX Side
+***********/
+
+
 
 // Initialize CAN RX interrupt
 void can_rx_init(void);
 
-/**
-	* @brief Add filter to the can data received (involves bitwise calculation)
-	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
-	* @param id: 11-bit ID (0x000 to 0x7FF)
-	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
-	* @param FIFO_num: Which FIFO to use, 0 or 1
-	* @param handler: function pointer for the corresponding CAN ID filter
-	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
-	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD
-	* @example can_rx_add_filter(0x0A0, 0x7F0) will receive CAN message with ID from 0xA0 to 0xAF
-	* @example can_rx_add_filter(0x000, 0x7FA) will receive CAN message with ID from 0x00 to 0x03
-	*/
-void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* msg));
+/** Add a mask filter to receive some messages
+* @warning Cannot exceed filter size limit
+* @param id: 11-bit ID (0x000 to 0x7FF)
+* @param mask: 11-bit mask, corresponding to the 11-bit ID (0x000 to 0x7FF)
+* @param FIFO_num: 0 or 1, to select which FIFO will receive the message, each CAN has 2 FIFO
+* @param CANx: which CAN to use
+* @param handler: Function to handle the received message
+* @example Please read the mask exmaple in the header file
+*/
+void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler);
 
 /*** Protocol Encoding / Decoding function ***/
 

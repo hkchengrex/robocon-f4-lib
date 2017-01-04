@@ -24,7 +24,6 @@ void encoder_init(void){
 	
 	//Timer init
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-	TIM_DeInit(ENCODER1_TIMER);
 	TIM_TimeBaseStructure.TIM_Prescaler = 0x00;
 	TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;

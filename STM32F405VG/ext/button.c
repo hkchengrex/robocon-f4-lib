@@ -16,6 +16,7 @@ static HoldListenerStruct holdListeners[BTN_COUNT] = {0};
 //Init buttons
 void btn_init(){
 	for (u8 i=0; i<BTN_COUNT; i++){
+		gpio_rcc_init(BUTTONS[i].gpio);
 		gpio_input_init(BUTTONS[i].gpio, BUTTONS[i].PuPd);
 	}
 }
@@ -35,6 +36,7 @@ void btn_update(){
 	for (u8 i=0; i<BTN_COUNT; i++){
 		if (btn_pressed((ButtonID)i)){
 			//If the button is pressed
+			
 			if (pressedTime[i]==0 && clickListeners[i] !=0 ){
 				//Capture the instant when the button is pressed
 				clickListeners[i]();

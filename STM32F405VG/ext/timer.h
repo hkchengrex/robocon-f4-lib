@@ -21,7 +21,7 @@
 ** "I've seen the future. You're not in it." ~Faceless void
 ****************************************************************************************************************************************/
 
-#define TIMER_SIZE 10 //Max number of actions that can be pended
+#define TIMER_SIZE 15 //Max number of actions that can be pended
 
 #define TIMER_TIM 				TIM7
 #define TIMER_RCC 				RCC_APB1Periph_TIM7
@@ -30,13 +30,16 @@
 
 //+1 count every 0.5 ms (42000), /1000->ms /2-> Clock division /2->0.5ms
 #define TIMER_PRESCALER (SystemCoreClock/1000/4)
+
+//Each quantum = 0.5ms
 #define QUANTUM_MULTIPLER 2
 
 typedef void(*TimerAction)(void);
 
 typedef struct{
-	TimerAction action;
-	u32 quantum;
+	volatile TimerAction action;
+	vu32 quantum;
+	vu16 repeat;
 }TimerActionStruct;
 
 //Init timer
@@ -48,5 +51,16 @@ void timer_init(void);
 * @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
 */
 void do_after(TimerAction action, u32 ms);
+
+/**
+* Register a event call that will happen after some time.
+* @param action: The function to be called
+* @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
+* @param repeat: How many times this function will be repeated
+*/
+void do_after_for(TimerAction action, u32 ms, u16 repeat);
+
+// Return the current size of timer array
+u16 get_timer_size(void);
 
 #endif

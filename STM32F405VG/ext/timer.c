@@ -1,8 +1,8 @@
 #include "timer.h"
 
-static TimerActionStruct actions[TIMER_SIZE] = {0};
-static u16 index = 0;
-static u16 size = 0;
+static volatile TimerActionStruct actions[TIMER_SIZE] = {0};
+static volatile u16 index = 0;
+static volatile u16 size = 0;
 
 static bool running = false;
 
@@ -27,7 +27,7 @@ void timer_init(){
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
-	//Disable preload as to disable shadow register
+	//Disable preload as to disable shadow register, ARR update would require an update event otherwise
 	TIM_ARRPreloadConfig(TIMER_TIM, DISABLE);
 	TIM_Cmd(TIMER_TIM, DISABLE);
 	running = false;
@@ -39,6 +39,16 @@ void timer_init(){
 * @param ms: The time to be waited
 */
 void do_after(TimerAction action, u32 ms){
+	do_after_for(action, ms, 1);
+}
+
+/**
+* Register a event call that will happen after some time.
+* @param action: The function to be called
+* @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
+* @param repeat: How many times this function will be repeated
+*/
+void do_after_for(TimerAction action, u32 ms, u16 repeat){
 	if (size >= TIMER_SIZE){
 		//Error
 		while(1);
@@ -51,6 +61,7 @@ void do_after(TimerAction action, u32 ms){
 	
 	actions[index].action = action;
 	actions[index].quantum = ms*QUANTUM_MULTIPLER;
+	actions[index].repeat = repeat;
 	
 	index = (index+1)%TIMER_SIZE;
 	size++;
@@ -67,11 +78,11 @@ void do_after(TimerAction action, u32 ms){
 		running = true;
 		
 	}else if (TIMER_TIM->ARR - TIM_GetCounter(TIMER_TIM) > ms*QUANTUM_MULTIPLER){
-		u32 old_count = TIM_GetCounter(TIMER_TIM);
-		TIM_SetAutoreload(TIMER_TIM, old_count+ms*QUANTUM_MULTIPLER);
+		TIM_SetAutoreload(TIMER_TIM, TIM_GetCounter(TIMER_TIM) + ms*QUANTUM_MULTIPLER);
 	}
 }
 
+//Timer interrupt handler
 void TIMER_IRQ_HANDLER(void){
 	if (TIM_GetITStatus(TIMER_TIM, TIM_IT_Update) != RESET){
 		TIM_ClearITPendingBit(TIMER_TIM, TIM_IT_Update);
@@ -83,9 +94,11 @@ void TIMER_IRQ_HANDLER(void){
 					//Execute function when time's up
 					actions[i].action();
 					
-					//Remove the function
-					size--;
-					actions[i].action = 0;
+					actions[i].repeat--;
+					if (actions[i].repeat == 0){
+						size--;
+						actions[i].action = 0;
+					}
 				}else{
 					//Otherwise keep counting
 					actions[i].quantum -= TIMER_TIM->ARR;
@@ -110,11 +123,10 @@ void TIMER_IRQ_HANDLER(void){
 			TIM_SetCounter(TIMER_TIM, 0);
 			TIM_SetAutoreload(TIMER_TIM, min_quantum);
 		}
-		
-//		if (size == 0){
-//			TIM_Cmd(TIMER_TIM, DISABLE);
-//			running = false;
-//			index = 0;
-//		}
 	}
+}
+
+// Return the current size of timer array
+u16 get_timer_size(){
+	return size;
 }

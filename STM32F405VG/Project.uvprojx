@@ -751,11 +751,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -1530,11 +1525,6 @@
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\lcd_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
             </File>
             <File>
               <FileName>can_motor.c</FileName>
@@ -2314,11 +2304,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -3093,11 +3078,6 @@
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\lcd_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
             </File>
             <File>
               <FileName>can_motor.c</FileName>
@@ -3876,11 +3856,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -4655,11 +4630,6 @@
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\lcd_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
             </File>
             <File>
               <FileName>can_motor.c</FileName>
@@ -5438,11 +5408,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -6217,11 +6182,6 @@
               <FileName>lcd_main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\lcd_main.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
             </File>
             <File>
               <FileName>can_motor.c</FileName>

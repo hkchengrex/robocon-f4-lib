@@ -139,10 +139,10 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-volatile s32 ms_ticks = 0;
+volatile s32 msTicks = 0;
 void SysTick_Handler(void)
 {
-  ms_ticks++;
+  msTicks++;
 }
 
 /******************************************************************************/

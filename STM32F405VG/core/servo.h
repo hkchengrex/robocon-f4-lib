@@ -5,7 +5,9 @@
 	This file is to control analog servo (or some digital servos).
 	It generates PWM signal with 20ms period (Frequency 50Hz)
 	Normal servo would have their middle point at 1.5ms high time (CCR = 1500)
-	And both ends around +- 0.6ms (Try yourself)
+	And both ends around +- 0.6ms (Read datasheet)
+	
+	Rex Cheng
 */
 
 #include "stm32f4xx.h"
@@ -14,14 +16,14 @@
 #include "gpio.h"
 
 #define SERVO_INIT_TABLE \
-X(SERVO1, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, PC6, 1) \
-X(SERVO2, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, PC7, 2) \
-X(SERVO3, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, PC8, 3) \
-X(SERVO4, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, PC9, 4) \
-X(SERVO5, TIM11, GPIO_AF_TIM11, RCC_APB2Periph_TIM11, PF7, 1) \
-X(SERVO6, TIM13, GPIO_AF_TIM13, RCC_APB1Periph_TIM13, PF8, 1) \
+X(SERVO1, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, 1, PC6, 1) \
+X(SERVO2, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, 1, PC7, 2) \
+X(SERVO3, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, 1, PC8, 3) \
+X(SERVO4, TIM3, GPIO_AF_TIM3, RCC_APB1Periph_TIM3, 1, PC9, 4) \
+X(SERVO5, TIM11, GPIO_AF_TIM11, RCC_APB2Periph_TIM11, 2, PF7, 1) \
+X(SERVO6, TIM13, GPIO_AF_TIM13, RCC_APB1Periph_TIM13, 1, PF8, 1) \
 
-//ServoID, min ccr, max ccr, min deg(x10), max deg(x10)
+//ServoID, min ccr, max ccr, min deg(Scaled by 10), max deg(Scaled by 10)
 #define SERVO_CONFIG_TABLE \
 C(SERVO1, 900, 2100, 0, 1800) \
 C(SERVO2, 900, 2100, 0, 1800) \
@@ -34,6 +36,7 @@ typedef struct {
 	TIM_TypeDef* tim;
 	const u8 tim_af;
 	const u32 tim_rcc;
+	const u8 rcc_line;
 	const GPIO* gpio;
 	const u8 channel;
 } ServoStruct;
@@ -45,13 +48,13 @@ typedef struct{
 	const s16 max_deg;
 } ServoConfig;
 
-#define X(a, b, c, d, e, f) a, 
+#define X(a, b, c, d, e, f, g) a, 
 typedef enum {
   SERVO_INIT_TABLE
 } ServoID;
 #undef X
 
-#define X(a, b, c, d, e, f) {b, c, d, &e, f},
+#define X(a, b, c, d, e, f, g) {b, c, d, e, &f, g},
 static const ServoStruct SERVO_STRUCT[] = {SERVO_INIT_TABLE};
 #undef X
 
@@ -61,6 +64,7 @@ static const ServoConfig SERVO_CONFIG[] = {SERVO_CONFIG_TABLE};
 
 #define SERVO_SIZE (sizeof(SERVO_STRUCT)/sizeof(ServoStruct))
 
+//Init all servo
 void servo_init(void);
 
 /**

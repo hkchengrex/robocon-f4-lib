@@ -7,13 +7,13 @@
 void ticks_init(void);
 
 //Get the total ms passed
-#define get_ticks() (ms_ticks)
+#define get_ticks() (msTicks)
 
 //Get the total seconds passed
-#define get_seconds() (ms_ticks/1000)
+#define get_seconds() (msTicks/1000)
 
 //Get the ticks passed since last seconds
-#define get_sub_ticks() (ms_ticks%1000)
+#define get_sub_ticks() (msTicks%1000)
 
 //The following delay functions are not accurate
 

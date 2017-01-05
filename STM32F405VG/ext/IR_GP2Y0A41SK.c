@@ -12,7 +12,7 @@
 */
 #define IR_MAGIC_CONSTANT 145834
 
-u16 get_gp2y_dis(ADC_ID adc_id){
+u16 get_gp2y_dis(AdcID adc_id){
 	return IR_MAGIC_CONSTANT/adc_get(adc_id);
 }
 

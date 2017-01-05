@@ -2,23 +2,65 @@
 #define _ADC_H
 
 #include "stm32f4xx_tim.h"
+#include "gpio.h"
 
-#define ADC_COUNT 5
+//The adc must be in sequence, i.e. ADC1->ADC2->...
+#define ADC_TABLE \
+X(ADC1, RCC_APB2Periph_ADC1, DMA2, DMA2_Stream0, DMA_Channel_0, RCC_AHB1Periph_DMA2) \
+X(ADC3, RCC_APB2Periph_ADC3, DMA2, DMA2_Stream0, DMA_Channel_2, RCC_AHB1Periph_DMA2) 
 
+#define ADC_PORT_TABLE \
+X(ADC_PORT_1, PF3, ADC3, ADC_Channel_9) \
+X(ADC_PORT_2, PF4, ADC3, ADC_Channel_14) \
+X(ADC_PORT_3, PF5, ADC3, ADC_Channel_15) \
+X(ADC_PORT_4, PF6, ADC3, ADC_Channel_4) \
+X(ADC_PORT_5, PC0, ADC1, ADC_Channel_10) \
+X(ADC_PORT_6, PC1, ADC1, ADC_Channel_11) \
+X(ADC_PORT_7, PC2, ADC1, ADC_Channel_12) \
+X(ADC_PORT_8, PC3, ADC1, ADC_Channel_13) \
+X(ADC_PORT_9, PC4, ADC1, ADC_Channel_14) \
+X(ADC_PORT_10, PC5, ADC1, ADC_Channel_15)
+
+#define X(a, b, c, d) a, 
 typedef enum{
-	ADC_PORT_1 = 0,
-	ADC_PORT_2, 
-	ADC_PORT_3, 
-	ADC_PORT_4, 
-	ADC_PORT_5
-} ADC_ID;
+	ADC_PORT_TABLE
+} AdcID;
+#undef X
 
-//Initalize all adc ports, and start taking readings automatically
+typedef struct{
+	const GPIO* gpio;
+	ADC_TypeDef* adc;
+	u8 channel;
+}AdcPortStruct;
+
+typedef struct{
+	ADC_TypeDef* adc;
+	u32 rcc;
+	DMA_TypeDef* dma;
+	DMA_Stream_TypeDef* stream;
+	u32 channel;
+	u32 dma_rcc;
+}AdcStruct;
+
+#define X(a, b, c, d) {&b, c, d}, 
+static const AdcPortStruct ADCPorts[] = {ADC_PORT_TABLE};
+#undef X
+
+#define X(a, b, c, d, e, f) {a, b, c, d, e, f}, 
+static const AdcStruct ADCs[] = {ADC_TABLE};
+#undef X
+
+#define ADC_PORT_COUNT (sizeof(ADCPorts)/sizeof(AdcPortStruct))
+#define ADC_COUNT (sizeof(ADCs)/sizeof(AdcStruct))
+
+/** 
+* Initalize all adc ports, and start taking readings automatically
+*/
 void adc_init(void);
 
-/** Get the latest adc reading (voltage level)
+/** Get the latest adc reading
 ** @return Unsigned numerical reading representing voltage level
 */
-u16 adc_get(ADC_ID adc_id);
+u16 adc_get(AdcID id);
 
 #endif

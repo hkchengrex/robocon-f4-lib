@@ -5,245 +5,283 @@
 	* @modify	 Ding & Simon (v1.1.0)
 	* @modify  Rex Cheng (v1.2.0)
   * @version V1.2.0
-  * @date    Nov 2016
+  * @date    Jan 2016
   * @brief   This file provides all the CAN basic protocol functions, including
-	* 				 initialization, CAN transmission and receive handlers .
+	* 				 initialization, CAN transmission and receive handlers.
   ******************************************************************************
 	
 	Only use Mailbox 1 to transmit and 2 FIFO to receive.
 	
 	Performace: Stable until ~100KB/s, more than that, some packets would be lost.
 	If the network is longer/larger, use lower rate.
-	This protocol has disabled auto re-send, as most application would be time-critical, and control signal should be sent continuously.
+	
+	CAN1 is used for motor control.
+	CAN2 is used for other communication.
 **/
 	
 #include <can_protocol.h>
 
-CAN_MESSAGE CAN_Tx_Queue_Array[CAN_TX_QUEUE_MAX_SIZE];
-CAN_QUEUE CAN_Tx_Queue = {0, 0, CAN_Tx_Queue_Array};
-u8 CAN_FilterCount = 0;             /*!< The number of can filter applied */
+static CanMessage CAN1_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
+static CanMessage CAN2_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
 
-/*!< Array storing all the handler function for CAN Rx (element id equals to filter id) */
-void (*CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT])(CanRxMsg* msg);
+static void can1_tx_dequeue(void);
+static void can2_tx_dequeue(void);
+static void (*can_tx_dequeue[2])(void) = {can1_tx_dequeue, can2_tx_dequeue};
 
-/**
-  * @brief  Configure and initialize the CAN (GPIOs + CAN only).
-  * @param  None
-  * @retval None
-  */
-void can_init(void){
-	GPIO_InitTypeDef GPIO_InitStructure;
+CanQueue CAN_tx_queue[2] = {{0, 0, 0, CAN1_tx_queue_items}, {0, 0, 0, CAN2_tx_queue_items}};
+
+static u8 CAN_filter_count[2] = {0};
+static u8 CAN_max_filter[2] = {CAN1_FILTER_LIMIT, CAN2_FILTER_LIMIT};
+static u32 CAN_queue_max_size[2] = {CAN1_TX_QUEUE_MAX_SIZE, CAN2_TX_QUEUE_MAX_SIZE};
+
+// Array storing all the handler functions for CAN RX (element id equals to filter id)
+CanRxHandler CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT] = {0};
+
+//Init both CAN1 and CAN2
+void can_init(){
+	//Enable RCC
+	RCC_APB1PeriphClockCmd(CAN1_RCC, ENABLE);
+	RCC_APB1PeriphClockCmd(CAN2_RCC, ENABLE);
+	gpio_rcc_init(&CAN1_RX_GPIO);
+	gpio_rcc_init(&CAN2_RX_GPIO);
+	gpio_rcc_init(&CAN1_TX_GPIO);
+	gpio_rcc_init(&CAN2_TX_GPIO);
+
+	//Init GPIO AF
+	gpio_af_init(&CAN1_RX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN1);
+	gpio_af_init(&CAN1_TX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN1);
+	gpio_af_init(&CAN2_RX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN2);
+	gpio_af_init(&CAN2_TX_GPIO, GPIO_OType_PP, GPIO_PuPd_UP, GPIO_AF_CAN2);
+
 	CAN_InitTypeDef CAN_InitStructure;
-	
-	/* RCC enable */
-	RCC_APB1PeriphClockCmd(CAN_RCC, ENABLE);
-	RCC_AHB1PeriphClockCmd(CAN_GPIO_RCC, ENABLE);
-
-	/* CAN GPIO init */
-	// CAN_Rx Pin
-	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
-	GPIO_InitStructure.GPIO_Pin = CAN_Rx_GPIO;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_Init(CAN_GPIO, &GPIO_InitStructure);
-    
-	// CAN_Tx Pin
-	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-	GPIO_InitStructure.GPIO_Pin = CAN_Tx_GPIO;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_Init(CAN_GPIO, &GPIO_InitStructure);
-
-	/** CAN alternate function configuration **/
-	GPIO_PinAFConfig(CAN_GPIO, GPIO_PinSource11, GPIO_AF_CAN1);
-	GPIO_PinAFConfig(CAN_GPIO, GPIO_PinSource12, GPIO_AF_CAN1);
-
-	/* CAN register init */
-	CAN_DeInit(CANn);
+	//CAN1 init
+	CAN_DeInit(CAN1);
 	CAN_StructInit(&CAN_InitStructure);
 	
-	/* CAN cell init */
 	CAN_InitStructure.CAN_TTCM = DISABLE;
 	CAN_InitStructure.CAN_ABOM = DISABLE;
 	CAN_InitStructure.CAN_AWUM = DISABLE;
-	CAN_InitStructure.CAN_NART = ENABLE;
+	CAN_InitStructure.CAN_NART = ENABLE;	//ENABLE = DISABLE auto resend
 	CAN_InitStructure.CAN_RFLM = DISABLE;
-	CAN_InitStructure.CAN_TXFP = DISABLE;
+	CAN_InitStructure.CAN_TXFP = ENABLE; //ENABLE = FIFO Mailbox
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
 	
-	/** CAN Baudrate = 1 MBPS **/
-	/** Baudrate = CAN_Clock_Speed / (CAN_Prescaler * (CAN_SJW + CAN_BS1 + CAN_BS2)) **/
-	/** CAN_Clock_Speed is defined as CAN_RCC **/
-	/** APB1 = MCU_Clock_Speed / 4 , APB2 = MCU_Clock_Speed / 2, AHB1 = MCU_Clock_Speed **/
+	//Config to 1Mbps
 	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
 	CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;
 	CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;
 	CAN_InitStructure.CAN_Prescaler = 2;
-	while (CAN_Init(CANn, &CAN_InitStructure) != CAN_InitStatus_Success);
+	while (CAN_Init(CAN1, &CAN_InitStructure) != CAN_InitStatus_Success);
 	
-	/* CAN Transmission Mailbox Empty interrupt enable */ 
-	CAN_ITConfig(CANn, CAN_IT_TME, ENABLE);
+	//CAN2 init
+	CAN_DeInit(CAN2);
+	CAN_StructInit(&CAN_InitStructure);
 	
-	/* CAN TX interrupt */
+	CAN_StructInit(&CAN_InitStructure);
+	
+	CAN_InitStructure.CAN_TTCM = DISABLE;
+	CAN_InitStructure.CAN_ABOM = DISABLE;
+	CAN_InitStructure.CAN_AWUM = DISABLE;
+	CAN_InitStructure.CAN_NART = DISABLE;	//ENABLE = DISABLE auto resend
+	CAN_InitStructure.CAN_RFLM = DISABLE;
+	CAN_InitStructure.CAN_TXFP = ENABLE; //ENABLE = FIFO Mailbox
+	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
+	
+	//Config to 1Mbps
+	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
+	CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;
+	CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;
+	CAN_InitStructure.CAN_Prescaler = 2;
+	while (CAN_Init(CAN2, &CAN_InitStructure) != CAN_InitStatus_Success);
+	
+	//Enable mailbox empty interrupt
+	CAN_ITConfig(CAN1, CAN_IT_TME, ENABLE);
+	CAN_ITConfig(CAN2, CAN_IT_TME, ENABLE);
+	
+	//NVIC init for CAN1 TX
 	NVIC_InitTypeDef NVIC_InitStructure;
 	NVIC_InitStructure.NVIC_IRQChannel= CAN1_TX_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	//NVIC init for CAN2 TX
+	NVIC_InitStructure.NVIC_IRQChannel= CAN2_TX_IRQn;
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 }
 
-/**
-	* @brief Transfer a CAN message (Private)
-	* @param msg: the CAN message
-	* @retval True if the message can be tranferred and can be assigned to a mailbox
-	*/
-static u8 can_tx(CanTxMsg msg){
-	return CAN_Transmit(CANn, &msg) != CAN_TxStatus_NoMailBox;							//transmit the message
+/** Return the queue size of CAN1/CAN2
+* @param id: which CAN queue to look at
+* @return size of the specified queue
+*/
+inline u16 get_can_queue_size(CanID id){
+	return CAN_tx_queue[id].size;
 }
 
-/**
-	* @brief	Get the current CAN_TX queue size
-	* @param 	None
-	* @retval	The current queue size (0 to CAN_TX_QUEUE_MAX_SIZE-1)
-	*/
-u16 can_tx_queue_size(void){
-	s16 size = CAN_Tx_Queue.tail - CAN_Tx_Queue.head;
-	if (size < 0) {size += CAN_TX_QUEUE_MAX_SIZE;}
-	return (u16) size;
-}
-
-/**
-	* @brief Check if the CAN_TX queue is empty
-	* @param None
-	* @retval True if the queue is empty
-	*/
-__INLINE u8 can_tx_queue_empty(void){
-	return CAN_Tx_Queue.head == CAN_Tx_Queue.tail;
-}
-
-/** 
-	* @brief Add a new tx message to the CAN Tx queue
-	* @param msg: The can message that will be added
-	* @retval 0: Fail to enqueue due to the exceeding size, 1: Successfully enqueued
-	*/
-u8 can_tx_enqueue(CAN_MESSAGE msg){
-	u8 queue_full = 0;
-
-	if ((CAN_Tx_Queue.tail + 1) % CAN_TX_QUEUE_MAX_SIZE == CAN_Tx_Queue.head) {
-		// Queue full
-		queue_full = 1;
-	}	else {
-		CAN_Tx_Queue.queue[CAN_Tx_Queue.tail] = msg;
-		CAN_Tx_Queue.tail = (CAN_Tx_Queue.tail + 1) % CAN_TX_QUEUE_MAX_SIZE;
-		queue_full = 0;
-	}
-
-	can_tx_dequeue();
-
-	return !queue_full;
-}
-
-/**
-	* @brief	Process and transfer ONE can message in the queue and dequeue.
-	*					To be through interrupt and the enqueue function.
-	* @param 	None
-	*	@retval True if the queue is not empty after dequeue
-	*/
-u8 can_tx_dequeue(void){
+/** Process one CAN message in the queue for CAN1.
+* Called automatically.
+*/
+static void can1_tx_dequeue(){
 	//Transmit when the first mailbox is empty
-	if (!can_tx_queue_empty() && (CANn->TSR&CAN_TSR_TME0)) {
-		struct CAN_MESSAGE msg = CAN_Tx_Queue.queue[CAN_Tx_Queue.head];
-		CanTxMsg TxMsg;
-		u8 data_length = msg.length;
-		
-		TxMsg.StdId = msg.id;
-		//TxMsg.ExtId = 0x00;
-		TxMsg.RTR = CAN_RTR_DATA;
-		TxMsg.IDE = CAN_ID_STD;
-		TxMsg.DLC = data_length;
-		
-		// Copy the data array
-		memcpy(TxMsg.Data, msg.data, data_length);
+	if ((get_can_queue_size(CAN_1)!=0) && ((CAN1->TSR & CAN_TSR_TME0) == CAN_TSR_TME0)) {
+		#define msg CAN_tx_queue[CAN_1].queue[CAN_tx_queue[CAN_1].head]
 
-		if (can_tx(TxMsg)) {
-			CAN_Tx_Queue.head = (CAN_Tx_Queue.head + 1) % CAN_TX_QUEUE_MAX_SIZE;
-		}
+		/* Set up the Id */
+		CAN1->sTxMailBox[0].TIR &= (uint32_t)0x00000001;
+		CAN1->sTxMailBox[0].TIR |= ((msg.id << 21) | CAN_RTR_DATA);
 		
-		if ((CANn->TSR&CAN_TSR_TME0)) {
-			can_tx_dequeue();
-		}
+		CAN1->sTxMailBox[0].TDTR &= (uint32_t)0xFFFFFFF0;
+		CAN1->sTxMailBox[0].TDTR |= msg.length;
 
-		return 1;
-	} else {
-		return 0;
+		/* Set up the data field */
+		CAN1->sTxMailBox[0].TDLR = (((uint32_t)msg.data[3] << 24) | 
+																						 ((uint32_t)msg.data[2] << 16) |
+																						 ((uint32_t)msg.data[1] << 8) | 
+																						 ((uint32_t)msg.data[0]));
+		CAN1->sTxMailBox[0].TDHR = (((uint32_t)msg.data[7] << 24) | 
+																						 ((uint32_t)msg.data[6] << 16) |
+																						 ((uint32_t)msg.data[5] << 8) |
+																						 ((uint32_t)msg.data[4]));
+		/* Request transmission */
+		CAN1->sTxMailBox[0].TIR |= (uint32_t)0x00000001;
+		#undef msg
 	}
 }
 
-/**
-	* @brief Force clear the CAN_TX queue without process
-	* @param None.
-	* @retval None.
-	*/
-void can_tx_queue_clear(void){
-	CAN_Tx_Queue.head = CAN_Tx_Queue.tail = 0;
+/** Process one CAN message in the queue for CAN1.
+* Called automatically.
+*/
+static void can2_tx_dequeue(){
+	//Transmit when the first mailbox is empty
+	if ((get_can_queue_size(CAN_2)!=0) && ((CAN2->TSR & CAN_TSR_TME0) == CAN_TSR_TME0)) {
+		#define msg CAN_tx_queue[CAN_2].queue[CAN_tx_queue[CAN_2].head]
+
+		/* Set up the Id */
+		CAN2->sTxMailBox[1].TIR &= (uint32_t)0x00000001;
+		CAN2->sTxMailBox[1].TIR |= ((msg.id << 21) | CAN_RTR_DATA);
+		
+		CAN2->sTxMailBox[1].TDTR &= (uint32_t)0xFFFFFFF0;
+		CAN2->sTxMailBox[1].TDTR |= msg.length;
+
+		/* Set up the data field */
+		CAN2->sTxMailBox[1].TDLR = (((uint32_t)msg.data[3] << 24) | 
+																						 ((uint32_t)msg.data[2] << 16) |
+																						 ((uint32_t)msg.data[1] << 8) | 
+																						 ((uint32_t)msg.data[0]));
+		CAN2->sTxMailBox[1].TDHR = (((uint32_t)msg.data[7] << 24) | 
+																						 ((uint32_t)msg.data[6] << 16) |
+																						 ((uint32_t)msg.data[5] << 8) |
+																						 ((uint32_t)msg.data[4]));
+		/* Request transmission */
+		CAN2->sTxMailBox[1].TIR |= (uint32_t)0x00000001;
+		#undef msg
+	}
+}
+
+/** Put a CAN message into the CAN queue for transmission
+* @param id: which CAN to use
+* @param msg: The message to be sent
+* @return true if successful
+*/
+bool can_tx_enqueue(CanID id, CanMessage msg){
+	if (CAN_tx_queue[id].size == CAN_queue_max_size[id]){
+		return false;
+	}
+
+	CAN_tx_queue[id].queue[CAN_tx_queue[id].tail] = msg;
+	CAN_tx_queue[id].tail = (CAN_tx_queue[id].tail + 1) % CAN_queue_max_size[id];
+	CAN_tx_queue[id].size++;
+
+	can_tx_dequeue[id]();
+	return true;
+}
+
+// Reset the entire CAN TX message queue
+void can_tx_queue_clear(CanID id){
+	CAN_tx_queue[id].head = CAN_tx_queue[id].tail = CAN_tx_queue[id].size = 0;
 }
 
 
-/**
-	* @brief The handler function of empty 
-	*/
+//TX complete handler for CAN1
 void CAN1_TX_IRQHandler(void){
 	if (CAN_GetITStatus(CAN1, CAN_IT_TME) != RESET){
 		// If all the mailboxes are empty
 		CAN_ClearITPendingBit(CAN1, CAN_IT_TME);
-		can_tx_dequeue();
+		can_tx_dequeue[0]();
 	}
 }
 
-/**
-	* @brief Initialize the CAN_RX interrupt handler
-	* @param None.
-	* @retval None.
-	*/
-void can_rx_init(void){
-	NVIC_InitTypeDef NVIC_InitStructure;
-	
-	CAN_ITConfig(CANn, CAN_IT_FMP0, ENABLE);
-	CAN_ITConfig(CANn, CAN_IT_FMP1, ENABLE);
-
-	/* enabling interrupt */
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 4;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	
-	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
-	NVIC_Init(&NVIC_InitStructure);
-	
-	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX1_IRQn;
-	NVIC_Init(&NVIC_InitStructure);
+//TX complete handler for CAN2
+void CAN2_TX_IRQHandler(){
+	if (CAN_GetITStatus(CAN2, CAN_IT_TME) != RESET){
+		// If all the mailboxes are empty
+		CAN_ClearITPendingBit(CAN2, CAN_IT_TME);
+		can_tx_dequeue[1]();
+	}
 }
 
-/**
-	* @brief Add filter to the can data received (involves bitwise calculation)
-	* @warning can only be called for 14 / 28 times. Check the function IS_CAN_FILTER_NUMBER for detail
-	* @param id: 11-bit ID (0x000 to 0x7FF)
-	* @param mask: 11-bit mask, corresponding to the 11-bit ID	(0x000 to 0x7FF)
-	* @param FIFO_num: Which FIFO to use, 0 or 1
-	* @param handler: function pointer for the corresponding CAN ID filter
-	* @example can_rx_add_filter(0x000, 0x000) will receive CAN message with ANY ID
-	* @example can_rx_add_filter(0x0CD, 0x7FF) will receive CAN message with ID 0xCD
-	* @example can_rx_add_filter(0x0A0, 0x7F0) will receive CAN message with ID from 0xA0 to 0xAF
-	* @example can_rx_add_filter(0x000, 0x7FA) will receive CAN message with ID from 0x00 to 0x03
-	*/
-void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* msg)){
+// Initialize CAN RX
+void can_rx_init(){
+	//CAN interrupt FIFO interrupt
+	CAN_ITConfig(CAN1, CAN_IT_FMP0, ENABLE);
+	CAN_ITConfig(CAN1, CAN_IT_FMP1, ENABLE);
+	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
+	CAN_ITConfig(CAN2, CAN_IT_FMP1, ENABLE);
+
+	//NVIC init
+	NVIC_InitTypeDef NVIC_InitStructure;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	
+	//Init both FIFO interrupt for CAN1
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 7;
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX0_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	NVIC_InitStructure.NVIC_IRQChannel = CAN1_RX1_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	//Init both FIFO interrupt for CAN2
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 8;
+	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX0_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	NVIC_InitStructure.NVIC_IRQChannel = CAN2_RX1_IRQn;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	//Init filter bank
+	CAN_SlaveStartBank(CAN1_FILTER_LIMIT);
+}
+
+/** Add a mask filter to receive some messages
+* @warning Cannot exceed filter size limit
+* @param id: 11-bit ID (0x000 to 0x7FF)
+* @param mask: 11-bit mask, corresponding to the 11-bit ID (0x000 to 0x7FF)
+* @param FIFO_num: 0 or 1, to select which FIFO will receive the message, each CAN has 2 FIFO
+* @param CANx: which CAN to use
+* @param handler: Function to handle the received message
+* @example Please read the mask exmaple in the header file
+*/
+void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler){
+	if (CAN_filter_count[CANx] >= CAN_max_filter[CANx]){
+		//Error
+		while(1);
+	}
+	
+	u8 filter_id = CAN_filter_count[CANx];
+	if (CANx == CAN_2){
+		filter_id += CAN1_FILTER_LIMIT;
+	}
+	
 	CAN_FilterInitTypeDef CAN_FilterInitStructure;
 	
-	CAN_FilterInitStructure.CAN_FilterNumber = CAN_FilterCount;
+	CAN_FilterInitStructure.CAN_FilterNumber = filter_id;
 	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
+	
 	CAN_FilterInitStructure.CAN_FilterIdHigh = id << 5;
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
 	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = mask << 5;
@@ -252,38 +290,63 @@ void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, void (*handler)(CanRxMsg* 
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
 	CAN_FilterInit(&CAN_FilterInitStructure);	
 	
-	CAN_Rx_Handlers[CAN_FilterCount] = handler;
+	CAN_Rx_Handlers[filter_id] = handler;
 	
-	++CAN_FilterCount;
+	CAN_filter_count[CANx]++;
 }
 
-/** 
-	* @brief Interrupt for CAN Rx (FIFO1 and FIFO2)
-	* @warning Use USB_LP_CAN_RX0_IRQHandler for HD, USB_LP_CAN1_RX0_IRQHandler for XLD / MD
-	*/
+//Interrupt functions for CAN1/CAN2, FIFO1/FIFO2
 
-void CAN1_RX0_IRQHandler(void){
-	if (CAN_GetITStatus(CANn, CAN_IT_FMP0) != RESET) {
+void CAN1_RX0_IRQHandler(){
+	if (CAN_GetITStatus(CAN1, CAN_IT_FMP0) != RESET) {
 		CanRxMsg RxMessage;
-		CAN_ClearITPendingBit(CANn, CAN_IT_FMP0);
-		CAN_Receive(CANn, CAN_FIFO0, &RxMessage);
+		CAN_Receive(CAN1, CAN_FIFO0, &RxMessage);
+		CAN_ClearITPendingBit(CAN1, CAN_IT_FMP0);
 
 		if(RxMessage.IDE == CAN_ID_STD) {
-			if (RxMessage.FMI < CAN_FilterCount && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < CAN_filter_count[CAN_1]) {
 				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
 			}
 		}
 	}
 }
 
-void CAN1_RX1_IRQHandler(void){
-	if (CAN_GetITStatus(CANn, CAN_IT_FMP1) != RESET) {
+void CAN1_RX1_IRQHandler(){
+	if (CAN_GetITStatus(CAN1, CAN_IT_FMP1) != RESET) {
 		CanRxMsg RxMessage;
-		CAN_ClearITPendingBit(CANn, CAN_IT_FMP1);
-		CAN_Receive(CANn, CAN_FIFO1, &RxMessage);
+		CAN_Receive(CAN1, CAN_FIFO1, &RxMessage);
+		CAN_ClearITPendingBit(CAN1, CAN_IT_FMP1);
 
 		if(RxMessage.IDE == CAN_ID_STD) {
-			if (RxMessage.FMI < CAN_FilterCount && CAN_Rx_Handlers[RxMessage.FMI] != 0) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < CAN_filter_count[CAN_1]) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
+			}
+		}
+	}
+}
+
+void CAN2_RX0_IRQHandler(){
+	if (CAN_GetITStatus(CAN2, CAN_IT_FMP0) != RESET) {
+		CanRxMsg RxMessage;
+		CAN_Receive(CAN2, CAN_FIFO0, &RxMessage);
+		CAN_ClearITPendingBit(CAN2, CAN_IT_FMP0);
+
+		if(RxMessage.IDE == CAN_ID_STD) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < (CAN_filter_count[CAN_2] + CAN1_FILTER_LIMIT)) {
+				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
+			}
+		}
+	}
+}
+
+void CAN2_RX1_IRQHandler(){
+	if (CAN_GetITStatus(CAN2, CAN_IT_FMP1) != RESET) {
+		CanRxMsg RxMessage;
+		CAN_Receive(CAN2, CAN_FIFO1, &RxMessage);
+		CAN_ClearITPendingBit(CAN2, CAN_IT_FMP1);
+
+		if(RxMessage.IDE == CAN_ID_STD) {
+			if (CAN_Rx_Handlers[RxMessage.FMI] != 0 && RxMessage.FMI < (CAN_filter_count[CAN_2] + CAN1_FILTER_LIMIT)) {
 				CAN_Rx_Handlers[RxMessage.FMI](&RxMessage);
 			}
 		}
@@ -311,4 +374,3 @@ s32 n_bytes_to_one(u8* array, u8 n){
 	assert_param(n >= 1 && n <= 4);
 	return (n == 0) ? (array[0] & 0xFF) : ((array[0] & 0xFF) + (n_bytes_to_one(&array[1], n-1) << 8));
 }
-

@@ -2,6 +2,7 @@
 *.d
 *.crf
 *.hex
+*.__i
 
 # Compiled Object files
 *.slo

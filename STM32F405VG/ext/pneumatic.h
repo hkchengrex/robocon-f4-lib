@@ -1,6 +1,12 @@
 #ifndef _PNEUMATIC_H
 #define _PNEUMATIC_H
 
+/**
+* This library is for controlling pneumatic devices (and in fact all kinds of on/off devices controlled with GPIO)
+*
+* Rex Cheng
+*/
+
 #include "stm32f4xx.h"
 #include "stm32f4xx_gpio.h"
 #include "gpio.h"
@@ -24,14 +30,14 @@ X(PNEU_14, PD11)
 #define X(a, b) a,
 typedef enum{
 	PNEU_TABLE
-} PNEU_ID;
+} PneuID;
 #undef X
 
 #define X(a, b) &b,
-static const GPIO* PNEU_GPIO_ARRAY[] = {PNEU_TABLE};
+static const GPIO* Pneus[] = {PNEU_TABLE};
 #undef X
 
-#define PNEU_COUNT (sizeof(PNEU_GPIO_ARRAY)/sizeof(GPIO*))
+#define PNEU_COUNT (sizeof(Pneus)/sizeof(GPIO*))
 
 /**
 	Initialize all pneu ports.
@@ -43,12 +49,12 @@ void pneu_init(void);
 	@param id: the pneu to be controlled
 	@param state: Bit_RESET/Bit_SET, where Bit_RESET refers to original(uncontrolled) state 
 */
-void pneu_control(PNEU_ID id, BitAction state);
+void pneu_control(PneuID id, BitAction state);
 
 /**
 	Toggle the pneu valve.
 	@param id: the pneu to be controlled
 */
-void pneu_toggle(PNEU_ID id);
+void pneu_toggle(PneuID id);
 
 #endif

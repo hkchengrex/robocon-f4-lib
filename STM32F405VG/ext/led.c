@@ -1,37 +1,28 @@
 #include "led.h"
 
-static const GPIO* LED_GPIO_ARRAY[LED_COUNT] = {&LED_1_GPIO};
-
-u8 led_state = 0;
-
+/**
+	Initialize all LEDs.
+*/
 void led_init(){
-	gpio_output_init(&LED_1_GPIO, GPIO_OType_PP, GPIO_PuPd_NOPULL);
-  gpio_write(&LED_1_GPIO, Bit_RESET);
-}
-
-/**
-* @brief:		Control indivuial led lights
-* @param led:	LED_D1-5 binary representation, use | to operate multiple
-* @param state:	LED_ON / LED_OFF
-**/
-void led_control(LED led, LED_STATE state){
-	led_state = (led_state & (~led)) & (state*255);
-
-	for (u8 i=0;i<LED_COUNT;i++){
-		if (led & (1 << i)) {
-			gpio_write(LED_GPIO_ARRAY[i], (BitAction)state);
-		}
+	for (u8 i=0; i<LED_COUNT; i++){
+		gpio_rcc_init(LEDs[i]);
+		gpio_output_init(LEDs[i], GPIO_OType_PP, GPIO_PuPd_DOWN);
 	}
 }
 
 /**
-* @brief:		Reverse the state of the led
-* @param led:	LED_D1-5 binary representation, use | to operate multiple
-**/
-void led_blink(LED led){
-	for (u8 i=0;i<LED_COUNT;i++){
-		if (led & (1 << i)) {
-			led_control((LED)(1 << i), (LED_STATE) !(led_state & (1 << i)));
-		}
-	}
+	Control LED on/off
+	@param id: the led to be controlled
+	@param state: Bit_RESET: Off / Bit_SET: On
+*/
+void led_control(LedID id, BitAction state){
+	gpio_write(LEDs[id], state);
+}
+
+/**
+	Make the led blink
+	@param id: the led to be controlled
+*/
+void led_blink(LedID id){
+	gpio_toggle(LEDs[id]);
 }

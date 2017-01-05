@@ -50,7 +50,7 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 	 
-extern volatile s32 ms_ticks;
+extern volatile s32 msTicks;
 void SysTick_Handler(void);
 
 #ifdef __cplusplus

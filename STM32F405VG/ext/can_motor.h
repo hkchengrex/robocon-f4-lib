@@ -1,8 +1,11 @@
-#ifndef __CAN_MOTOR_H
-#define __CAN_MOTOR_H
+#ifndef _CAN_MOTOR_H
+#define _CAN_MOTOR_H
 
 #include "can_protocol.h"
+#include "motor.h"
 #include <stdbool.h>
+
+#define MOTOR_CAN CAN_1
 
 #define CAN_MOTOR_COUNT								16
 #define	CAN_MOTOR_BASE								0x0B0
@@ -25,59 +28,54 @@
 #define CAN_ENCODER_FEEDBACK					0x22
 
 
-typedef enum {
-	MOTOR1 = 0,
-	MOTOR2,
-	MOTOR3,
-	MOTOR4,
-	MOTOR5,
-	MOTOR6,
-	MOTOR7,
-	MOTOR8,
-	MOTOR9,
-	MOTOR10,
-	MOTOR11,
-	MOTOR12,
-	MOTOR13,
-	MOTOR14,
-	MOTOR15,
-	MOTOR16
-} MOTOR_ID;
+/**********
+* TX Side
+***********/
 
-/*** TX ***/
 
-//Motor (through CAN protocol) initialization 
+//Init CAN Motor
 void can_motor_init(void);
 
 /**
-	* @brief Set motor velocity (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	* @param velocity. Open loop (-1799~1799); Close loop (-150~150);
-	* @param close_loop: true if close loop control is used
-	*/
-void motor_set_vel(MOTOR_ID motor_id, s32 vel, bool close_loop);
+* @brief Set motor velocity (CAN)
+* @param id: MOTORx, which motor to control
+* @param vel: Open loop: (-1799~1799); Close loop: (-150~150);
+* @param loop: Open loop or close loop control
+*/
+void can_motor_set_vel(MOTOR_ID id, s32 vel, CLOSE_LOOP_FLAG loop);
 
 /**
-	* @brief Set motor acceleration (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	* @param accel: acceleration parameter of motor
-	*/
-void motor_set_acceleration(MOTOR_ID motor_id, u16 accel);
+* @brief Set motor position (CAN)
+* @param id: MOTORx, which motor to control
+* @param vel (vel of close_loop is not corresponded to open_loop)
+* @param pos: The position need to move to relative to current encoder value.
+*/
+void can_motor_set_pos(MOTOR_ID id, u16 vel, s32 pos);
 
 /**
-	* @brief Lock and stop motor immediately (CAN)
-	* @param motor_id (MOTOR_ID enum)
-	*/
-void motor_lock(MOTOR_ID motor_id);
-
-
-
-/*** RX ***/
+* @brief Set motor acceleration (CAN)
+* @param id: MOTORx, which motor to control
+* @param accel: acceleration parameter of motor
+*/
+void can_motor_set_accel(MOTOR_ID id, u16 accel);
 
 /**
-  * @brief Get the motor encoder value (based on CAN rx result)
-  * @param motor_id: The can motor ID
-  */
-s32 get_encoder_value(MOTOR_ID motor_id);
+* @brief Lock and stop motor immediately (CAN)
+* @param id: MOTORx, which motor to control
+*/
+void can_motor_lock(MOTOR_ID id);
+
+
+
+/**********
+* RX Side
+***********/
+
+
+/**
+* @brief Get the motor encoder value (based on CAN rx result)
+* @param id: MOTORx, which motor to control
+*/
+s32 can_get_encoder_value(MOTOR_ID id);
 
 #endif

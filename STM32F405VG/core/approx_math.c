@@ -186,7 +186,7 @@ s16 int_arc_tan2(s32 y, s32 x)
 	*																	Final result is accurate due to refinment by Newton's Iteration.
 	*								To EE members:		This is much faster
   */
-__INLINE u32 Sqrt(s32 v)
+u32 Sqrt(s32 v)
 {
 /*
 	float y = v; 						//Fast inverse square root
@@ -204,8 +204,9 @@ __INLINE u32 Sqrt(s32 v)
 	u.f = v;
 	u.tmp = (u32)(0x233b4000 + (u.tmp >> 1));
 	u.tmp = (u32)u.f;
-	u.tmp = ((uint64_t)u.tmp + v*16384/u.tmp + 1)/2;
-	u.tmp = ((uint64_t)u.tmp + v*16384/u.tmp + 1)/2;
-	return u.tmp * 8; //1024 / 128;
+	u.tmp = (u.tmp + (uint64_t)v*16384/u.tmp + 1)/2;
+	u.tmp = (u.tmp + (uint64_t)v*16384/u.tmp + 1)/2;
+	return u.tmp * 8;
 }
+
 

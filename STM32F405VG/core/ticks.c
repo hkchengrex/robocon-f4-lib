@@ -11,7 +11,7 @@
   */
 void ticks_init() {
 	SysTick_Config(SystemCoreClock/1000);
-	ms_ticks = 0;
+	msTicks = 0;
 }
 
 //Generate a delay in us  (inaccurate when value too small)

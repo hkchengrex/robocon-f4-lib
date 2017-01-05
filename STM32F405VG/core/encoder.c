@@ -42,7 +42,7 @@ void encoder_init(void){
 	NVIC_Init(&NVIC_InitStructure);
 
 	//Encoder interface init
-	TIM_EncoderInterfaceConfig(ENCODER1_TIMER, TIM_EncoderMode_TI12,TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
+	TIM_EncoderInterfaceConfig(ENCODER1_TIMER, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);
 	
 	//Let's go!
 	TIM_SetCounter(ENCODER1_TIMER, 0);
@@ -53,7 +53,7 @@ void encoder_init(void){
 void ENCODER1_IRQ_HANDLER(){
 	if (TIM_GetITStatus(ENCODER1_TIMER, TIM_IT_Update) != RESET){
 		TIM_ClearITPendingBit(ENCODER1_TIMER, TIM_IT_Update);
-		if (TIM_GetCounter(ENCODER1_TIMER) < 30000){
+		if (TIM_GetCounter(ENCODER1_TIMER) < 32768){
 			//Overflow
 			loopCount++;
 		}else{

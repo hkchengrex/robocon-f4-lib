@@ -23,9 +23,12 @@ int main(void) {
 	buzzer_init();
 	btn_init();
 	timer_init();
-//	encoder_init();
+	encoder_init();
 	servo_init();
 //	uart_init(COM1, 115200);
+//	can_init();
+//	can_rx_init();
+//	motor_init();
 
 	tft_put_logo(85, 120);
 	

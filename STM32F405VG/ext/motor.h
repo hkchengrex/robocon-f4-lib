@@ -47,6 +47,13 @@ typedef enum{
 * TX Side
 ***********/
 
+void motor_init(void);
+void motor_set_vel(MOTOR_ID id, s16 vel, CLOSE_LOOP_FLAG loop);
+void motor_set_pos(MOTOR_ID id, u16 vel, s32 pos);
+void motor_set_accel(MOTOR_ID id, u16 accel);
+void motor_lock(MOTOR_ID id);
+s32 get_encoder_value(MOTOR_ID id);
+
 //Init CAN/SPI Motor
 #ifdef USING_CAN_MOTOR
 	#define motor_init() can_motor_init()

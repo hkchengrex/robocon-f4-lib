@@ -775,6 +775,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1550,6 +1555,11 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -2328,6 +2338,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3103,6 +3118,11 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -3880,6 +3900,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4655,6 +4680,11 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -5432,6 +5462,11 @@
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
             </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6207,6 +6242,11 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
           </Files>
         </Group>

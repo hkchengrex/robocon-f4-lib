@@ -16,6 +16,7 @@
 #include "adc.h"
 #include "servo.h"
 #include "motor.h"
+#include "can_motor.h"
 
 #include "button.h"
 #include "lcd_main.h"

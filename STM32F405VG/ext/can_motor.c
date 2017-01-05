@@ -30,16 +30,16 @@ void can_motor_init(){
 
 /**
 * @brief Set motor velocity (CAN)
-* @param motor_id: MOTORx, which motor to control
-* @param velocity. Open loop: (-1799~1799); Close loop: (-150~150);
+* @param id: MOTORx, which motor to control
+* @param vel: Open loop: (-1799~1799); Close loop: (-150~150);
 * @param loop: Open loop or close loop control
 */
-void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG loop){
+void can_motor_set_vel(MOTOR_ID id, s32 vel, CLOSE_LOOP_FLAG loop){
 	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 
-	msg.id = get_can_motor_id(motor_id);
+	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_VEL_LENGTH;
 	msg.data[0] = CAN_MOTOR_VEL_CMD;
 	msg.data[1] = (u8)(one_to_n_bytes(vel, 0));
@@ -53,16 +53,16 @@ void motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG loop){
 
 /**
 * @brief Set motor position (CAN)
-* @param motor_id: MOTORx, which motor to control
+* @param id: MOTORx, which motor to control
 * @param vel (vel of close_loop is not corresponded to open_loop)
 * @param pos: The position need to move to relative to current encoder value.
 */
-void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos){
+void can_motor_set_pos(MOTOR_ID id, u16 vel, s32 pos){
 	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
-	msg.id = get_can_motor_id(motor_id);
+	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_POS_LENGTH;
 	msg.data[0] = CAN_MOTOR_POS_CMD;
 	msg.data[1] = (u8)(one_to_n_bytes(vel, 0));
@@ -77,15 +77,15 @@ void motor_set_pos(MOTOR_ID motor_id, u16 vel, s32 pos){
 
 /**
 * @brief Set motor acceleration (CAN)
-* @param motor_id: MOTORx, which motor to control
+* @param id: MOTORx, which motor to control
 * @param accel: acceleration parameter of motor
 */
-void motor_set_acceleration(MOTOR_ID motor_id, u16 accel){
+void can_motor_set_accel(MOTOR_ID id, u16 accel){
 	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
-	msg.id = get_can_motor_id(motor_id);
+	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_PARAMETER_LENGTH;
 	msg.data[0] = CAN_MOTOR_PARAMETER_CMD;
 	msg.data[1] = (u8)(one_to_n_bytes(accel, 0));
@@ -96,14 +96,14 @@ void motor_set_acceleration(MOTOR_ID motor_id, u16 accel){
 
 /**
 * @brief Lock and stop motor immediately (CAN)
-* @param motor_id: MOTORx, which motor to control
+* @param id: MOTORx, which motor to control
 */
-void motor_lock(MOTOR_ID motor_id){
+void can_motor_lock(MOTOR_ID id){
 	CanMessage msg;
 	
 	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
 	
-	msg.id = get_can_motor_id(motor_id);
+	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_LOCK_LENGTH;
 	msg.data[0] = CAN_MOTOR_LOCK_CMD;
 
@@ -115,10 +115,9 @@ void motor_lock(MOTOR_ID motor_id){
 
 /**
 * @brief Get the motor encoder value (based on CAN rx result)
-* @param motor_id: MOTORx, which motor to control
+* @param id: MOTORx, which motor to control
 */
-s32 get_encoder_value(MOTOR_ID motor_id){
-	return can_motor_encoder_value[motor_id];
+s32 can_get_encoder_value(MOTOR_ID id){
+	return can_motor_encoder_value[id];
 }
-
 

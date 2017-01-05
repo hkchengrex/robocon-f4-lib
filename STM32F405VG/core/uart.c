@@ -21,10 +21,10 @@ void uart_init(SerialPort COM, u32 br){
 	gpio_rcc_init(uart->tx_port);
 	gpio_rcc_init(uart->rx_port);
 	
-	if (IS_RCC_APB1_PERIPH(uart->rcc)){
+	if (uart->rcc_line == 1){
 		RCC_APB1PeriphClockCmd(uart->rcc, ENABLE);
 		
-	}else if(IS_RCC_APB2_PERIPH(uart->rcc)){
+	}else if(uart->rcc_line == 2){
 		RCC_APB2PeriphClockCmd(uart->rcc, ENABLE);
 		
 	}else{

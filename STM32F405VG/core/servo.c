@@ -6,7 +6,7 @@ void servo_init(void){
 
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 	TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCPolarity_High;
-	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
 	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
@@ -18,23 +18,32 @@ void servo_init(void){
 		
 		gpio_rcc_init(servo->gpio);
 		
-		if (IS_RCC_APB1_PERIPH(servo->tim_rcc)){
+		if (servo->rcc_line == 1){
 			RCC_APB1PeriphClockCmd(servo->tim_rcc, ENABLE);
-			
-		}else if(IS_RCC_APB2_PERIPH(servo->tim_rcc)){
+			TIM_TimeBaseStructure.TIM_Prescaler = (168/2)-1;
+		}else if(servo->rcc_line == 2){
 			RCC_APB2PeriphClockCmd(servo->tim_rcc, ENABLE);
-			
+			TIM_TimeBaseStructure.TIM_Prescaler = 168-1;
 		}else{
 			//Error
 			while(1);
 		}
 		
+		//Warning: IS_RCC_APB1/2_PERIPH does not mean the input is a APB1/2 device, sometimes it just so happens to be 
+//		if (IS_RCC_APB1_PERIPH(servo->tim_rcc)){
+//			RCC_APB1PeriphClockCmd(servo->tim_rcc, ENABLE);
+//		}else if(IS_RCC_APB2_PERIPH(servo->tim_rcc)){
+//			RCC_APB2PeriphClockCmd(servo->tim_rcc, ENABLE);
+//		}else{
+//			//Error
+//			while(1);
+//		}
+		
 		gpio_af_init(servo->gpio, GPIO_OType_PP, GPIO_PuPd_NOPULL, servo->tim_af);
 		
 		TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-		TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV2;
+		TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 		TIM_TimeBaseStructure.TIM_RepetitionCounter = 0;
-		TIM_TimeBaseStructure.TIM_Prescaler = 167;
 		TIM_TimeBaseStructure.TIM_Period = 20000;
 		
 		TIM_TimeBaseInit(servo->tim, &TIM_TimeBaseStructure);
@@ -75,19 +84,19 @@ void servo_init(void){
   */
 void servo_ccr_control(ServoID servo_id , u16 ccr_val) {
 	switch(SERVO_STRUCT[servo_id].channel){
-		case 0:
+		case 1:
 			TIM_SetCompare1(SERVO_STRUCT[servo_id].tim, ccr_val);
 			break;
 		
-		case 1:
+		case 2:
 			TIM_SetCompare2(SERVO_STRUCT[servo_id].tim, ccr_val);
 			break;
 		
-		case 2:
+		case 3:
 			TIM_SetCompare3(SERVO_STRUCT[servo_id].tim, ccr_val);
 			break;
 		
-		case 3:
+		case 4:
 			TIM_SetCompare4(SERVO_STRUCT[servo_id].tim, ccr_val);
 			break;
 	}

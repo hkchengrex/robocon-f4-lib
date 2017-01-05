@@ -55,7 +55,6 @@ void can_init(){
 
 	CAN_InitTypeDef CAN_InitStructure;
 	//CAN1 init
-	CAN_InitTypeDef CAN_InitStructure;
 	CAN_DeInit(CAN1);
 	CAN_StructInit(&CAN_InitStructure);
 	

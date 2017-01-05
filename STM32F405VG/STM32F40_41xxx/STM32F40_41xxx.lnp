@@ -58,7 +58,6 @@
 "stm32f40_41xxx\led.o"
 "stm32f40_41xxx\button.o"
 "stm32f40_41xxx\lcd_main.o"
-"stm32f40_41xxx\buzzer_song.o"
 "stm32f40_41xxx\can_motor.o"
 "stm32f40_41xxx\mti-1_uart.o"
 "stm32f40_41xxx\pneumatic.o"

@@ -8,12 +8,7 @@ void adc_init(){
 	
 	//RCC init
 	for (u8 i=0; i<ADC_COUNT; i++){
-		if (IS_RCC_APB1_PERIPH(ADCs[i].rcc)){
-			RCC_APB1PeriphClockCmd(ADCs[i].rcc, ENABLE); 
-		}else if(IS_RCC_APB2_PERIPH(ADCs[i].rcc)){
-			RCC_APB2PeriphClockCmd(ADCs[i].rcc, ENABLE); 
-		}
-		
+		RCC_APB2PeriphClockCmd(ADCs[i].rcc, ENABLE); 
 		RCC_AHB1PeriphClockCmd(ADCs[i].dma_rcc, ENABLE);  
 	}
 	

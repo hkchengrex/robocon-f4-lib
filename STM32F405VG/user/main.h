@@ -13,9 +13,9 @@
 #include "can_protocol.h"
 #include "encoder.h"
 #include "buzzer.h"
-#include "buzzer_song.h"
 #include "adc.h"
 #include "servo.h"
+#include "motor.h"
 
 #include "button.h"
 #include "lcd_main.h"

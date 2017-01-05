@@ -16,16 +16,16 @@
 
 #include "gpio.h"
 
-//COM   UART    TX   RX    RCC                    AF              Interrupt    Priority
+//COM   UART    TX   RX    RCC                 RCC line     AF              Interrupt    Priority
 #define UART_TABLE \
-X(COM1, USART1, PA9, PA10, RCC_APB2Periph_USART1, GPIO_AF_USART1, USART1_IRQn) \
-X(COM2, USART2, PA2, PA3, RCC_APB1Periph_USART2, GPIO_AF_USART2, USART2_IRQn) \
-X(COM3, USART3, PB10, PB11, RCC_APB1Periph_USART3, GPIO_AF_USART3, USART3_IRQn) \
-X(COM4, UART4, PA0, PA1, RCC_APB1Periph_UART4, GPIO_AF_UART4, UART4_IRQn) \
-X(COM5, UART5, PC12, PD2, RCC_APB1Periph_UART5, GPIO_AF_UART5, UART5_IRQn) \
-X(COM6, USART6, PG14, PG9, RCC_APB2Periph_USART6, GPIO_AF_USART6, USART6_IRQn)
+X(COM1, USART1, PA9, PA10, RCC_APB2Periph_USART1, 2, GPIO_AF_USART1, USART1_IRQn) \
+X(COM2, USART2, PA2, PA3, RCC_APB1Periph_USART2, 1, GPIO_AF_USART2, USART2_IRQn) \
+X(COM3, USART3, PB10, PB11, RCC_APB1Periph_USART3, 1, GPIO_AF_USART3, USART3_IRQn) \
+X(COM4, UART4, PA0, PA1, RCC_APB1Periph_UART4, 1, GPIO_AF_UART4, UART4_IRQn) \
+X(COM5, UART5, PC12, PD2, RCC_APB1Periph_UART5, 1, GPIO_AF_UART5, UART5_IRQn) \
+X(COM6, USART6, PG14, PG9, RCC_APB2Periph_USART6, 2, GPIO_AF_USART6, USART6_IRQn)
 
-#define X(a, b, c, d, e, f, g) a,
+#define X(a, b, c, d, e, f, g, h) a,
 typedef enum {
 	UART_TABLE
 } SerialPort;
@@ -36,11 +36,12 @@ typedef struct{
 	const GPIO* tx_port;
 	const GPIO* rx_port;
 	const u32 rcc;
+	const u8 rcc_line;
 	const u8 af;
 	const u16 irq;
 } UARTStruct;
 
-#define X(a, b, c, d, e, f, g) {b, &c, &d, e, f, g},
+#define X(a, b, c, d, e, f, g, h) {b, &c, &d, e, f, g, h},
 static const UARTStruct UARTPorts[] = {UART_TABLE};
 #undef X
 

@@ -16,10 +16,9 @@ int main(void) {
 	gpio_rcc_init_all();
 	
 	ticks_init();
-	spi_motor_init();
 //	adc_init();
 //	
-//	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
+	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
 //	led_init();
 //	buzzer_init();
 //	button_init();
@@ -29,6 +28,12 @@ int main(void) {
 //	
 //	tft_put_logo(85, 120);
 	
+	spi_xbc_mb_init();
+	
 	while(1){
+		tft_clear();
+		tft_prints(0, 0, "%d", get_ticks());
+		tft_prints(0, 1, "%d", spi_get_count());
+		tft_update();
 	}
 }

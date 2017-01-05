@@ -5,7 +5,6 @@
 #include "stm32f4xx_gpio.h"
 #include "stm32f4xx_spi.h"
 #include "stm32f4xx_rcc.h"
-//#include "ticks.h"
 #include "ticks.h"
 
 #include <stdio.h>
@@ -19,15 +18,15 @@ typedef enum {
 	PIN_ON_RIGHT = 3
 }TFT_ORIENTATION;
 
-#define TFT_RST_PIN		GPIO_Pin_14
-#define TFT_DC_PIN		GPIO_Pin_9
-#define TFT_RST_PORT	GPIOB
-#define TFT_DC_PORT		GPIOC
+#define TFT_RST_PIN		GPIO_Pin_8
+#define TFT_DC_PIN		GPIO_Pin_6
+#define TFT_RST_PORT	GPIOA
+#define TFT_DC_PORT		GPIOA
 
-#define TFT_SPI			SPI2
-#define GPIO_Pin_CS	GPIO_Pin_12
-#define RCC_AHB1Periph_GPIO_CS	RCC_AHB1Periph_GPIOB
-#define GPIO_CS			GPIOB
+#define TFT_SPI			SPI1
+#define GPIO_Pin_CS	GPIO_Pin_4
+#define RCC_AHB1Periph_GPIO_CS	RCC_AHB1Periph_GPIOA
+#define GPIO_CS			GPIOA
 #define	BGR888_MODE		1
 
 #if (!BGR888_MODE)

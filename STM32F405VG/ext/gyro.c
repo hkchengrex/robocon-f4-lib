@@ -79,7 +79,7 @@ s32 gyro_get_shift_y(void)
 void gyro_init(void)
 {
 	uart_init(GYRO_UART, 115200);
-	//uart_interrupt(GYRO_UART);
+	uart_interrupt_init(GYRO_UART, &gyro_rx_handler);
 }
 
 /**
@@ -162,84 +162,80 @@ u8 gyro_pos_set(s16 x, s16 y, s16 a)
   * @param   None
   * @retval  None
   */
-void USART3_IRQHandler(void)
+void gyro_rx_handler(u8 rx_data)
 {
-	u8 rx_data, i;
+	u8 i;
 	u16 x, y, a;
-	if (USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)
-	{
-		rx_data = (u8)USART_ReceiveData(USART3);
 		
-		switch (rx_state) {
-			case 0:	// wakeup
-				if (rx_data == GYRO_WAKEUP) {
-					rx_command = 0xFF;
-					buf_rec = 0;
-					rx_state++;
-				}
-				break;
-			case 1:	// command
-				for (i = 0; i < GYRO_COMMAND_LENGTH; i ++) {
-					if (rx_data == rx_command_arr[i]) {
-						rx_command = i;
-						rx_state++;
-						break;
-					}
-				}
-				if (rx_command == 0xFF)	// command not in list		
-					rx_state = 0;
-				break;
-			case 2: // confirm command
-				if (rx_data != buf_len[rx_command]) {		// wrong data length
-					rx_state = 0;
-					break;
-				}
+	switch (rx_state) {
+		case 0:	// wakeup
+			if (rx_data == GYRO_WAKEUP) {
+				rx_command = 0xFF;
+				buf_rec = 0;
 				rx_state++;
-				if (buf_len[rx_command] > 0) {
+			}
+			break;
+		case 1:	// command
+			for (i = 0; i < GYRO_COMMAND_LENGTH; i ++) {
+				if (rx_data == rx_command_arr[i]) {
+					rx_command = i;
+					rx_state++;
 					break;
 				}
-			case 3: // receive data
-				if (buf_len[rx_command] == 0) {
-					rx_state++;
-				} else {
-					buf_data[buf_rec++] = rx_data;
-					if (buf_rec >= buf_len[rx_command]) {
-						rx_state++;
-					} else {
-						break;
-					}
-				}
-			case 4:
-				switch (rx_command) {
-					case 0:		// GYRO_UPDATED
-						x = buf_data[0];
-						x <<= 8;
-						x |= buf_data[1];
-						y = buf_data[2];
-						y <<= 8;
-						y |= buf_data[3];
-						a = buf_data[4];
-						a <<= 8;
-						a |= buf_data[5];
-						
-						if (a < 3600) {
-							gyro_available = 1;
-							
-							gyro_pos.x = (s16) x;
-							gyro_pos.y = (s16) y;
-							gyro_pos.angle = (s16) a;
-							
-						} else {
-							gyro_available = 0;
-						}
-						break;
-					case 1:		// GYRO_REPLY for gyro_cal and gyro_pos_set
-						reply_flag |= (1 << buf_data[0]);
-						break;
-				}
+			}
+			if (rx_command == 0xFF)	// command not in list		
+				rx_state = 0;
+			break;
+		case 2: // confirm command
+			if (rx_data != buf_len[rx_command]) {		// wrong data length
 				rx_state = 0;
 				break;
-		}
+			}
+			rx_state++;
+			if (buf_len[rx_command] > 0) {
+				break;
+			}
+		case 3: // receive data
+			if (buf_len[rx_command] == 0) {
+				rx_state++;
+			} else {
+				buf_data[buf_rec++] = rx_data;
+				if (buf_rec >= buf_len[rx_command]) {
+					rx_state++;
+				} else {
+					break;
+				}
+			}
+		case 4:
+			switch (rx_command) {
+				case 0:		// GYRO_UPDATED
+					x = buf_data[0];
+					x <<= 8;
+					x |= buf_data[1];
+					y = buf_data[2];
+					y <<= 8;
+					y |= buf_data[3];
+					a = buf_data[4];
+					a <<= 8;
+					a |= buf_data[5];
+					
+					if (a < 3600) {
+						gyro_available = 1;
+						
+						gyro_pos.x = (s16) x;
+						gyro_pos.y = (s16) y;
+						gyro_pos.angle = (s16) a;
+						
+					} else {
+						gyro_available = 0;
+					}
+					break;
+				case 1:		// GYRO_REPLY for gyro_cal and gyro_pos_set
+					reply_flag |= (1 << buf_data[0]);
+					break;
+			}
+			rx_state = 0;
+			break;
 	}
 }
 

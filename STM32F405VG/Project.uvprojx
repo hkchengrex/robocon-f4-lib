@@ -753,6 +753,16 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1507,6 +1517,16 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1560,7 +1580,7 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
-          <DebugInformation>0</DebugInformation>
+          <DebugInformation>1</DebugInformation>
           <BrowseInformation>1</BrowseInformation>
           <ListingPath>.\STM32F40_41xxx\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
@@ -1818,7 +1838,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>3</Optim>
+            <Optim>1</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -2261,6 +2281,16 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3016,6 +3046,16 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3769,6 +3809,16 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4524,6 +4574,16 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -5278,6 +5338,16 @@
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
             </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6031,6 +6101,16 @@
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\gyro.c</FilePath>
+            </File>
+            <File>
+              <FileName>xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\spi_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>

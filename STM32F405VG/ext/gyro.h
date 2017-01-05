@@ -55,4 +55,6 @@ s16 get_X(void);
 s16 get_Y(void);
 u16 get_angle(void);
 
+void gyro_rx_handler(u8 rx_data);
+
 #endif

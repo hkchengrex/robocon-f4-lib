@@ -17,6 +17,8 @@
 #include "buzzer_song.h"
 #include "adc.h"
 #include "servo.h"
+#include "xbc_mb.h"
+#include "spi_xbc_mb.h"
 
 #include "button.h"
 #include "lcd_main.h"

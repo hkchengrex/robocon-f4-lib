@@ -50,7 +50,7 @@ static const AdcPortStruct ADCPorts[] = {ADC_PORT_TABLE};
 static const AdcStruct ADCs[] = {ADC_TABLE};
 #undef X
 
-#define ADC_PORT_COUNT (sizeof(ADCPorts)/sizeof(AdcPortStruct))
+#define ADC_PORT_COUNT (sizeof(ADCPorts)/sizeof(AdcPortStruct) + 2) //+2 because temperature and voltage sensor
 #define ADC_COUNT (sizeof(ADCs)/sizeof(AdcStruct))
 
 /** 
@@ -61,6 +61,6 @@ void adc_init(void);
 /** Get the latest adc reading
 ** @return Unsigned numerical reading representing voltage level
 */
-u16 adc_get(AdcID id);
+u16 get_adc(AdcID id);
 
 #endif

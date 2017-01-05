@@ -5,8 +5,8 @@ static s16 loopCount = 0;
 //Init encoder
 void encoder_init(void){
 	//Init RCC Clock
-	RCC_APB2PeriphClockCmd(ENCODER1_CLOCK_SOURCE , ENABLE);
-	RCC_AHB1PeriphClockCmd(ENCODER1_GPIO_CLOCK_SOURCE, ENABLE);
+	ENCODER1_TIMER_RCC_INIT;
+	ENCODER1_GPIO_RCC_INIT;
 	
 	//AF Config
 	GPIO_PinAFConfig(ENCODER1_GPIOx, ENCODER1_GPIO_PINSOURCE1, ENCODER1_AF);
@@ -17,14 +17,14 @@ void encoder_init(void){
 	GPIO_StructInit(&GPIO_InitStructure);
 	GPIO_InitStructure.GPIO_Pin = ENCODER1_PORT1 | ENCODER1_PORT2;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_OType = ENCODER1_MODE;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 	GPIO_Init(ENCODER1_GPIOx, &GPIO_InitStructure);
 	
 	//Timer init
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-	TIM_TimeBaseStructure.TIM_Prescaler = 0x00;
+	TIM_TimeBaseStructure.TIM_Prescaler = 0;
 	TIM_TimeBaseStructure.TIM_Period = 0xFFFF;
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
@@ -37,7 +37,6 @@ void encoder_init(void){
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	
 	NVIC_InitStructure.NVIC_IRQChannel = ENCDOER1_IRQ;
 	NVIC_Init(&NVIC_InitStructure);
 
@@ -63,7 +62,7 @@ void ENCODER1_IRQ_HANDLER(){
 	}
 }
 
-s32 get_count(){
+s32 get_encoder_count(){
 	return loopCount*0xFFFF + TIM_GetCounter(ENCODER1_TIMER);
 }
 

@@ -32,7 +32,10 @@ int main(void) {
 
 	tft_put_logo(85, 120);
 	
-	s32 last_loop1_ticks = 0, last_loop2_ticks;
+	do_after_for(buzzer_on, 1, 300, 3);
+	do_after_for(buzzer_off, 150, 300, 3);
+	
+	s32 last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){
 		s32 this_ticks = get_ticks();
 		
@@ -46,6 +49,7 @@ int main(void) {
 			tft_println("%d", this_ticks);
 			tft_println("%d %d", btn_pressed(BUTTON_1), btn_pressed(BUTTON_2));
 			tft_println("%d", TIM_GetCounter(TIM7));
+			tft_println("%d", get_encoder_count());
 			tft_update();
 			led_blink(LED_1);
 			

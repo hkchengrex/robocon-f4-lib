@@ -21,7 +21,7 @@
 ** "I've seen the future. You're not in it." ~Faceless void
 ****************************************************************************************************************************************/
 
-#define TIMER_SIZE 15 //Max number of actions that can be pended
+#define TIMER_SIZE 30 //Max number of actions that can be pended
 
 #define TIMER_TIM 				TIM7
 #define TIMER_RCC 				RCC_APB1Periph_TIM7
@@ -39,11 +39,25 @@ typedef void(*TimerAction)(void);
 typedef struct{
 	volatile TimerAction action;
 	vu32 quantum;
+	vu32 reload;
 	vu16 repeat;
 }TimerActionStruct;
 
 //Init timer
 void timer_init(void);
+
+/**
+* The following functions can be used to schedule tasks.
+* @example Buzzer beeps for five times. 
+*							do_after_for(buzzer_on(), 1000, 1000, 5);
+*							do_after_for(buzzer_off(), 1200, 1000, 5);
+*
+* @exmaple Servo move at specific pattern
+*							do_after(servo_lift, 800);
+*							do_after(servo_put, 1200);
+*							do_after(servo_release, 2000);
+*
+*/
 
 /**
 * Register a event call that will happen after some time.
@@ -56,9 +70,10 @@ void do_after(TimerAction action, u32 ms);
 * Register a event call that will happen after some time.
 * @param action: The function to be called
 * @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
+* @param reload: The time ms to be reloaded when repeated
 * @param repeat: How many times this function will be repeated
 */
-void do_after_for(TimerAction action, u32 ms, u16 repeat);
+void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat);
 
 // Return the current size of timer array
 u16 get_timer_size(void);

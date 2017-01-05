@@ -1,6 +1,6 @@
 #include "adc.h"
 
-static volatile u16 adc_reading[ADC_PORT_COUNT];
+static volatile u16 adc_reading[ADC_PORT_COUNT]; 
 
 void adc_init(){
 	ADC_CommonInitTypeDef ADC_CommonInitStruct;
@@ -49,6 +49,13 @@ void adc_init(){
 	u16 index = 0;
 	for (u8 i=0; i<ADC_COUNT; i++){
 		u8 channel_count = 0;
+		if (ADCPorts[i].adc == ADC1){
+			//If Init ADC1, add two ADC channels -> Channel 16 for temperature, Channel 17 for Vref
+			channel_count += 2;
+			ADC_RegularChannelConfig(ADC1, ADC_Channel_16, 1, ADC_SampleTime_480Cycles);
+			ADC_RegularChannelConfig(ADC1, ADC_Channel_17, 2, ADC_SampleTime_480Cycles);
+		}
+		
 		for (u8 i=0; i<ADC_PORT_COUNT; i++){
 			if (ADCPorts[i].adc == ADCs[i].adc){
 				channel_count++;
@@ -74,6 +81,8 @@ void adc_init(){
 	}
 }
 
-u16 adc_get(AdcID id){
+u16 get_adc(AdcID id){
 	return adc_reading[id];
 }
+
+

@@ -39,16 +39,17 @@ void timer_init(){
 * @param ms: The time to be waited
 */
 void do_after(TimerAction action, u32 ms){
-	do_after_for(action, ms, 1);
+	do_after_for(action, ms, 1, 1);
 }
 
 /**
 * Register a event call that will happen after some time.
 * @param action: The function to be called
 * @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
+* @param reload: The time ms to be reloaded when repeated
 * @param repeat: How many times this function will be repeated
 */
-void do_after_for(TimerAction action, u32 ms, u16 repeat){
+void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat){
 	if (size >= TIMER_SIZE){
 		//Error
 		while(1);
@@ -59,8 +60,17 @@ void do_after_for(TimerAction action, u32 ms, u16 repeat){
 		index = (index+1)%TIMER_SIZE;
 	}
 	
+	if (ms == 0){
+		ms = 1;
+	}
+	
+	if (reload == 0){
+		reload = 1;
+	}
+	
 	actions[index].action = action;
 	actions[index].quantum = ms*QUANTUM_MULTIPLER;
+	actions[index].reload = reload*QUANTUM_MULTIPLER;
 	actions[index].repeat = repeat;
 	
 	index = (index+1)%TIMER_SIZE;
@@ -98,6 +108,8 @@ void TIMER_IRQ_HANDLER(void){
 					if (actions[i].repeat == 0){
 						size--;
 						actions[i].action = 0;
+					}else{
+						actions[i].quantum = actions[i].reload;
 					}
 				}else{
 					//Otherwise keep counting

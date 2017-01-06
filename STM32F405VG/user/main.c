@@ -10,6 +10,39 @@
 
 #include "main.h"
 
+volatile char recv[6] = {0};
+volatile u32 count = 0;
+
+void recv0 (const u8 data){
+	recv[0] = data;
+	count++;
+}
+
+void recv1 (const u8 data){
+	recv[1] = data;
+	count++;
+}
+
+void recv2 (const u8 data){
+	recv[2] = data;
+	count++;
+}
+
+void recv3 (const u8 data){
+	recv[3] = data;
+	count++;
+}
+
+void recv4 (const u8 data){
+	recv[4] = data;
+	count++;
+}
+
+void recv5 (const u8 data){
+	recv[5] = data;
+	count++;
+}
+
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -31,14 +64,20 @@ int main(void) {
 	uart_init(COM4, 115200);
 	uart_init(COM5, 115200);
 	uart_init(COM6, 115200);
+	uart_interrupt_init(COM1, recv0);
+	uart_interrupt_init(COM2, recv1);
+	uart_interrupt_init(COM3, recv2);
+	uart_interrupt_init(COM4, recv3);
+	uart_interrupt_init(COM5, recv4);
+	uart_interrupt_init(COM6, recv5);
 //	can_init();
 //	can_rx_init();
 //	motor_init();
 
 	tft_put_logo(85, 120);
 	
-	do_after_for(buzzer_on, 1, 300, 3);
-	do_after_for(buzzer_off, 150, 300, 3);
+	//do_after_for(buzzer_on, 1, 300, 3);
+	//do_after_for(buzzer_off, 150, 300, 3);
 	
 	s32 last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){
@@ -52,18 +91,12 @@ int main(void) {
 		if (this_ticks - last_loop2_ticks >= LOOP2_MS){
 			tft_clear();
 			tft_println("%d", this_ticks);
-			tft_println("%d %d", btn_pressed(BUTTON_1), btn_pressed(BUTTON_2));
-			tft_println("%d", TIM_GetCounter(TIM7));
 			tft_println("%d", get_encoder_count());
+			tft_println("%d", count);
+			tft_println("%c %c %c", recv[0], recv[1], recv[2]);
+			tft_println("%c %c %c", recv[3], recv[4], recv[5]);
 			tft_update();
 			led_blink(LED_1);
-			
-			uart_tx_printf(COM1, "%d", get_ticks());
-			uart_tx_printf(COM2, "%d", get_ticks());
-			uart_tx_printf(COM3, "%d", get_ticks());
-			uart_tx_printf(COM4, "%d", get_ticks());
-			uart_tx_printf(COM5, "%d", get_ticks());
-			uart_tx_printf(COM6, "%d", get_ticks());
 			
 			last_loop2_ticks = this_ticks;
 		}

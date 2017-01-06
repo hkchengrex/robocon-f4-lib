@@ -16,7 +16,7 @@
 
 #include "gpio.h"
 
-//COM   UART    TX   RX    RCC                 RCC line     AF              Interrupt    Priority
+//COM   UART    TX   RX    RCC                 RCC line     AF              Interrupt 
 #define UART_TABLE \
 X(COM1, USART1, PA9, PA10, RCC_APB2Periph_USART1, 2, GPIO_AF_USART1, USART1_IRQn) \
 X(COM2, USART2, PA2, PA3, RCC_APB1Periph_USART2, 1, GPIO_AF_USART2, USART2_IRQn) \
@@ -46,8 +46,8 @@ static const UARTStruct UARTPorts[] = {UART_TABLE};
 #undef X
 
 #define COM_COUNT (sizeof(UARTPorts)/sizeof(UARTStruct))
-
-extern USART_TypeDef* COM_USART[COM_COUNT];
+	
+typedef void (*OnRxListener)(const uint8_t byte);
 
 /** Init a UART port.
 *		@param COM: Which port to initialize
@@ -55,13 +55,11 @@ extern USART_TypeDef* COM_USART[COM_COUNT];
 */
 void uart_init(SerialPort COM, u32 baud_rate);
 
-typedef void OnRxListener(const uint8_t byte);
-
 /** Register a listener for UART receive interrupt.
 *		@param COM: Which port to use
 *		@param listener: A function pointer of void return type and single u8 param
 */
-void uart_interrupt_init(SerialPort COM, OnRxListener *listener);
+void uart_interrupt_init(SerialPort COM, OnRxListener listener);
 
 /** Send a single byte to the target port.
 *		@param COM: Which port to use

@@ -7,7 +7,7 @@
 * Rex Cheng
 */
 
-static OnRxListener *rxListener[COM_COUNT] = {0};
+static OnRxListener rxListeners[COM_COUNT] = {0};
 
 /** Init a UART port.
 *		@param COM: Which port to initialize
@@ -58,15 +58,15 @@ void uart_interrupt(SerialPort COM){
 	NVIC_Init(&NVIC_InitStructure);
 	
 	/* Enables the USART receive interrupt */
-	USART_ITConfig(UARTPorts[COM].uart,USART_IT_RXNE,ENABLE);
+	USART_ITConfig(UARTPorts[COM].uart, USART_IT_RXNE, ENABLE);
 }
 
 /** Register a listener for UART receive interrupt.
 *		@param COM: Which port to use
 *		@param listener: A function pointer of void return type and single u8 param
 */
-void uart_interrupt_init(SerialPort COM, OnRxListener *listener){
-	rxListener[COM] = listener;
+void uart_interrupt_init(SerialPort COM, OnRxListener listener){
+	rxListeners[COM] = listener;
 	uart_interrupt(COM);
 }
 
@@ -121,56 +121,56 @@ u8 uart_rx_byte(SerialPort COM){
 //Implementing all those IRQ handlers here
 
 void USART1_IRQHandler(void){
-	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-		if (rxListener[COM1]){
-			(*rxListener[COM1])(USART_ReceiveData(USART1));
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) == SET){
+		if (rxListeners[COM1] != 0){
+			(rxListeners[COM1])(USART_ReceiveData(USART1));
 		}
+		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
 	}
 }
 
 void USART2_IRQHandler(void){
-	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
-		if (rxListener[COM2]){
-			(*rxListener[COM2])(USART_ReceiveData(USART2));
+	if(USART_GetITStatus(USART2, USART_IT_RXNE) == SET){
+		if (rxListeners[COM2] != 0){
+			(rxListeners[COM2])(USART_ReceiveData(USART2));
 		}
+		USART_ClearITPendingBit(USART2, USART_IT_RXNE);
 	}
 }
 
 void USART3_IRQHandler(void){
-	if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
-		if (rxListener[COM3]){
-			(*rxListener[COM3])(USART_ReceiveData(USART3));
+	if(USART_GetITStatus(USART3, USART_IT_RXNE) == SET){
+		if (rxListeners[COM3] != 0){
+			(rxListeners[COM3])(USART_ReceiveData(USART3));
 		}
+		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
 	}
 }
 
 void UART4_IRQHandler(void){
-	if(USART_GetITStatus(UART4, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(UART4, USART_IT_RXNE);
-		if (rxListener[COM4]){
-			(*rxListener[COM4])(USART_ReceiveData(UART4));
+	if(USART_GetITStatus(UART4, USART_IT_RXNE) == SET){
+		if (rxListeners[COM4] != 0){
+			(rxListeners[COM4])(USART_ReceiveData(UART4));
 		}
+		USART_ClearITPendingBit(UART4, USART_IT_RXNE);
 	}
 }
 
 void UART5_IRQHandler(void){
-	if(USART_GetITStatus(UART5, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(UART5, USART_IT_RXNE);
-		if (rxListener[COM5]){
-			(*rxListener[COM5])(USART_ReceiveData(UART5));
+	if(USART_GetITStatus(UART5, USART_IT_RXNE) == SET){
+		if (rxListeners[COM5] != 0){
+			(rxListeners[COM5])(USART_ReceiveData(UART5));
 		}
+		USART_ClearITPendingBit(UART5, USART_IT_RXNE);
 	}
 }
 
 void USART6_IRQHandler(void){
-	if(USART_GetITStatus(USART6, USART_IT_RXNE) != RESET){
-		USART_ClearITPendingBit(USART6, USART_IT_RXNE);
-		if (rxListener[COM6]){
-			(*rxListener[COM6])(USART_ReceiveData(USART6));
+	if(USART_GetITStatus(USART6, USART_IT_RXNE) == SET){
+		if (rxListeners[COM6] != 0){
+			(rxListeners[COM6])(USART_ReceiveData(USART6));
 		}
+		USART_ClearITPendingBit(USART6, USART_IT_RXNE);
 	}
 }
 

@@ -98,6 +98,13 @@ int main(void) {
 			tft_update();
 			led_blink(LED_1);
 			
+			uart_tx(COM1, "%d", get_ticks());
+			uart_tx(COM2, "%d", get_ticks());
+			uart_tx(COM3, "%d", get_ticks());
+			uart_tx(COM4, "%d", get_ticks());
+			uart_tx(COM5, "%d", get_ticks());
+			uart_tx(COM6, "%d", get_ticks());
+			
 			last_loop2_ticks = this_ticks;
 		}
 	}

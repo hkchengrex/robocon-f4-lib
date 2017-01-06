@@ -23,6 +23,16 @@ extern const GPIO
 	PF0, PF1, PF2, PF3, PF4, PF5, PF6, PF7, PF8, PF9, PF10, PF11, PF12, PF13, PF14, PF15,
 	PG0, PG1, PG2, PG3, PG4, PG5, PG6, PG7, PG8, PG9, PG10, PG11, PG12, PG13, PG14, PG15;
 
+
+extern const GPIO* GPIOArray[];
+#define GPIO_SIZE (7*16)
+
+/** Get the PinSourse from gpio
+* @param A pointer to a GPIO const
+* @return GPIO_PinSourceX
+*/
+uint16_t getPinSource(const GPIO* gpio);
+
 /**
 	Complete GPIO Pin initailizer
 	@param gpio: A pointer to a gpio port, like &PE0

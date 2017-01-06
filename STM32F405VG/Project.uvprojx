@@ -780,6 +780,11 @@
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1560,6 +1565,11 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2343,6 +2353,11 @@
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -3123,6 +3138,11 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3905,6 +3925,11 @@
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -4685,6 +4710,11 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5467,6 +5497,11 @@
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
             </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -6247,6 +6282,11 @@
               <FileName>motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\ext\motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>gpio_test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -18,28 +18,28 @@
 #endif
 
 typedef enum {
-	MOTOR1 = 0,
-	MOTOR2,
-	MOTOR3,
-	MOTOR4,
-	MOTOR5,
-	MOTOR6,
-	MOTOR7,
-	MOTOR8,
-	MOTOR9,
-	MOTOR10,
-	MOTOR11,
-	MOTOR12,
-	MOTOR13,
-	MOTOR14,
-	MOTOR15,
-	MOTOR16
-} MOTOR_ID;
+	MOTOR_1 = 0,
+	MOTOR_2,
+	MOTOR_3,
+	MOTOR_4,
+	MOTOR_5,
+	MOTOR_6,
+	MOTOR_7,
+	MOTOR_8,
+	MOTOR_9,
+	MOTOR_10,
+	MOTOR_11,
+	MOTOR_12,
+	MOTOR_13,
+	MOTOR_14,
+	MOTOR_15,
+	MOTOR_16
+} MotorID;
 
 typedef enum{
 	OPEN_LOOP = 0,
 	CLOSE_LOOP = 1
-} CLOSE_LOOP_FLAG;
+} CloseLoopFlag;
 
 #define get_motor_id(motor_id)	(CAN_MOTOR_BASE + (u8)motor_id)
 
@@ -48,11 +48,11 @@ typedef enum{
 ***********/
 
 void motor_init(void);
-void motor_set_vel(MOTOR_ID id, s16 vel, CLOSE_LOOP_FLAG loop);
-void motor_set_pos(MOTOR_ID id, u16 vel, s32 pos);
-void motor_set_accel(MOTOR_ID id, u16 accel);
-void motor_lock(MOTOR_ID id);
-s32 get_encoder_value(MOTOR_ID id);
+void motor_set_vel(MotorID id, s16 vel, CloseLoopFlag loop);
+void motor_set_pos(MotorID id, u16 vel, s32 pos);
+void motor_set_accel(MotorID id, u16 accel);
+void motor_lock(MotorID id);
+s32 get_encoder_value(MotorID id);
 
 //Init CAN/SPI Motor
 #ifdef USING_CAN_MOTOR

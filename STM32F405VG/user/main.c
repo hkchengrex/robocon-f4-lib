@@ -25,7 +25,12 @@ int main(void) {
 	timer_init();
 	encoder_init();
 	servo_init();
-//	uart_init(COM1, 115200);
+	uart_init(COM1, 115200);
+	uart_init(COM2, 115200);
+	uart_init(COM3, 115200);
+	uart_init(COM4, 115200);
+	uart_init(COM5, 115200);
+	uart_init(COM6, 115200);
 //	can_init();
 //	can_rx_init();
 //	motor_init();
@@ -52,6 +57,13 @@ int main(void) {
 			tft_println("%d", get_encoder_count());
 			tft_update();
 			led_blink(LED_1);
+			
+			uart_tx_printf(COM1, "%d", get_ticks());
+			uart_tx_printf(COM2, "%d", get_ticks());
+			uart_tx_printf(COM3, "%d", get_ticks());
+			uart_tx_printf(COM4, "%d", get_ticks());
+			uart_tx_printf(COM5, "%d", get_ticks());
+			uart_tx_printf(COM6, "%d", get_ticks());
 			
 			last_loop2_ticks = this_ticks;
 		}

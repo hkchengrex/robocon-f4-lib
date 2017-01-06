@@ -73,14 +73,14 @@ void uart_tx_byte(SerialPort COM, uint8_t data);
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
-void uart_tx_printf(SerialPort COM, const uint8_t * data, ...);
+void uart_tx_printf(SerialPort COM, const char * data, ...);
 
 /** Send an array of data to the target port.
 *		@param COM: Which port to use
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
-void uart_tx(SerialPort COM, const uint8_t * data, u16 len);
+void uart_tx(SerialPort COM, const char * data, u16 len);
 
 /** Block the program until received one byte.
 *		@param COM: Which port to use

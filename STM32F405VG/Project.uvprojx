@@ -719,11 +719,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -762,6 +757,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1483,11 +1483,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -1526,6 +1521,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1575,7 +1575,7 @@
             <NotGenerated>0</NotGenerated>
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
-          <OutputDirectory>STM32F40_41xxx\</OutputDirectory>
+          <OutputDirectory>.\output\</OutputDirectory>
           <OutputName>STM32F40_41xxx</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
@@ -1656,16 +1656,16 @@
         </DebugOption>
         <Utilities>
           <Flash1>
-            <UseTargetDll>1</UseTargetDll>
-            <UseExternalTool>0</UseExternalTool>
-            <RunIndependent>0</RunIndependent>
+            <UseTargetDll>0</UseTargetDll>
+            <UseExternalTool>1</UseExternalTool>
+            <RunIndependent>1</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
             <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3>"flash.bat" (./STM32F40_41xxx/@H.hex 3 256000 STM32F4_Med-density_128K)</Flash3>
+          <Flash3>"flash.bat" (./output/@H.hex 3 256000 STM32F4_Med-density_128K)</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -1838,7 +1838,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>3</Optim>
             <oTime>1</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -2248,11 +2248,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -2271,6 +2266,56 @@
               <FileName>LASER_DT50.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\LASER_DT50.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>0</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>pneumatic.c</FileName>
@@ -2291,6 +2336,61 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>0</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>0</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
           </Files>
         </Group>
@@ -3012,11 +3112,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -3055,6 +3150,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3776,11 +3876,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -3819,6 +3914,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4540,11 +4640,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -4583,6 +4678,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5304,11 +5404,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -5347,6 +5442,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6068,11 +6168,6 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>buzzer_song.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\buzzer_song.c</FilePath>
-            </File>
-            <File>
               <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_motor.c</FilePath>
@@ -6111,6 +6206,11 @@
               <FileName>spi_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\spi_xbc_mb.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_xbc_mb.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\can_xbc_mb.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -31,9 +31,11 @@ int main(void) {
 	spi_xbc_mb_init();
 	
 	while(1){
+		//while (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
 		tft_clear();
 		tft_prints(0, 0, "%d", get_ticks());
 		tft_prints(0, 1, "%d", spi_get_count());
+		tft_prints(0, 2, "%d", spi_get_count2());
 		tft_update();
 	}
 }

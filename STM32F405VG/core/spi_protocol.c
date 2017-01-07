@@ -103,6 +103,7 @@ void spi_select_motor(MOTOR_ID motor_id) {
 	}
 }
 
+/*
 void spi_motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_flag) {
 	spi_select_motor(motor_id);
 	spi_tx_byte(SPI_MOTOR_VEL_CMD);
@@ -113,3 +114,4 @@ void spi_motor_set_vel(MOTOR_ID motor_id, s32 vel, CLOSE_LOOP_FLAG close_loop_fl
 	spi_tx_byte(close_loop_flag);
 	spi_reset_motor_pins();
 }
+*/

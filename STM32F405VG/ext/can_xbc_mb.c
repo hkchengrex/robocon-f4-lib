@@ -1,3 +1,5 @@
+//F103 CAN Xbox code
+//Included just for reference, do not compile
 #include "can_xbc_mb.h"
 
 static u32 xbc_digital = 0;

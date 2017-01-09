@@ -14,6 +14,9 @@
 #include "button.h"
 #include "define.h"
 
+#define START_TEST_PIN (16*4 + 0)
+#define END_TEST_PIN (16*5 + 0)
+
 //Start the test
 void gpio_test(void);
 

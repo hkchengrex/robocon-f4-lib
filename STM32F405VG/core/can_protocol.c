@@ -63,14 +63,14 @@ void can_init(){
 	CAN_InitStructure.CAN_AWUM = DISABLE;
 	CAN_InitStructure.CAN_NART = ENABLE;	//ENABLE = DISABLE auto resend
 	CAN_InitStructure.CAN_RFLM = DISABLE;
-	CAN_InitStructure.CAN_TXFP = ENABLE; //ENABLE = FIFO Mailbox
+	CAN_InitStructure.CAN_TXFP = DISABLE; //ENABLE = FIFO Mailbox
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
 	
 	//Config to 1Mbps
 	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;
-	CAN_InitStructure.CAN_Prescaler = 2;
+	CAN_InitStructure.CAN_BS1 = CAN_BS1_3tq;
+	CAN_InitStructure.CAN_BS2 = CAN_BS2_3tq;
+	CAN_InitStructure.CAN_Prescaler = 6;
 	while (CAN_Init(CAN1, &CAN_InitStructure) != CAN_InitStatus_Success);
 	
 	//CAN2 init
@@ -148,6 +148,9 @@ static void can1_tx_dequeue(){
 																						 ((uint32_t)msg.data[4]));
 		/* Request transmission */
 		CAN1->sTxMailBox[0].TIR |= (uint32_t)0x00000001;
+		
+		CAN_tx_queue[CAN_1].head = (CAN_tx_queue[CAN_1].head+1)%CAN1_TX_QUEUE_MAX_SIZE;
+		CAN_tx_queue[CAN_1].size--;
 		#undef msg
 	}
 }
@@ -161,23 +164,26 @@ static void can2_tx_dequeue(){
 		#define msg CAN_tx_queue[CAN_2].queue[CAN_tx_queue[CAN_2].head]
 
 		/* Set up the Id */
-		CAN2->sTxMailBox[1].TIR &= (uint32_t)0x00000001;
-		CAN2->sTxMailBox[1].TIR |= ((msg.id << 21) | CAN_RTR_DATA);
+		CAN2->sTxMailBox[0].TIR &= (uint32_t)0x00000001;
+		CAN2->sTxMailBox[0].TIR |= ((msg.id << 21) | CAN_RTR_DATA);
 		
-		CAN2->sTxMailBox[1].TDTR &= (uint32_t)0xFFFFFFF0;
-		CAN2->sTxMailBox[1].TDTR |= msg.length;
+		CAN2->sTxMailBox[0].TDTR &= (uint32_t)0xFFFFFFF0;
+		CAN2->sTxMailBox[0].TDTR |= msg.length;
 
 		/* Set up the data field */
-		CAN2->sTxMailBox[1].TDLR = (((uint32_t)msg.data[3] << 24) | 
+		CAN2->sTxMailBox[0].TDLR = (((uint32_t)msg.data[3] << 24) | 
 																						 ((uint32_t)msg.data[2] << 16) |
 																						 ((uint32_t)msg.data[1] << 8) | 
 																						 ((uint32_t)msg.data[0]));
-		CAN2->sTxMailBox[1].TDHR = (((uint32_t)msg.data[7] << 24) | 
+		CAN2->sTxMailBox[0].TDHR = (((uint32_t)msg.data[7] << 24) | 
 																						 ((uint32_t)msg.data[6] << 16) |
 																						 ((uint32_t)msg.data[5] << 8) |
 																						 ((uint32_t)msg.data[4]));
 		/* Request transmission */
-		CAN2->sTxMailBox[1].TIR |= (uint32_t)0x00000001;
+		CAN2->sTxMailBox[0].TIR |= (uint32_t)0x00000001;
+		
+		CAN_tx_queue[CAN_2].head = (CAN_tx_queue[CAN_2].head+1)%CAN2_TX_QUEUE_MAX_SIZE;
+		CAN_tx_queue[CAN_2].size--;
 		#undef msg
 	}
 }

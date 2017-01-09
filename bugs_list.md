@@ -1,2 +1,4 @@
-- Encoder 2 not working (Encoder 1 and Encoder 2 are connected to the same timer)
+- Encoder 1 not working (Encoder 1 and Encoder 2 are connected to the same timer)
 - The TFT pins on the scheme are wrong
+- Pneumatic might be malfunctional
+- Joystick need to press down

@@ -17,6 +17,7 @@
 #include "servo.h"
 #include "motor.h"
 #include "can_motor.h"
+#include "pneumatic.h"
 
 #include "button.h"
 #include "lcd_main.h"
@@ -26,5 +27,6 @@
 #include "trigon_math.h"
 
 #include "timer.h"
+#include "gpio_test.h"
 
 #endif 

@@ -1,10 +1,21 @@
 #include "gpio_test.h"
 
+static u8 is_tft_pin(const GPIO* gpio){
+	return (gpio == &PA4 || gpio == &PA5 || gpio == &PA6 ||gpio == &PA7 ||gpio == &PA8);
+}
+
 //Start the test
 void gpio_test(){
-	for (u32 curr=0; curr<GPIO_SIZE; curr++){
-		gpio_output_init(GPIOArray[curr], GPIO_OType_OD, GPIO_PuPd_NOPULL);
-		for (u32 other=0; other<GPIO_SIZE; other++){
+	gpio_rcc_init_all();
+	
+	u8 ok = 1;
+	
+	for (u32 curr = START_TEST_PIN; curr<END_TEST_PIN; curr++){
+		if (is_tft_pin(GPIOArray[curr])) continue;
+		
+		gpio_output_init(GPIOArray[curr], GPIO_OType_OD, GPIO_PuPd_DOWN);
+		for (u32 other = START_TEST_PIN; other<END_TEST_PIN; other++){
+			if (is_tft_pin(GPIOArray[other])) continue;
 			if (curr == other){
 				continue;
 			}
@@ -13,7 +24,8 @@ void gpio_test(){
 		
 		_delay_ms(5);
 		
-		for (u32 other=0; other<GPIO_SIZE; other++){
+		for (u32 other = START_TEST_PIN; other<END_TEST_PIN; other++){
+			if (is_tft_pin(GPIOArray[other])) continue;
 			if (curr == other){
 				continue;
 			}
@@ -34,7 +46,20 @@ void gpio_test(){
 			if (result == 0){
 				while(!btn_pressed(BUTTON_1));
 				while(btn_pressed(BUTTON_1));
+				ok = 0;
 			}
 		}
 	}
+	
+	tft_clear();
+	if (ok == 1){
+		tft_println("OK LA");
+		tft_println("GOOD GOOD");
+	}else{
+		tft_println("NOT OK AH");
+	}
+	tft_update();
+	
+	while(!btn_pressed(BUTTON_1));
+	while(btn_pressed(BUTTON_1));
 }

@@ -13,7 +13,7 @@ extern COORD3 pos_tar;
   * @retval Coefficient ranging from 0 to 1
   */
 double possys_acc_linear(u32 start, u16 period) {
-	double accel_coeff = (double)(get_full_ticks() - start)/period;
+	double accel_coeff = (double)(get_ticks() - start)/period;
 	return (accel_coeff > 1.0) ? 1.0 : ((accel_coeff < 0.0) ? 0.0 : accel_coeff);
 }
 

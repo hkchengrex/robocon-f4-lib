@@ -1,10 +1,13 @@
 #ifndef	__POSSYS_H
 #define	__POSSYS_H
 
-#include "system.h"
-#include "stm32f10x.h"
+#include "stm32f4xx.h"
+#include "lcd_main.h"
+#include "motor.h"
+#include "can_motor.h"
+#include "gyro.h"
+#include "ticks.h"
 #include "approx_math.h"
-#include "stdlib.h"
 
 typedef	struct {
 	s16 x;

@@ -66,6 +66,11 @@
 ".\output\gyro.o"
 ".\output\xbc_mb.o"
 ".\output\spi_xbc_mb.o"
+".\output\possys.o"
+".\output\possys_acc.o"
+".\output\possys_math.o"
+".\output\possys_motor.o"
+".\output\possys_pid.o"
 --library_type=microlib --strict --scatter ".\output\STM32F40_41xxx.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

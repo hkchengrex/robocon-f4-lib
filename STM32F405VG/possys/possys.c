@@ -69,7 +69,7 @@ void possys_init(Possys_InitTypeDef *Possys_InitStruct) {
 	pid_rot = *(Possys_InitStruct->Possys_PidRot);
 	full_vel = Possys_InitStruct->Possys_InitVel;
 	
-	begin_time = get_full_ticks();
+	begin_time = get_ticks();
 }
 
 /**
@@ -115,7 +115,7 @@ void possys_debug() {
 	tft_prints(0, 3, "ERR: %4d %3d", err_trans, err_rot);
 	tft_prints(0, 5, "%d %d %d", possys_motor_get_vel()[0], possys_motor_get_vel()[1], possys_motor_get_vel()[2]);
 	//tft_prints(0, 6, "%d", front_dir);
-	tft_prints(0, 9, "%d", get_full_ticks());
+	tft_prints(0, 9, "%d", get_ticks());
 	tft_update();
 }
 

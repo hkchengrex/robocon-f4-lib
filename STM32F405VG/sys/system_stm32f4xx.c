@@ -11,7 +11,7 @@
   *     user application:
   *      - SystemInit(): Setups the system clock (System clock source, PLL Multiplier
   *                      and Divider factors, AHB/APBx prescalers and Flash settings),
-  *                      depending on the configuration made in the clock xls tool. 
+  *                      depending on the 6configuration made in the clock xls tool. 
   *                      This function is called at startup just after reset and 
   *                      before branch to main program. This call is made inside
   *                      the "startup_stm32f4xx.s" file.
@@ -706,9 +706,13 @@ static void SetSysClock(void)
 		} else {
 			/* If HSE fails to start-up, the application will have wrong clock
          configuration. User can add here some code to deal with this error */
-			// PLL_M now is 16 for HSI value, as internal oscillator is 16MHz, external default is 8MHz, so multiply 2
-			RCC->PLLCFGR = PLL_M*2 | (PLL_N << 6) | (((PLL_P >> 1) -1) << 16) |
+			RCC->PLLCFGR = PLL_M | (PLL_N << 6) | (((PLL_P >> 1) -1) << 16) |
 										(RCC_PLLCFGR_PLLSRC_HSI) | (PLL_Q << 24);
+			while(1){
+				//FUCK!!!!!!!!!!!!!!
+				//FUUUUUUUCCCCCCCCCKKKKKKKKKKKKKKKKKKKK!
+				//玉皇大帝屌老母呀!! 電腦大爆炸!!!!
+			}
 			
 		}
 #endif /* STM32F40_41xxx || STM32F401xx || STM32F427_437x || STM32F429_439xx || STM32F469_479xx */
@@ -722,7 +726,7 @@ static void SetSysClock(void)
 			/* If HSE fails to start-up, the application will have wrong clock
          configuration. User can add here some code to deal with this error */
 			// PLL_M now is 16 for HSI value, as internal oscillator is 16MHz, external default is 8MHz, so multiply 2
-			RCC->PLLCFGR = PLL_M*2 | (PLL_N << 6) | (((PLL_P >> 1) -1) << 16) |
+			RCC->PLLCFGR = PLL_M | (PLL_N << 6) | (((PLL_P >> 1) -1) << 16) |
 										 (RCC_PLLCFGR_PLLSRC_HSI) | (PLL_Q << 24) | (PLL_R << 28);
 		}
 #endif /* STM32F446xx */    

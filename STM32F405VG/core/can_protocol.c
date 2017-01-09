@@ -67,9 +67,11 @@ void can_init(){
 	CAN_InitStructure.CAN_Mode = CAN_Mode_Normal;
 	
 	//Config to 1Mbps
+	//Baud Rate = Clock / ( (BS1+BS2+1) *Prescaler)
+	//Sample time = 83.3%
 	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_3tq;
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_3tq;
+	CAN_InitStructure.CAN_BS1 = CAN_BS1_5tq;
+	CAN_InitStructure.CAN_BS2 = CAN_BS2_1tq;
 	CAN_InitStructure.CAN_Prescaler = 6;
 	while (CAN_Init(CAN1, &CAN_InitStructure) != CAN_InitStatus_Success);
 	

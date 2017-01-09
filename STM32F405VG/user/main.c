@@ -50,6 +50,9 @@ int main(void) {
 	motor_init();
 	pneu_init();
 
+	RCC_ClocksTypeDef rcc_clocks;
+	RCC_GetClocksFreq(&rcc_clocks);
+
 	tft_put_logo(85, 120);
 	
 	//do_after_for(buzzer_on, 1, 300, 3);
@@ -71,7 +74,6 @@ int main(void) {
 		if (this_ticks - last_loop2_ticks >= LOOP2_MS){
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
-			tft_println("%d", this_ticks);
 			//tft_println("%d %d", btn_pressed(JOYSTICK_N), btn_pressed(JOYSTICK_S));
 			tft_println("%d %d", m1, m2);
 			tft_println("%d", get_encoder_value(MOTOR_1));

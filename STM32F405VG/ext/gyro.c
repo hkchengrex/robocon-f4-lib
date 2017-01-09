@@ -28,8 +28,8 @@
 
 #include "gyro.h"
 
-s32 SHIFT_X = -6;
-s32 SHIFT_Y = 298;
+s32 SHIFT_X = 0;
+s32 SHIFT_Y = 0;
 
 static POSITION gyro_pos = {0, 0, 0};
 static u8 rx_state = 0;

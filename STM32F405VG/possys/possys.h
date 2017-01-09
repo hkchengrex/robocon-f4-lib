@@ -1,7 +1,6 @@
 #ifndef	__POSSYS_H
 #define	__POSSYS_H
 
-#include "stm32f4xx.h"
 #include "lcd_main.h"
 #include "motor.h"
 #include "can_motor.h"
@@ -26,8 +25,7 @@ typedef enum {
 	POSSYS_ARRIVED
 } POSSYS_STATE;
 
-typedef struct
-{
+typedef struct {
 	COORD3* Possys_Target;
 	PID* Possys_PidTrans;
 	PID* Possys_PidRot;
@@ -40,8 +38,6 @@ typedef struct
 #include "possys_motor.h"
 #include "possys_acc.h"
 #include "possys_math.h"
-
-#define WHEEL_NUM 3
 
 void possys_set_coord(COORD3 * coord, s16 x, s16 y, u16 deg);
 void possys_set_pid(PID * pid_obj, double p, double i, double d);

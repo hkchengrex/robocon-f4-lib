@@ -5,5 +5,6 @@
 
 double possys_acc_linear(u32 start, u16 period);
 double possys_dec_linear(s16 dist);
+double possys_dec_sqrt(s16 dist);
 
 #endif

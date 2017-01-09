@@ -766,6 +766,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -1530,6 +1560,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -1863,7 +1923,7 @@
               <MiscControls>--C99</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,STM32F40_41xxx</Define>
               <Undefine></Undefine>
-              <IncludePath>.\ext;.\sys;.\core;.\user;.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include;.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\sys\Libraries\CMSIS\Include;.\sys\Device\ST\STM32F4xx\Include</IncludePath>
+              <IncludePath>.\ext;.\sys;.\core;.\user;.\possys;.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include;.\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc;.\sys\Libraries\CMSIS\Include;.\sys\Device\ST\STM32F4xx\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -2391,6 +2451,36 @@
                   </Cads>
                 </FileArmAds>
               </FileOption>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3159,6 +3249,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -3919,6 +4039,36 @@
               <FileName>can_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_xbc_mb.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4687,6 +4837,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -5451,6 +5631,36 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
       </Groups>
@@ -6211,6 +6421,36 @@
               <FileName>can_xbc_mb.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\can_xbc_mb.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>possys</GroupName>
+          <Files>
+            <File>
+              <FileName>possys.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_acc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_acc.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_math.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_motor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_motor.c</FilePath>
+            </File>
+            <File>
+              <FileName>possys_pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\possys\possys_pid.c</FilePath>
             </File>
           </Files>
         </Group>

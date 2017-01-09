@@ -1,10 +1,9 @@
 #include "possys_acc.h"
+#include "math.h"
 
 extern COORD3 pos_cur;
 extern COORD3 pos_prev;
 extern COORD3 pos_tar;
-
-//add clamp function; put in math lib in long term
 
 /**
   * @brief  Gives acceleration coefficient on a linear curve.
@@ -19,5 +18,10 @@ double possys_acc_linear(u32 start, u16 period) {
 
 double possys_dec_linear(s16 dist) {
 	double decel_coeff = (double)possys_pythag(&pos_cur, &pos_tar)/dist;
+	return (decel_coeff > 1.0) ? 1.0 : ((decel_coeff < 0.0) ? 0.0 : decel_coeff);
+}
+
+double possys_dec_sqrt(s16 dist) {
+	double decel_coeff = sqrt(possys_pythag(&pos_cur, &pos_tar) / dist);
 	return (decel_coeff > 1.0) ? 1.0 : ((decel_coeff < 0.0) ? 0.0 : decel_coeff);
 }

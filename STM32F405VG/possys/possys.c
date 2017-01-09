@@ -6,7 +6,7 @@
   *          functions. It is aimed at guiding a wheelbase system moving 
   *          towards a designated target through PID error correction. 
   * @author  Hong Wing Pang
-  * @date    Jul 2016
+  * @date    Jan 2017
   *
   ******************************************************************************
   * @attention
@@ -16,6 +16,8 @@
   * at a given moment, and logic control over the target position is expected
   * to be handled by an external application-specific finite state machine.
   *
+  * Dependencies: motor.h, lcd_main.h, ticks.h, gyro.h, approx_math.h
+  *
   ******************************************************************************
   */
 
@@ -24,7 +26,7 @@
 COORD3 pos_cur;
 COORD3 pos_prev;
 COORD3 pos_tar;
-extern COORD3 PidTargetBuffer;
+COORD3 pos_buffer = {0, 0, 0};
 PID pid_trans;
 PID pid_rot;
 
@@ -60,7 +62,7 @@ void possys_set_pid(PID * pid_obj, double p, double i, double d) {
   */
 void possys_init(Possys_InitTypeDef *Possys_InitStruct) {
 	possys_set_coord(&pos_cur, get_X(), get_Y(), get_angle());
-	pos_prev = PidTargetBuffer;
+	pos_prev = pos_buffer;
 	pos_tar = *(Possys_InitStruct->Possys_Target);
 	
 	range_trans = Possys_InitStruct->Possys_RangeTrans;
@@ -89,10 +91,10 @@ POSSYS_STATE possys_update() {
 		possys_motor_add_trans(possys_mod(front_dir-pos_cur.deg-900, 3600), err_trans);
 		possys_motor_add_rot(err_rot);
 		possys_motor_add_coeff(possys_acc_linear(begin_time, 2000));
-		possys_motor_add_coeff(possys_dec_linear(400));
+		possys_motor_add_coeff(possys_dec_sqrt(400));
 		possys_motor_set_vel();
 	} else {
-		PidTargetBuffer = pos_tar;
+		pos_buffer = pos_tar;
 		return POSSYS_ARRIVED;
 	}
 	return POSSYS_RUNNING;

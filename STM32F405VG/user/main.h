@@ -26,4 +26,11 @@
 #include "macro_math.h"
 #include "trigon_math.h"
 
+#include "possys.h"
+
+void path_gyro_cal(void);
+void path_init(void);
+void path_update(void);
+void path_end(void);
+
 #endif 

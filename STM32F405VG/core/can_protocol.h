@@ -18,8 +18,8 @@
 #define CAN2_RX_GPIO PB6
 #define CAN2_TX_GPIO PB12
 
-#define CAN1_TX_QUEUE_MAX_SIZE 100
-#define CAN2_TX_QUEUE_MAX_SIZE 100
+#define CAN1_TX_QUEUE_MAX_SIZE 30
+#define CAN2_TX_QUEUE_MAX_SIZE 30
 
 /** For 32-bit mask filter, there can be at most 14 filters, shared by CAN1 and CAN2
 * You can make it into 16-bit filter (*2 filters), or identity list (*2 filters)
@@ -41,9 +41,9 @@ typedef struct{
 }CanMessage;
 
 typedef struct{
-	u16 head;
-	u16 tail;
-	u16 size;
+	volatile u16 head;
+	volatile u16 tail;
+	volatile u16 size;
 	CanMessage* queue;
 }CanQueue;
 
@@ -108,6 +108,12 @@ void can_rx_init(void);
 * @example Please read the mask exmaple in the header file
 */
 void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler);
+
+/** Get the receive error count
+* @param id: Which CAN to look at
+* @return The number of receive error occured
+*/
+u8 get_can_error_count(CanID id);
 
 /*** Protocol Encoding / Decoding function ***/
 

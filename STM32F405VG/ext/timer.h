@@ -3,12 +3,14 @@
 
 #include "stm32f4xx_tim.h"
 #include <stdbool.h>
+#include "ticks.h"
 
 /***************************************************************************************************************************************
 ** TIMER - STM32F4
 **
 ** This library provides functions for scheduling tasks using timer.
-** I guess it will be faster when implementated with priority queue but well I'm too lazy.
+** // I guess it will be faster when implementated with priority queue but well I'm too lazy.
+** Yes I have implementated it with priority queue. [I am not that lazy (-_-)]
 **
 ** ROBOCON 2017
 ** H K U S T
@@ -21,7 +23,7 @@
 ** "I've seen the future. You're not in it." ~Faceless void
 ****************************************************************************************************************************************/
 
-#define TIMER_SIZE 30 //Max number of actions that can be pended
+#define TIMER_SIZE 50 //Max number of actions that can be pended
 
 #define TIMER_TIM 				TIM7
 #define TIMER_RCC 				RCC_APB1Periph_TIM7
@@ -38,9 +40,7 @@ typedef void(*TimerAction)(void);
 
 typedef struct{
 	volatile TimerAction action;
-	vu32 quantum;
-	vu32 reload;
-	vu16 repeat;
+	vu32 trig_time;
 }TimerActionStruct;
 
 //Init timer

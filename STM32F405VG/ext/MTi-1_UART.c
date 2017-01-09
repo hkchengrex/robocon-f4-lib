@@ -116,7 +116,7 @@ void send_MTi_1_UART_msg(u8 *data, u8 mid, u16 data_length)
 	
 	for(u8 k=0; k<(data_length + 5); k++)
 	{
-		uart_tx_byte(MTi_1_COM, temp[k]);
+		uart_tx_byte_blocking(MTi_1_COM, temp[k]);
 	}
 }
 

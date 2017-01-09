@@ -46,7 +46,20 @@ static const UARTStruct UARTPorts[] = {UART_TABLE};
 #undef X
 
 #define COM_COUNT (sizeof(UARTPorts)/sizeof(UARTStruct))
-	
+
+#define UART1_TX_BUFFER_MAX 50
+#define UART2_TX_BUFFER_MAX 300
+#define UART3_TX_BUFFER_MAX 50
+#define UART4_TX_BUFFER_MAX 50
+#define UART5_TX_BUFFER_MAX 50
+#define UART6_TX_BUFFER_MAX 50
+typedef struct{
+	volatile u16 head;
+	volatile u16 tail;
+	volatile u16 size;
+	u8* queue;
+}UartQueue;
+
 typedef void (*OnRxListener)(const uint8_t byte);
 
 /** Init a UART port.
@@ -61,26 +74,63 @@ void uart_init(SerialPort COM, u32 baud_rate);
 */
 void uart_interrupt_init(SerialPort COM, OnRxListener listener);
 
-/** Send a single byte to the target port.
+
+/**
+* The followings are blocking TX functions.
+*/
+
+
+/** Send a single byte to the target port. Blocking.
+*		@param COM: Which port to use
+*		@param data: The content to be sent
+*/
+void uart_tx_byte_blocking(SerialPort COM, uint8_t data);
+
+/** Send multiple bytes to the target port. Blocking.
+*		@param COM: Which port to use
+*		@param data: The content to be sent
+*/
+void uart_tx_blocking(SerialPort COM, const char * data, ...);
+
+/** Send an array of data to the target port. Blocking.
+*		@param COM: Which port to use
+*		@param data: The pointer to the first element
+*		@param len: Length of the array (in bytes)
+*/
+void uart_tx_array_blocking(SerialPort COM, const char * data, u16 len);
+
+
+/**
+* The followings are NON-blocking TX functions.
+*/
+
+
+/** Send a single byte to the target port. Non-Blocking.
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
 void uart_tx_byte(SerialPort COM, uint8_t data);
 
-/** Send multiple bytes to the target port.
+/** Send multiple bytes to the target port. Non-Blocking.
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
 void uart_tx(SerialPort COM, const char * data, ...);
 
-/** Send an array of data to the target port.
+/** Send an array of data to the target port. Non-Blocking.
 *		@param COM: Which port to use
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
 void uart_tx_array(SerialPort COM, const char * data, u16 len);
 
-/** Block the program until received one byte.
+
+/**
+* The followings are RX functions.
+*/
+
+
+/** Block the program one byte is received.
 *		@param COM: Which port to use
 *		@return One btye of data contained.
 */

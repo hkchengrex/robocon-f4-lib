@@ -361,6 +361,18 @@ void CAN2_RX1_IRQHandler(){
 	}
 }
 
+/** Get the receive error count
+* @param id: Which CAN to look at
+* @return The number of receive error occured
+*/
+u8 get_can_error_count(CanID id){
+	if (id == CAN_1){
+		return CAN_GetReceiveErrorCounter(CAN1);
+	}else{
+		return CAN_GetReceiveErrorCounter(CAN2);
+	}
+}
+
 /*** Protocol Encoding / Decoding function ***/
 /**
 	* @brief Convert one n-byte variable to n one-byte variable (ENCODE)

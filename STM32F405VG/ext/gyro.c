@@ -73,9 +73,9 @@ s16 get_angle(void){
   * @retval None
   */
 void gyro_pos_update(void){ //unuseful
-	uart_tx_byte(GYRO_UART, GYRO_WAKEUP);
-	uart_tx_byte(GYRO_UART, GYRO_UPDATE);
-	uart_tx_byte(GYRO_UART, 0);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_WAKEUP);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_UPDATE);
+	uart_tx_byte_blocking(GYRO_UART, 0);
 }
 
 /**
@@ -87,9 +87,9 @@ u8 gyro_cal(void){
 	u16 ticks_last = get_ticks();
 	reply_flag &= ~GYRO_FLAG_CAL;
 	
-	uart_tx_byte(GYRO_UART, GYRO_WAKEUP);
-	uart_tx_byte(GYRO_UART, GYRO_CAL);
-	uart_tx_byte(GYRO_UART, 0);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_WAKEUP);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_CAL);
+	uart_tx_byte_blocking(GYRO_UART, 0);
 	
 	while (!(reply_flag & GYRO_FLAG_CAL)) {
 		if ((get_ticks()+1000-ticks_last) % 1000 >= 20)			// 20 ms timeout
@@ -109,15 +109,15 @@ u8 gyro_pos_set(s16 x, s16 y, s16 a){
 	u16 ticks_last = get_ticks();
 	reply_flag &= ~GYRO_FLAG_SET_POS;
 	
-	uart_tx_byte(GYRO_UART, GYRO_WAKEUP);
-	uart_tx_byte(GYRO_UART, GYRO_POS_SET);
-	uart_tx_byte(GYRO_UART, 0x06);
-	uart_tx_byte(GYRO_UART, x >> 8);
-	uart_tx_byte(GYRO_UART, x & 0xFF);
-	uart_tx_byte(GYRO_UART, y >> 8);
-	uart_tx_byte(GYRO_UART, y & 0xFF);
-	uart_tx_byte(GYRO_UART, a >> 8);
-	uart_tx_byte(GYRO_UART, a & 0xFF);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_WAKEUP);
+	uart_tx_byte_blocking(GYRO_UART, GYRO_POS_SET);
+	uart_tx_byte_blocking(GYRO_UART, 0x06);
+	uart_tx_byte_blocking(GYRO_UART, x >> 8);
+	uart_tx_byte_blocking(GYRO_UART, x & 0xFF);
+	uart_tx_byte_blocking(GYRO_UART, y >> 8);
+	uart_tx_byte_blocking(GYRO_UART, y & 0xFF);
+	uart_tx_byte_blocking(GYRO_UART, a >> 8);
+	uart_tx_byte_blocking(GYRO_UART, a & 0xFF);
 	
 	u16 timeout = 100;
 	while (!(reply_flag & GYRO_FLAG_SET_POS)) {

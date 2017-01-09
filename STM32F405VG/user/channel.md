@@ -1,7 +1,7 @@
 SysTick 
 	- Ticks increment
 
-IRQ interrupt priority:
+Nested Vector Interrupt Controller Priority:
 
 	- Preemption Priority 0
 		1 - Encoder overflow/underflow interrupt

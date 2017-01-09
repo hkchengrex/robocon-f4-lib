@@ -1,7 +1,6 @@
 #include "timer.h"
 
-static volatile TimerActionStruct actions[TIMER_SIZE] = {0};
-static volatile u16 index = 0;
+static volatile TimerActionStruct actions[TIMER_SIZE] = {0}; //binary heap
 static volatile u16 size = 0;
 
 static bool running = false;
@@ -50,31 +49,36 @@ void do_after(TimerAction action, u32 ms){
 * @param repeat: How many times this function will be repeated
 */
 void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat){
-	if (size >= TIMER_SIZE){
-		//Error
-		while(1);
+	
+	u32 curr_ticks = get_ticks();
+	u32 trig_time = curr_ticks + ms;
+	
+	while(repeat > 0){
+		if (size >= TIMER_SIZE){
+			//Error
+			while(1);
+		}
+		
+		//Dig a hole
+		int hole = size;
+		while (hole != 0) {
+			//Bubble up
+			if (actions[(hole - 1) / 2].trig_time > trig_time) {
+				actions[hole] = actions[(hole - 1)/2];
+				hole = (hole - 1) / 2;
+			}else {
+				break;
+			}
+		}
+		
+		//Place in hole
+		actions[hole].action = action;
+		actions[hole].trig_time = trig_time;
+		
+		trig_time += reload;
+		repeat--;
+		size++;
 	}
-	
-	while(actions[index].action != 0){
-		//Find an unused location
-		index = (index+1)%TIMER_SIZE;
-	}
-	
-	if (ms == 0){
-		ms = 1;
-	}
-	
-	if (reload == 0){
-		reload = 1;
-	}
-	
-	actions[index].action = action;
-	actions[index].quantum = ms*QUANTUM_MULTIPLER;
-	actions[index].reload = reload*QUANTUM_MULTIPLER;
-	actions[index].repeat = repeat;
-	
-	index = (index+1)%TIMER_SIZE;
-	size++;
 	
 	if (running == false){
 		TIM_SetCounter(TIMER_TIM, 0);
@@ -96,38 +100,50 @@ void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat){
 void TIMER_IRQ_HANDLER(void){
 	if (TIM_GetITStatus(TIMER_TIM, TIM_IT_Update) != RESET){
 		TIM_ClearITPendingBit(TIMER_TIM, TIM_IT_Update);
-		u32 min_quantum = (u32)-1;
-		for (u16 i=0; i<TIMER_SIZE; i++){
-			if (actions[i].action != 0){
-				//If such function exist
-				if (actions[i].quantum <= TIMER_TIM->ARR){
-					//Execute function when time's up
-					actions[i].action();
-					
-					actions[i].repeat--;
-					if (actions[i].repeat == 0){
-						size--;
-						actions[i].action = 0;
-					}else{
-						actions[i].quantum = actions[i].reload;
+
+		u32 curr_ticks = get_ticks();
+		//Keep popping
+		while (size !=0 && actions[0].trig_time <= curr_ticks){
+			//Execute min. function
+			actions[0].action();
+			//actions[0].action = 0; //Not required
+			size--;
+			
+			//Dig a hole
+			u16 hole = 0;
+			
+			//Bubble down
+			while (hole < size) {
+				int child = hole * 2 + 1;
+				if (child < size) {
+					if (child + 1 < size) {
+						//Find the smaller child
+						if (actions[child].trig_time > actions[child + 1].trig_time) {
+							child++;
+						}
 					}
-				}else{
-					//Otherwise keep counting
-					actions[i].quantum -= TIMER_TIM->ARR;
-					if (actions[i].quantum < min_quantum){
-						min_quantum = actions[i].quantum;
+					if (actions[child].trig_time < actions[size].trig_time) {
+						actions[hole] = actions[child];
+					}else {
+						break;
 					}
+				}else {
+					break;
 				}
+				hole = child;
 			}
+			
+			actions[hole] = actions[size];
 		}
 		
-		if (min_quantum == (u32)-1){
+		if (size == 0){
 			//If no function remains
 			TIM_Cmd(TIMER_TIM, DISABLE);
 			running = false;
-			index = 0;
 		}else{
 			//else setup a new timer
+			u32 min_quantum = (actions[0].trig_time - curr_ticks)*QUANTUM_MULTIPLER;
+			
 			if (min_quantum >= 65535){
 				//If the target period > 16bit
 				min_quantum = 65535;

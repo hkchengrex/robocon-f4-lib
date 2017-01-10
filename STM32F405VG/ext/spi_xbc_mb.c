@@ -36,6 +36,7 @@ void spi_xbc_mb_init(void) {
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
@@ -45,7 +46,7 @@ void spi_xbc_mb_init(void) {
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_SPI3);
 	
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-  SPI_InitStructure.SPI_Mode = SPI_Mode_Slave | SPI_NSSInternalSoft_Reset;
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Slave;
   SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
   SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
   SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;
@@ -56,8 +57,6 @@ void spi_xbc_mb_init(void) {
   SPI_Cmd(SPI3, ENABLE);
   SPI_CalculateCRC(SPI3, DISABLE);		// Disable the CRC checking
   SPI_SSOutputCmd(SPI3, DISABLE);
-	
-	//SPI_NSSInternalSoftwareConfig(SPI3, SPI_NSSInternalSoft_Reset);
 	
 	SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_RXNE, ENABLE);
 }

@@ -1,5 +1,5 @@
 #include "possys_acc.h"
-#include "math.h"
+#include <cmath>
 
 extern COORD3 pos_cur;
 extern COORD3 pos_prev;

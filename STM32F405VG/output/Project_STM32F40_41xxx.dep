@@ -1476,7 +1476,7 @@ I (.\possys\possys.h)(0x58739AD4)
 I (.\ext\can_motor.h)(0x586E5F91)
 I (.\ext\gyro.h)(0x586E5D67)
 I (.\possys\possys_pid.h)(0x586258B3)
-I (.\possys\possys_motor.h)(0x58739CDF)
+I (.\possys\possys_motor.h)(0x5873CE49)
 I (.\possys\possys_acc.h)(0x5873C2F4)
 I (.\possys\possys_math.h)(0x58732D67)
 F (.\sys\Libraries\STM32F4xx_StdPeriph_Driver\src\misc.c)(0x58579085)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\misc.o --omf_browse .\output\misc.crf --depend .\output\misc.d)
@@ -1618,7 +1618,7 @@ I (.\possys\possys.h)(0x58739AD4)
 I (.\ext\can_motor.h)(0x586E5F91)
 I (.\ext\gyro.h)(0x586E5D67)
 I (.\possys\possys_pid.h)(0x586258B3)
-I (.\possys\possys_motor.h)(0x58739CDF)
+I (.\possys\possys_motor.h)(0x5873CE49)
 I (.\possys\possys_acc.h)(0x5873C2F4)
 I (.\possys\possys_math.h)(0x58732D67)
 F (.\user\define.h)(0x586E5F91)()
@@ -2531,10 +2531,10 @@ I (.\core\uart.h)(0x586E603D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574E3E26)
 I (.\core\approx_math.h)(0x58579084)
 I (possys\possys_pid.h)(0x586258B3)
-I (possys\possys_motor.h)(0x58739CDF)
+I (possys\possys_motor.h)(0x5873CE49)
 I (possys\possys_acc.h)(0x5873C2F4)
 I (possys\possys_math.h)(0x58732D67)
-F (.\possys\possys_acc.c)(0x5873C2E0)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\possys_acc.o --omf_browse .\output\possys_acc.crf --depend .\output\possys_acc.d)
+F (.\possys\possys_acc.c)(0x58747EA4)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\possys_acc.o --omf_browse .\output\possys_acc.crf --depend .\output\possys_acc.d)
 I (possys\possys_acc.h)(0x5873C2F4)
 I (possys\possys.h)(0x58739AD4)
 I (.\ext\lcd_main.h)(0x586E5F92)
@@ -2586,10 +2586,11 @@ I (.\core\uart.h)(0x586E603D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574E3E26)
 I (.\core\approx_math.h)(0x58579084)
 I (possys\possys_pid.h)(0x586258B3)
-I (possys\possys_motor.h)(0x58739CDF)
+I (possys\possys_motor.h)(0x5873CE49)
 I (possys\possys_math.h)(0x58732D67)
+I (C:\Keil_v5\ARM\ARMCC\include\cmath)(0x574E3E26)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x574E3E26)
-F (.\possys\possys_math.c)(0x58732E2A)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\possys_math.o --omf_browse .\output\possys_math.crf --depend .\output\possys_math.d)
+F (.\possys\possys_math.c)(0x5873CFCA)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\possys_math.o --omf_browse .\output\possys_math.crf --depend .\output\possys_math.d)
 I (possys\possys_math.h)(0x58732D67)
 I (possys\possys.h)(0x58739AD4)
 I (.\ext\lcd_main.h)(0x586E5F92)
@@ -2641,10 +2642,10 @@ I (.\core\uart.h)(0x586E603D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574E3E26)
 I (.\core\approx_math.h)(0x58579084)
 I (possys\possys_pid.h)(0x586258B3)
-I (possys\possys_motor.h)(0x58739CDF)
+I (possys\possys_motor.h)(0x5873CE49)
 I (possys\possys_acc.h)(0x5873C2F4)
 F (.\possys\possys_motor.c)(0x58739D3A)(--c99 -c --cpu Cortex-M4.fp -D__MICROLIB -g -O2 -Otime --apcs=interwork --split_sections -I .\ext -I .\sys -I .\core -I .\user -I .\possys -I .\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include -I .\sys\Libraries\STM32F4xx_StdPeriph_Driver\inc -I .\sys\Libraries\CMSIS\Include -I .\sys\Device\ST\STM32F4xx\Include --C99-IC:\Users\hwpang\Documents\Notes\ENGG4950Q\robocon-f4-lib\STM32F405VG\RTE-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.0.0-Beta4\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F4xx_DFP\2.10.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include-D__UVISION_VERSION="521" -D_RTE_ -DSTM32F405xx -DUSE_STDPERIPH_DRIVER -DSTM32F40_41xxx-o .\output\possys_motor.o --omf_browse .\output\possys_motor.crf --depend .\output\possys_motor.d)
-I (possys\possys_motor.h)(0x58739CDF)
+I (possys\possys_motor.h)(0x5873CE49)
 I (possys\possys.h)(0x58739AD4)
 I (.\ext\lcd_main.h)(0x586E5F92)
 I (.\sys\Libraries\CMSIS\Device\ST\STM32F4xx\Include\stm32f4xx.h)(0x586E5D67)
@@ -2748,6 +2749,6 @@ I (.\ext\gyro.h)(0x586E5D67)
 I (.\core\uart.h)(0x586E603D)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x574E3E26)
 I (.\core\approx_math.h)(0x58579084)
-I (possys\possys_motor.h)(0x58739CDF)
+I (possys\possys_motor.h)(0x5873CE49)
 I (possys\possys_acc.h)(0x5873C2F4)
 I (possys\possys_math.h)(0x58732D67)

@@ -53,7 +53,6 @@
 ".\output\servo.o"
 ".\output\ticks.o"
 ".\output\gpio.o"
-".\output\trigon_math.o"
 ".\output\spi_protocol.o"
 ".\output\buzzer.o"
 ".\output\led.o"

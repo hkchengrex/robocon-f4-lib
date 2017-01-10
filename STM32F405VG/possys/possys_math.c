@@ -1,6 +1,5 @@
-//Temporary math library for Possys
-//May be merged into approx_math in the future.
-//Pang, Jul 16
+//All the math stuff needed by possys
+//Migrate so that approx math is not needed anymore
 
 #include "possys_math.h"
 

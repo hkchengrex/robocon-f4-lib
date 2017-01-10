@@ -9,7 +9,7 @@
 ** TIMER - STM32F4
 **
 ** This library provides functions for scheduling tasks using timer.
-** // I guess it will be faster when implementated with priority queue but well I'm too lazy.
+** // I guess it will be faster when implemented with priority queue but well I'm too lazy.
 ** Yes I have implementated it with priority queue. [I am not that lazy (-_-)]
 **
 ** ROBOCON 2017
@@ -18,7 +18,7 @@
 ** Author:	Rex Cheng
 ** Contact:	hkchengad@connect.ust.hk
 **
-** v1.0 January 2016
+** v1.0 January 2017
 **
 ** "I've seen the future. You're not in it." ~Faceless void
 ****************************************************************************************************************************************/

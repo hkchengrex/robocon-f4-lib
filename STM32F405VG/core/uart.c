@@ -1,12 +1,5 @@
 #include "uart.h"
 
-/**
-* This library provides simple functions for using UART.
-*	Note that some send and receive functions are blocking (only return when finished), and some are not.
-*
-* Rex Cheng
-*/
-
 static u8 tx_buf_item_1[UART1_TX_BUFFER_MAX] = {0};
 static u8 tx_buf_item_2[UART2_TX_BUFFER_MAX] = {0};
 static u8 tx_buf_item_3[UART3_TX_BUFFER_MAX] = {0};
@@ -70,9 +63,8 @@ void uart_init(SerialPort COM, u32 br){
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
-	//Init TXE and RXNE interrupt
+	//Init TC and RXNE interrupt
 	USART_ITConfig(UARTPorts[COM].uart, USART_IT_RXNE, ENABLE);
-	USART_ITConfig(UARTPorts[COM].uart, USART_IT_TXE, ENABLE);
 }
 
 /** Register a listener for UART receive interrupt.
@@ -83,13 +75,14 @@ void uart_interrupt_init(SerialPort COM, OnRxListener listener){
 	rxListeners[COM] = listener;
 }
 
+
 /** Send a single byte to the target port. Blocking.
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
 inline void uart_tx_byte_blocking(SerialPort COM, uint8_t data){
-	while (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_TC) == RESET); 
-	USART_SendData(UARTPorts[COM].uart, (uint16_t)data);
+	while (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_TXE) == RESET);
+	UARTPorts[COM].uart->DR = data;
 }
 
 /** Send multiple bytes to the target port. Blocking.
@@ -122,19 +115,51 @@ void uart_tx_array_blocking(SerialPort COM, const char * data, u16 len){
 	}
 }
 
+/** Try to dequeue and transmit a btye
+*		@param COM: Which port to use
+*/
+inline static void uart_tx_dequeue(SerialPort COM){
+	if (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_TXE) == SET){
+		if (tx_queue[COM].size > 0){
+			//Put into the data register
+			UARTPorts[COM].uart->DR = tx_queue[COM].queue[tx_queue[COM].head];
+			
+			//Dequeue
+			tx_queue[COM].head = (tx_queue[COM].head + 1) % tx_buf_max_size[COM];
+			tx_queue[COM].size--;
+		}else{
+			//Disable interrupt when all the data have been sent
+			USART_ITConfig(UARTPorts[COM].uart, USART_IT_TC, DISABLE);
+		}
+	}
+}
+
+/** Enqueue a byte, ready to be transmitted
+*		@param COM: Which port to use
+*/
+inline static void uart_tx_enqueue(SerialPort COM, uint8_t data){
+	if (tx_queue[COM].size == 0){
+		//Enable interrupt if it hasn't
+		USART_ITConfig(UARTPorts[COM].uart, USART_IT_TC, ENABLE);
+	}
+	tx_queue[COM].queue[tx_queue[COM].tail] = data;
+	tx_queue[COM].tail = (tx_queue[COM].tail + 1) % tx_buf_max_size[COM];
+	tx_queue[COM].size++;
+	
+	uart_tx_dequeue(COM);
+}
+
+
 /** Send a single byte to the target port. Non-Blocking.
 *		@param COM: Which port to use
 *		@param data: The content to be sent
 */
 inline void uart_tx_byte(SerialPort COM, uint8_t data){
-	if (tx_queue[COM].size == tx_buf_max_size[COM]){
-		while(1){
-			//Error
-		}
+	if (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_TXE) == RESET && tx_queue[COM].size == 0){
+		uart_tx_byte_blocking(COM, data);
+	}else{
+		uart_tx_enqueue(COM, data);
 	}
-	tx_queue[COM].queue[tx_queue[COM].tail] = data;
-	tx_queue[COM].tail = (tx_queue[COM].tail+1) % tx_buf_max_size[COM];
-	tx_queue[COM].size++;
 }
 
 /** Send multiple bytes to the target port. Non-Blocking.
@@ -146,12 +171,12 @@ void uart_tx(SerialPort COM, const char * data, ...){
 	u8 buf[255], *fp;
 	
 	va_start(arglist, data);
-	vsprintf((char*)buf, (const char*)data, arglist);
+	vsprintf((char*)buf, data, arglist);
 	va_end(arglist);
 	
 	fp = buf;
 	while (*fp){
-		uart_tx_byte(COM, *fp++);
+		uart_tx_enqueue(COM, *fp++);
 	}
 }
 
@@ -162,18 +187,25 @@ void uart_tx(SerialPort COM, const char * data, ...){
 */
 void uart_tx_array(SerialPort COM, const char * data, u16 len){
 	while(len--){
-		uart_tx_byte(COM, *data);
-		data++;
+		uart_tx_enqueue(COM, *data++);
 	}
 }
 
-/** Block the program one byte is received.
-*		@param COM: Which port to use
-*		@return One btye of data contained.
+/** Get the current size of the TX buffer
+* @param COM: Which port to use
+* @return the size
+*/
+u32 get_buf_size(SerialPort COM){
+	return tx_queue[COM].size;
+}
+
+/** Block the program until one byte is received.
+*	@param COM: Which port to use
+*	@return The received byte
 */
 u8 uart_rx_byte(SerialPort COM){
-	while (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_TC) == RESET); 
-	return (u8)USART_ReceiveData(UARTPorts[COM].uart);
+	while (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_RXNE) == RESET); 
+	return (u8)USART_ReceiveData(UARTPorts[COM].uart); 
 }
 
 //Implementing all those IRQ handlers here
@@ -187,14 +219,10 @@ void USART1_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT
@@ -208,14 +236,10 @@ void USART2_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT
@@ -229,14 +253,10 @@ void USART3_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT
@@ -250,14 +270,10 @@ void UART4_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT
@@ -271,14 +287,10 @@ void UART5_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT
@@ -292,14 +304,10 @@ void USART6_IRQHandler(void){
 		}
 		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_RXNE);
 		
-	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TXE) == SET){
+	}else if(USART_GetITStatus(UARTPorts[COM_PORT].uart, USART_IT_TC) == SET){
 		//Handle transmit interrupt
-		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TXE);
-		if (tx_queue[COM_PORT].size !=0 ){
-			USART_SendData(UARTPorts[COM_PORT].uart, (uint16_t)tx_queue[COM_PORT].queue[tx_queue[COM_PORT].head]);
-			tx_queue[COM_PORT].head = (tx_queue[COM_PORT].head + 1) % tx_buf_max_size[COM_PORT];
-			tx_queue[COM_PORT].size--;
-		}
+		uart_tx_dequeue(COM_PORT);
+		USART_ClearITPendingBit(UARTPorts[COM_PORT].uart, USART_IT_TC);
 	}
 }
 #undef COM_PORT

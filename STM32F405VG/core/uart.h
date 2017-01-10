@@ -1,18 +1,30 @@
 #ifndef _UART_H
 #define _UART_H
 
-/**
-* This library provides simple functions for using UART.
-*	Note that all send and receive functions are blocking (only return when finished).
-*
-* Rex Cheng
-*/
+/************************************************************************************************************
+** UART - STM32F4
+**
+** This library provides both blocking and non-blocking functions for sending and receiving uart data.
+** Non-blocking transmission is implementated with a queue, dequeue occurs in interrupt
+** Non-blocking reception should be implementated with message handler (provided by the user)
+**
+** ROBOCON 2017
+** H K U S T
+**
+** Author:	Rex Cheng
+** Contact:	hkchengad@connect.ust.hk
+**
+** v1.0 Jan 2017
+**
+** "Do not reply! Do not reply! Do not reply!" ~Three body
+*************************************************************************************************************/
 
 #include "stm32f4xx_usart.h"
 
 #include <stdarg.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 #include "gpio.h"
 
@@ -124,16 +136,22 @@ void uart_tx(SerialPort COM, const char * data, ...);
 */
 void uart_tx_array(SerialPort COM, const char * data, u16 len);
 
+/** Get the current size of the TX buffer
+* @param COM: Which port to use
+* @return the size
+*/
+u32 get_buf_size(SerialPort COM);
+
 
 /**
 * The followings are RX functions.
 */
 
 
-/** Block the program one byte is received.
-*		@param COM: Which port to use
-*		@return One btye of data contained.
+/** Block the program until one byte is received.
+*	@param COM: Which port to use
+*	@return The received byte
 */
 uint8_t uart_rx_byte(SerialPort COM);
 
-#endif		/* __UART_H */
+#endif

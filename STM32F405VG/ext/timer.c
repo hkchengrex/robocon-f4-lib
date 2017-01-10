@@ -113,21 +113,21 @@ void TIMER_IRQ_HANDLER(void){
 			u16 hole = 0;
 			
 			//Bubble down
-			while (hole < size) {
+			while (hole < size){
 				int child = hole * 2 + 1;
-				if (child < size) {
-					if (child + 1 < size) {
+				if (child < size){
+					if (child + 1 < size){
 						//Find the smaller child
-						if (actions[child].trig_time > actions[child + 1].trig_time) {
+						if (actions[child].trig_time > actions[child + 1].trig_time){
 							child++;
 						}
 					}
-					if (actions[child].trig_time < actions[size].trig_time) {
+					if (actions[child].trig_time < actions[size].trig_time){
 						actions[hole] = actions[child];
-					}else {
+					}else{
 						break;
 					}
-				}else {
+				}else{
 					break;
 				}
 				hole = child;

@@ -2,7 +2,7 @@
 #define _DEFINE_H
 
 #define LOOP1_MS 20
-#define LOOP2_MS 50
+#define LOOP2_MS 200
 
 /**
 	PIN_ON_TOP = 		0

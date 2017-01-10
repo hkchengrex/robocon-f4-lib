@@ -11,22 +11,13 @@
 #include "main.h"
 
 void on_pneu(){
-	pneu_toggle(CLIMBING_PNEU);
+	for (u8 i=0; i<14; i++){
+		pneu_toggle((PneuID)i);
+	}
+	led_blink(LED_2);
 }
 
 s32 m1 = 0, m2 = 0;
-
-void add_m1(){
-	m1++;
-}	
-
-void add_m2(){
-	m2++;
-}
-
-void go(){
-	motor_set_vel(MOTOR_1, m1, CLOSE_LOOP);
-}
 
 int main(void) {
 	SystemInit();
@@ -50,17 +41,14 @@ int main(void) {
 	motor_init();
 	pneu_init();
 
-	RCC_ClocksTypeDef rcc_clocks;
-	RCC_GetClocksFreq(&rcc_clocks);
+	uart_init(COM1, 115200);
 
 	tft_put_logo(85, 120);
 	
 	//do_after_for(buzzer_on, 1, 300, 3);
 	//do_after_for(buzzer_off, 150, 300, 3);
 	
-	btn_reg_OnClickListener(BUTTON_1, go);
-	btn_reg_OnClickListener(JOYSTICK_N, add_m1);
-	btn_reg_OnClickListener(JOYSTICK_S, add_m2);
+	btn_reg_OnClickListener(BUTTON_1, on_pneu);
 
 	s32 last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){
@@ -72,11 +60,12 @@ int main(void) {
 		}
 		
 		if (this_ticks - last_loop2_ticks >= LOOP2_MS){
+			uart_tx(COM1, "%d", get_ticks());
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
-			//tft_println("%d %d", btn_pressed(JOYSTICK_N), btn_pressed(JOYSTICK_S));
-			tft_println("%d %d", m1, m2);
+			tft_println("%d", get_ticks());
 			tft_println("%d", get_encoder_value(MOTOR_1));
+			tft_println("%d", get_buf_size(COM1));
 			tft_update();
 			
 			motor_set_vel(MOTOR_1, m1, CLOSE_LOOP);

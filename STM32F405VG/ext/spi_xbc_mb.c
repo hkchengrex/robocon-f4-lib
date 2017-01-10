@@ -11,8 +11,11 @@ can_xbc_mb_lcd_tx(void);
 
 #include "spi_xbc_mb.h"
 
-u8 count = 0;
-u8 count2 = 0;
+static u8 spi_rx_xbc_count = 0;
+static u8 spi_rx_xbc_buffer[14] = {0};
+static u32 xbc_digital = 0;
+static s16 xbc_joy[XBC_JOY_COUNT] = {0};
+static u16 xbc_back_buttons = 0;
 
 void spi_xbc_mb_init(void) {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -61,19 +64,63 @@ void spi_xbc_mb_init(void) {
 	SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_RXNE, ENABLE);
 }
 
-u8 spi_get_count() {
-	return count;
+u32 spi_xbc_get_digital(void) {
+	return xbc_digital;
 }
-u8 spi_get_count2() {
-	return count2;
+
+s16 spi_xbc_get_joy_raw(XBC_JOY j) {
+  return xbc_joy[j];
+}
+
+s16 spi_xbc_get_joy(XBC_JOY j) {
+  switch (j) {
+    case XBC_JOY_LT:
+    case XBC_JOY_RT:
+      return xbc_joy[j];
+
+    case XBC_JOY_LX:
+    case XBC_JOY_LY:
+    case XBC_JOY_RX:
+    case XBC_JOY_RY:
+      if (xbc_joy[j] >= -XBC_JOY_DEADZONE_MIN && xbc_joy[j] <= XBC_JOY_DEADZONE_MIN) {
+        return 0;
+      } else if (xbc_joy[j] < -XBC_JOY_DEADZONE_MAX) {
+        return -XBC_JOY_SCALE;
+      } else if (xbc_joy[j] > XBC_JOY_DEADZONE_MAX) {
+        return XBC_JOY_SCALE;
+      } else {
+        if (xbc_joy[j] > 0) {
+          return (xbc_joy[j] - XBC_JOY_DEADZONE_MIN) * XBC_JOY_SCALE / (XBC_JOY_DEADZONE_MAX - XBC_JOY_DEADZONE_MIN);
+        } else {
+          return (xbc_joy[j] - -XBC_JOY_DEADZONE_MIN) * XBC_JOY_SCALE / (XBC_JOY_DEADZONE_MAX - XBC_JOY_DEADZONE_MIN);
+        }
+      }
+  }
+  return 0;
+}
+
+u16 spi_xbc_get_back_buttons(void) {
+  return xbc_back_buttons;
 }
 
 void SPI3_IRQHandler(void) {
-	u8 data;
 	if (SPI_I2S_GetITStatus(SPI3, SPI_I2S_IT_RXNE) == SET) {
-		data = (u8)SPI_I2S_ReceiveData(SPI3);
-		if (data != 0) { count++; }
-		count2++;
+		spi_rx_xbc_buffer[spi_rx_xbc_count] = (u8)SPI_I2S_ReceiveData(SPI3);
+		
+		spi_rx_xbc_count++;
+		if (spi_rx_xbc_count == 14) {
+			xbc_digital = spi_rx_xbc_buffer[0] + (spi_rx_xbc_buffer[1] << 8);
+			xbc_joy[XBC_JOY_LT] = spi_rx_xbc_buffer[2];
+			xbc_joy[XBC_JOY_RT] = spi_rx_xbc_buffer[3];
+			xbc_joy[XBC_JOY_LX] = spi_rx_xbc_buffer[4] + (spi_rx_xbc_buffer[5] << 8); 
+			xbc_joy[XBC_JOY_LY] = spi_rx_xbc_buffer[6] + (spi_rx_xbc_buffer[7] << 8);
+			xbc_joy[XBC_JOY_RX] = spi_rx_xbc_buffer[8] + (spi_rx_xbc_buffer[9] << 8); 
+			xbc_joy[XBC_JOY_RY] = spi_rx_xbc_buffer[10] + (spi_rx_xbc_buffer[11] << 8);
+			xbc_back_buttons = spi_rx_xbc_buffer[13];
+			
+			spi_rx_xbc_count = 0;
+		}
+		
 		SPI_I2S_ClearITPendingBit(SPI3, SPI_I2S_IT_RXNE);
 	}
 }

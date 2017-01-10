@@ -1,7 +1,7 @@
 /**
 ** H K U S T
 ** Robocon 2017
-**
+**9
 ** F4 Library
 **
 ** @Author Rex Cheng
@@ -31,11 +31,16 @@ int main(void) {
 	spi_xbc_mb_init();
 	
 	while(1){
-		//while (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
 		tft_clear();
 		tft_prints(0, 0, "%d", get_ticks());
-		tft_prints(0, 1, "%d", spi_get_count());
-		tft_prints(0, 2, "%d", spi_get_count2());
+		tft_prints(0, 1, "DG: %04x", spi_xbc_get_digital());
+		tft_prints(0, 2, "LT: %d", spi_xbc_get_joy(XBC_JOY_LT));
+		tft_prints(0, 3, "RT: %d", spi_xbc_get_joy(XBC_JOY_RT));
+		tft_prints(0, 4, "LX: %d", spi_xbc_get_joy(XBC_JOY_LX));
+		tft_prints(0, 5, "LY: %d", spi_xbc_get_joy(XBC_JOY_LY));
+		tft_prints(0, 6, "RX: %d", spi_xbc_get_joy(XBC_JOY_RX));
+		tft_prints(0, 7, "RY: %d", spi_xbc_get_joy(XBC_JOY_RY));
+		tft_prints(0, 8, "BK: %02x", spi_xbc_get_back_buttons());
 		tft_update();
 	}
 }

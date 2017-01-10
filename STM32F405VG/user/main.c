@@ -10,6 +10,11 @@
 
 #include "main.h"
 
+u8 reset(void) {
+	SPI_I2S_DeInit(SPI3);
+	spi_xbc_mb_init();
+}
+
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -24,23 +29,35 @@ int main(void) {
 //	button_init();
 //	encoder_init();
 //	servo_init();
-//	uart_init(COM1, 115200);
+	spi_xbc_mb_init();
+	uart_init(COM2, 115200);
+	btn_init();
+	btn_reg_OnClickListener(JS_BNT_M, &reset);
 //	
 //	tft_put_logo(85, 120);
-	
-	spi_xbc_mb_init();
 	
 	while(1){
 		tft_clear();
 		tft_prints(0, 0, "%d", get_ticks());
-		tft_prints(0, 1, "DG: %04x", spi_xbc_get_digital());
+		tft_prints(0, 1, "DG: %04x %x", spi_xbc_get_digital(), spi_xbc_get_back_buttons());
 		tft_prints(0, 2, "LT: %d", spi_xbc_get_joy(XBC_JOY_LT));
 		tft_prints(0, 3, "RT: %d", spi_xbc_get_joy(XBC_JOY_RT));
 		tft_prints(0, 4, "LX: %d", spi_xbc_get_joy(XBC_JOY_LX));
 		tft_prints(0, 5, "LY: %d", spi_xbc_get_joy(XBC_JOY_LY));
 		tft_prints(0, 6, "RX: %d", spi_xbc_get_joy(XBC_JOY_RX));
 		tft_prints(0, 7, "RY: %d", spi_xbc_get_joy(XBC_JOY_RY));
-		tft_prints(0, 8, "BK: %02x", spi_xbc_get_back_buttons());
+		tft_prints(0, 8, "%d", spi_get_count());
+		
+		switch(spi_xbc_get_connection()) {
+			case SPI_XBC_DISCONNECTED:
+			case SPI_XBC_USB_DISCONNECTED:
+				tft_prints(0, 9, "[Disconnected]");
+				break;
+			case SPI_XBC_ALL_CONNECTED:
+				tft_prints(0, 9, "Connected");
+		}
+	
 		tft_update();
+		btn_update();
 	}
 }

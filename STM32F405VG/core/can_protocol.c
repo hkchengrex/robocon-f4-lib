@@ -91,9 +91,9 @@ void can_init(){
 	
 	//Config to 1Mbps
 	CAN_InitStructure.CAN_SJW = CAN_SJW_1tq;
-	CAN_InitStructure.CAN_BS1 = CAN_BS1_6tq;
-	CAN_InitStructure.CAN_BS2 = CAN_BS2_5tq;
-	CAN_InitStructure.CAN_Prescaler = 2;
+	CAN_InitStructure.CAN_BS1 = CAN_BS1_5tq;
+	CAN_InitStructure.CAN_BS2 = CAN_BS2_1tq;
+	CAN_InitStructure.CAN_Prescaler = 6;
 	while (CAN_Init(CAN2, &CAN_InitStructure) != CAN_InitStatus_Success);
 	
 	//Enable mailbox empty interrupt

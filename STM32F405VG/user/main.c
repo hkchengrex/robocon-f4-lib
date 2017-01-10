@@ -17,8 +17,6 @@ void on_pneu(){
 	led_blink(LED_2);
 }
 
-s32 m1 = 0, m2 = 0;
-
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -42,7 +40,6 @@ int main(void) {
 	pneu_init();
 
 	uart_init(COM1, 115200);
-
 	tft_put_logo(85, 120);
 	
 	//do_after_for(buzzer_on, 1, 300, 3);
@@ -60,7 +57,7 @@ int main(void) {
 		}
 		
 		if (this_ticks - last_loop2_ticks >= LOOP2_MS){
-			uart_tx(COM1, "%d", get_ticks());
+			uart_tx_blocking(COM1, "%d", get_ticks());
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
 			tft_println("%d", get_ticks());
@@ -68,8 +65,6 @@ int main(void) {
 			tft_println("%d", get_buf_size(COM1));
 			tft_update();
 			
-			motor_set_vel(MOTOR_1, m1, CLOSE_LOOP);
-			//motor_set_vel(MOTOR_2, m2, OPEN_LOOP);
 			led_blink(LED_1);
 			
 			last_loop2_ticks = this_ticks;

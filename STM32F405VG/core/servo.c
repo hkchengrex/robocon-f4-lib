@@ -14,7 +14,7 @@ void servo_init(void){
 	TIM_OCInitStructure.TIM_Pulse = 1000;
 	
 	for (u8 i=0; i<SERVO_SIZE; i++){
-		const ServoStruct* servo = &(SERVO_STRUCT[i]);
+		const ServoStruct* servo = &(ServoPorts[i]);
 		
 		gpio_rcc_init(servo->gpio);
 		
@@ -83,21 +83,21 @@ void servo_init(void){
   * @retval None
   */
 void servo_ccr_control(ServoID servo_id , u16 ccr_val) {
-	switch(SERVO_STRUCT[servo_id].channel){
+	switch(ServoPorts[servo_id].channel){
 		case 1:
-			TIM_SetCompare1(SERVO_STRUCT[servo_id].tim, ccr_val);
+			TIM_SetCompare1(ServoPorts[servo_id].tim, ccr_val);
 			break;
 		
 		case 2:
-			TIM_SetCompare2(SERVO_STRUCT[servo_id].tim, ccr_val);
+			TIM_SetCompare2(ServoPorts[servo_id].tim, ccr_val);
 			break;
 		
 		case 3:
-			TIM_SetCompare3(SERVO_STRUCT[servo_id].tim, ccr_val);
+			TIM_SetCompare3(ServoPorts[servo_id].tim, ccr_val);
 			break;
 		
 		case 4:
-			TIM_SetCompare4(SERVO_STRUCT[servo_id].tim, ccr_val);
+			TIM_SetCompare4(ServoPorts[servo_id].tim, ccr_val);
 			break;
 	}
 }
@@ -105,11 +105,11 @@ void servo_ccr_control(ServoID servo_id , u16 ccr_val) {
 /**
   * @brief  Control the degree of the servo
   * @param  servo_id: The servo id to be used
-  * @param  val: Any value from MIN_DEG to MAX_DEG (defined in @SERVO_CONFIG_TABLE)
+  * @param  val: Any value from MIN_DEG to MAX_DEG (defined in @ServoConfigs_TABLE)
   * @retval None
   */
 
-#define getCCR(i, d) (SERVO_CONFIG[i].min_ccr + d*(SERVO_CONFIG[i].max_ccr-SERVO_CONFIG[i].min_ccr)/(SERVO_CONFIG[i].max_deg-SERVO_CONFIG[i].min_deg))
+#define getCCR(i, d) (ServoConfigs[i].min_ccr + d*(ServoConfigs[i].max_ccr-ServoConfigs[i].min_ccr)/(ServoConfigs[i].max_deg-ServoConfigs[i].min_deg))
 void servo_deg_control(ServoID servo_id , s16 degree){
 	u16 ccrVal = getCCR(servo_id, degree);
 	servo_ccr_control(servo_id, ccrVal);

@@ -24,7 +24,7 @@ X(SERVO5, TIM11, GPIO_AF_TIM11, RCC_APB2Periph_TIM11, 2, PF7, 1) \
 X(SERVO6, TIM13, GPIO_AF_TIM13, RCC_APB1Periph_TIM13, 1, PF8, 1) \
 
 //ServoID, min ccr, max ccr, min deg(Scaled by 10), max deg(Scaled by 10)
-#define SERVO_CONFIG_TABLE \
+#define ServoConfigs_TABLE \
 C(SERVO1, 900, 2100, 0, 1800) \
 C(SERVO2, 900, 2100, 0, 1800) \
 C(SERVO3, 900, 2100, 0, 1800) \
@@ -55,14 +55,14 @@ typedef enum {
 #undef X
 
 #define X(a, b, c, d, e, f, g) {b, c, d, e, &f, g},
-static const ServoStruct SERVO_STRUCT[] = {SERVO_INIT_TABLE};
+static const ServoStruct ServoPorts[] = {SERVO_INIT_TABLE};
 #undef X
 
 #define C(a, b, c, d, e) {b, c, d, e},
-static const ServoConfig SERVO_CONFIG[] = {SERVO_CONFIG_TABLE};
+static const ServoConfig ServoConfigs[] = {ServoConfigs_TABLE};
 #undef C
 
-#define SERVO_SIZE (sizeof(SERVO_STRUCT)/sizeof(ServoStruct))
+#define SERVO_SIZE (sizeof(ServoPorts)/sizeof(ServoStruct))
 
 //Init all servo
 void servo_init(void);
@@ -78,7 +78,7 @@ void servo_ccr_control(ServoID servo_id , u16 ccr_val);
 /**
   * @brief  Control the degree of the servo
   * @param  servo_id: The servo id to be used
-  * @param  val: Any value from MIN_DEG to MAX_DEG (defined in @SERVO_CONFIG_TABLE)
+  * @param  val: Any value from MIN_DEG to MAX_DEG (defined in @ServoConfigs_TABLE)
   * @retval None
   */
 void servo_deg_control(ServoID servo_id , s16 degree);

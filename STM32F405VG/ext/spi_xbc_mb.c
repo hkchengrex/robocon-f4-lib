@@ -7,7 +7,6 @@ can_xbc_get_digital(void);
 can_xbc_get_joy_raw(XBC_JOY j);
 can_xbc_get_joy(XBC_JOY j);
 can_xbc_mb_lcd_tx(void);
-//Connection (CRC?)
 //TX Display
 //TX Control
 //Listener functions
@@ -28,18 +27,10 @@ static u16 xbc_back_buttons = 0;
 static u32 last_spi_connection = 0;
 static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
 
-static u16 spi_count = 0;
-
-u16 spi_get_count(void) {return spi_count;}
-
+void spi_xbc_mb_init(void) {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 	SPI_InitTypeDef SPI_InitStructure;
-
-void spi_xbc_mb_init(void) {
-	//GPIO_InitTypeDef GPIO_InitStructure;
-	//NVIC_InitTypeDef NVIC_InitStructure;
-	//SPI_InitTypeDef SPI_InitStructure;
 	
 	//Init clocks
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
@@ -148,16 +139,15 @@ void SPI3_IRQHandler(void) {
 			
 			//Receive command
 			case SPI_RX_XBC_CMD:
-			if (data != 0) spi_count = data;
 				//Act according to command
 				switch (data) {
 					case SPI_REPLY:
-						
-						//spi_count++;
 						spi_rx_xbc_count = 0;
+						xbc_connection = SPI_XBC_ALL_CONNECTED;
 						spi_state = SPI_RX_XBC_DATA;
 						break;
 					case SPI_NO_USB:
+						xbc_connection = SPI_XBC_USB_DISCONNECTED;
 						break;
 				}
 				break;
@@ -181,7 +171,6 @@ void SPI3_IRQHandler(void) {
 				}
 		}
 		
-		xbc_connection = SPI_XBC_ALL_CONNECTED;
 		last_spi_connection = get_ticks();
 		SPI_I2S_ClearITPendingBit(SPI3, SPI_I2S_IT_RXNE);
 	}

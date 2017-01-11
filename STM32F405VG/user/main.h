@@ -15,8 +15,7 @@
 #include "buzzer.h"
 #include "adc.h"
 #include "servo.h"
-#include "motor.h"
-#include "can_motor.h"
+#include "motor_control.h"
 #include "pneumatic.h"
 
 #include "button.h"

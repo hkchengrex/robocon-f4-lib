@@ -7,6 +7,7 @@
 #include "ticks.h"
 #include "gyro.h"
 #include "robot_control.h"
+#include "motor_control.h"
 
 /***************************************************************************************************************************************
 ** COMMUNICATION - STM32F4
@@ -25,8 +26,6 @@
 ** Is that you that never listened to me, 
 ** or is that me never talked to you?...
 ****************************************************************************************************************************************/
-
-#define NUMBER_OF_MOTOR 3
 
 
 /**

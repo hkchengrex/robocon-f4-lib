@@ -2,7 +2,8 @@
 #define _CAN_MOTOR_H
 
 #include "can_protocol.h"
-#include "motor.h"
+#include "can_motor.h"
+#include "motor_control.h"
 #include <stdbool.h>
 
 #define MOTOR_CAN CAN_1

@@ -35,7 +35,7 @@ static void comm_receiver(const u8 data){
 	if (!handling_command){
 		//Accept a new command code
 		if (data < COMMAND_COUNT){
-			command = data;
+			command = (CommandCode)data;
 			handling_command = true;
 		}else{
 			//Error
@@ -45,7 +45,8 @@ static void comm_receiver(const u8 data){
 		//Receive the content of the command
 		buffer[buffer_index++] = data;
 		if (buffer_index >= CommandLength[command]){
-			//Resolve message
+			handlers[command](buffer);
+			buffer_index = 0;
 		}
 	}
 }
@@ -60,7 +61,7 @@ static void comm_receiver(const u8 data){
 
 
 /** Transmit current position data
-*		4 btyes(ticks) + 2*3 bytes (X, Y, Theta) = 10 bytes
+*		1 btye flag + 4 btyes(ticks) + 2*3 bytes (X, Y, Theta) = 11 bytes
 */
 void comm_tx_pos(){
 	char data[11];
@@ -80,9 +81,17 @@ void comm_tx_pos(){
 }
 
 /** Transmit current motor velocity
-*		2 btyes for each motor (14 bits for speed, 1 bit for open/close loop, 1 unused bit for possible state)
+*		1 btye flag + 2 btyes for each motor (14 bits for speed, 1 bit for open/close loop, 1 unused bit for possible state)
 */
 void comm_tx_motor(){
+	char data[1+NUMBER_OF_MOTOR*2];
+	data[0] = MOTOR_FEEDBACK;
+	for (u8 i=0; i<NUMBER_OF_MOTOR; i++){
+		data[1+i*2] = ((get_motor_vel(i) >> 8) & 0x3F) | (get_motor_flag(i)<<7);
+		data[2+i*2] = get_motor_vel(i) & 0xFF;
+	}
+	
+	uart_tx_array(COMPort, data, 1+NUMBER_OF_MOTOR*2);
 }
 
 /** Transmit an error indicator as a single byte

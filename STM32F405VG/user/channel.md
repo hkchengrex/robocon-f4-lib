@@ -9,7 +9,7 @@ Nested Vector Interrupt Controller Priority:
 		4 - CAN 2 TX complete interrupt
 
 	- Preemption Priority 1
-		1 - UART receive interrupt
+		1 - UART interrupt
 		7 - CAN1 RX interrupt
 		8 - CAN2 RX interrupt
 		

@@ -656,9 +656,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -681,14 +691,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -731,19 +741,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -751,9 +771,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -766,24 +791,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1442,9 +1452,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -1467,14 +1487,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -1517,19 +1537,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -1537,9 +1567,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -1552,24 +1587,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -2229,9 +2249,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -2254,14 +2284,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -2304,19 +2334,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -2324,9 +2364,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -2339,24 +2384,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3015,9 +3045,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -3040,14 +3080,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -3090,19 +3130,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -3110,9 +3160,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -3125,24 +3180,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -3801,9 +3841,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -3826,14 +3876,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -3876,19 +3926,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -3896,9 +3956,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -3911,24 +3976,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -4587,9 +4637,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -4612,14 +4672,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -4662,19 +4722,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -4682,9 +4752,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -4697,24 +4772,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -5373,9 +5433,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -5398,14 +5468,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -5448,19 +5518,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -5468,9 +5548,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -5483,24 +5568,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -6159,9 +6229,19 @@
           <GroupName>user</GroupName>
           <Files>
             <File>
+              <FileName>comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\comm.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\user\main.c</FilePath>
+            </File>
+            <File>
+              <FileName>robot_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\user\robot_control.c</FilePath>
             </File>
             <File>
               <FileName>define.h</FileName>
@@ -6184,14 +6264,14 @@
               <FilePath>.\core\adc.c</FilePath>
             </File>
             <File>
-              <FileName>can_protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\core\can_protocol.c</FilePath>
-            </File>
-            <File>
               <FileName>approx_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\core\approx_math.c</FilePath>
+            </File>
+            <File>
+              <FileName>can_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\core\can_protocol.c</FilePath>
             </File>
             <File>
               <FileName>encoder.c</FileName>
@@ -6234,19 +6314,29 @@
           <GroupName>ext</GroupName>
           <Files>
             <File>
+              <FileName>button.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\button.c</FilePath>
+            </File>
+            <File>
               <FileName>buzzer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\buzzer.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
+              <FileName>can_motor.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\led.c</FilePath>
+              <FilePath>.\ext\can_motor.c</FilePath>
             </File>
             <File>
-              <FileName>button.c</FileName>
+              <FileName>gpio_test.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\button.c</FilePath>
+              <FilePath>.\ext\gpio_test.c</FilePath>
+            </File>
+            <File>
+              <FileName>gyro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\ext\gyro.c</FilePath>
             </File>
             <File>
               <FileName>lcd_main.c</FileName>
@@ -6254,9 +6344,14 @@
               <FilePath>.\ext\lcd_main.c</FilePath>
             </File>
             <File>
-              <FileName>can_motor.c</FileName>
+              <FileName>led.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\ext\can_motor.c</FilePath>
+              <FilePath>.\ext\led.c</FilePath>
+            </File>
+            <File>
+              <FileName>motor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\ext\motor.h</FilePath>
             </File>
             <File>
               <FileName>MTi-1_UART.c</FileName>
@@ -6269,24 +6364,9 @@
               <FilePath>.\ext\pneumatic.c</FilePath>
             </File>
             <File>
-              <FileName>gyro.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gyro.c</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\ext\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>motor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ext\motor.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ext\gpio_test.c</FilePath>
             </File>
           </Files>
         </Group>

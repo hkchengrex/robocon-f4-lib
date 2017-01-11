@@ -24,8 +24,13 @@ static u32 xbc_digital = 0;
 static s16 xbc_joy[XBC_JOY_COUNT] = {0};
 static u16 xbc_back_buttons = 0;
 
+//XBC connection states
 static u32 last_spi_connection = 0;
 static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
+
+//XBC TFT buffer
+static XBC_LCD_DATA xbc_lcd_data[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL],
+  xbc_lcd_data_prev[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL];
 
 void spi_xbc_mb_init(void) {
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -148,6 +153,9 @@ void SPI3_IRQHandler(void) {
 						break;
 					case SPI_NO_USB:
 						xbc_connection = SPI_XBC_USB_DISCONNECTED;
+						break;
+					case SPI_GET_SCREEN:
+						SPI_I2S_SendData(SPI3, 'A');
 						break;
 				}
 				break;

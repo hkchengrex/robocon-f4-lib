@@ -23,6 +23,8 @@ X(ADC_PORT_10, PC5, ADC1, ADC_Channel_15)
 
 #define X(a, b, c, d) a, 
 typedef enum{
+	TEMPERATURE_ADC,
+	VOLTAGE_ADC,
 	ADC_PORT_TABLE
 } AdcID;
 #undef X

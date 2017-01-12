@@ -16,7 +16,7 @@ int main(void) {
 	gpio_rcc_init_all();
 	
 	ticks_init();
-//	adc_init();
+	adc_init();
 
 	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
 	//gpio_test();
@@ -53,7 +53,9 @@ int main(void) {
 			tft_println("%d", SystemCoreClock);
 			tft_println("%d", get_ticks());
 			tft_println("%d", get_encoder_value(MOTOR_1));
-			tft_println("%d", get_buf_size(COM1));
+			tft_println("%d", get_adc(TEMPERATURE_ADC));
+			tft_println("%d", get_adc(VOLTAGE_ADC));
+			tft_println("%d", get_adc(ADC_PORT_1));
 			tft_update();
 			
 			led_blink(LED_1);

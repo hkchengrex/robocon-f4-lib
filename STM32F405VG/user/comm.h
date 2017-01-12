@@ -27,6 +27,14 @@
 ** or is that me never talked to you?...
 ****************************************************************************************************************************************/
 
+/**
+* Handshaking protocol
+*/
+#define COMM_FIRST_HANDSHAKE 0xCD
+#define COMM_SECOND_HANDSHAKE 0xEF
+#define COMM_THIRD_HANDSHAKE 0x56
+#define COMM_HANDSHAKE_DONE_STATE 2
+
 
 /**
 * The followings are for receiving commands from upper-level machine
@@ -58,9 +66,9 @@ static const uint8_t CommandLength[] = {CMD_TABLE};
 
 
 #define FEEDBACK_TABLE \
-X(POS_FEEDBACK) \
-X(MOTOR_FEEDBACK) \
-X(HARD_FAULT_FEEDBACK)
+X(POS_FEEDBACK = 0x01) \
+X(MOTOR_FEEDBACK = 0x02) \
+X(HARD_FAULT_FEEDBACK = 0x03)
 
 #define X(a) a,
 typedef enum{
@@ -90,5 +98,12 @@ void comm_tx_error(uint8_t feedback_code);
 * @param baud_rate: The baud rate
 */
 void comm_init(SerialPort COM, u32 baud_rate);
+
+/** Return the handshake stage.
+* 0: Just started
+* 1: Received init command from upper-level machine
+* 2: Received the confim command from upper-level machine, all good and running
+*/
+u8 comm_get_handshake_state(void);
 
 #endif

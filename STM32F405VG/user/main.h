@@ -27,5 +27,6 @@
 
 #include "timer.h"
 #include "gpio_test.h"
+#include "comm.h"
 
 #endif 

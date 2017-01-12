@@ -10,13 +10,6 @@
 
 #include "main.h"
 
-void on_pneu(){
-	for (u8 i=0; i<14; i++){
-		pneu_toggle((PneuID)i);
-	}
-	led_blink(LED_2);
-}
-
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -39,13 +32,12 @@ int main(void) {
 	motor_init();
 	pneu_init();
 
-	uart_init(COM1, 115200);
 	tft_put_logo(85, 120);
+	
+	comm_init(COM1, 115200);
 	
 	//do_after_for(buzzer_on, 1, 300, 3);
 	//do_after_for(buzzer_off, 150, 300, 3);
-	
-	btn_reg_OnClickListener(BUTTON_1, on_pneu);
 
 	s32 last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){
@@ -57,7 +49,6 @@ int main(void) {
 		}
 		
 		if (this_ticks - last_loop2_ticks >= LOOP2_MS){
-			uart_tx_blocking(COM1, "%d", get_ticks());
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
 			tft_println("%d", get_ticks());
@@ -66,6 +57,9 @@ int main(void) {
 			tft_update();
 			
 			led_blink(LED_1);
+			
+			comm_tx_pos();
+			comm_tx_motor();
 			
 			last_loop2_ticks = this_ticks;
 		}

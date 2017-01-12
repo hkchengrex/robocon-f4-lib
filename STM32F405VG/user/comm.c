@@ -1,6 +1,7 @@
 #include "comm.h"
 
 static SerialPort COMPort;
+static u8 handshake_state = 0;
 
 static void comm_receiver(const u8 data);
 
@@ -13,6 +14,7 @@ void comm_init(SerialPort COM, u32 baud_rate){
 	uart_interrupt_init(COM, comm_receiver);
 	
 	COMPort = COM;
+	handshake_state = 0;
 }
 
 /**
@@ -32,7 +34,26 @@ static MessageHandler handlers[COMMAND_COUNT] = {0};
 
 //The UART receive handler
 static void comm_receiver(const u8 data){
-	if (!handling_command){
+	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE){
+		//Continue the handshake
+		switch (handshake_state){
+			case 0:
+				if (data == COMM_FIRST_HANDSHAKE){
+					handshake_state = 1;
+					uart_tx_byte_blocking(COMPort, COMM_SECOND_HANDSHAKE);
+				}else{
+					handshake_state = 0;
+				}
+				break;
+			case 1:
+				if (data == COMM_THIRD_HANDSHAKE){
+					handshake_state = 2;
+				}else{
+					handshake_state = 0;
+				}
+				break;
+		}
+	}else if (!handling_command){
 		//Accept a new command code
 		if (data < COMMAND_COUNT){
 			command = (CommandCode)data;
@@ -64,6 +85,7 @@ static void comm_receiver(const u8 data){
 *		1 btye flag + 4 btyes(ticks) + 2*3 bytes (X, Y, Theta) = 11 bytes
 */
 void comm_tx_pos(){
+	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
 	char data[11];
 	data[0] = POS_FEEDBACK;
 	data[1] = (get_X() >> 8) & 0xFF;
@@ -84,6 +106,7 @@ void comm_tx_pos(){
 *		1 btye flag + 2 btyes for each motor (14 bits for speed, 1 bit for open/close loop, 1 unused bit for possible state)
 */
 void comm_tx_motor(){
+	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
 	char data[1+NUMBER_OF_MOTOR*2];
 	data[0] = MOTOR_FEEDBACK;
 	for (u8 i=0; i<NUMBER_OF_MOTOR; i++){
@@ -98,5 +121,6 @@ void comm_tx_motor(){
 *		1 btye data
 */
 void comm_tx_error(uint8_t feedback_code){
+	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
 }
 

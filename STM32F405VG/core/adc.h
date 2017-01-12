@@ -32,16 +32,16 @@ typedef enum{
 typedef struct{
 	const GPIO* gpio;
 	ADC_TypeDef* adc;
-	u8 channel;
+	uint8_t channel;
 }AdcPortStruct;
 
 typedef struct{
 	ADC_TypeDef* adc;
-	u32 rcc;
+	uint32_t rcc;
 	DMA_TypeDef* dma;
 	DMA_Stream_TypeDef* stream;
-	u32 channel;
-	u32 dma_rcc;
+	uint32_t channel;
+	uint32_t dma_rcc;
 }AdcStruct;
 
 #define X(a, b, c, d) {&b, c, d}, 
@@ -63,6 +63,6 @@ void adc_init(void);
 /** Get the latest adc reading
 ** @return Unsigned numerical reading representing voltage level
 */
-u16 get_adc(AdcID id);
+uint16_t get_adc(AdcID id);
 
 #endif

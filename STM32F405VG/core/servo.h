@@ -34,18 +34,18 @@ C(SERVO6, 900, 2100, 0, 1800) \
 
 typedef struct {
 	TIM_TypeDef* tim;
-	const u8 tim_af;
-	const u32 tim_rcc;
-	const u8 rcc_line;
+	const uint8_t tim_af;
+	const uint32_t tim_rcc;
+	const uint8_t rcc_line;
 	const GPIO* gpio;
-	const u8 channel;
+	const uint8_t channel;
 } ServoStruct;
 
 typedef struct{
-	const u16 min_ccr;
-	const u16 max_ccr;
-	const s16 min_deg;
-	const s16 max_deg;
+	const uint16_t min_ccr;
+	const uint16_t max_ccr;
+	const int16_t min_deg;
+	const int16_t max_deg;
 } ServoConfig;
 
 #define X(a, b, c, d, e, f, g) a, 
@@ -73,7 +73,7 @@ void servo_init(void);
   * @param  val: Any value from 0~20000.
   * @retval None
   */
-void servo_ccr_control(ServoID servo_id , u16 ccr_val);
+void servo_ccr_control(ServoID servo_id , uint16_t ccr_val);
 
 /**
   * @brief  Control the degree of the servo
@@ -81,6 +81,6 @@ void servo_ccr_control(ServoID servo_id , u16 ccr_val);
   * @param  val: Any value from MIN_DEG to MAX_DEG (defined in @ServoConfigs_TABLE)
   * @retval None
   */
-void servo_deg_control(ServoID servo_id , s16 degree);
+void servo_deg_control(ServoID servo_id , int16_t degree);
 
 #endif

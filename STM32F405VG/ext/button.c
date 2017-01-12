@@ -1,6 +1,6 @@
 #include "button.h"
 
-static u16 pressedTime[BTN_COUNT] = {0};
+static uint16_t pressedTime[BTN_COUNT] = {0};
 
 static OnClickListener clickListeners[BTN_COUNT] = {0};
 static OnReleaseListener releaseListeners[BTN_COUNT] = {0};
@@ -15,7 +15,7 @@ static HoldListenerStruct holdListeners[BTN_COUNT] = {0};
 
 //Init buttons
 void btn_init(){
-	for (u8 i=0; i<BTN_COUNT; i++){
+	for (uint8_t i=0; i<BTN_COUNT; i++){
 		gpio_rcc_init(BUTTONS[i].gpio);
 		gpio_input_init(BUTTONS[i].gpio, BUTTONS[i].PuPd);
 	}
@@ -33,7 +33,7 @@ bool btn_pressed(ButtonID button_id){
 
 //To be called at a regular time interval. Button event will be triggered in this function
 void btn_update(){
-	for (u8 i=0; i<BTN_COUNT; i++){
+	for (uint8_t i=0; i<BTN_COUNT; i++){
 		if (btn_pressed((ButtonID)i)){
 			//If the button is pressed
 			
@@ -73,7 +73,7 @@ void btn_reg_OnReleaseListener(ButtonID button_id, OnReleaseListener listener){
 }
 
 //Called every "frequency" after "threshold" have been reached. Actual time depends on frequency of @button_update()
-void btn_reg_OnHoldListener(ButtonID button_id, u16 threshold, u16 frequency, OnHoldListener listener){
+void btn_reg_OnHoldListener(ButtonID button_id, uint16_t threshold, uint16_t frequency, OnHoldListener listener){
 	holdListeners[button_id].holdListener = listener;
 	holdListeners[button_id].holdThreshold = threshold;
 	holdListeners[button_id].trigFrequency = frequency;

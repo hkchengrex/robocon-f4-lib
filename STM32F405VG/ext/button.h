@@ -66,7 +66,7 @@ void btn_update(void);
 void btn_reg_OnClickListener(ButtonID button_id, OnClickListener listener); //Called when the button is first pressed
 void btn_reg_OnReleaseListener(ButtonID button_id, OnReleaseListener listener); //Called when the button is released 
 //Called every "frequency" after "threshold" have been reached. Actual time depends on frequency of @button_update()
-void btn_reg_OnHoldListener(ButtonID button_id, u16 threshold, u16 frequency, OnHoldListener listener); 
+void btn_reg_OnHoldListener(ButtonID button_id, uint16_t threshold, uint16_t frequency, OnHoldListener listener); 
 
 //These functions are to disable registered listener
 void btn_disable_OnClickListener(ButtonID button_id);

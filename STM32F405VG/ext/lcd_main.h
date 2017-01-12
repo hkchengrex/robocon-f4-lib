@@ -66,45 +66,45 @@ typedef enum {
 #define CHAR_MAX_X_ANY	20
 #define CHAR_MAX_Y_ANY	10
 
-extern u8 tft_orientation;
-extern u8 tft_width;
-extern u8 tft_height;
-extern u16 curr_bg_color;
-extern u16 curr_text_color;
-extern u16 curr_text_color_sp;
+extern uint8_t tft_orientation;
+extern uint8_t tft_width;
+extern uint8_t tft_height;
+extern uint16_t curr_bg_color;
+extern uint16_t curr_text_color;
+extern uint16_t curr_text_color_sp;
 
 extern char text						[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
-extern u16 text_color				[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
-extern u16 bg_color					[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
+extern uint16_t text_color				[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
+extern uint16_t bg_color					[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
 
 void tft_spi_init(void);
-void tft_write_command(u8 command);
-void tft_write_data(u8 data);
+void tft_write_command(uint8_t command);
+void tft_write_data(uint8_t data);
 void tft_config(void);
 void tft_reset(void);
 
-void tft_init(TFT_ORIENTATION orientation, u16 bg_color, u16 text_color, u16 sp_color);
+void tft_init(TFT_ORIENTATION orientation, uint16_t bg_color, uint16_t text_color, uint16_t sp_color);
 void tft_enable(void);
 void tft_disable(void);
-void tft_set_bg_color(u16 in_bg_color);
-void tft_set_text_color(u16 in_text_color);
-void tft_set_special_color(u16 text_color_sp);
-void tft_set_pixel_pos(u8 x, u8 y);
-void tft_set_char_pos(u8 x1, u8 y1, u8 x2, u8 y2);
+void tft_set_bg_color(uint16_t in_bg_color);
+void tft_set_text_color(uint16_t in_text_color);
+void tft_set_special_color(uint16_t text_color_sp);
+void tft_set_pixel_pos(uint8_t x, uint8_t y);
+void tft_set_char_pos(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
 void tft_force_clear(void);
-void tft_clear_line(u8 line);
+void tft_clear_line(uint8_t line);
 void tft_clear(void);
-void tft_put_pixel(u8 x, u8 y, u16 color);
-void tft_fill_color(u16 color);
-bool tft_char_is_changed(u8 x, u8 y);
-void tft_prints(u8 x, u8 y, const char * pstr, ...);
+void tft_put_pixel(uint8_t x, uint8_t y, uint16_t color);
+void tft_fill_color(uint16_t color);
+bool tft_char_is_changed(uint8_t x, uint8_t y);
+void tft_prints(uint8_t x, uint8_t y, const char * pstr, ...);
 void tft_update(void);
-u8 tft_get_orientation(void);
+uint8_t tft_get_orientation(void);
 void tft_println(const char * pstr, ...);
 void tft_stream(const char * pstr, ...);
 
-void tft_put_mega_ass_num(u8 x, u8 y, u8 character, u16 color);
+void tft_put_mega_ass_num(uint8_t x, uint8_t y, uint8_t character, uint16_t color);
 void tft_mega_update(void);
-void tft_put_logo(u8 x, u8 y);
+void tft_put_logo(uint8_t x, uint8_t y);
 
 #endif		/* __LCD_RED_H */

@@ -18,8 +18,8 @@ void ticks_init(void);
 //The following delay functions are not accurate
 
 //Generate a delay in us
-void _delay_us(u16 us);
+void _delay_us(uint16_t us);
 //Generate a delay in ms
-void _delay_ms(u16 ms);
+void _delay_ms(uint16_t ms);
 
 #endif

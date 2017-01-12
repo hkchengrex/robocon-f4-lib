@@ -217,7 +217,7 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	Alternate function GPIO initailizer
 	Usage: @ref gpio_init
 */
-void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF){
+void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, uint8_t GPIO_AF){
 	assert_param(IS_GPIO_AF(GPIO_AF));
 	
 	GPIO_InitTypeDef GPIO_InitStructure;
@@ -251,33 +251,33 @@ void gpio_rcc_init_all(){
 	* @param GPIO pointer
 	*/
 void gpio_rcc_init(const GPIO* gpio){
-	switch ((u32) gpio->gpio) {
+	switch ((uint32_t) gpio->gpio) {
 		
-		case ((u32)GPIOA):
+		case ((uint32_t)GPIOA):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 		break;
 		
-		case ((u32)GPIOB):
+		case ((uint32_t)GPIOB):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 		break;
 		
-		case ((u32)GPIOC):
+		case ((uint32_t)GPIOC):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 		break;
 		
-		case ((u32)GPIOD):
+		case ((uint32_t)GPIOD):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 		break;
 		
-		case ((u32)GPIOE):
+		case ((uint32_t)GPIOE):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 		break;
 		
-		case ((u32)GPIOF):
+		case ((uint32_t)GPIOF):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
 		break;
 		
-		case ((u32)GPIOG):
+		case ((uint32_t)GPIOG):
 			RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
 		break;
 	}
@@ -288,7 +288,7 @@ void gpio_rcc_init(const GPIO* gpio){
 	* @param GPIO pointer
 	* @retval The GPIO Pin input value
 	*/
-u8 gpio_read_input(const GPIO* gpio){
+uint8_t gpio_read_input(const GPIO* gpio){
 	return GPIO_ReadInputDataBit(gpio->gpio, gpio->gpio_pin);
 }
 
@@ -297,7 +297,7 @@ u8 gpio_read_input(const GPIO* gpio){
 	* @param GPIO pointer
 	* @retval The GPIO Pin output value
 	*/
-u8 gpio_read_output(const GPIO* gpio){
+uint8_t gpio_read_output(const GPIO* gpio){
 	return GPIO_ReadOutputDataBit(gpio->gpio, gpio->gpio_pin);
 }
 

@@ -43,7 +43,7 @@ void can_motor_init(void);
 * @param vel: Open loop: (-1799~1799); Close loop: (-150~150);
 * @param loop: Open loop or close loop control
 */
-void can_motor_set_vel(MotorID id, s32 vel, CloseLoopFlag loop);
+void can_motor_set_vel(MotorID id, int32_t vel, CloseLoopFlag loop);
 
 /**
 * @brief Set motor position (CAN)
@@ -51,14 +51,14 @@ void can_motor_set_vel(MotorID id, s32 vel, CloseLoopFlag loop);
 * @param vel (vel of close_loop is not corresponded to open_loop)
 * @param pos: The position need to move to relative to current encoder value.
 */
-void can_motor_set_pos(MotorID id, u16 vel, s32 pos);
+void can_motor_set_pos(MotorID id, uint16_t vel, int32_t pos);
 
 /**
 * @brief Set motor acceleration (CAN)
 * @param id: MOTORx, which motor to control
 * @param accel: acceleration parameter of motor
 */
-void can_motor_set_accel(MotorID id, u16 accel);
+void can_motor_set_accel(MotorID id, uint16_t accel);
 
 /**
 * @brief Lock and stop motor immediately (CAN)
@@ -77,6 +77,6 @@ void can_motor_lock(MotorID id);
 * @brief Get the motor encoder value (based on CAN rx result)
 * @param id: MOTORx, which motor to control
 */
-s32 can_get_encoder_value(MotorID id);
+int32_t can_get_encoder_value(MotorID id);
 
 #endif

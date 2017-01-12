@@ -5,22 +5,22 @@ s16 angle = 0, real_x = 0, real_y = 0;
 s16 angle_offset = 0, x_offset = 0, y_offset = 0;
 
 //GEN3 Values
-s32 SHIFT_X = 55;
-s32 SHIFT_Y = -514;
+int32_t SHIFT_X = 55;
+int32_t SHIFT_Y = -514;
 
 static POSITION gyro_pos = {0, 0, 0};
 static POSITION gyro_pos_raw = {0, 0, 0};
-static u8 rx_state = 0; 
-static u8 rx_command = 0;
-static u8 buf_rec = 0;
-static u8 buf_data[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static uint8_t rx_state = 0; 
+static uint8_t rx_command = 0;
+static uint8_t buf_rec = 0;
+static uint8_t buf_data[10] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-static u8 rx_command_arr[GYRO_COMMAND_LENGTH] = {GYRO_UPDATED, GYRO_REPLY};
-static u8 buf_len[GYRO_COMMAND_LENGTH] = {0x06, 0x01};		//data size, for confirm data
+static uint8_t rx_command_arr[GYRO_COMMAND_LENGTH] = {GYRO_UPDATED, GYRO_REPLY};
+static uint8_t buf_len[GYRO_COMMAND_LENGTH] = {0x06, 0x01};		//data size, for confirm data
 
-volatile u8 reply_flag = 0;
+volatile uint8_t reply_flag = 0;
 
-volatile u8 gyro_available = 0;
+volatile uint8_t gyro_available = 0;
 
 
 void plus_x(void){
@@ -36,11 +36,11 @@ void minus_y(void){
 	SHIFT_Y--;
 }
 
-s32 gyro_get_shift_x(void){
+int32_t gyro_get_shift_x(void){
 		return SHIFT_X;
 }
 
-s32 gyro_get_shift_y(void){
+int32_t gyro_get_shift_y(void){
 	return SHIFT_Y;
 }
 
@@ -83,8 +83,8 @@ void gyro_pos_update(void){ //unuseful
   * @param  None
   * @retval 1 = successful, 0 = failed
   */
-u8 gyro_cal(void){
-	u16 ticks_last = get_ticks();
+uint8_t gyro_cal(void){
+	uint16_t ticks_last = get_ticks();
 	reply_flag &= ~GYRO_FLAG_CAL;
 	
 	uart_tx_byte_blocking(GYRO_UART, GYRO_WAKEUP);
@@ -105,8 +105,8 @@ u8 gyro_cal(void){
   * @param  a: angle to be set
   * @retval 1 = successful, 0 = failed
   */
-u8 gyro_pos_set(s16 x, s16 y, s16 a){
-	u16 ticks_last = get_ticks();
+uint8_t gyro_pos_set(s16 x, s16 y, s16 a){
+	uint16_t ticks_last = get_ticks();
 	reply_flag &= ~GYRO_FLAG_SET_POS;
 	
 	uart_tx_byte_blocking(GYRO_UART, GYRO_WAKEUP);
@@ -119,7 +119,7 @@ u8 gyro_pos_set(s16 x, s16 y, s16 a){
 	uart_tx_byte_blocking(GYRO_UART, a >> 8);
 	uart_tx_byte_blocking(GYRO_UART, a & 0xFF);
 	
-	u16 timeout = 100;
+	uint16_t timeout = 100;
 	while (!(reply_flag & GYRO_FLAG_SET_POS)) {
 		if (!(--timeout)) {
 			return 0;
@@ -134,9 +134,9 @@ u8 gyro_pos_set(s16 x, s16 y, s16 a){
   * @param  None
   * @retval None
   */
-void gyro_interrupt_handler(u8 rx_data){
-	u8 i;
-	u16 x, y, a;
+void gyro_interrupt_handler(uint8_t rx_data){
+	uint8_t i;
+	uint16_t x, y, a;
 	
 	switch (rx_state) {
 		case 0:	// wakeup
@@ -222,7 +222,7 @@ void gyro_interrupt_handler(u8 rx_data){
   */
 s16 get_X(void){
   /*
-	s32 pos_x = (real_x*10000-SHIFT_X*10000+SHIFT_X*int_cos(angle)+SHIFT_Y*int_sin(angle))/10000;
+	int32_t pos_x = (real_x*10000-SHIFT_X*10000+SHIFT_X*int_cos(angle)+SHIFT_Y*int_sin(angle))/10000;
 	//return real_x;
 	return pos_x;//real_x;
 	*/
@@ -236,7 +236,7 @@ s16 get_X(void){
   */
 s16 get_Y(void){
 	/*
-	s32 pos_y = (real_y*10000-SHIFT_Y*10000+SHIFT_Y*int_cos(angle)-SHIFT_X*int_sin(angle))/10000;
+	int32_t pos_y = (real_y*10000-SHIFT_Y*10000+SHIFT_Y*int_cos(angle)-SHIFT_X*int_sin(angle))/10000;
 	//return real_y;
 	return pos_y;//real_y;
 	*/

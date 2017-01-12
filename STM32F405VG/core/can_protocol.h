@@ -35,15 +35,15 @@ typedef enum{
 }CanID;
 
 typedef struct{
-	u16 id;					// 11-bit ID: 0x000 ~ 0x7FF
-	u8 length;			// 0 ~ 8
-	u8 data[8];
+	uint16_t id;					// 11-bit ID: 0x000 ~ 0x7FF
+	uint8_t length;			// 0 ~ 8
+	uint8_t data[8];
 }CanMessage;
 
 typedef struct{
-	volatile u16 head;
-	volatile u16 tail;
-	volatile u16 size;
+	volatile uint16_t head;
+	volatile uint16_t tail;
+	volatile uint16_t size;
 	CanMessage* queue;
 }CanQueue;
 
@@ -67,7 +67,7 @@ void can_init(void);
 * @param id: which CAN queue to look at
 * @return size of the specified queue
 */
-inline u16 get_can_queue_size(CanID id);
+inline uint16_t get_can_queue_size(CanID id);
 
 
 
@@ -107,13 +107,13 @@ void can_rx_init(void);
 * @param handler: Function to handle the received message
 * @example Please read the mask exmaple in the header file
 */
-void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler);
+void can_rx_add_filter(uint16_t id, uint16_t mask, uint8_t FIFO_num, CanID CANx, CanRxHandler handler);
 
 /** Get the receive error count
 * @param id: Which CAN to look at
 * @return The number of receive error occured
 */
-u8 get_can_error_count(CanID id);
+uint8_t get_can_error_count(CanID id);
 
 /*** Protocol Encoding / Decoding function ***/
 
@@ -122,12 +122,12 @@ u8 get_can_error_count(CanID id);
 	* @param num: the nth byte number (can be unsigned)
 	* @retval The nth byte variable
 	*/
-u8 one_to_n_bytes(s32 num, u8 n);
+uint8_t one_to_n_bytes(int32_t num, uint8_t n);
 
 /** @brief Convert n one-byte variable to an array of n bytes (DECODE)
 	* @param n: the number of bytes
 	* @param array: the array of n bytes
 	*/
-s32 n_bytes_to_one(u8* array, u8 n);
+int32_t n_bytes_to_one(uint8_t* array, uint8_t n);
 
 #endif /* __CAN_PROTOCOL_H */

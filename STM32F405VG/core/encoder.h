@@ -31,7 +31,7 @@ void encoder_init(void);
 /** Get the encoder reading. Overflow after 65535.
 	@return encoder count
 */
-s32 get_encoder_count(void);
+int32_t get_encoder_count(void);
 
 // Reset the encoder count
 void reset_encoder(void);

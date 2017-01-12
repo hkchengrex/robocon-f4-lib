@@ -4,7 +4,7 @@
 	Initialize all LEDs.
 */
 void led_init(){
-	for (u8 i=0; i<LED_COUNT; i++){
+	for (uint8_t i=0; i<LED_COUNT; i++){
 		gpio_rcc_init(LEDs[i]);
 		gpio_output_init(LEDs[i], GPIO_OType_PP, GPIO_PuPd_DOWN);
 	}

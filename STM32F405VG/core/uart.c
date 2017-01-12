@@ -1,11 +1,11 @@
 #include "uart.h"
 
-static u8 tx_buf_item_1[UART1_TX_BUFFER_MAX] = {0};
-static u8 tx_buf_item_2[UART2_TX_BUFFER_MAX] = {0};
-static u8 tx_buf_item_3[UART3_TX_BUFFER_MAX] = {0};
-static u8 tx_buf_item_4[UART4_TX_BUFFER_MAX] = {0};
-static u8 tx_buf_item_5[UART5_TX_BUFFER_MAX] = {0};
-static u8 tx_buf_item_6[UART6_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_1[UART1_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_2[UART2_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_3[UART3_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_4[UART4_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_5[UART5_TX_BUFFER_MAX] = {0};
+static uint8_t tx_buf_item_6[UART6_TX_BUFFER_MAX] = {0};
 
 static UartQueue tx_queue[COM_COUNT] = {{0, 0, 0, tx_buf_item_1}, 
 																				{0, 0, 0, tx_buf_item_2},
@@ -13,7 +13,7 @@ static UartQueue tx_queue[COM_COUNT] = {{0, 0, 0, tx_buf_item_1},
 																				{0, 0, 0, tx_buf_item_4},
 																				{0, 0, 0, tx_buf_item_5},
 																				{0, 0, 0, tx_buf_item_6}};
-static u32 tx_buf_max_size[COM_COUNT] = {UART1_TX_BUFFER_MAX, UART2_TX_BUFFER_MAX, UART3_TX_BUFFER_MAX,
+static uint32_t tx_buf_max_size[COM_COUNT] = {UART1_TX_BUFFER_MAX, UART2_TX_BUFFER_MAX, UART3_TX_BUFFER_MAX,
 																				UART4_TX_BUFFER_MAX, UART5_TX_BUFFER_MAX, UART6_TX_BUFFER_MAX};
 																				
 static OnRxListener rxListeners[COM_COUNT] = {0};
@@ -22,7 +22,7 @@ static OnRxListener rxListeners[COM_COUNT] = {0};
 *		@param COM: Which port to initialize
 *		@param baud_rate: The baud rate to be used.
 */
-void uart_init(SerialPort COM, u32 br){
+void uart_init(SerialPort COM, uint32_t br){
 	USART_InitTypeDef USART_InitStructure;
 	
 	const UARTStruct* uart = &UARTPorts[COM];
@@ -69,7 +69,7 @@ void uart_init(SerialPort COM, u32 br){
 
 /** Register a listener for UART receive interrupt.
 *		@param COM: Which port to use
-*		@param listener: A function pointer of void return type and single u8 param
+*		@param listener: A function pointer of void return type and single uint8_t param
 */
 void uart_interrupt_init(SerialPort COM, OnRxListener listener){
 	rxListeners[COM] = listener;
@@ -91,7 +91,7 @@ inline void uart_tx_byte_blocking(SerialPort COM, uint8_t data){
 */
 void uart_tx_blocking(SerialPort COM, const char * data, ...){
 	va_list arglist;
-	u8 buf[255], *fp;
+	uint8_t buf[255], *fp;
 	
 	va_start(arglist, data);
 	vsprintf((char*)buf, (const char*)data, arglist);
@@ -168,7 +168,7 @@ inline void uart_tx_byte(SerialPort COM, uint8_t data){
 */
 void uart_tx(SerialPort COM, const char * data, ...){
 	va_list arglist;
-	u8 buf[255], *fp;
+	uint8_t buf[255], *fp;
 	
 	va_start(arglist, data);
 	vsprintf((char*)buf, data, arglist);
@@ -185,7 +185,7 @@ void uart_tx(SerialPort COM, const char * data, ...){
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
-void uart_tx_array(SerialPort COM, const char * data, u16 len){
+void uart_tx_array(SerialPort COM, const uint8_t * data, u16 len){
 	while(len--){
 		uart_tx_enqueue(COM, *data++);
 	}
@@ -195,7 +195,7 @@ void uart_tx_array(SerialPort COM, const char * data, u16 len){
 * @param COM: Which port to use
 * @return the size
 */
-u32 get_buf_size(SerialPort COM){
+uint32_t get_buf_size(SerialPort COM){
 	return tx_queue[COM].size;
 }
 
@@ -203,9 +203,9 @@ u32 get_buf_size(SerialPort COM){
 *	@param COM: Which port to use
 *	@return The received byte
 */
-u8 uart_rx_byte(SerialPort COM){
+uint8_t uart_rx_byte(SerialPort COM){
 	while (USART_GetFlagStatus(UARTPorts[COM].uart, USART_FLAG_RXNE) == RESET); 
-	return (u8)USART_ReceiveData(UARTPorts[COM].uart); 
+	return (uint8_t)USART_ReceiveData(UARTPorts[COM].uart); 
 }
 
 //Implementing all those IRQ handlers here

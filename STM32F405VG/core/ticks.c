@@ -15,16 +15,16 @@ void ticks_init() {
 }
 
 //Generate a delay in us  (inaccurate when value too small)
-void _delay_us(u16 us){
-	volatile u32 count = us*28;
+void _delay_us(uint16_t us){
+	volatile uint32_t count = us*28;
 	while(count--){
 		__asm__("nop");
 	}
 }
 
 //Generate a delay in ms
-void _delay_ms(u16 ms){
-	volatile u32 count = ms*28000;
+void _delay_ms(uint16_t ms){
+	volatile uint32_t count = ms*28000;
 	while(count--){
 		__asm__("nop");
 	}

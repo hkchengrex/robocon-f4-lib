@@ -1,8 +1,8 @@
 #include "can_motor.h"
 
-#define get_can_motor_id(motor_id)	(CAN_MOTOR_BASE + (u8)motor_id)
+#define get_can_motor_id(motor_id)	(CAN_MOTOR_BASE + (uint8_t)motor_id)
 
-static s32 can_motor_encoder_value[CAN_MOTOR_COUNT] = {0};
+static int32_t can_motor_encoder_value[CAN_MOTOR_COUNT] = {0};
 
 /**
 * @brief Handler for decoding motor CAN feedback message
@@ -14,7 +14,7 @@ static void can_motor_feedback_decoding(CanRxMsg* msg) {
 			if (msg->DLC == CAN_ENCODER_FEEDBACK_LENGTH) {
 				// Range check 
 				if (msg->StdId >= CAN_MOTOR_BASE && msg->StdId < CAN_MOTOR_BASE + CAN_MOTOR_COUNT) {
-					s32 feedback = n_bytes_to_one(&msg->Data[1], 4);
+					int32_t feedback = n_bytes_to_one(&msg->Data[1], 4);
 					can_motor_encoder_value[msg->StdId - CAN_MOTOR_BASE] = feedback;
 				}
 			}
@@ -34,19 +34,19 @@ void can_motor_init(){
 * @param vel: Open loop: (-1799~1799); Close loop: (-150~150);
 * @param loop: Open loop or close loop control
 */
-void can_motor_set_vel(MotorID id, s32 vel, CloseLoopFlag loop){
+void can_motor_set_vel(MotorID id, int32_t vel, CloseLoopFlag loop){
 	CanMessage msg;
 	
-	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
+	assert_param((uint8_t)motor_id < CAN_MOTOR_COUNT);
 
 	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_VEL_LENGTH;
 	msg.data[0] = CAN_MOTOR_VEL_CMD;
-	msg.data[1] = (u8)(one_to_n_bytes(vel, 0));
-	msg.data[2] = (u8)(one_to_n_bytes(vel, 1));
-	msg.data[3] = (u8)(one_to_n_bytes(vel, 2));
-	msg.data[4] = (u8)(one_to_n_bytes(vel, 3));
-	msg.data[5] = (u8)(loop);
+	msg.data[1] = vel;
+	msg.data[2] = vel >> 8;
+	msg.data[3] = vel >> 16;
+	msg.data[4] = vel >> 24;
+	msg.data[5] = loop;
 	
 	can_tx_enqueue(MOTOR_CAN, msg);
 }
@@ -57,20 +57,20 @@ void can_motor_set_vel(MotorID id, s32 vel, CloseLoopFlag loop){
 * @param vel (vel of close_loop is not corresponded to open_loop)
 * @param pos: The position need to move to relative to current encoder value.
 */
-void can_motor_set_pos(MotorID id, u16 vel, s32 pos){
+void can_motor_set_pos(MotorID id, uint16_t vel, int32_t pos){
 	CanMessage msg;
 	
-	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
+	assert_param((uint8_t)motor_id < CAN_MOTOR_COUNT);
 	
 	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_POS_LENGTH;
 	msg.data[0] = CAN_MOTOR_POS_CMD;
-	msg.data[1] = (u8)(one_to_n_bytes(vel, 0));
-	msg.data[2] = (u8)(one_to_n_bytes(vel, 1));
-	msg.data[3] = (u8)(one_to_n_bytes(pos, 0));
-	msg.data[4] = (u8)(one_to_n_bytes(pos, 1));
-	msg.data[5] = (u8)(one_to_n_bytes(pos, 2));
-	msg.data[6] = (u8)(one_to_n_bytes(pos, 3));
+	msg.data[1] = vel;
+	msg.data[2] = vel >> 8;
+	msg.data[3] = pos;
+	msg.data[4] = pos >> 8;
+	msg.data[5] = pos >> 16;
+	msg.data[6] = pos >> 24;
 
 	can_tx_enqueue(MOTOR_CAN, msg);
 }
@@ -80,16 +80,16 @@ void can_motor_set_pos(MotorID id, u16 vel, s32 pos){
 * @param id: MOTORx, which motor to control
 * @param accel: acceleration parameter of motor
 */
-void can_motor_set_accel(MotorID id, u16 accel){
+void can_motor_set_accel(MotorID id, uint16_t accel){
 	CanMessage msg;
 	
-	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
+	assert_param((uint8_t)motor_id < CAN_MOTOR_COUNT);
 	
 	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_PARAMETER_LENGTH;
 	msg.data[0] = CAN_MOTOR_PARAMETER_CMD;
-	msg.data[1] = (u8)(one_to_n_bytes(accel, 0));
-	msg.data[2] = (u8)(one_to_n_bytes(accel, 1));
+	msg.data[1] = accel;
+	msg.data[2] = accel >> 8;
 
 	can_tx_enqueue(MOTOR_CAN, msg);
 }
@@ -101,7 +101,7 @@ void can_motor_set_accel(MotorID id, u16 accel){
 void can_motor_lock(MotorID id){
 	CanMessage msg;
 	
-	assert_param((u8)motor_id < CAN_MOTOR_COUNT);
+	assert_param((uint8_t)motor_id < CAN_MOTOR_COUNT);
 	
 	msg.id = get_can_motor_id(id);
 	msg.length = CAN_MOTOR_LOCK_LENGTH;
@@ -117,7 +117,7 @@ void can_motor_lock(MotorID id){
 * @brief Get the motor encoder value (based on CAN rx result)
 * @param id: MOTORx, which motor to control
 */
-s32 can_get_encoder_value(MotorID id){
+int32_t can_get_encoder_value(MotorID id){
 	return can_motor_encoder_value[id];
 }
 

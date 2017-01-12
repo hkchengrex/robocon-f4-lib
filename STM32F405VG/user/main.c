@@ -39,9 +39,9 @@ int main(void) {
 	//do_after_for(buzzer_on, 1, 300, 3);
 	//do_after_for(buzzer_off, 150, 300, 3);
 
-	s32 last_loop1_ticks = 0, last_loop2_ticks = 0;
+	int32_t last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){
-		s32 this_ticks = get_ticks();
+		int32_t this_ticks = get_ticks();
 		
 		if (this_ticks - last_loop1_ticks >= LOOP1_MS){
 			btn_update();

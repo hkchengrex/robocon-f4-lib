@@ -1,19 +1,19 @@
 #include "adc.h"
 
-static volatile u16 adc_reading[ADC_PORT_COUNT]; 
+static volatile uint16_t adc_reading[ADC_PORT_COUNT]; 
 
 void adc_init(){
 	ADC_CommonInitTypeDef ADC_CommonInitStruct;
 	ADC_InitTypeDef ADC_InitStructure;
 	
 	//RCC init
-	for (u8 i=0; i<ADC_COUNT; i++){
+	for (uint8_t i=0; i<ADC_COUNT; i++){
 		RCC_APB2PeriphClockCmd(ADCs[i].rcc, ENABLE); 
 		RCC_AHB1PeriphClockCmd(ADCs[i].dma_rcc, ENABLE);  
 	}
 	
 	//GPIO init
-	for (u8 i=0; i<ADC_PORT_COUNT; i++){
+	for (uint8_t i=0; i<ADC_PORT_COUNT; i++){
 		gpio_rcc_init(ADCPorts[i].gpio);
 		gpio_init(ADCPorts[i].gpio, GPIO_Mode_AN, GPIO_High_Speed, GPIO_OType_OD, GPIO_PuPd_NOPULL);
 	}
@@ -46,9 +46,9 @@ void adc_init(){
   DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
   DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
 	
-	u16 index = 0;
-	for (u8 i=0; i<ADC_COUNT; i++){
-		u8 channel_count = 0;
+	uint16_t index = 0;
+	for (uint8_t i=0; i<ADC_COUNT; i++){
+		uint8_t channel_count = 0;
 		if (ADCPorts[i].adc == ADC1){
 			//If Init ADC1, add two ADC channels -> Channel 16 for temperature, Channel 17 for Vref
 			channel_count += 2;
@@ -56,7 +56,7 @@ void adc_init(){
 			ADC_RegularChannelConfig(ADC1, ADC_Channel_17, 2, ADC_SampleTime_480Cycles);
 		}
 		
-		for (u8 i=0; i<ADC_PORT_COUNT; i++){
+		for (uint8_t i=0; i<ADC_PORT_COUNT; i++){
 			if (ADCPorts[i].adc == ADCs[i].adc){
 				channel_count++;
 				//Channel init
@@ -67,8 +67,8 @@ void adc_init(){
 		ADC_Init(ADCs[i].adc, &ADC_InitStructure);
 		
 		DMA_InitStructure.DMA_Channel = ADCs[i].channel;
-		DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&(ADCs[i].adc)->DR;
-		DMA_InitStructure.DMA_Memory0BaseAddr = (u32)&(adc_reading[index]);
+		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(ADCs[i].adc)->DR;
+		DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&(adc_reading[index]);
 		DMA_InitStructure.DMA_BufferSize = channel_count;
 		DMA_Init(ADCs[i].stream, &DMA_InitStructure);
 		DMA_Cmd(ADCs[i].stream,ENABLE);
@@ -81,7 +81,7 @@ void adc_init(){
 	}
 }
 
-u16 get_adc(AdcID id){
+uint16_t get_adc(AdcID id){
 	return adc_reading[id];
 }
 

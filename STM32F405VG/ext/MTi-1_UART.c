@@ -33,17 +33,17 @@
 #define SetOptionFlags 						(uint8_t)0x48
 #define ResetOrientation					(uint8_t)0xA4
 
-void send_MTi_1_UART_msg(u8 *data, u8 MID, u16 data_length);
-void MTi_1_UART_Rx(u8 data);
-u8 get_ebuffer(u8 index);
+void send_MTi_1_UART_msg(uint8_t *data, uint8_t MID, uint16_t data_length);
+void MTi_1_UART_Rx(uint8_t data);
+uint8_t get_ebuffer(uint8_t index);
 void clear_buffer(void);
-float flt_cal(u8 data[4]);
+float flt_cal(uint8_t data[4]);
 
 float MTi_ang[3] = {0, 0, 0};
 float MTi_acc[3] = {0, 0, 0};
 
-u8 MTi_msg[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-u8 raw_buffer[4];
+uint8_t MTi_msg[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+uint8_t raw_buffer[4];
 
 /**
 **@descript Init function
@@ -91,30 +91,30 @@ void MTi_1_reset(){
 **	@para			*data_length: no of bytes of the data
 **	
 **/
-void send_MTi_1_UART_msg(u8 *data, u8 mid, u16 data_length)
+void send_MTi_1_UART_msg(uint8_t *data, uint8_t mid, uint16_t data_length)
 {
 	while(GPIO_ReadInputDataBit(MTi_1_UART_GPIO, MTi_1_UART_RTS_Pin) != Bit_RESET);
 		
-	u8 temp[data_length + 5];
-	u8 checksum = 0;
+	uint8_t temp[data_length + 5];
+	uint8_t checksum = 0;
 	
 	temp[0] = MTi_1_Preamble;
 	temp[1] = MTi_1_MasterDevice;
 	temp[2] = mid;
 	temp[3] = data_length;
 	
-	for(u8 i=4; i<4+data_length; i++)
+	for(uint8_t i=4; i<4+data_length; i++)
 	{
 		temp[i] = *(data + i - 4);
 	}
 	
-	for(u8 i=1; i<data_length + 4; i++)
+	for(uint8_t i=1; i<data_length + 4; i++)
 		checksum += temp[i];
 	
 	checksum = 0xFF - checksum + 0x01;
 	temp[data_length + 4] = checksum;
 	
-	for(u8 k=0; k<(data_length + 5); k++)
+	for(uint8_t k=0; k<(data_length + 5); k++)
 	{
 		uart_tx_byte_blocking(MTi_1_COM, temp[k]);
 	}
@@ -125,14 +125,14 @@ void send_MTi_1_UART_msg(u8 *data, u8 mid, u16 data_length)
 **@descript the UART listener used for the interrupt
 **@para 		*data: the Rx received data
 **/
-void MTi_1_UART_Rx(u8 data)
+void MTi_1_UART_Rx(uint8_t data)
 {
-	static u16 data_length 	= 5;	
-	static u8  ANG_COUNT 		= 0;	//counter for receiving Pdata
-	static u8  ACC_COUNT 		= 0;
-	static u8  MID = 0;
-	static u16 header_count = 0;	//count the header
-  static u16 rx_count 		= 0;	//incremented by one when RX_interrupt occoured
+	static uint16_t data_length 	= 5;	
+	static uint8_t  ANG_COUNT 		= 0;	//counter for receiving Pdata
+	static uint8_t  ACC_COUNT 		= 0;
+	static uint8_t  MID = 0;
+	static uint16_t header_count = 0;	//count the header
+  static uint16_t rx_count 		= 0;	//incremented by one when RX_interrupt occoured
 	rx_count++;	
 	
 	if(data == MTi_1_Preamble && rx_count == 1) //The 1st byte == MTi_1_Preamble
@@ -251,8 +251,8 @@ void clear_buffer(void){
 **@para  		*data[4]: the 4-byte array
 **@retval 	float value of the array according to the IEEE-745 standard
 **/
-float flt_cal(u8 data[4]){
-	u8 e;
+float flt_cal(uint8_t data[4]){
+	uint8_t e;
 	int temp;
 	int i;
 	float result;
@@ -266,12 +266,12 @@ float flt_cal(u8 data[4]){
 }
 
 
-float get_MTi_ang(u8 index)
+float get_MTi_ang(uint8_t index)
 {
 	return MTi_ang[index];
 }
 
-float get_MTi_acc(u8 index)
+float get_MTi_acc(uint8_t index)
 {
 	return MTi_acc[index];
 }

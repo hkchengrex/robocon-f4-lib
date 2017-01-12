@@ -56,8 +56,8 @@ void MTi_1_UART_init(void);
 void MTi_1_reset(void);
 
 //Return the acceleration. 0=x 1=y 2=z
-float get_MTi_acc(u8 index);
+float get_MTi_acc(uint8_t index);
 
 //Return the euler angle. 0=yaw 1=pitch 2=roll
-float get_MTi_ang(u8 index);
+float get_MTi_ang(uint8_t index);
 #endif

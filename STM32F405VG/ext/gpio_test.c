@@ -1,6 +1,6 @@
 #include "gpio_test.h"
 
-static u8 is_tft_pin(const GPIO* gpio){
+static uint8_t is_tft_pin(const GPIO* gpio){
 	return (gpio == &PA4 || gpio == &PA5 || gpio == &PA6 ||gpio == &PA7 ||gpio == &PA8);
 }
 
@@ -8,13 +8,13 @@ static u8 is_tft_pin(const GPIO* gpio){
 void gpio_test(){
 	gpio_rcc_init_all();
 	
-	u8 ok = 1;
+	uint8_t ok = 1;
 	
-	for (u32 curr = START_TEST_PIN; curr<END_TEST_PIN; curr++){
+	for (uint32_t curr = START_TEST_PIN; curr<END_TEST_PIN; curr++){
 		if (is_tft_pin(GPIOArray[curr])) continue;
 		
 		gpio_output_init(GPIOArray[curr], GPIO_OType_OD, GPIO_PuPd_DOWN);
-		for (u32 other = START_TEST_PIN; other<END_TEST_PIN; other++){
+		for (uint32_t other = START_TEST_PIN; other<END_TEST_PIN; other++){
 			if (is_tft_pin(GPIOArray[other])) continue;
 			if (curr == other){
 				continue;
@@ -24,7 +24,7 @@ void gpio_test(){
 		
 		_delay_ms(5);
 		
-		for (u32 other = START_TEST_PIN; other<END_TEST_PIN; other++){
+		for (uint32_t other = START_TEST_PIN; other<END_TEST_PIN; other++){
 			if (is_tft_pin(GPIOArray[other])) continue;
 			if (curr == other){
 				continue;
@@ -39,7 +39,7 @@ void gpio_test(){
 			tft_println("Port: %c", (other/15 + 65));
 			tft_println("Pin:  %d", other%15);
 			
-			u8 result = gpio_read_input(GPIOArray[other]);
+			uint8_t result = gpio_read_input(GPIOArray[other]);
 			tft_println("Result: %d", result);
 			tft_update();
 			

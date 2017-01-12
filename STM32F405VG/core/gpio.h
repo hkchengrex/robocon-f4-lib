@@ -76,7 +76,7 @@ void gpio_output_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_
 	Alternate function GPIO initailizer
 	Usage: @ref gpio_init
 */
-void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, u8 GPIO_AF);
+void gpio_af_init(const GPIO* gpio, GPIOOType_TypeDef output_type, GPIOPuPd_TypeDef pp_type, uint8_t GPIO_AF);
 
 /**
 	Initilize RCC clock for all GPIO ports
@@ -92,13 +92,13 @@ void gpio_rcc_init(const GPIO* gpio);
 	* @param GPIO pointer
 	* @retval The GPIO Pin input value
 	*/
-u8 gpio_read_input(const GPIO* gpio);
+uint8_t gpio_read_input(const GPIO* gpio);
 
 /** @brief Read GPIO output value
 	* @param GPIO pointer
 	* @retval The GPIO Pin output value
 	*/
-u8 gpio_read_output(const GPIO* gpio);
+uint8_t gpio_read_output(const GPIO* gpio);
 
 /** @brief Write GPIO value
 	* @param GPIO pointer

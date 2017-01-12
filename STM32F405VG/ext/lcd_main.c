@@ -2,22 +2,22 @@
 #include "lcd_font.h"
 
 //private data
-u16 curr_bg_color = BLACK;
-u16 curr_text_color = BLACK;
-u16 curr_text_color_sp = BLACK;
+uint16_t curr_bg_color = BLACK;
+uint16_t curr_text_color = BLACK;
+uint16_t curr_text_color_sp = BLACK;
 
-u8 tft_orientation = 0, tft_enabled = 1;
-u8 tft_width = 0, tft_height = 0;
-u8 tft_y_index = 0;
-u8 char_max_x, char_max_y;
+uint8_t tft_orientation = 0, tft_enabled = 1;
+uint8_t tft_width = 0, tft_height = 0;
+uint8_t tft_y_index = 0;
+uint8_t char_max_x, char_max_y;
 
 char text							[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
-u8 pointer_to_curr_screen = 0;
-u16 text_color				[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
-u16 bg_color					[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
-u16 print_pos = 0;
+uint8_t pointer_to_curr_screen = 0;
+uint16_t text_color				[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
+uint16_t bg_color					[2][CHAR_MAX_X_ANY][CHAR_MAX_Y_ANY];
+uint16_t print_pos = 0;
 
-u8 tft_get_orientation(){
+uint8_t tft_get_orientation(){
 	return tft_orientation;
 }
 
@@ -92,7 +92,7 @@ void tft_spi_init(void){
   * @param  command: one byte command to be sent
   * @retval None
   */
-void tft_write_command(u8 command)
+void tft_write_command(uint8_t command)
 {
 	GPIO_ResetBits(GPIO_CS, GPIO_Pin_CS);
 	GPIO_ResetBits(TFT_DC_PORT, TFT_DC_PIN);
@@ -111,7 +111,7 @@ void tft_write_command(u8 command)
   * @param  data: one byte data to be sent
   * @retval None
   */
-void tft_write_data(u8 data)
+void tft_write_data(uint8_t data)
 {
 	GPIO_ResetBits(GPIO_CS, GPIO_Pin_CS);
 	GPIO_SetBits(TFT_DC_PORT, TFT_DC_PIN);
@@ -259,8 +259,8 @@ void tft_reset(void)
   * @param  in_text_color_sp: default special text color
   * @retval None
   */
-void tft_init(TFT_ORIENTATION orientation, u16 in_bg_color, u16 in_text_color, u16 in_text_color_sp){
-	u8 x, y;
+void tft_init(TFT_ORIENTATION orientation, uint16_t in_bg_color, uint16_t in_text_color, uint16_t in_text_color_sp){
+	uint8_t x, y;
 	tft_y_index = 0;
 	pointer_to_curr_screen = 0;
 	tft_spi_init();
@@ -285,7 +285,7 @@ void tft_init(TFT_ORIENTATION orientation, u16 in_bg_color, u16 in_text_color, u
 		char_max_y = CHAR_MAX_Y_VERTICAL;
 	}
 
-	for (u8 pointer = 0; pointer<2; pointer++){
+	for (uint8_t pointer = 0; pointer<2; pointer++){
 		for (x = 0; x <= CHAR_MAX_X_ANY; x++) {
 			for (y = 0; y <= CHAR_MAX_Y_ANY; y++) {
 				text[pointer][x][y] = ' ';
@@ -321,7 +321,7 @@ void tft_disable(void)
   * @param  None
   * @retval None
   */
-void tft_set_bg_color(u16 in_bg_color)
+void tft_set_bg_color(uint16_t in_bg_color)
 {
 	curr_bg_color = in_bg_color;
 }
@@ -331,7 +331,7 @@ void tft_set_bg_color(u16 in_bg_color)
   * @param  None
   * @retval None
   */
-void tft_set_text_color(u16 in_text_color)
+void tft_set_text_color(uint16_t in_text_color)
 {
 	curr_text_color = in_text_color;
 }
@@ -341,7 +341,7 @@ void tft_set_text_color(u16 in_text_color)
   * @param  None
   * @retval None
   */
-void tft_set_special_color(u16 text_color_sp)
+void tft_set_special_color(uint16_t text_color_sp)
 {
 	curr_text_color_sp = text_color_sp;
 }
@@ -351,7 +351,7 @@ void tft_set_special_color(u16 text_color_sp)
   * @param  None
   * @retval None
   */
-void tft_set_pixel_pos(u8 x, u8 y)
+void tft_set_pixel_pos(uint8_t x, uint8_t y)
 {
 	tft_write_command(0x2a);		// Column addr set
 	tft_write_data(0x00);
@@ -373,7 +373,7 @@ void tft_set_pixel_pos(u8 x, u8 y)
   * @param  None
   * @retval None
   */
-void tft_set_char_pos(u8 x1, u8 y1, u8 x2, u8 y2)
+void tft_set_char_pos(uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2)
 {
 	tft_write_command(0x2a);		// Column addr set
 	tft_write_data(0x00);
@@ -397,7 +397,7 @@ void tft_set_char_pos(u8 x1, u8 y1, u8 x2, u8 y2)
   */
 void tft_force_clear(void)
 {
-	u8 x, y;
+	uint8_t x, y;
 	for (x = 0; x <= CHAR_MAX_X_ANY; x++) {
 		for (y = 0; y <= CHAR_MAX_Y_ANY; y++) {
 			text[0][x][y] = ' ';
@@ -412,8 +412,8 @@ void tft_force_clear(void)
   * @param  line: the line to be cleared
   * @retval None
   */
-void tft_clear_line(u8 line){
-	for (u8 x = 0; x < CHAR_MAX_X_ANY; x++) {
+void tft_clear_line(uint8_t line){
+	for (uint8_t x = 0; x < CHAR_MAX_X_ANY; x++) {
 		text[pointer_to_curr_screen][x][line] = ' ';
 		text_color[pointer_to_curr_screen][x][line] = curr_text_color;
 		bg_color[pointer_to_curr_screen][x][line] = curr_bg_color;
@@ -427,7 +427,7 @@ void tft_clear_line(u8 line){
   */
 void tft_clear(void){
 	tft_y_index = 0;
-	for(u8 y = 0; y < CHAR_MAX_Y_ANY; y++){
+	for(uint8_t y = 0; y < CHAR_MAX_Y_ANY; y++){
 		tft_clear_line(y);
 	}
 }
@@ -439,7 +439,7 @@ void tft_clear(void){
   * @param  color: color of the pixel
   * @retval None
   */
-void tft_put_pixel(u8 x, u8 y, u16 color)
+void tft_put_pixel(uint8_t x, uint8_t y, uint16_t color)
 {
 	switch (tft_orientation) {
 		case 0:
@@ -464,9 +464,9 @@ void tft_put_pixel(u8 x, u8 y, u16 color)
   * @param  color: color to be filled with
   * @retval None
   */
-void tft_fill_color(u16 color)
+void tft_fill_color(uint16_t color)
 {
-	u16 i;					//160*128
+	uint16_t i;					//160*128
 	
 	tft_write_command(0x2a);		// Column addr set
 	tft_write_data(0x00);
@@ -488,7 +488,7 @@ void tft_fill_color(u16 color)
 	}
 }
 
-bool tft_char_is_changed(u8 x, u8 y){
+bool tft_char_is_changed(uint8_t x, uint8_t y){
 	return !((text[pointer_to_curr_screen][x][y] == text[(pointer_to_curr_screen+1)%2][x][y])
 						&& (text_color[pointer_to_curr_screen][x][y] == text_color[(pointer_to_curr_screen+1)%2][x][y])
 						&& (bg_color[pointer_to_curr_screen][x][y] == bg_color[(pointer_to_curr_screen+1)%2][x][y]));
@@ -500,9 +500,9 @@ bool tft_char_is_changed(u8 x, u8 y){
   * @param  y: starting y-coordinate
   * @param  pstr: string to be printed
   */
-void tft_prints(u8 x, u8 y, const char * pstr, ...){
-	u8 buf[256], is_special = 0;
-	u8* fp = NULL;
+void tft_prints(uint8_t x, uint8_t y, const char * pstr, ...){
+	uint8_t buf[256], is_special = 0;
+	uint8_t* fp = NULL;
 	
 	va_list arglist;
 	va_start(arglist, pstr);
@@ -538,9 +538,9 @@ void tft_prints(u8 x, u8 y, const char * pstr, ...){
 **/
 
 void tft_println(const char * pstr, ...){
-	u8 buf[256], is_special = 0;
-	u8* fp = NULL;
-	u8 x = 0;
+	uint8_t buf[256], is_special = 0;
+	uint8_t* fp = NULL;
+	uint8_t x = 0;
 	
 	va_list arglist;
 	va_start(arglist, pstr);
@@ -589,7 +589,7 @@ void tft_update(void)
 {
 	s16 x, y, x2, y2, px, py;
 	s16 char_n = 0;
-	u16 clr;
+	uint16_t clr;
 	
 	if (!tft_enabled)
 		return;
@@ -715,52 +715,52 @@ void tft_update(void)
 * Place an awesome logo at x, y
 * Like, very awesome
 **/
-void tft_put_logo(u8 x, u8 y){
+void tft_put_logo(uint8_t x, uint8_t y){
 	//Place black background
-	for (u8 loopX = 0; loopX<47; loopX++){
-		for (u8 loopY = 0; loopY<39; loopY++){
+	for (uint8_t loopX = 0; loopX<47; loopX++){
+		for (uint8_t loopY = 0; loopY<39; loopY++){
 			tft_put_pixel(x+loopX, y+loopY, BLACK);
 		}
 	}
 
 	//Place DARK_RED parallelogram
-	for (u8 loopX = 15; loopX<45; loopX++){
+	for (uint8_t loopX = 15; loopX<45; loopX++){
 		tft_put_pixel(x+loopX, y+1, DARK_RED);
 	}
-	for (u8 loopX = 14; loopX<44; loopX++){
+	for (uint8_t loopX = 14; loopX<44; loopX++){
 		tft_put_pixel(x+loopX, y+2, DARK_RED);
 		tft_put_pixel(x+loopX, y+3, DARK_RED);
 	}
-	for (u8 loopX = 13; loopX<43; loopX++){
+	for (uint8_t loopX = 13; loopX<43; loopX++){
 		tft_put_pixel(x+loopX, y+4, DARK_RED);
 		tft_put_pixel(x+loopX, y+5, DARK_RED);
 		tft_put_pixel(x+loopX, y+6, DARK_RED);
 	}
-	for (u8 loopX = 12; loopX<42; loopX++){
+	for (uint8_t loopX = 12; loopX<42; loopX++){
 		tft_put_pixel(x+loopX, y+7, DARK_RED);
 		tft_put_pixel(x+loopX, y+8, DARK_RED);
 		tft_put_pixel(x+loopX, y+9, DARK_RED);
 	}
-	for (u8 loopX = 11; loopX<41; loopX++){
+	for (uint8_t loopX = 11; loopX<41; loopX++){
 		tft_put_pixel(x+loopX, y+10, DARK_RED);
 		tft_put_pixel(x+loopX, y+11, DARK_RED);
 	}
-	for (u8 loopX = 10; loopX<40; loopX++){
+	for (uint8_t loopX = 10; loopX<40; loopX++){
 		tft_put_pixel(x+loopX, y+12, DARK_RED);
 		tft_put_pixel(x+loopX, y+13, DARK_RED);
 		tft_put_pixel(x+loopX, y+14, DARK_RED);
 		tft_put_pixel(x+loopX, y+15, DARK_RED);
 	}
-	for (u8 loopX = 9; loopX<39; loopX++){
+	for (uint8_t loopX = 9; loopX<39; loopX++){
 		tft_put_pixel(x+loopX, y+16, DARK_RED);
 		tft_put_pixel(x+loopX, y+17, DARK_RED);
 		tft_put_pixel(x+loopX, y+18, DARK_RED);
 	}
-	for (u8 loopX = 8; loopX<38; loopX++){
+	for (uint8_t loopX = 8; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+19, DARK_RED);
 		tft_put_pixel(x+loopX, y+20, DARK_RED);
 	}
-	for (u8 loopX = 7; loopX<37; loopX++){
+	for (uint8_t loopX = 7; loopX<37; loopX++){
 		tft_put_pixel(x+loopX, y+21, DARK_RED);
 		tft_put_pixel(x+loopX, y+22, DARK_RED);
 		tft_put_pixel(x+loopX, y+23, DARK_RED);
@@ -769,128 +769,128 @@ void tft_put_logo(u8 x, u8 y){
 
 	//Put the R letter
 	tft_put_pixel(x+16, y+6, GREY);
-	for (u8 loopX = 17; loopX<36; loopX++){
+	for (uint8_t loopX = 17; loopX<36; loopX++){
 		tft_put_pixel(x+loopX, y+6, WHITE);
 	}
 
-	for (u8 loopX = 15; loopX<37; loopX++){
+	for (uint8_t loopX = 15; loopX<37; loopX++){
 		tft_put_pixel(x+loopX, y+7, WHITE);
 	}
 
 	tft_put_pixel(x+14, y+8, DARK_GREY);
-	for (u8 loopX = 15; loopX<37; loopX++){
+	for (uint8_t loopX = 15; loopX<37; loopX++){
 		tft_put_pixel(x+loopX, y+8, WHITE);
 	}
 	tft_put_pixel(x+37, y+8, GREY);
 
-	for (u8 loopX = 14; loopX<38; loopX++){
+	for (uint8_t loopX = 14; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+9, WHITE);
 	}
 
-	for (u8 loopX = 14; loopX<20; loopX++){
+	for (uint8_t loopX = 14; loopX<20; loopX++){
 		tft_put_pixel(x+loopX, y+10, WHITE);
 	}
 	tft_put_pixel(x+20, y+10, GREY);
 	tft_put_pixel(x+28, y+10, GREY);
-	for (u8 loopX = 31; loopX<38; loopX++){
+	for (uint8_t loopX = 31; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+10, WHITE);
 	}
 
-	for (u8 loopX = 14; loopX<20; loopX++){
+	for (uint8_t loopX = 14; loopX<20; loopX++){
 		tft_put_pixel(x+loopX, y+11, WHITE);
 	}
 	tft_put_pixel(x+28, y+11, GREY);
 	tft_put_pixel(x+29, y+11, DARK_GREY);
-	for (u8 loopX = 32; loopX<38; loopX++){
+	for (uint8_t loopX = 32; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+11, WHITE);
 	}
 
 	tft_put_pixel(x+13, y+12, GREY);
-	for (u8 loopX = 14; loopX<19; loopX++){
+	for (uint8_t loopX = 14; loopX<19; loopX++){
 		tft_put_pixel(x+loopX, y+12, WHITE);
 	}
 	tft_put_pixel(x+19, y+12, DARK_GREY);
 	tft_put_pixel(x+21, y+12, WHITE);
-	for (u8 loopX = 30; loopX<38; loopX++){
+	for (uint8_t loopX = 30; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+12, WHITE);
 	}
 
-	for (u8 loopX = 13; loopX<19; loopX++){
+	for (uint8_t loopX = 13; loopX<19; loopX++){
 		tft_put_pixel(x+loopX, y+13, WHITE);
 	}
 	tft_put_pixel(x+19, y+13, GREY);
 	tft_put_pixel(x+28, y+13, WHITE);
 	tft_put_pixel(x+29, y+13, WHITE);
-	for (u8 loopX = 32; loopX<38; loopX++){
+	for (uint8_t loopX = 32; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+13, WHITE);
 	}
 
-	for (u8 loopX = 13; loopX<19; loopX++){
+	for (uint8_t loopX = 13; loopX<19; loopX++){
 		tft_put_pixel(x+loopX, y+14, WHITE);
 	}
 	tft_put_pixel(x+19, y+14, DARK_GREY);
 	tft_put_pixel(x+20, y+14, DARK_GREY);
 	tft_put_pixel(x+28, y+14, GREY);
 	tft_put_pixel(x+31, y+14, GREY);
-	for (u8 loopX = 32; loopX<38; loopX++){
+	for (uint8_t loopX = 32; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+14, WHITE);
 	}
 
 	//LEFT LEG
-	for (u8 loopX = 12; loopX<18; loopX++){
+	for (uint8_t loopX = 12; loopX<18; loopX++){
 		tft_put_pixel(x+loopX, y+15, WHITE);
 		tft_put_pixel(x+loopX, y+16, WHITE);
 		tft_put_pixel(x+loopX, y+17, WHITE);
 	}
-	for (u8 loopX = 11; loopX<17; loopX++){
+	for (uint8_t loopX = 11; loopX<17; loopX++){
 		tft_put_pixel(x+loopX, y+18, WHITE);
 		tft_put_pixel(x+loopX, y+19, WHITE);
 		tft_put_pixel(x+loopX, y+20, WHITE);
 	}
-	for (u8 loopX = 10; loopX<16; loopX++){
+	for (uint8_t loopX = 10; loopX<16; loopX++){
 		tft_put_pixel(x+loopX, y+21, WHITE);
 		tft_put_pixel(x+loopX, y+22, WHITE);
 	}
-	for (u8 loopX = 10; loopX<15; loopX++){
+	for (uint8_t loopX = 10; loopX<15; loopX++){
 		tft_put_pixel(x+loopX, y+23, WHITE);
 	}
-	for (u8 loopX = 9; loopX<15; loopX++){
+	for (uint8_t loopX = 9; loopX<15; loopX++){
 		tft_put_pixel(x+loopX, y+24, WHITE);
 	}
-	for (u8 loopX = 9; loopX<14; loopX++){
+	for (uint8_t loopX = 9; loopX<14; loopX++){
 		tft_put_pixel(x+loopX, y+25, WHITE);
 		tft_put_pixel(x+loopX, y+26, WHITE);
 	}
 
 	//RIGHT LEG
-	for (u8 loopX = 21; loopX<38; loopX++){
+	for (uint8_t loopX = 21; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+15, WHITE);
 	}
-	for (u8 loopX = 20; loopX<38; loopX++){
+	for (uint8_t loopX = 20; loopX<38; loopX++){
 		tft_put_pixel(x+loopX, y+16, WHITE);
 	}
-	for (u8 loopX = 20; loopX<37; loopX++){
+	for (uint8_t loopX = 20; loopX<37; loopX++){
 		tft_put_pixel(x+loopX, y+17, WHITE);
 	}
-	for (u8 loopX = 21; loopX<36; loopX++){
+	for (uint8_t loopX = 21; loopX<36; loopX++){
 		tft_put_pixel(x+loopX, y+18, WHITE);
 	}
-	for (u8 loopX = 21; loopX<29; loopX++){
+	for (uint8_t loopX = 21; loopX<29; loopX++){
 		tft_put_pixel(x+loopX, y+19, WHITE);
 	}
-	for (u8 loopX = 21; loopX<30; loopX++){
+	for (uint8_t loopX = 21; loopX<30; loopX++){
 		tft_put_pixel(x+loopX, y+20, WHITE);
 		tft_put_pixel(x+loopX+1, y+21, WHITE);
 		tft_put_pixel(x+loopX+2, y+22, WHITE);
 		tft_put_pixel(x+loopX+3, y+23, WHITE);
 	}
-	for (u8 loopX = 25; loopX<33; loopX++){
+	for (uint8_t loopX = 25; loopX<33; loopX++){
 		tft_put_pixel(x+loopX, y+24, WHITE);
 	}
-	for (u8 loopX = 26; loopX<35; loopX++){
+	for (uint8_t loopX = 26; loopX<35; loopX++){
 		tft_put_pixel(x+loopX, y+25, WHITE);
 	}
-	for (u8 loopX = 27; loopX<35; loopX++){
+	for (uint8_t loopX = 27; loopX<35; loopX++){
 		tft_put_pixel(x+loopX, y+26, WHITE);
 	}
 
@@ -899,7 +899,7 @@ void tft_put_logo(u8 x, u8 y){
 	tft_put_pixel(x+21, y+17, GREY);
 	tft_put_pixel(x+17, y+18, DARK_GREY);
 	tft_put_pixel(x+36, y+18, GREY);
-	for (u8 loopX = 29; loopX<34; loopX++){
+	for (uint8_t loopX = 29; loopX<34; loopX++){
 		tft_put_pixel(x+loopX, y+19, GREY);
 	}
 	tft_put_pixel(x+34, y+19, DARK_GREY);
@@ -960,7 +960,7 @@ void tft_put_logo(u8 x, u8 y){
 	tft_put_pixel(x+20, y+28, WHITE);
 	tft_put_pixel(x+23, y+28, WHITE);
 	tft_put_pixel(x+24, y+28, WHITE);
-	for (u8 loopX=27;loopX<36;loopX++){
+	for (uint8_t loopX=27;loopX<36;loopX++){
 		tft_put_pixel(x+loopX, y+28, WHITE);
 	}
 
@@ -976,10 +976,10 @@ void tft_put_logo(u8 x, u8 y){
 	tft_put_pixel(x+22, y+29, WHITE);
 	tft_put_pixel(x+23, y+29, WHITE);
 	tft_put_pixel(x+24, y+29, WHITE);
-	for (u8 loopX=26;loopX<29;loopX++){
+	for (uint8_t loopX=26;loopX<29;loopX++){
 		tft_put_pixel(x+loopX, y+29, WHITE);
 	}
-	for (u8 loopX=29;loopX<35;loopX++){
+	for (uint8_t loopX=29;loopX<35;loopX++){
 		tft_put_pixel(x+loopX, y+29, WHITE);
 	}
 
@@ -999,10 +999,10 @@ void tft_put_logo(u8 x, u8 y){
 	tft_put_pixel(x+27, y+30, WHITE);
 	tft_put_pixel(x+32, y+30, WHITE);
 
-	for (u8 loopX=5;loopX<10;loopX++){
+	for (uint8_t loopX=5;loopX<10;loopX++){
 		tft_put_pixel(x+loopX, y+31, WHITE);
 	}
-	for (u8 loopX=11;loopX<16;loopX++){
+	for (uint8_t loopX=11;loopX<16;loopX++){
 		tft_put_pixel(x+loopX, y+31, WHITE);
 	}
 	tft_put_pixel(x+19, y+31, WHITE);
@@ -1015,7 +1015,7 @@ void tft_put_logo(u8 x, u8 y){
 	tft_put_pixel(x+31, y+31, WHITE);
 	tft_put_pixel(x+32, y+31, WHITE);
 
-	for (u8 loopX=4;loopX<10;loopX++){
+	for (uint8_t loopX=4;loopX<10;loopX++){
 		tft_put_pixel(x+loopX, y+32, WHITE);
 	}
 	tft_put_pixel(x+11, y+32, WHITE);

@@ -1,7 +1,7 @@
 #include "timer.h"
 
 static volatile TimerActionStruct actions[TIMER_SIZE] = {0}; //binary heap
-static volatile u16 size = 0;
+static volatile uint16_t size = 0;
 
 static bool running = false;
 
@@ -37,7 +37,7 @@ void timer_init(){
 * @param action: The function to be called
 * @param ms: The time to be waited
 */
-void do_after(TimerAction action, u32 ms){
+void do_after(TimerAction action, uint32_t ms){
 	do_after_for(action, ms, 1, 1);
 }
 
@@ -48,10 +48,10 @@ void do_after(TimerAction action, u32 ms){
 * @param reload: The time ms to be reloaded when repeated
 * @param repeat: How many times this function will be repeated
 */
-void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat){
+void do_after_for(TimerAction action, uint32_t ms, uint32_t reload, uint16_t repeat){
 	
-	u32 curr_ticks = get_ticks();
-	u32 trig_time = curr_ticks + ms;
+	uint32_t curr_ticks = get_ticks();
+	uint32_t trig_time = curr_ticks + ms;
 	
 	while(repeat > 0){
 		if (size >= TIMER_SIZE){
@@ -101,7 +101,7 @@ void TIMER_IRQ_HANDLER(void){
 	if (TIM_GetITStatus(TIMER_TIM, TIM_IT_Update) != RESET){
 		TIM_ClearITPendingBit(TIMER_TIM, TIM_IT_Update);
 
-		u32 curr_ticks = get_ticks();
+		uint32_t curr_ticks = get_ticks();
 		//Keep popping
 		while (size !=0 && actions[0].trig_time <= curr_ticks){
 			//Execute min. function
@@ -110,7 +110,7 @@ void TIMER_IRQ_HANDLER(void){
 			size--;
 			
 			//Dig a hole
-			u16 hole = 0;
+			uint16_t hole = 0;
 			
 			//Bubble down
 			while (hole < size){
@@ -142,7 +142,7 @@ void TIMER_IRQ_HANDLER(void){
 			running = false;
 		}else{
 			//else setup a new timer
-			u32 min_quantum = (actions[0].trig_time - curr_ticks)*QUANTUM_MULTIPLER;
+			uint32_t min_quantum = (actions[0].trig_time - curr_ticks)*QUANTUM_MULTIPLER;
 			
 			if (min_quantum >= 65535){
 				//If the target period > 16bit
@@ -155,6 +155,6 @@ void TIMER_IRQ_HANDLER(void){
 }
 
 // Return the current size of timer array
-u16 get_timer_size(){
+uint16_t get_timer_size(){
 	return size;
 }

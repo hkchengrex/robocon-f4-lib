@@ -1,6 +1,6 @@
 #include "encoder.h"
 
-static s16 loopCount = 0;
+static int16_t loopCount = 0;
 
 //Init encoder
 void encoder_init(void){
@@ -62,7 +62,7 @@ void ENCODER1_IRQ_HANDLER(){
 	}
 }
 
-s32 get_encoder_count(){
+int32_t get_encoder_count(){
 	return loopCount*0xFFFF + TIM_GetCounter(ENCODER1_TIMER);
 }
 

@@ -25,7 +25,7 @@
 #define GYRO_FLAG_CAL			    0x02
 
 typedef struct {
-	s16 x, y, angle;
+	int16_t x, y, angle;
 } POSITION;
 
 
@@ -43,27 +43,27 @@ typedef struct {
 	#define Y_SCALING			1
 #endif
 
-extern volatile u8 gyro_available;
+extern volatile uint8_t gyro_available;
 
 void plus_x(void);
 void minus_x(void);
 void plus_y(void);
 void minus_y(void);
-s32 gyro_get_shift_x(void);
-s32 gyro_get_shift_y(void);
+int32_t gyro_get_shift_x(void);
+int32_t gyro_get_shift_y(void);
 
 const POSITION* get_pos(void);	// Get the position ({x, y, angle})
 const POSITION* get_pos_raw(void);
 
 void gyro_init(void);
-void gyro_rx_handler(u8 rx_data);
+void gyro_rx_handler(uint8_t rx_data);
 void gyro_pos_update(void);		//update gyro values only when auto-update function is disabled in gyro
-u8 gyro_cal(void);	//callibrate gyro
-u8 gyro_pos_set(s16 x, s16 y, s16 a);	//set position of gyro
+uint8_t gyro_cal(void);	//callibrate gyro
+uint8_t gyro_pos_set(int16_t x, int16_t y, int16_t a);	//set position of gyro
 
-s16 get_X(void);
-s16 get_Y(void);
-s16 get_angle(void);
+int16_t get_X(void);
+int16_t get_Y(void);
+int16_t get_angle(void);
 
 
 #endif		/* __GYRO_H */

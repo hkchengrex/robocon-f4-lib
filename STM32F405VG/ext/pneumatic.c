@@ -4,7 +4,7 @@
 	Initialize all pneu ports.
 */
 void pneu_init(){
-	for (u8 i=0; i<PNEU_COUNT; i++){
+	for (uint8_t i=0; i<PNEU_COUNT; i++){
 		gpio_rcc_init(Pneus[i]);
 		gpio_output_init(Pneus[i], GPIO_OType_PP, GPIO_PuPd_DOWN);
 	}

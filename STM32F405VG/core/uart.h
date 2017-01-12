@@ -47,10 +47,10 @@ typedef struct{
 	USART_TypeDef* uart;
 	const GPIO* tx_port;
 	const GPIO* rx_port;
-	const u32 rcc;
-	const u8 rcc_line;
-	const u8 af;
-	const u16 irq;
+	const uint32_t rcc;
+	const uint8_t rcc_line;
+	const uint8_t af;
+	const uint16_t irq;
 } UARTStruct;
 
 #define X(a, b, c, d, e, f, g, h) {b, &c, &d, e, f, g, h},
@@ -66,10 +66,10 @@ static const UARTStruct UARTPorts[] = {UART_TABLE};
 #define UART5_TX_BUFFER_MAX 50
 #define UART6_TX_BUFFER_MAX 50
 typedef struct{
-	volatile u16 head;
-	volatile u16 tail;
-	volatile u16 size;
-	u8* queue;
+	volatile uint16_t head;
+	volatile uint16_t tail;
+	volatile uint16_t size;
+	uint8_t* queue;
 }UartQueue;
 
 typedef void (*OnRxListener)(const uint8_t byte);
@@ -78,11 +78,11 @@ typedef void (*OnRxListener)(const uint8_t byte);
 *		@param COM: Which port to initialize
 *		@param baud_rate: The baud rate to be used.
 */
-void uart_init(SerialPort COM, u32 baud_rate);
+void uart_init(SerialPort COM, uint32_t baud_rate);
 
 /** Register a listener for UART receive interrupt.
 *		@param COM: Which port to use
-*		@param listener: A function pointer of void return type and single u8 param
+*		@param listener: A function pointer of void return type and single uint8_t param
 */
 void uart_interrupt_init(SerialPort COM, OnRxListener listener);
 
@@ -109,7 +109,7 @@ void uart_tx_blocking(SerialPort COM, const char * data, ...);
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
-void uart_tx_array_blocking(SerialPort COM, const char * data, u16 len);
+void uart_tx_array_blocking(SerialPort COM, const char * data, uint16_t len);
 
 
 /**
@@ -134,13 +134,13 @@ void uart_tx(SerialPort COM, const char * data, ...);
 *		@param data: The pointer to the first element
 *		@param len: Length of the array (in bytes)
 */
-void uart_tx_array(SerialPort COM, const char * data, u16 len);
+void uart_tx_array(SerialPort COM, const uint8_t * data, uint16_t len);
 
 /** Get the current size of the TX buffer
 * @param COM: Which port to use
 * @return the size
 */
-u32 get_buf_size(SerialPort COM);
+uint32_t get_buf_size(SerialPort COM);
 
 
 /**

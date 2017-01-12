@@ -97,13 +97,13 @@ void comm_tx_error(uint8_t feedback_code);
 * @param COM: Which serial port to use
 * @param baud_rate: The baud rate
 */
-void comm_init(SerialPort COM, u32 baud_rate);
+void comm_init(SerialPort COM, uint32_t baud_rate);
 
 /** Return the handshake stage.
 * 0: Just started
 * 1: Received init command from upper-level machine
 * 2: Received the confim command from upper-level machine, all good and running
 */
-u8 comm_get_handshake_state(void);
+uint8_t comm_get_handshake_state(void);
 
 #endif

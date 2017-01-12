@@ -13,7 +13,7 @@ void servo_init(void){
 	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputState_Disable; 
 	TIM_OCInitStructure.TIM_Pulse = 1000;
 	
-	for (u8 i=0; i<SERVO_SIZE; i++){
+	for (uint8_t i=0; i<SERVO_SIZE; i++){
 		const ServoStruct* servo = &(ServoPorts[i]);
 		
 		gpio_rcc_init(servo->gpio);
@@ -110,7 +110,7 @@ void servo_ccr_control(ServoID servo_id , u16 ccr_val) {
   */
 
 #define getCCR(i, d) (ServoConfigs[i].min_ccr + d*(ServoConfigs[i].max_ccr-ServoConfigs[i].min_ccr)/(ServoConfigs[i].max_deg-ServoConfigs[i].min_deg))
-void servo_deg_control(ServoID servo_id , s16 degree){
+void servo_deg_control(ServoID servo_id , int16_t degree){
 	u16 ccrVal = getCCR(servo_id, degree);
 	servo_ccr_control(servo_id, ccrVal);
 }

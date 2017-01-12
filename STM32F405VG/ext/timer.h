@@ -64,7 +64,7 @@ void timer_init(void);
 * @param action: The function to be called
 * @param ms: The time to be waited (0 ~ 2^32/QUANTUM_MULTIPLER)
 */
-void do_after(TimerAction action, u32 ms);
+void do_after(TimerAction action, uint32_t ms);
 
 /**
 * Register a event call that will happen after some time.
@@ -73,9 +73,9 @@ void do_after(TimerAction action, u32 ms);
 * @param reload: The time ms to be reloaded when repeated
 * @param repeat: How many times this function will be repeated
 */
-void do_after_for(TimerAction action, u32 ms, u32 reload, u16 repeat);
+void do_after_for(TimerAction action, uint32_t ms, uint32_t reload, uint16_t repeat);
 
 // Return the current size of timer array
-u16 get_timer_size(void);
+uint16_t get_timer_size(void);
 
 #endif

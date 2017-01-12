@@ -22,7 +22,7 @@
 #include <can_protocol.h>
 
 static CanMessage CAN1_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
-static CanMessage CAN2_tx_queue_items[CAN1_TX_QUEUE_MAX_SIZE];
+static CanMessage CAN2_tx_queue_items[CAN2_TX_QUEUE_MAX_SIZE];
 
 static void can1_tx_dequeue(void);
 static void can2_tx_dequeue(void);
@@ -30,9 +30,9 @@ static void (*can_tx_dequeue[2])(void) = {can1_tx_dequeue, can2_tx_dequeue};
 
 CanQueue CAN_tx_queue[2] = {{0, 0, 0, CAN1_tx_queue_items}, {0, 0, 0, CAN2_tx_queue_items}};
 
-static u8 CAN_filter_count[2] = {0};
-static u8 CAN_max_filter[2] = {CAN1_FILTER_LIMIT, CAN2_FILTER_LIMIT};
-static u32 CAN_queue_max_size[2] = {CAN1_TX_QUEUE_MAX_SIZE, CAN2_TX_QUEUE_MAX_SIZE};
+static uint8_t CAN_filter_count[2] = {0};
+static uint8_t CAN_max_filter[2] = {CAN1_FILTER_LIMIT, CAN2_FILTER_LIMIT};
+static uint32_t CAN_queue_max_size[2] = {CAN1_TX_QUEUE_MAX_SIZE, CAN2_TX_QUEUE_MAX_SIZE};
 
 // Array storing all the handler functions for CAN RX (element id equals to filter id)
 CanRxHandler CAN_Rx_Handlers[CAN_RX_FILTER_LIMIT] = {0};
@@ -120,7 +120,7 @@ void can_init(){
 * @param id: which CAN queue to look at
 * @return size of the specified queue
 */
-inline u16 get_can_queue_size(CanID id){
+inline uint16_t get_can_queue_size(CanID id){
 	return CAN_tx_queue[id].size;
 }
 
@@ -273,13 +273,13 @@ void can_rx_init(){
 * @param handler: Function to handle the received message
 * @example Please read the mask exmaple in the header file
 */
-void can_rx_add_filter(u16 id, u16 mask, u8 FIFO_num, CanID CANx, CanRxHandler handler){
+void can_rx_add_filter(uint16_t id, uint16_t mask, uint8_t FIFO_num, CanID CANx, CanRxHandler handler){
 	if (CAN_filter_count[CANx] >= CAN_max_filter[CANx]){
 		//Error
 		while(1);
 	}
 	
-	u8 filter_id = CAN_filter_count[CANx];
+	uint8_t filter_id = CAN_filter_count[CANx];
 	if (CANx == CAN_2){
 		filter_id += CAN1_FILTER_LIMIT;
 	}
@@ -365,7 +365,7 @@ void CAN2_RX1_IRQHandler(){
 * @param id: Which CAN to look at
 * @return The number of receive error occured
 */
-u8 get_can_error_count(CanID id){
+uint8_t get_can_error_count(CanID id){
 	if (id == CAN_1){
 		return CAN_GetReceiveErrorCounter(CAN1);
 	}else{
@@ -380,7 +380,7 @@ u8 get_can_error_count(CanID id){
 	* @param num: the nth byte number (can be unsigned)
 	* @retval The nth byte variable
 	*/
-u8 one_to_n_bytes(s32 num, u8 n){
+uint8_t one_to_n_bytes(int32_t num, uint8_t n){
 	assert_param(n >= 0 && n <= 3);
 	return (n == 0) ? (num & 0xFF) : (one_to_n_bytes(num >> 8, n-1));
 }
@@ -390,7 +390,7 @@ u8 one_to_n_bytes(s32 num, u8 n){
 	* @param n: the number of bytes
 	* @param array: the array of n bytes
 	*/
-s32 n_bytes_to_one(u8* array, u8 n){
+int32_t n_bytes_to_one(uint8_t* array, uint8_t n){
 	assert_param(n >= 1 && n <= 4);
 	return (n == 0) ? (array[0] & 0xFF) : ((array[0] & 0xFF) + (n_bytes_to_one(&array[1], n-1) << 8));
 }

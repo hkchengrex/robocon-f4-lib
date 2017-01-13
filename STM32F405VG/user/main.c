@@ -52,10 +52,13 @@ int main(void) {
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
 			tft_println("%d", get_ticks());
-			tft_println("%d", get_encoder_value(MOTOR_1));
-			tft_println("%d", get_adc(TEMPERATURE_ADC));
-			tft_println("%d", get_adc(VOLTAGE_ADC));
-			tft_println("%d", get_adc(ADC_PORT_1));
+			tft_println("%d", comm_get_handshake_state());
+			tft_println("%d %d", get_adc(TEMPERATURE_ADC), TEMP_SLOPE);
+			tft_println("%d.%d %d", get_mcu_temp()/10, get_mcu_temp()%10, get_adc(VOLTAGE_ADC));
+			tft_println("%d %d %d", get_adc(ADC_PORT_1), get_adc(ADC_PORT_2), get_adc(ADC_PORT_3));
+			tft_println("%d %d %d", get_adc(ADC_PORT_4), get_adc(ADC_PORT_5), get_adc(ADC_PORT_6));
+			tft_println("%d %d %d", get_adc(ADC_PORT_7), get_adc(ADC_PORT_8), get_adc(ADC_PORT_9));
+			tft_println("%d", get_adc(ADC_PORT_10));
 			tft_update();
 			
 			led_blink(LED_1);

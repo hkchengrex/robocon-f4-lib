@@ -2,6 +2,10 @@
 
 static volatile uint16_t adc_reading[ADC_PORT_COUNT]; 
 
+
+/** 
+* Initalize all adc ports, and start taking readings automatically
+*/
 void adc_init(){
 	ADC_CommonInitTypeDef ADC_CommonInitStruct;
 	ADC_InitTypeDef ADC_InitStructure;
@@ -13,7 +17,7 @@ void adc_init(){
 	}
 	
 	//GPIO init
-	for (uint8_t i=0; i<ADC_PORT_COUNT; i++){
+	for (uint8_t i=0; i<ADC_PORT_COUNT-2; i++){
 		gpio_rcc_init(ADCPorts[i].gpio);
 		gpio_init(ADCPorts[i].gpio, GPIO_Mode_AN, GPIO_High_Speed, GPIO_OType_OD, GPIO_PuPd_NOPULL);
 	}
@@ -49,29 +53,33 @@ void adc_init(){
 	uint16_t index = 0;
 	for (uint8_t i=0; i<ADC_COUNT; i++){
 		uint8_t channel_count = 0;
-		if (ADCPorts[i].adc == ADC1){
+		if (ADCs[i].adc == ADC1){
+			ADC_TempSensorVrefintCmd(ENABLE);
+			ADC_VBATCmd(ENABLE);
+			
 			//If Init ADC1, add two ADC channels -> Channel 16 for temperature, Channel 17 for Vref
 			channel_count += 2;
 			ADC_RegularChannelConfig(ADC1, ADC_Channel_16, 1, ADC_SampleTime_480Cycles);
 			ADC_RegularChannelConfig(ADC1, ADC_Channel_17, 2, ADC_SampleTime_480Cycles);
 		}
 		
-		for (uint8_t i=0; i<ADC_PORT_COUNT; i++){
-			if (ADCPorts[i].adc == ADCs[i].adc){
+		for (uint8_t j=0; j<ADC_PORT_COUNT-2; j++){
+			if (ADCPorts[j].adc == ADCs[i].adc){
 				channel_count++;
 				//Channel init
-				ADC_RegularChannelConfig(ADCPorts[i].adc, ADCPorts[i].channel, channel_count, ADC_SampleTime_480Cycles);
+				ADC_RegularChannelConfig(ADCPorts[j].adc, ADCPorts[j].channel, channel_count, ADC_SampleTime_480Cycles);
 			}
 		}
 		ADC_InitStructure.ADC_NbrOfConversion = channel_count;
 		ADC_Init(ADCs[i].adc, &ADC_InitStructure);
 		
 		DMA_InitStructure.DMA_Channel = ADCs[i].channel;
-		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t)&(ADCs[i].adc)->DR;
-		DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t)&(adc_reading[index]);
+		DMA_InitStructure.DMA_PeripheralBaseAddr = (uint32_t) &(ADCs[i].adc)->DR;
+		DMA_InitStructure.DMA_Memory0BaseAddr = (uint32_t) &(adc_reading[index]);
 		DMA_InitStructure.DMA_BufferSize = channel_count;
 		DMA_Init(ADCs[i].stream, &DMA_InitStructure);
-		DMA_Cmd(ADCs[i].stream,ENABLE);
+		DMA_Cmd(ADCs[i].stream, ENABLE);
+		
 		ADC_DMARequestAfterLastTransferCmd(ADCs[i].adc, ENABLE);
 		ADC_DMACmd(ADCs[i].adc, ENABLE);
 		ADC_Cmd(ADCs[i].adc, ENABLE);
@@ -81,8 +89,28 @@ void adc_init(){
 	}
 }
 
+/** Get the latest adc reading
+** @return Unsigned numerical reading representing voltage level
+*/
 uint16_t get_adc(AdcID id){
 	return adc_reading[id];
 }
 
 
+/** Get the temperature value
+* @return Temperature value (x10)
+*/
+int16_t get_mcu_temp(){
+	if (adc_reading[TEMPERATURE_ADC] == 0){
+		return 0;
+	}else{
+		return (adc_reading[TEMPERATURE_ADC]*3300/0xFFF-TEMP_ADC_AT_25)*100/TEMP_SLOPE + 250;
+	}
+}
+
+/** Get the voltage value
+* @return Voltage value
+*/
+int16_t get_mcu_voltage(){
+	return 0;
+}

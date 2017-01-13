@@ -135,3 +135,11 @@ void comm_tx_error(uint8_t feedback_code){
 	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
 }
 
+/** Return the handshake stage.
+* 0: Just started
+* 1: Received init command from upper-level machine
+* 2: Received the confim command from upper-level machine, all good and running
+*/
+uint8_t comm_get_handshake_state(){
+	return handshake_state;
+}

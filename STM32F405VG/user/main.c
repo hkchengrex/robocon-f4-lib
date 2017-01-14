@@ -52,9 +52,9 @@ int main(void) {
 			tft_clear();
 			tft_println("%d", SystemCoreClock);
 			tft_println("%d", get_ticks());
-			tft_println("%d", comm_get_handshake_state());
-			tft_println("%d %d", get_adc(TEMPERATURE_ADC), TEMP_SLOPE);
-			tft_println("%d.%d %d", get_mcu_temp()/10, get_mcu_temp()%10, get_adc(VOLTAGE_ADC));
+			tft_println("%d %u", comm_get_handshake_state(), last_data);
+			tft_println("%d %d", get_adc(TEMPERATURE_ADC), get_adc(VOLTAGE_ADC));
+			tft_println("%d.%d", get_mcu_temp()/10, get_mcu_temp()%10);
 			tft_println("%d %d %d", get_adc(ADC_PORT_1), get_adc(ADC_PORT_2), get_adc(ADC_PORT_3));
 			tft_println("%d %d %d", get_adc(ADC_PORT_4), get_adc(ADC_PORT_5), get_adc(ADC_PORT_6));
 			tft_println("%d %d %d", get_adc(ADC_PORT_7), get_adc(ADC_PORT_8), get_adc(ADC_PORT_9));

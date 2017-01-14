@@ -32,26 +32,29 @@ typedef void(*MessageHandler)(const uint8_t* data);
 //Function pointers to functions that resolve the message
 static MessageHandler handlers[COMMAND_COUNT] = {0};
 
+u8 last_data = 1;
+
 //The UART receive handler
 static void comm_receiver(const uint8_t data){
-	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE){
+	last_data = data;
+	if (handshake_state < COMM_HANDSHAKE_DONE_STATE){
 		//Continue the handshake
 		switch (handshake_state){
 			case 0:
 				if (data == COMM_FIRST_HANDSHAKE){
 					handshake_state = 1;
-					uart_tx_byte(COMPort, COMM_SECOND_HANDSHAKE);
-				}else{
-					handshake_state = 0;
-				}
+				}//else{
+					//handshake_state = 0;
+				//}
 				break;
 			case 1:
 				if (data == COMM_THIRD_HANDSHAKE){
 					handshake_state = 2;
 				}else{
-					handshake_state = 0;
+					uart_tx_byte(COMPort, COMM_SECOND_HANDSHAKE);
 				}
 				break;
+
 		}
 		
 	}else if (!handling_command){
@@ -86,7 +89,7 @@ static void comm_receiver(const uint8_t data){
 *		1 btye flag + 4 btyes(ticks) + 2*3 bytes (X, Y, Theta) = 11 bytes
 */
 void comm_tx_pos(){
-	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
+	if (handshake_state < COMM_HANDSHAKE_DONE_STATE) return;
 	uint8_t data[11];
 	data[0] = POS_FEEDBACK;
 //	data[1] = (get_X() >> 8) & 0xFF;
@@ -117,7 +120,7 @@ void comm_tx_pos(){
 *		1 btye flag + 2 btyes for each motor (14 bits for speed, 1 bit for open/close loop, 1 unused bit for possible state)
 */
 void comm_tx_motor(){
-	if (handshake_state <= COMM_HANDSHAKE_DONE_STATE) return;
+	if (handshake_state < COMM_HANDSHAKE_DONE_STATE) return;
 	uint8_t data[1+NUMBER_OF_MOTOR*2];
 	data[0] = MOTOR_FEEDBACK;
 	for (uint8_t i=0; i<NUMBER_OF_MOTOR; i++){

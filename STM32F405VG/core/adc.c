@@ -104,13 +104,6 @@ int16_t get_mcu_temp(){
 	if (adc_reading[TEMPERATURE_ADC] == 0){
 		return 0;
 	}else{
-		return (adc_reading[TEMPERATURE_ADC]*3300/0xFFF-TEMP_ADC_AT_25)*100/TEMP_SLOPE + 250;
+		return (adc_reading[TEMPERATURE_ADC]*3300/4096-TEMP_ADC_AT_25)*100/TEMP_SLOPE + 250;
 	}
-}
-
-/** Get the voltage value
-* @return Voltage value
-*/
-int16_t get_mcu_voltage(){
-	return 0;
 }

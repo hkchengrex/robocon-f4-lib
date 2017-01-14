@@ -76,10 +76,4 @@ uint16_t get_adc(AdcID id);
 * @return Temperature value (x10)
 */
 int16_t get_mcu_temp(void);
-
-/** Get the voltage value
-* @return Voltage value
-*/
-int16_t get_mcu_voltage(void);
-
 #endif

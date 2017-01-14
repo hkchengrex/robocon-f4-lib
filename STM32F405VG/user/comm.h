@@ -27,12 +27,14 @@
 ** or is that me never talked to you?...
 ****************************************************************************************************************************************/
 
+extern u8 last_data;
+
 /**
 * Handshaking protocol
 */
-#define COMM_FIRST_HANDSHAKE 0xCD
-#define COMM_SECOND_HANDSHAKE 0xEF
-#define COMM_THIRD_HANDSHAKE 0x56
+#define COMM_FIRST_HANDSHAKE 0xFD
+#define COMM_SECOND_HANDSHAKE 0xFE
+#define COMM_THIRD_HANDSHAKE 0xFF
 #define COMM_HANDSHAKE_DONE_STATE 2
 
 

@@ -46,7 +46,7 @@ int main(void) {
 			default:
 				break;
 		}
-		
+		SPI_I2S_SendData(SPI3, 'A');
 		tft_prints(0, 1, "DG: %04x %x", spi_xbc_get_digital(), spi_xbc_get_back_buttons());
 		tft_prints(0, 2, "LT: %d", spi_xbc_get_joy(XBC_JOY_LT));
 		tft_prints(0, 3, "RT: %d", spi_xbc_get_joy(XBC_JOY_RT));

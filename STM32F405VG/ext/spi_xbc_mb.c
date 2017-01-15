@@ -154,9 +154,6 @@ void SPI3_IRQHandler(void) {
 					case SPI_NO_USB:
 						xbc_connection = SPI_XBC_USB_DISCONNECTED;
 						break;
-					case SPI_GET_SCREEN:
-						SPI_I2S_SendData(SPI3, 'A');
-						break;
 				}
 				break;
 			

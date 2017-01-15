@@ -38,5 +38,6 @@ u32 spi_xbc_get_digital(void);
 s16 spi_xbc_get_joy_raw(XBC_JOY j);
 s16 spi_xbc_get_joy(XBC_JOY j);
 u16 spi_xbc_get_back_buttons(void);
+u32 spi_get_temp(void);
 
 #endif  /** __SPI_XBC_MB_H **/

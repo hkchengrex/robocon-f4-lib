@@ -10,6 +10,11 @@
 
 #include "main.h"
 
+void reset(void) {
+  //SPI_Cmd(SPI3, DISABLE);
+	spi_xbc_mb_init();
+}
+
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -21,11 +26,11 @@ int main(void) {
 	tft_init((TFT_ORIENTATION)ORIENTATION_SETTING, BLACK, WHITE, RED);
 //	led_init();
 //	buzzer_init();
-//	button_init();
+	btn_init();
+	btn_reg_OnClickListener(JS_BNT_M, &reset);
 //	encoder_init();
 //	servo_init();
 	spi_xbc_mb_init();
-	uart_init(COM2, 115200);
 //	
 //	tft_put_logo(85, 120);
 	
@@ -46,15 +51,24 @@ int main(void) {
 			default:
 				break;
 		}
-		SPI_I2S_SendData(SPI3, 'A');
-		tft_prints(0, 1, "DG: %04x %x", spi_xbc_get_digital(), spi_xbc_get_back_buttons());
+		
+		//SPI_I2S_SendData(SPI3, 'A');
+		//SPI_I2S_SendData(SPI3, 'A');
+		//SPI_I2S_SendData(SPI3, 'A');
+		//SPI_I2S_SendData(SPI3, 'A');
+		
+		//if (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_4))
+		//	SPI_I2S_SendData(SPI3, 0x00);
+		
+		tft_prints(0, 1, "DG: %04X %X", spi_xbc_get_digital(), spi_xbc_get_back_buttons());
 		tft_prints(0, 2, "LT: %d", spi_xbc_get_joy(XBC_JOY_LT));
 		tft_prints(0, 3, "RT: %d", spi_xbc_get_joy(XBC_JOY_RT));
 		tft_prints(0, 4, "LX: %d", spi_xbc_get_joy(XBC_JOY_LX));
 		tft_prints(0, 5, "LY: %d", spi_xbc_get_joy(XBC_JOY_LY));
 		tft_prints(0, 6, "RX: %d", spi_xbc_get_joy(XBC_JOY_RX));
 		tft_prints(0, 7, "RY: %d", spi_xbc_get_joy(XBC_JOY_RY));
-	
+		tft_prints(0, 8, "%d", spi_get_temp());
+		
 		tft_update();
 		btn_update();
 	}

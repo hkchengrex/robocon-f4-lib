@@ -13,6 +13,7 @@ can_xbc_mb_lcd_tx(void);
 */
 
 #include "spi_xbc_mb.h"
+#include "uart.h"
 
 //For receiving data
 static SPI_RX_XBC_STATE spi_state = SPI_RX_XBC_CMD;
@@ -27,26 +28,25 @@ static u16 xbc_back_buttons = 0;
 //XBC connection states
 static u32 last_spi_connection = 0;
 static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
+//static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_ALL_CONNECTED;
 
 //XBC TFT buffer
 static XBC_LCD_DATA xbc_lcd_data[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL],
   xbc_lcd_data_prev[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL];
 
+static u32 temp = 0;
+
 void spi_xbc_mb_init(void) {
 	GPIO_InitTypeDef GPIO_InitStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
 	SPI_InitTypeDef SPI_InitStructure;
 	
 	//Init clocks
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
-	
-	NVIC_InitStructure.NVIC_IRQChannel = SPI3_IRQn; 
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	NVIC_Init(&NVIC_InitStructure);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
 	
 	//Init pins
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
@@ -59,13 +59,32 @@ void spi_xbc_mb_init(void) {
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource4);
+	
+	EXTI_InitStructure.EXTI_Line = EXTI_Line4;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+	EXTI_Init(&EXTI_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+	
 	GPIO_PinAFConfig(GPIOB, GPIO_PinSource5, GPIO_AF_SPI3);
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_SPI3);
 	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_SPI3);
 	
 	SPI_I2S_DeInit(SPI3);
 	SPI_InitStructure.SPI_Direction = SPI_Direction_2Lines_FullDuplex;
-  SPI_InitStructure.SPI_Mode = SPI_Mode_Slave;
+  SPI_InitStructure.SPI_Mode = SPI_Mode_Master;
   SPI_InitStructure.SPI_DataSize = SPI_DataSize_8b;
   SPI_InitStructure.SPI_CPOL = SPI_CPOL_High;
   SPI_InitStructure.SPI_CPHA = SPI_CPHA_2Edge;
@@ -76,8 +95,6 @@ void spi_xbc_mb_init(void) {
   SPI_Cmd(SPI3, ENABLE);
   SPI_CalculateCRC(SPI3, DISABLE);
   SPI_SSOutputCmd(SPI3, DISABLE);
-	
-	SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_RXNE, ENABLE);
 }
 
 SPI_XBC_CONNECTION_MODE spi_xbc_get_connection(void) {
@@ -130,16 +147,22 @@ u16 spi_xbc_get_back_buttons(void) {
   return xbc_back_buttons;
 }
 
-void SPI3_IRQHandler(void) {
+void EXTI4_IRQHandler(void) {
 	u8 data;
-	if (SPI_I2S_GetITStatus(SPI3, SPI_I2S_IT_RXNE) == SET) {
+	
+	if (EXTI_GetITStatus(EXTI_Line4) == SET) {
+		SPI_SendData(SPI3, 0x00);
+		while (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
 		data = (u8)SPI_I2S_ReceiveData(SPI3);
 		
+		/*
 		if (get_ticks() - last_spi_connection > SPI_XBC_CONNECTION_TIMEOUT_MS) {
 			spi_state = SPI_RX_XBC_CMD;
-			spi_xbc_mb_init();
+			//spi_xbc_mb_init();
 		}
+		*/
 		
+		/*
 		switch(spi_state) {
 			
 			//Receive command
@@ -160,9 +183,10 @@ void SPI3_IRQHandler(void) {
 			//Receive data
 			case SPI_RX_XBC_DATA:
 				spi_rx_xbc_buffer[spi_rx_xbc_count] = data;
-				
-				spi_rx_xbc_count++;
+		
+				spi_rx_xbc_count++;				
 				if (spi_rx_xbc_count == 14) {
+					temp = spi_rx_xbc_buffer[11];
 					xbc_digital = spi_rx_xbc_buffer[0] + (spi_rx_xbc_buffer[1] << 8);
 					xbc_joy[XBC_JOY_LT] = spi_rx_xbc_buffer[2];
 					xbc_joy[XBC_JOY_RT] = spi_rx_xbc_buffer[3];
@@ -175,8 +199,15 @@ void SPI3_IRQHandler(void) {
 					spi_state = SPI_RX_XBC_CMD;
 				}
 		}
-		
 		last_spi_connection = get_ticks();
-		SPI_I2S_ClearITPendingBit(SPI3, SPI_I2S_IT_RXNE);
+		*/
+		
+		temp = data;
+		
+		EXTI_ClearITPendingBit(EXTI_Line4);
 	}
+}
+
+u32 spi_get_temp(void) {
+	return temp;
 }

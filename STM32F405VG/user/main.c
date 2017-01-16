@@ -11,8 +11,19 @@
 #include "main.h"
 
 void reset(void) {
-  //SPI_Cmd(SPI3, DISABLE);
-	spi_xbc_mb_init();
+	//SPI_Cmd(SPI3, DISABLE);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource5, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource10, GPIO_AF_SPI3);
+	GPIO_PinAFConfig(GPIOC, GPIO_PinSource11, GPIO_AF_SPI3);
+	//SPI_Cmd(SPI3, ENABLE);
+}
+
+void pull_down(void) {
+	GPIO_ResetBits(GPIOC, GPIO_Pin_13);
+}
+
+void pull_up(void) {
+	GPIO_SetBits(GPIOC, GPIO_Pin_13);
 }
 
 int main(void) {
@@ -27,7 +38,12 @@ int main(void) {
 //	led_init();
 //	buzzer_init();
 	btn_init();
-	btn_reg_OnClickListener(JS_BNT_M, &reset);
+	//btn_reg_OnClickListener(BOARD_BNT_1, &reset);
+	
+	btn_reg_OnClickListener(BOARD_BNT_2, &pull_down);
+	btn_reg_OnReleaseListener(BOARD_BNT_2, &pull_up);
+	pull_up();
+	
 //	encoder_init();
 //	servo_init();
 	spi_xbc_mb_init();

@@ -28,7 +28,6 @@ static u16 xbc_back_buttons = 0;
 //XBC connection states
 static u32 last_spi_connection = 0;
 static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
-//static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_ALL_CONNECTED;
 
 //XBC TFT buffer
 static XBC_LCD_DATA xbc_lcd_data[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL],
@@ -57,6 +56,10 @@ void spi_xbc_mb_init(void) {
 	GPIO_Init(GPIOB, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10 | GPIO_Pin_11;
+	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_Init(GPIOC, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
@@ -162,7 +165,6 @@ void EXTI4_IRQHandler(void) {
 		}
 		*/
 		
-		/*
 		switch(spi_state) {
 			
 			//Receive command
@@ -200,9 +202,8 @@ void EXTI4_IRQHandler(void) {
 				}
 		}
 		last_spi_connection = get_ticks();
-		*/
 		
-		temp = data;
+		if (data) temp = data;
 		
 		EXTI_ClearITPendingBit(EXTI_Line4);
 	}

@@ -29,9 +29,10 @@ static u16 xbc_back_buttons = 0;
 static u32 last_spi_connection = 0;
 static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
 
-//XBC TFT buffer
+//XBC TFT data transmission
 static XBC_LCD_DATA xbc_lcd_data[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL],
   xbc_lcd_data_prev[CHAR_MAX_X_VERTICAL][CHAR_MAX_Y_VERTICAL];
+static SPI_XBC_TX_STATE xbc_tx_cur_state = SPI_XBC_TX_DISABLE;
 
 static u32 temp = 0;
 
@@ -98,6 +99,12 @@ void spi_xbc_mb_init(void) {
   SPI_Cmd(SPI3, ENABLE);
   SPI_CalculateCRC(SPI3, DISABLE);
   SPI_SSOutputCmd(SPI3, DISABLE);
+	
+	GPIO_ResetBits(GPIOC, GPIO_Pin_13);
+}
+
+void spi_xbc_set_tx_state(SPI_XBC_TX_STATE state) {
+	xbc_tx_cur_state = state;
 }
 
 SPI_XBC_CONNECTION_MODE spi_xbc_get_connection(void) {
@@ -158,12 +165,9 @@ void EXTI4_IRQHandler(void) {
 		while (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
 		data = (u8)SPI_I2S_ReceiveData(SPI3);
 		
-		/*
 		if (get_ticks() - last_spi_connection > SPI_XBC_CONNECTION_TIMEOUT_MS) {
 			spi_state = SPI_RX_XBC_CMD;
-			//spi_xbc_mb_init();
 		}
-		*/
 		
 		switch(spi_state) {
 			
@@ -201,12 +205,15 @@ void EXTI4_IRQHandler(void) {
 					spi_state = SPI_RX_XBC_CMD;
 				}
 		}
-		last_spi_connection = get_ticks();
-		
-		if (data) temp = data;
-		
+		last_spi_connection = get_ticks();		
 		EXTI_ClearITPendingBit(EXTI_Line4);
 	}
+}
+
+void spi_xbc_mb_lcd_tx(void) {
+  if (!xbc_tx_cur_state) return;
+	//SPI_SendData(SPI3, 0x65);
+	//while (SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_RXNE) == RESET);
 }
 
 u32 spi_get_temp(void) {

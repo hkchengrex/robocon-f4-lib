@@ -9,10 +9,13 @@
 //Min time between interrupts triggered to count as disconnection
 #define SPI_XBC_CONNECTION_TIMEOUT_MS   200
 
-//SPI XBC command list
+//SPI XBC MISO command list
 #define SPI_REPLY		0x50
 #define SPI_NO_USB	0x51
-#define SPI_GET_SCREEN	0x52
+
+//SPI XBC MOSI command list
+#define SPI_TFT			0x70
+#define SPI_CTRL		0x71
 
 //SPI XBC receiver states
 typedef enum {
@@ -27,17 +30,24 @@ typedef enum {
   SPI_XBC_ALL_CONNECTED		//XBC board and controller connected
 } SPI_XBC_CONNECTION_MODE;
 
+typedef enum {
+	SPI_XBC_TX_DISABLE,
+	SPI_XBC_TX_ENABLE
+} SPI_XBC_TX_STATE;
+
 typedef struct {
   u16 color, bg_color;
   char text;
 } XBC_LCD_DATA;
 
 void spi_xbc_mb_init(void);
+void spi_xbc_set_tx_state(SPI_XBC_TX_STATE state);
 SPI_XBC_CONNECTION_MODE spi_xbc_get_connection(void);
 u32 spi_xbc_get_digital(void);
 s16 spi_xbc_get_joy_raw(XBC_JOY j);
 s16 spi_xbc_get_joy(XBC_JOY j);
 u16 spi_xbc_get_back_buttons(void);
+void spi_xbc_mb_lcd_tx(void);
 u32 spi_get_temp(void);
 
 #endif  /** __SPI_XBC_MB_H **/

@@ -10,6 +10,12 @@
 
 #include "main.h"
 
+void penu_all_toggle(){
+	for (u8 i=0; i<PNEU_COUNT; i++){
+		pneu_toggle((PneuID)i);
+	}
+}
+
 int main(void) {
 	SystemInit();
 	SystemCoreClockUpdate();
@@ -38,6 +44,7 @@ int main(void) {
 	
 	//do_after_for(buzzer_on, 1, 300, 3);
 	//do_after_for(buzzer_off, 150, 300, 3);
+	btn_reg_OnClickListener(BUTTON_1, penu_all_toggle);
 
 	int32_t last_loop1_ticks = 0, last_loop2_ticks = 0;
 	while(1){

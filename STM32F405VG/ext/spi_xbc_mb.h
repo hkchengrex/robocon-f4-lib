@@ -3,9 +3,12 @@
 
 #include "stm32f4xx.h"
 #include "spi_protocol.h"
+#include "gpio.h"
 #include "xbc_mb.h"
 #include "ticks.h"
 #include "lcd_main.h"
+
+#define SPI_XBC_PORT SPI3
 
 //Min time between interrupts triggered to count as disconnection
 #define SPI_XBC_CONNECTION_TIMEOUT_MS   100

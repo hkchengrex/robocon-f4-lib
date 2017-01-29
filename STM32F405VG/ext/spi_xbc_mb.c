@@ -7,6 +7,9 @@ To Do list for later on
 
 #include "spi_xbc_mb.h"
 
+const GPIO * xbc_nss = &PC13;
+const GPIO * xbc_tx_it = &PB4;
+
 //For receiving data
 static SPI_RX_XBC_STATE spi_state = SPI_RX_XBC_CMD;
 static u8 spi_rx_xbc_count = 0;
@@ -23,9 +26,35 @@ static SPI_XBC_CONNECTION_MODE xbc_connection = SPI_XBC_DISCONNECTED;
 
 static u8 tx_in_process = 0;
 
-void spi_xbc_mb_init(void) {
-	spi_init();
-	spi_rx_set_handler(SPI_3, &spi_xbc_rx_handler);
+void spi_xbc_mb_init(void) {	
+	NVIC_InitTypeDef NVIC_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	
+	spi_init(SPI_XBC_PORT);
+	
+	gpio_rcc_init(xbc_nss);
+	gpio_rcc_init(xbc_tx_it);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+	
+	gpio_output_init(xbc_nss, GPIO_OType_PP, GPIO_PuPd_NOPULL);
+	gpio_input_init(xbc_tx_it, GPIO_PuPd_DOWN);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+	
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource4);
+	
+	EXTI_InitStructure.EXTI_Line = EXTI_Line4;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
+	EXTI_Init(&EXTI_InitStructure);
+	
+	spi_rx_set_handler(SPI_XBC_PORT, &spi_xbc_rx_handler);
+	gpio_write(xbc_nss, Bit_RESET);
 }
 
 SPI_XBC_CONNECTION_MODE spi_xbc_get_connection(void) {
@@ -80,7 +109,7 @@ u16 spi_xbc_get_back_buttons(void) {
 
 void spi_xbc_mb_lcd_tx(void) {
 	static u8 x = 0;
-	spi_tx_byte_master(SPI_3, x++);
+	spi_tx_byte_master(SPI_XBC_PORT, x++);
 }
 
 void spi_xbc_rx_handler(uc8 data) {
@@ -127,5 +156,18 @@ void spi_xbc_rx_handler(uc8 data) {
 			break;
 		default:
 			break;
+	}
+}
+
+void EXTI4_IRQHandler(void) {
+	if (EXTI_GetITStatus(EXTI_Line4) == SET) {
+		if (tx_in_process) {
+			EXTI_ClearITPendingBit(EXTI_Line4);
+			return;
+		}
+		
+		SPI_I2S_SendData(SPI_XBC_PORT, 0x00);
+		while (SPI_I2S_GetITStatus(SPI_XBC_PORT, SPI_I2S_IT_RXNE) == RESET);
+		EXTI_ClearITPendingBit(EXTI_Line4);
 	}
 }

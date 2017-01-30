@@ -37,3 +37,5 @@
 *.out
 *.app
 *.uvguix.*
+
+*.TMP

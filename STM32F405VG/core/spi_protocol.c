@@ -4,7 +4,6 @@
 static SpiListener * SpiRxListenerList[3];
 static u8 SpiRxListenerNotEmpty[3] = {0};
 
-static u32 temp = 0;
 static u8 tx_in_process = 0;
 
 u8 spi_get_id(SPI_TypeDef * port) {

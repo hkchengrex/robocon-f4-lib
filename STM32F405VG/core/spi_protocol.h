@@ -4,7 +4,6 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_spi.h"
 #include "gpio.h"
-#include "motor.h"
 
 typedef void SpiListener(uc8 byte);
 
